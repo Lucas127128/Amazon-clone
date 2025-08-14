@@ -1,36 +1,3 @@
-let Products=[{
-    Image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
-    Name : 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-    Rating : {
-        Stars : 4.5,
-        Count : 87
-    },
-    PriceCents : 1090
-},{
-    Image: 'images/products/intermediate-composite-basketball.jpg',
-    Name: 'Intermediate Size Basketball',
-    Rating : {
-        Stars : 4,
-        Count : 127
-    },
-    PriceCents : 2095
-},{
-    Image: 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-    Name: 'Adults Plain Cotton T-Shirt - 2 Pack',
-    Rating : {
-        Stars : 4.5,
-        Count : 56
-    },
-    PriceCents : 799
-},{
-    Image: 'images/products/black-2-slot-toaster.jpg',
-    Name: '2 Slot Toaster - Black',
-    Rating : {
-        Stars : 5,
-        Count : 2197
-    },
-    PriceCents : 1899
-}]
 let ProductsHTML = ''
 Products.forEach((products)=>{ProductsHTML += `
         <div class="product-container">
