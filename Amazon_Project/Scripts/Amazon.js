@@ -3,23 +3,23 @@ Products.forEach((products)=>{ProductsHTML += `
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
-                src="${products.Image}">
+                src="${products.image}">
             </div>
 
             <div class="product-name limit-text-to-2-lines">
-                ${products.Name}
+                ${products.name}
             </div>
 
             <div class="product-rating-container">
                 <img class="product-rating-stars"
-                src="images/ratings/rating-${products.Rating.Stars * 10}.png">
+                src="images/ratings/rating-${products.rating.stars * 10}.png">
                 <div class="product-rating-count link-primary">
-                ${products.Rating.Count}
+                ${products.rating.count}
                 </div>
             </div>
 
             <div class="product-price">
-                $${(products.PriceCents / 100).toFixed(2)}
+                $${(products.priceCents / 100).toFixed(2)}
             </div>
 
             <div class="product-quantity-container">
@@ -44,13 +44,34 @@ Products.forEach((products)=>{ProductsHTML += `
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary">
+            <button class="add-to-cart-button button-primary"
+            data-product-id="${products.id}">
                 Add to Cart
             </button>
             </div>
         </div>
     `
 })
-console.log(ProductsHTML)
 const ProductsGrid = document.querySelector('.products-grid')
 ProductsGrid.innerHTML = ProductsHTML
+let AddToCartButton = document.querySelectorAll('.add-to-cart-button')
+AddToCartButton.forEach((Button) => {
+    Button.addEventListener('click', ()=>{
+        let ProductId = Button.dataset.productId
+        let  MatchingItem 
+        Cart.forEach((Item)=>{
+            if(ProductId===Item.ProductId){
+                MatchingItem=Item
+            }
+        })
+        if(MatchingItem){
+            MatchingItem.Quantity++
+        }else{
+            Cart.push({
+            ProductId: ProductId,
+            Quantity: 1
+        })
+        }
+        console.log(Cart)
+    })
+})
