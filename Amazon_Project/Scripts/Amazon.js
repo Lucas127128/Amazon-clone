@@ -72,6 +72,11 @@ AddToCartButton.forEach((Button) => {
             Quantity: 1
         })
         }
-        console.log(Cart)
+        let CartQuantity=0;
+        Cart.forEach((Item)=>{
+            CartQuantity+=Item.Quantity
+        })
+        const cartQuantity = document.querySelector('.cart-quantity')
+        cartQuantity.innerHTML = CartQuantity
     })
 })
