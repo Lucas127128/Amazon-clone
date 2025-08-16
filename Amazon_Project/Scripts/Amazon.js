@@ -1,4 +1,4 @@
-import {Cart} from '../data/cart.js'
+import {Cart, Add_To_cart} from '../data/cart.js'
 import { Products } from '../data/products.js'
 let ProductsHTML = ''
 Products.forEach((products)=>{ProductsHTML += `
@@ -59,38 +59,34 @@ let ProductId = ''
 const ProductsGrid = document.querySelector('.products-grid')
 ProductsGrid.innerHTML = ProductsHTML 
 let AddToCartButton = document.querySelectorAll('.add-to-cart-button')
-AddToCartButton.forEach((Button) => {
-    Button.addEventListener('click', ()=>{
-        ProductId = Button.dataset.productId
-        clearTimeout()
-        const ProductContainer = Button.closest('.product-container');
-        const QuantitySelector = ProductContainer.querySelector('.ProductQuantitySelector');
-        const QuantityToAdd = parseInt(QuantitySelector.value);
-        let  MatchingItem 
-        Cart.forEach((Item)=>{
-            if(ProductId===Item.ProductId){
-                MatchingItem=Item
-            }
-        })
-        if(MatchingItem){
-            MatchingItem.Quantity++
-        }else{
-            Cart.push({
-            ProductId: ProductId,
-            Quantity: QuantityToAdd
-        })
-        }
-        let CartQuantity=0;
-        Cart.forEach((Item)=>{
-            CartQuantity+=Item.Quantity
-            QuantitySelector.value=Item.Quantity
-        })
-        const cartQuantity = document.querySelector('.cart-quantity')
-        cartQuantity.innerHTML = CartQuantity
-        const Added_To_Cart = document.querySelector(`.added-to-cart-${ProductId}`)
+
+function Display_Cart_Quantity(CartQuantityP,cartQuantityP,QuantitySelectorP){
+    Cart.forEach((cartItem)=>{
+        CartQuantityP+=cartItem.Quantity
+        console.log(cartItem.Quantity)
+        QuantitySelectorP.value=cartItem.Quantity
+    })
+    cartQuantityP.innerHTML = CartQuantityP
+}
+function Display_Added(){
+    const Added_To_Cart = document.querySelector(`.added-to-cart-${ProductId}`)
         Added_To_Cart.classList.add("display-added-to-cart")
         setTimeout(()=>{
             Added_To_Cart.classList.remove("display-added-to-cart")
         },1500)
+}
+AddToCartButton.forEach((Button) => {
+    Button.addEventListener('click', ()=>{
+        ProductId = Button.dataset.productId
+        clearTimeout()
+        let ProductContainer = Button.closest('.product-container');
+        let QuantitySelector = ProductContainer.querySelector('.ProductQuantitySelector');
+        let QuantityToAdd = parseInt(QuantitySelector.value);
+        const cartQuantity = document.querySelector('.cart-quantity')
+        let CartQuantity=0;
+        Add_To_cart(ProductId, QuantityToAdd)
+        console.log(Cart)
+        Display_Cart_Quantity(CartQuantity,cartQuantity,QuantitySelector)
+        Display_Added()
     })
 })
