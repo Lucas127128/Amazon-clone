@@ -22,3 +22,15 @@ export function Add_To_cart(productId, quantityToAdd){
     }
     localStorage.setItem('local_Storage_Cart',JSON.stringify(Cart))
 }
+
+export function RemoveFromCart(productId){
+    let newCart=[]
+    JSON.parse(localStorage.getItem('local_Storage_Cart'))
+    .forEach((Product)=>{
+        if(Product.ProductId!=productId){
+            newCart.push(Product)
+        }
+    })
+    localStorage.setItem('local_Storage_Cart',JSON.stringify(newCart))
+    Cart=newCart
+}
