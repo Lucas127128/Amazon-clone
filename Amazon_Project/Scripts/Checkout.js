@@ -1,5 +1,6 @@
 import {Cart} from'../data/cart.js'
 import {Products} from '../data/products.js'
+import { FormatCurrency} from './Utils/Money.js'
 let CheckoutCart = JSON.parse(localStorage.getItem('local_Storage_Cart'))
 let cartSummaryHTML =''
 CheckoutCart.forEach(function (cartItem) {
@@ -29,7 +30,7 @@ CheckoutCart.forEach(function (cartItem) {
                 ${matchingProduct.name}
             </div>
             <div class="product-price">
-                $${matchingProduct.priceCents/100}
+                $${FormatCurrency(matchingProduct.priceCents)}
             </div>
             <div class="product-quantity">
                 <span>
@@ -51,7 +52,7 @@ CheckoutCart.forEach(function (cartItem) {
 
             <div class="delivery-option">
                 <input type="radio" class="delivery-option-input"
-                name="delivery-option-2">
+                name="delivery-option-${matchingProduct.id}">
                 <div>
                 <div class="delivery-option-date">
                     Tuesday, June 21
@@ -63,7 +64,7 @@ CheckoutCart.forEach(function (cartItem) {
             </div>
             <div class="delivery-option">
                 <input type="radio" checked class="delivery-option-input"
-                name="delivery-option-2">
+                name="delivery-option-${matchingProduct.id}">
                 <div>
                 <div class="delivery-option-date">
                     Wednesday, June 15
@@ -75,7 +76,7 @@ CheckoutCart.forEach(function (cartItem) {
             </div>
             <div class="delivery-option">
                 <input type="radio" class="delivery-option-input"
-                name="delivery-option-2">
+                name="delivery-option-${matchingProduct.id}">
                 <div>
                 <div class="delivery-option-date">
                     Monday, June 13
