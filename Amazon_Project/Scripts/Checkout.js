@@ -1,7 +1,8 @@
 import {Cart} from'../data/cart.js'
 import {Products} from '../data/products.js'
-
-Cart.forEach((cartItem) => {
+let CheckoutCart = JSON.parse(localStorage.getItem('local_Storage_Cart'))
+let cartSummaryHTML =''
+CheckoutCart.forEach(function (cartItem) {
     const productId = cartItem.ProductId
     console.log(productId)
     let matchingProduct;
@@ -11,9 +12,9 @@ Cart.forEach((cartItem) => {
             matchingProduct=product
         }
     })
-    //console.log(matchingProduct)
+    console.log(matchingProduct)
 
-    `
+    cartSummaryHTML+=`
     <div class="cart-item-container">
         <div class="delivery-date">
             Delivery date: Wednesday, June 15
@@ -21,18 +22,18 @@ Cart.forEach((cartItem) => {
 
         <div class="cart-item-details-grid">
             <img class="product-image"
-            src="images/products/intermediate-composite-basketball.jpg">
+            src="${matchingProduct.image}">
 
             <div class="cart-item-details">
             <div class="product-name">
-                Intermediate Size Basketball
+                ${matchingProduct.name}
             </div>
             <div class="product-price">
-                $20.95
+                $${matchingProduct.priceCents/100}
             </div>
             <div class="product-quantity">
                 <span>
-                Quantity: <span class="quantity-label">1</span>
+                Quantity: <span class="quantity-label">${cartItem.Quantity}</span>
                 </span>
                 <span class="update-quantity-link link-primary">
                 Update
@@ -89,3 +90,5 @@ Cart.forEach((cartItem) => {
     </div>
     `
 })
+const Order_Summary = document.querySelector(".order-summary")
+Order_Summary.innerHTML = cartSummaryHTML

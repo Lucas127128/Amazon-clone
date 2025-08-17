@@ -1,4 +1,4 @@
-export const Cart = [{
+export let Cart = [{
     ProductId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     Quantity: 2
 },{
@@ -20,4 +20,5 @@ export function Add_To_cart(productId, quantityToAdd){
         Quantity: quantityToAdd
     })
     }
+    localStorage.setItem('local_Storage_Cart',JSON.stringify(Cart))
 }
