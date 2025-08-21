@@ -13,7 +13,7 @@ export function Add_To_cart(productId, quantityToAdd){
         }
     })
     if(MatchingItem){
-        MatchingItem.Quantity++
+        MatchingItem.Quantity+=quantityToAdd
     }else{
         Cart.push({
         ProductId: productId,

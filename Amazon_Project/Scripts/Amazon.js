@@ -55,12 +55,17 @@ Products.forEach((products)=>{ProductsHTML += `
         </div>
     `
 })
+export const cartQuantity = document.querySelector('.cart-quantity')
 let ProductQuantity = 0
 let ProductId = ''
-const ProductsGrid = document.querySelector('.products-grid')
+const ProductsGrid = document.querySelector(".products-grid")
 ProductsGrid.innerHTML = ProductsHTML 
 let AddToCartButton = document.querySelectorAll('.add-to-cart-button')
-
+let cart_Quantity=0;
+JSON.parse(localStorage.getItem('local_Storage_Cart')).forEach((value)=>{
+    cart_Quantity+=value.Quantity
+})
+cartQuantity.innerHTML=cart_Quantity
 function Display_Cart_Quantity(CartQuantityP,cartQuantityP,QuantitySelectorP){
     Cart.forEach((cartItem)=>{
         CartQuantityP+=cartItem.Quantity
@@ -83,7 +88,6 @@ AddToCartButton.forEach((Button) => {
         let ProductContainer = Button.closest('.product-container');
         let QuantitySelector = ProductContainer.querySelector('.ProductQuantitySelector');
         let QuantityToAdd = parseInt(QuantitySelector.value);
-        const cartQuantity = document.querySelector('.cart-quantity')
         let CartQuantity=0;
         Add_To_cart(ProductId, QuantityToAdd)
         console.log(Cart)

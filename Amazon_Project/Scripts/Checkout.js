@@ -7,6 +7,23 @@ if(Local_Storage_Cart===null){
 }
 let CheckoutCart = JSON.parse(localStorage.getItem('local_Storage_Cart'))
 let cartSummaryHTML =''
+function Add_To_cart(productId, quantityToAdd){
+    let MatchingItem;
+    CheckoutCart.forEach((cartItem)=>{
+        if(productId===cartItem.ProductId){
+            MatchingItem=cartItem
+        }
+    })
+    if(MatchingItem){
+        MatchingItem.Quantity=QuantityToAdd
+    }else{
+        CheckoutCart.push({
+        ProductId: productId,
+        Quantity: quantityToAdd
+    })
+    }
+    localStorage.setItem('local_Storage_Cart',JSON.stringify(CheckoutCart))
+}
 CheckoutCart.forEach(function (cartItem) {
     const productId = cartItem.ProductId
     let matchingProduct;
@@ -41,6 +58,9 @@ CheckoutCart.forEach(function (cartItem) {
                 <span class="update-quantity-link link-primary" data-product-id="${matchingProduct.id}">
                 Update
                 </span>
+                <input type="number" class="quantity_Input_${matchingProduct.id} quantity_Input" style="width: 40px;">
+                <span class="save-quantity-link-${matchingProduct.id} link-primary save-quantity-link" 
+                data-product-id="${matchingProduct.id}">Save</span>
                 <span class="delete-quantity-link link-primary" data-product-id="${matchingProduct.id}">
                 Delete
                 </span>
@@ -95,12 +115,40 @@ CheckoutCart.forEach(function (cartItem) {
 })
 let Update_Quantity_Link = document.querySelectorAll('.js-update-quantity-link')
 const Order_Summary = document.querySelector('.order-summary')
+const return_to_home_link = document.querySelectorAll('.return-to-home-link')
 Order_Summary.innerHTML = cartSummaryHTML
-
+let Checkout_Cart_Quantity=0
+CheckoutCart.forEach((value)=>{
+    Checkout_Cart_Quantity+=value.Quantity
+})
+return_to_home_link.innerHTML=`${Checkout_Cart_Quantity} items`
 document.querySelectorAll(`.update-quantity-link`).forEach((Link)=>{
     Link.addEventListener('click', function(){
         const ProductId=Link.dataset.productId
+        const quantity_Input = document.querySelector(`.quantity_Input_${ProductId}`)
+        const save_quantity_link = document.querySelector(`.save-quantity-link-${ProductId}`)
         console.log(ProductId)
+        quantity_Input.classList.add('Display_Update_Element')
+        save_quantity_link.classList.add('Display_Update_Element')
+        console.log(quantity_Input.classList)
+        console.log(save_quantity_link.classList)
+    })
+})
+let QuantityToAdd=0;
+document.querySelectorAll(`.quantity_Input`).forEach((Link)=>{
+    Link.addEventListener('keyup', function(e){
+        QuantityToAdd+=Link.value
+        
+    })
+})
+console.log(QuantityToAdd)
+document.querySelectorAll(`.save-quantity-link`).forEach((Link)=>{
+    Link.addEventListener('click', function(){
+        const ProductId=Link.dataset.productId
+        const quantityInput = document.querySelector(`.quantity_Input_${ProductId}`);
+        QuantityToAdd = Number(quantityInput.value);
+        Add_To_cart(ProductId, QuantityToAdd)
+        location.reload();
     })
 })
 document.querySelectorAll('.delete-quantity-link').forEach((Link)=>{
