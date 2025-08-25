@@ -1,9 +1,11 @@
 export let Cart = [{
     ProductId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    Quantity: 2
+    Quantity: 2,
+    deliveryOptionId: '1'
 },{
     ProductId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-    Quantity: 1
+    Quantity: 1,
+    deliveryOptionId: '2'
 }]
 export function Add_To_cart(productId, quantityToAdd){
     let MatchingItem;
@@ -17,7 +19,8 @@ export function Add_To_cart(productId, quantityToAdd){
     }else{
         Cart.push({
         ProductId: productId,
-        Quantity: quantityToAdd
+        Quantity: quantityToAdd,
+        deliveryOptionId: '1'
     })
     }
     localStorage.setItem('local_Storage_Cart',JSON.stringify(Cart))

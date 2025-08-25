@@ -1,6 +1,15 @@
 import {Cart, RemoveFromCart} from'../data/cart.js'
 import {Products} from '../data/products.js'
 import { FormatCurrency} from './Utils/Money.js'
+import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js'
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
+import {deliveryOption} from '../data/deliveryOption.js'
+hello()
+const Today = dayjs()
+let deliveryDate = Today.add(7, "days")
+deliveryDate=deliveryDate.format('dddd, MMMM D')
+console.log(deliveryDate)
+
 let Local_Storage_Cart = localStorage.getItem('local_Storage_Cart')
 if(Local_Storage_Cart===null){
     let CheckoutCart = Cart
@@ -71,56 +80,54 @@ CheckoutCart.forEach(function (cartItem) {
             <div class="delivery-options-title">
                 Choose a delivery option:
             </div>
-
-            <div class="delivery-option">
-                <input type="radio" class="delivery-option-input"
-                name="delivery-option-${matchingProduct.id}">
-                <div>
-                <div class="delivery-option-date">
-                    Tuesday, June 21
-                </div>
-                <div class="delivery-option-price">
-                    FREE Shipping
-                </div>
-                </div>
-            </div>
-            <div class="delivery-option">
-                <input type="radio" checked class="delivery-option-input"
-                name="delivery-option-${matchingProduct.id}">
-                <div>
-                <div class="delivery-option-date">
-                    Wednesday, June 15
-                </div>
-                <div class="delivery-option-price">
-                    $4.99 - Shipping
-                </div>
-                </div>
-            </div>
-            <div class="delivery-option">
-                <input type="radio" class="delivery-option-input"
-                name="delivery-option-${matchingProduct.id}">
-                <div>
-                <div class="delivery-option-date">
-                    Monday, June 13
-                </div>
-                <div class="delivery-option-price">
-                    $9.99 - Shipping
-                </div>
-                </div>
-            </div>
+            ${deliveryOptionsHTML(matchingProduct.id)}
             </div>
         </div>
     </div>
     `
 })
+
 let Update_Quantity_Link = document.querySelectorAll('.js-update-quantity-link')
 const Order_Summary = document.querySelector('.order-summary')
-const return_to_home_link = document.querySelectorAll('.return-to-home-link')
+const return_to_home_link = document.querySelector('.return-to-home-link')
 Order_Summary.innerHTML = cartSummaryHTML
 let Checkout_Cart_Quantity=0
 CheckoutCart.forEach((value)=>{
     Checkout_Cart_Quantity+=value.Quantity
 })
+function deliveryOptionsHTML(matchingProductId){
+    let html='';
+    let priceString=''
+    console.log(priceString)
+    deliveryOption.forEach((deliveryOptions)=>{
+        const Today = dayjs()
+        deliveryDate= Today.add(deliveryOptions.deliveryDays, "days")
+        deliveryDate=deliveryDate.format('dddd, MMMM D')
+        if(deliveryOptions.priceCents===0){
+            priceString='FREE - '
+        }else if(deliveryOptions.priceCents===499){
+            priceString='$4.99 - '
+        }else if(deliveryOptions.priceCents===999){
+            priceString='$9.99 - '
+        }else{
+            priceString='fail'
+        }
+        html+=`<div>
+            <input type="radio" class="delivery-option-input"
+                name="delivery-option-${matchingProductId}">
+                <div>
+                <div class="delivery-option-date">
+                    ${deliveryDate}
+                </div>
+            </div>
+                <div class="delivery-option-price">
+                    ${priceString}Shipping
+                </div>
+                </div>
+                `
+    })
+    return html;
+}
 return_to_home_link.innerHTML=`${Checkout_Cart_Quantity} items`
 document.querySelectorAll(`.update-quantity-link`).forEach((Link)=>{
     Link.addEventListener('click', function(){
