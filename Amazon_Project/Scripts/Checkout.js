@@ -45,8 +45,8 @@ CheckoutCart.forEach(function (cartItem) {
 
     cartSummaryHTML+=`
     <div class="cart-item-container">
-        <div class="delivery-date">
-            Delivery date: Wednesday, June 15
+        <div class="delivery-date-${matchingProduct.id} delivery-date" data-product-id="${matchingProduct.id}">
+            Delivery date: 
         </div>
 
         <div class="cart-item-details-grid">
@@ -92,7 +92,6 @@ const Order_Summary = document.querySelector('.order-summary')
 const return_to_home_link = document.querySelector('.return-to-home-link')
 Order_Summary.innerHTML = cartSummaryHTML
 let Checkout_Cart_Quantity=0
-const Delivery_Date = document.querySelector(".delivery-date")
 CheckoutCart.forEach((value)=>{
     Checkout_Cart_Quantity+=value.Quantity
 })
@@ -117,6 +116,7 @@ function deliveryOptionsHTML(matchingProductId){
             <input type="radio" class="delivery-option-input"
                 name="delivery-option-${matchingProductId}"
                 data-delivery-choice-id="${deliveryOptions.id}"
+                data-product-id="${matchingProductId}"
                 value='${deliveryDate}'>
                 <div>
                 <div class="delivery-option-date">
@@ -175,10 +175,10 @@ const delivery_option_input = document.querySelectorAll('.delivery-option-input'
 delivery_option_input.forEach((element) => {
     element.addEventListener('change', () => {
         const deliveryChoiceId=element.dataset.deliveryChoiceId
+        const ProductId=element.dataset.productId
+        const Delivery_Date = document.querySelector(`.delivery-date-${ProductId}`)
         console.log(deliveryChoiceId)
         console.log(element.value)
         Delivery_Date.innerHTML=`Delivery date: ${element.value}`
     })
 })
-
-//git commit -a -m "Display the delivery date at the top in Amazon project"
