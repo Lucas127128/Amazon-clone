@@ -1,6 +1,6 @@
 import { Cart } from "../../data/cart.js";
 import { Products } from "../../data/products.js";
-import { getMatchingCart } from "../../data/products.js";
+import { getMatchingProduct } from "../../data/products.js";
 import { FormatCurrency } from "../Utils/Money.js";
 export function renderPaymentSummary(){
     let CheckoutCart = JSON.parse(localStorage.getItem('local_Storage_Cart'))
@@ -9,7 +9,7 @@ export function renderPaymentSummary(){
     let cartQuantity=0
     const paymentSummary=document.querySelector(".payment-summary")
     CheckoutCart.forEach((cartItem)=>{
-        const productItem=getMatchingCart(Products, cartItem.ProductId)
+        const productItem=getMatchingProduct(Products, cartItem.ProductId)
         let totalPrice = productItem.priceCents*cartItem.Quantity
         totalProductPrice +=totalPrice
         cartQuantity+=cartItem.Quantity
@@ -29,7 +29,7 @@ export function renderPaymentSummary(){
 
     const totalPriceBeforeTax = totalDeliveryFee+totalProductPrice
     console.log(totalPriceBeforeTax)
-    const totalTax = totalPriceBeforeTax*0.1
+    const totalTax = totalPriceBeforeTax/10
     console.log(totalTax)
     const totalOrderPrice = totalPriceBeforeTax+totalTax
     console.log(totalOrderPrice)

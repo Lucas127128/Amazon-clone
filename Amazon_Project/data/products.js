@@ -1,6 +1,15 @@
 export function getMatchingCart(cart, productId){
   let MatchingItem;
     cart.forEach((cartItem)=>{
+        if(productId===cartItem.ProductId){
+            MatchingItem=cartItem
+        }
+    })
+  return MatchingItem;
+}
+export function getMatchingProduct(product, productId){
+  let MatchingItem;
+    product.forEach((cartItem)=>{
         if(productId===cartItem.id){
             MatchingItem=cartItem
         }

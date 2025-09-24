@@ -2,14 +2,13 @@ import {Cart, RemoveFromCart} from'../../data/cart.js'
 import {Products} from '../../data/products.js'
 import { FormatCurrency} from '../Utils/Money.js'
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
-import {deliveryOption} from '../../data/deliveryOption.js'
+import {deliveryOption, getDeliveryDate, addWeekDays} from '../../data/deliveryOption.js'
 import { UpdateDeliveryOption } from '../../data/cart.js'
-import { getMatchingCart } from '../../data/products.js'
+import { getMatchingCart, getMatchingProduct } from '../../data/products.js'
 import { renderPaymentSummary } from './paymentSummary.js'
 const Today = dayjs()
 let deliveryDate = Today.add(7, "days")
 deliveryDate=deliveryDate.format('dddd, MMMM D')
-console.log(deliveryDate)
 export function renderOrderSummary(){
 let Local_Storage_Cart = localStorage.getItem('local_Storage_Cart')
 if(Local_Storage_Cart===null){
@@ -18,13 +17,7 @@ if(Local_Storage_Cart===null){
 let CheckoutCart = JSON.parse(localStorage.getItem('local_Storage_Cart'))
 let cartSummaryHTML =''
 function Add_To_cart(productId, quantityToAdd){
-    let MatchingItem;
-    //let MatchingItem = getMatchingCart(CheckoutCart, productId);
-    CheckoutCart.forEach((cartItem)=>{
-        if(productId===cartItem.ProductId){
-            MatchingItem=cartItem
-        }
-    })
+    let MatchingItem = getMatchingCart(CheckoutCart, productId);
     if(MatchingItem){
         MatchingItem.Quantity=quantityToAdd
     }else{
@@ -36,15 +29,7 @@ function Add_To_cart(productId, quantityToAdd){
     localStorage.setItem('local_Storage_Cart',JSON.stringify(CheckoutCart))
 }
 CheckoutCart.forEach(function (cartItem) {
-    const productId = cartItem.ProductId
-    let matchingProduct;
-
-    Products.forEach((product)=>{
-        if(product.id===productId){
-            matchingProduct=product
-        }
-    })
-
+    let matchingProduct=getMatchingProduct(Products, cartItem.ProductId);
     cartSummaryHTML+=`
     <div class="cart-item-container">
         <div class="delivery-date-${matchingProduct.id} delivery-date" data-product-id="${matchingProduct.id}">
@@ -97,36 +82,11 @@ let Checkout_Cart_Quantity=0
 CheckoutCart.forEach((value)=>{
     Checkout_Cart_Quantity+=value.Quantity
 })
-const delivery_Date = document.querySelectorAll('.delivery-date')
-delivery_Date.forEach((delivery_Date_Item)=>{
-    const ProductId = delivery_Date_Item.dataset.productId
-    let MatchingItem;
-    //let deliveryDate='';
-    CheckoutCart.forEach((cartItem)=>{
-        if(ProductId===cartItem.ProductId){
-            MatchingItem=cartItem
-            MatchingItem.deliveryOptionId=cartItem.deliveryOptionId
-            console.log(cartItem.deliveryOptionId)
-        }
-    })
-    const Today = dayjs()
-    if(MatchingItem.deliveryOptionId==="1"){
-        let deliveryDate=Today.add(7, "days")
-    }else if(MatchingItem.deliveryOptionId==="2"){
-        let deliveryDate=Today.add(3, "days")
-    }else if(MatchingItem.deliveryOptionId==="3"){
-        let deliveryDate=Today.add(1, "days")
-    }
-    //deliveryDate = deliveryDate.format('dddd, MMMM D')
-    console.log(deliveryDate)
-})
 function deliveryOptionsHTML(matchingProductId){
     let html='';
     let priceString=''
-    console.log(priceString)
     deliveryOption.forEach((deliveryOptions)=>{
-        const Today = dayjs()
-        deliveryDate= Today.add(deliveryOptions.deliveryDays, "days")
+        deliveryDate= addWeekDays(deliveryOptions.deliveryDays)
         deliveryDate=deliveryDate.format('dddd, MMMM D')
         if(deliveryOptions.priceCents===0){
             priceString='FREE - '
@@ -168,8 +128,6 @@ document.querySelectorAll(`.update-quantity-link`).forEach((Link)=>{
         console.log(ProductId)
         quantity_Input.classList.add('Display_Update_Element')
         save_quantity_link.classList.add('Display_Update_Element')
-        console.log(quantity_Input.classList)
-        console.log(save_quantity_link.classList)
     })
 })
 let QuantityToAdd=0;
@@ -179,7 +137,6 @@ document.querySelectorAll(`.quantity_Input`).forEach((Link)=>{
         
     })
 })
-console.log(QuantityToAdd)
 document.querySelectorAll(`.save-quantity-link`).forEach((Link)=>{
     Link.addEventListener('click', function(){
         const ProductId=Link.dataset.productId
@@ -193,9 +150,7 @@ document.querySelectorAll(`.save-quantity-link`).forEach((Link)=>{
 document.querySelectorAll('.delete-quantity-link').forEach((Link)=>{
     Link.addEventListener('click', function(){
         const ProductId=Link.dataset.productId
-        console.log(ProductId)
         RemoveFromCart(ProductId)
-        console.log(Cart)
         localStorage.setItem('local_Storage_Cart',JSON.stringify(Cart))
         renderOrderSummary()
         renderPaymentSummary()
@@ -208,8 +163,6 @@ delivery_option_input.forEach((element) => {
         const deliveryChoiceId=element.dataset.deliveryChoiceId
         const ProductId=element.dataset.productId
         Delivery_Date = document.querySelector(`.delivery-date-${ProductId}`)
-        console.log(deliveryChoiceId)
-        console.log(element.value)
         Delivery_Date.innerHTML=`Delivery date: ${element.value}`
         UpdateDeliveryOption(ProductId, deliveryChoiceId, CheckoutCart)
         renderOrderSummary()
@@ -217,19 +170,8 @@ delivery_option_input.forEach((element) => {
     })
 })
 CheckoutCart.forEach((cartItem)=>{
-    console.log(cartItem.deliveryOptionId)
-    console.log(cartItem.ProductId)
     document.getElementById(`${cartItem.deliveryOptionId}-${cartItem.ProductId}`).checked = true
-    const Today = dayjs()
-    let deliveryDate = ""
-    if(cartItem.deliveryOptionId==="1"){
-        deliveryDate=Today.add(7, "days")
-    }else if(cartItem.deliveryOptionId==="2"){
-        deliveryDate=Today.add(3, "days")
-    }else if(cartItem.deliveryOptionId==="3"){
-        deliveryDate=Today.add(1, "days")
-    }
-    deliveryDate = deliveryDate.format('dddd, MMMM D')
+    let deliveryDate = getDeliveryDate(cartItem.deliveryOptionId)
     delivery_option_input.forEach((element) => {
     Delivery_Date = document.querySelector(`.delivery-date-${cartItem.ProductId}`)
     Delivery_Date.innerHTML=`Delivery date: ${deliveryDate}`
