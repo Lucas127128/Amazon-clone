@@ -4,6 +4,8 @@ import { FormatCurrency} from '../Utils/Money.js'
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 import {deliveryOption} from '../../data/deliveryOption.js'
 import { UpdateDeliveryOption } from '../../data/cart.js'
+import { getMatchingCart } from '../../data/products.js'
+import { renderPaymentSummary } from './paymentSummary.js'
 const Today = dayjs()
 let deliveryDate = Today.add(7, "days")
 deliveryDate=deliveryDate.format('dddd, MMMM D')
@@ -17,6 +19,7 @@ let CheckoutCart = JSON.parse(localStorage.getItem('local_Storage_Cart'))
 let cartSummaryHTML =''
 function Add_To_cart(productId, quantityToAdd){
     let MatchingItem;
+    //let MatchingItem = getMatchingCart(CheckoutCart, productId);
     CheckoutCart.forEach((cartItem)=>{
         if(productId===cartItem.ProductId){
             MatchingItem=cartItem
@@ -184,6 +187,7 @@ document.querySelectorAll(`.save-quantity-link`).forEach((Link)=>{
         QuantityToAdd = Number(quantityInput.value);
         Add_To_cart(ProductId, QuantityToAdd)
         renderOrderSummary()
+        renderPaymentSummary()
     })
 })
 document.querySelectorAll('.delete-quantity-link').forEach((Link)=>{
@@ -194,6 +198,7 @@ document.querySelectorAll('.delete-quantity-link').forEach((Link)=>{
         console.log(Cart)
         localStorage.setItem('local_Storage_Cart',JSON.stringify(Cart))
         renderOrderSummary()
+        renderPaymentSummary()
     })
 })
 let Delivery_Date = ""
@@ -208,6 +213,7 @@ delivery_option_input.forEach((element) => {
         Delivery_Date.innerHTML=`Delivery date: ${element.value}`
         UpdateDeliveryOption(ProductId, deliveryChoiceId, CheckoutCart)
         renderOrderSummary()
+        renderPaymentSummary()
     })
 })
 CheckoutCart.forEach((cartItem)=>{

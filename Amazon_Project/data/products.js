@@ -1,3 +1,12 @@
+export function getMatchingCart(cart, productId){
+  let MatchingItem;
+    cart.forEach((cartItem)=>{
+        if(productId===cartItem.id){
+            MatchingItem=cartItem
+        }
+    })
+  return MatchingItem;
+}
 export const Products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
