@@ -1,4 +1,4 @@
-export let Cart = [{
+export let Cart = [/*{
     ProductId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     Quantity: 2,
     deliveryOptionId: '1'
@@ -6,7 +6,7 @@ export let Cart = [{
     ProductId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
     Quantity: 1,
     deliveryOptionId: '2'
-}]
+}*/]
 export function Add_To_cart(productId, quantityToAdd){
     let MatchingItem;
     Cart.forEach((cartItem)=>{
