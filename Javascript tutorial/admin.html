@@ -1,0 +1,85 @@
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scaleble=yes, initial-scale=1.0, maximum-scale=2.0" />
+<title>Teacher Main Screen</title>
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_validateForm() { //v4.0
+  var i,p,q,nm,test,num,min,max,errors='',args=MM_validateForm.arguments;
+  for (i=0; i<(args.length-2); i+=3) { test=args[i+2]; val=MM_findObj(args[i]);
+    if (val) { nm=val.name; if ((val=val.value)!="") {
+      if (test.indexOf('isEmail')!=-1) { p=val.indexOf('@');
+        if (p<1 || p==(val.length-1)) errors+='- '+nm+' must contain an e-mail address.\n';
+      } else if (test!='R') { num = parseFloat(val);
+        if (isNaN(val)) errors+='- '+nm+' must contain a number.\n';
+        if (test.indexOf('inRange') != -1) { p=test.indexOf(':');
+          min=test.substring(8,p); max=test.substring(p+1);
+          if (num<min || max<num) errors+='- '+nm+' must contain a number between '+min+' and '+max+'.\n';
+    } } } else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; }
+  } if (errors) alert('The following error(s) occurred:\n'+errors);
+  document.MM_returnValue = (errors == '');
+}
+//-->
+</script>
+
+<style>
+ <!--
+ table {width:700px; }
+ img {width: 700px;}
+ 
+@media screen and (max-width: 720px) {
+    table {width: 100%; }
+	img {width: 100%;}
+}
+-->
+</style>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body bgcolor=#d5f2ed> 
+ 
+<div align='center'>
+    <!-- You may insert your school banner here //-->
+</div>
+<center><b><font color='blue'><h2>Ying Wa College</h2></font></b></center>
+<center><b><font type='arial' color='red'><h3><U>Swimming Gala Online Registration 2025-2026</U></h3></font></b></center>
+<p align="center"><br>
+  <strong><font type='arial' size='+1' color='black'>Show Entries of All Students</font></strong></p>
+<p align="center"><strong><FONT type='arial' SIZE="+1" color="#0000FF">Please enter Teacher's Admin Password</FONT></strong><br>
+</p>
+<FORM ACTION="admin_showrecords.php" METHOD="POST" name="entryform">
+  <DIV ALIGN="center">
+    <CENTER>
+    <TABLE BORDER="1" HEIGHT="62" BGCOLOR="#00FFFF" cellspacing='0' cellpadding='5'>
+      <TR>
+        <TD WIDTH="77%" ALIGN="center" HEIGHT="29"><b><font color="#0000FF">Admin Log in Password </font></b></TD>
+        <TD WIDTH="23%" HEIGHT="29"><input name="password" type="password" size="15" maxlength="15"></TD>
+      </TR>
+      <input type="hidden" name="classname" value="">
+      <TR>
+        <TD WIDTH="77%" HEIGHT="25"><center><INPUT TYPE="submit" STYLE="font-family: Arial; font-size: 10pt; font-weight: bold" onClick="MM_validateForm('password','','R');return document.MM_returnValue" VALUE="Submit">
+        </center></TD>
+        <TD WIDTH="23%" HEIGHT="25"><center><INPUT TYPE="reset" VALUE="Reset" STYLE="font-family: Arial; font-size: 10pt; font-weight: bold" >
+        </center></TD>
+      </TR>
+    </TABLE>
+    </CENTER>
+  </DIV>
+</FORM>
+
+
+</body>
+</html>
+
+
+ 

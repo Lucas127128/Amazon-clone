@@ -9,6 +9,7 @@ import { renderPaymentSummary } from './paymentSummary.js'
 const Today = dayjs()
 let deliveryDate = Today.add(7, "days")
 deliveryDate=deliveryDate.format('dddd, MMMM D')
+
 export function renderOrderSummary(){
 let Local_Storage_Cart = localStorage.getItem('local_Storage_Cart')
 if(Local_Storage_Cart===null){
@@ -31,7 +32,7 @@ function Add_To_cart(productId, quantityToAdd){
 CheckoutCart.forEach(function (cartItem) {
     let matchingProduct=getMatchingProduct(Products, cartItem.ProductId);
     cartSummaryHTML+=`
-    <div class="cart-item-container">
+    <div class="cart-item-container cart-item-container-${matchingProduct.id}">
         <div class="delivery-date-${matchingProduct.id} delivery-date" data-product-id="${matchingProduct.id}">
             Delivery date: 
         </div>
@@ -48,7 +49,7 @@ CheckoutCart.forEach(function (cartItem) {
                 $${FormatCurrency(matchingProduct.priceCents)}
             </div>
             <div class="product-quantity">
-                <span>
+                <span class="js-product-quantity-${matchingProduct.id}">
                 Quantity: <span class="quantity-label">${cartItem.Quantity}</span>
                 </span>
                 <span class="update-quantity-link link-primary" data-product-id="${matchingProduct.id}">
@@ -57,7 +58,7 @@ CheckoutCart.forEach(function (cartItem) {
                 <input type="number" class="quantity_Input_${matchingProduct.id} quantity_Input" style="width: 40px;">
                 <span class="save-quantity-link-${matchingProduct.id} link-primary save-quantity-link" 
                 data-product-id="${matchingProduct.id}">Save</span>
-                <span class="delete-quantity-link link-primary" data-product-id="${matchingProduct.id}">
+                <span class="delete-quantity-link delete-quantity-link-${matchingProduct.id} link-primary" data-product-id="${matchingProduct.id}">
                 Delete
                 </span>
             </div>

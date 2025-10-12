@@ -1,0 +1,35 @@
+body{
+    font-family: Arial;
+}
+.SubscribeButton{
+    background-color: black;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+.is-subscribed{
+    background-color: rgb(240, 240, 240);
+    color: black;
+}
+.TextInput{
+    font-size: 15px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+.Calculate{
+    background-color: green;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+}

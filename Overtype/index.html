@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/overtype/dist/overtype.min.js"></script>
+    <script src="overtype.js"></script>
+</head>
+<body>
+</body>
+<div id="editor" style="height: 400px;"></div>
+
+<script>
+  const [editor] = new OverType('#editor', {
+    placeholder: 'Start typing markdown...',
+    value: '# Welcome\n\nStart writing **markdown** here!',
+    toolbar: true,  // Enables the toolbar
+    value: '# Document\n\nSelect text and use the toolbar buttons!',
+    onChange: (value, instance) => {
+      console.log('Content changed:', value);
+    }
+  });
+</script>
+</html>
