@@ -75,7 +75,7 @@ CheckoutCart.forEach(function (cartItem) {
     `
 })
 
-let Update_Quantity_Link = document.querySelectorAll('.js-update-quantity-link')
+let Update_Quantity_Link = document.querySelectorAll('.js-updatle-quantity-link')
 const Order_Summary = document.querySelector('.order-summary')
 const return_to_home_link = document.querySelector('.return-to-home-link')
 Order_Summary.innerHTML = cartSummaryHTML
@@ -171,7 +171,7 @@ delivery_option_input.forEach((element) => {
     })
 })
 CheckoutCart.forEach((cartItem)=>{
-    document.getElementById(`${cartItem.deliveryOptionId}-${cartItem.ProductId}`).checked = true
+    document.getElementById(`${cartItem.deliveryOptionId}-${cartItem.ProductId}`).checked = true;
     let deliveryDate = getDeliveryDate(cartItem.deliveryOptionId)
     delivery_option_input.forEach((element) => {
     Delivery_Date = document.querySelector(`.delivery-date-${cartItem.ProductId}`)
