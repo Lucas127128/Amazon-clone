@@ -11,7 +11,10 @@ class cart {
     }*/
   ];
 
-  localStorageKey = "";
+  #localStorageKey;
+  constructor(localStorageKey){
+    this.#localStorageKey = localStorageKey;
+  }
 
   Add_To_cart(productId, quantityToAdd) {
     let MatchingItem;
@@ -29,7 +32,7 @@ class cart {
         deliveryOptionId: "1",
       });
     }
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   RemoveFromCart(productId) {
@@ -41,7 +44,7 @@ class cart {
         }
       }
     );
-    localStorage.setItem(this.localStorageKey, JSON.stringify(newCart));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(newCart));
     this.cartItems = newCart;
   }
 
@@ -54,14 +57,13 @@ class cart {
       }
     });
 
-    localStorage.setItem(this.localStorageKey, JSON.stringify(checkoutCart));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(checkoutCart));
   }
 }
 
-const Cart = new cart();
-const businessCart = new cart();
-Cart.localStorageKey = "local_Storage_Cart";
-businessCart.localStorageKey = "local_Storage_business_Cart";
-Cart.Add_To_cart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 3);
+const Cart = new cart("local_Storage_Cart");
+const businessCart = new cart("local_Storage_business_Cart");
+
 console.log(JSON.stringify(businessCart));
+console.log(JSON.stringify(Cart));
 console.log(businessCart instanceof cart);
