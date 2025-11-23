@@ -12,7 +12,7 @@ class cart {
   ];
 
   #localStorageKey;
-  constructor(localStorageKey){
+  constructor(localStorageKey) {
     this.#localStorageKey = localStorageKey;
   }
 

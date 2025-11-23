@@ -209,13 +209,13 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
-.quantity_Input{
+.quantity_Input {
   width: 40px;
   display: none;
 }
-.save-quantity-link{
+.save-quantity-link {
   display: none;
 }
-.Display_Update_Element{
+.Display_Update_Element {
   display: inline;
 }
