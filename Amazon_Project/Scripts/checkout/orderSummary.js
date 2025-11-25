@@ -35,6 +35,7 @@ export function renderOrderSummary() {
   }
   CheckoutCart.forEach(function (cartItem) {
     let matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
+    console.log(Products);
     cartSummaryHTML += `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}">
         <div class="delivery-date-${
@@ -205,4 +206,12 @@ export function renderOrderSummary() {
     });
   });
 }
-renderOrderSummary();
+let checkProductReady = setInterval(() => {
+  if (Products === null) {
+    return;
+  } else if (Products[0].id === "e43638ce-6aa0-4b85-b27f-e1d07eb678c6") {
+    renderOrderSummary();
+    clearInterval(checkProductReady);
+  }
+}, 200);
+//renderOrderSummary();

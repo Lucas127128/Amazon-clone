@@ -1,6 +1,7 @@
 import { Cart, Add_To_cart } from "../data/cart.js";
 import { Products } from "../data/products.js";
 let ProductsHTML = "";
+function renderAmazonHomePage(){
 Products.forEach((products) => {
   ProductsHTML += `
         <div class="product-container">
@@ -56,7 +57,7 @@ Products.forEach((products) => {
         </div>
     `;
 });
-export const cartQuantity = document.querySelector(".cart-quantity");
+const cartQuantity = document.querySelector(".cart-quantity");
 let ProductQuantity = 0;
 let ProductId = "";
 const ProductsGrid = document.querySelector(".products-grid");
@@ -102,3 +103,13 @@ AddToCartButton.forEach((Button) => {
     Display_Added();
   });
 });
+}
+let checkProductReady = setInterval(()=>{
+  if(Products===null){
+    return;
+  } else if (Products[0].id==="e43638ce-6aa0-4b85-b27f-e1d07eb678c6"){
+    renderAmazonHomePage()
+    clearInterval(checkProductReady)
+    console.log(Products[0])
+  }
+},80)

@@ -77,3 +77,11 @@ export function renderPaymentSummary() {
     `;
   paymentSummary.innerHTML = paymentSummaryHTML;
 }
+let checkProductReady = setInterval(() => {
+  if (Products === null) {
+    return;
+  } else if (Products[0].id === "e43638ce-6aa0-4b85-b27f-e1d07eb678c6") {
+    renderPaymentSummary();
+    clearInterval(checkProductReady);
+  }
+}, 200);

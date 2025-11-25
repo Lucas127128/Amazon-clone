@@ -87,7 +87,7 @@ const product1 = new Product({
   priceCents: 1090,
   keywords: ["socks", "sports", "apparel"],
 });
-
+/*
 export const Products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -565,3 +565,17 @@ export const Products = [
   }
   return new Product(productDetails);
 });
+*/
+export let Products = [];
+const xhr = new XMLHttpRequest();
+xhr.addEventListener("load", () => {
+  Products = JSON.parse(xhr.response).map((productDetails) => {
+    if (productDetails.type === "clothing") {
+      return new Clothing(productDetails);
+    }
+    return new Product(productDetails);
+  });
+  console.log(Products[0]);
+});
+xhr.open("GET", "https://supersimplebackend.dev/products");
+xhr.send();
