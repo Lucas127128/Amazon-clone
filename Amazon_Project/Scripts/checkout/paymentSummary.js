@@ -1,5 +1,5 @@
 import { Cart } from "../../data/cart.js";
-import { Products } from "../../data/products.js";
+import { Products, checkProductReady } from "../../data/products.js";
 import { getMatchingProduct } from "../../data/products.js";
 import { FormatCurrency } from "../Utils/Money.js";
 export function renderPaymentSummary() {
@@ -77,11 +77,5 @@ export function renderPaymentSummary() {
     `;
   paymentSummary.innerHTML = paymentSummaryHTML;
 }
-let checkProductReady = setInterval(() => {
-  if (Products === null) {
-    return;
-  } else if (Products[0].id === "e43638ce-6aa0-4b85-b27f-e1d07eb678c6") {
-    renderPaymentSummary();
-    clearInterval(checkProductReady);
-  }
-}, 200);
+checkProductReady(renderPaymentSummary)
+

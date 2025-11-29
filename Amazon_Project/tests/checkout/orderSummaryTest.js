@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
 import { Cart, RemoveFromCart } from "../../data/cart.js";
-import { Products } from "../../data/products.js";
+import { Products, checkProductReady } from "../../data/products.js";
 import { FormatCurrency } from "../../Scripts/Utils/Money.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import {
@@ -11,7 +11,8 @@ import {
 import { UpdateDeliveryOption } from "../../data/cart.js";
 import { getMatchingCart, getMatchingProduct } from "../../data/products.js";
 import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.js";
-describe("test suite: render order summary", () => {
+function runTestSuite(){
+  describe("test suite: render order summary", () => {
   beforeEach(() => {
     localStorage.setItem(
       "local_Storage_Cart",
@@ -29,7 +30,6 @@ describe("test suite: render order summary", () => {
       ])
     );
     let CheckoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
-    renderOrderSummary();
   });
 
   it("dispay the cart", () => {
@@ -85,3 +85,6 @@ describe("test suite: render order summary", () => {
     document.querySelector(".test-container").innerHTML = "";
   });
 });
+}
+checkProductReady(renderOrderSummary);
+checkProductReady(runTestSuite);

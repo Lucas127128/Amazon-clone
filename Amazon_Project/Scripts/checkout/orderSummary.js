@@ -1,5 +1,5 @@
 import { Cart, RemoveFromCart } from "../../data/cart.js";
-import { Products } from "../../data/products.js";
+import { Products, checkProductReady} from "../../data/products.js";
 import { FormatCurrency } from "../Utils/Money.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import {
@@ -206,12 +206,5 @@ export function renderOrderSummary() {
     });
   });
 }
-let checkProductReady = setInterval(() => {
-  if (Products === null) {
-    return;
-  } else if (Products[0].id === "e43638ce-6aa0-4b85-b27f-e1d07eb678c6") {
-    renderOrderSummary();
-    clearInterval(checkProductReady);
-  }
-}, 200);
+checkProductReady(renderOrderSummary);
 //renderOrderSummary();

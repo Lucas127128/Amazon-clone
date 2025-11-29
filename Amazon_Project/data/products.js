@@ -579,3 +579,13 @@ xhr.addEventListener("load", () => {
 });
 xhr.open("GET", "https://supersimplebackend.dev/products");
 xhr.send();
+export function checkProductReady(theFunction){
+  let checkProductReady = setInterval(() => {
+  if (Products === null) {
+    return;
+  } else if (Products[0].id === "e43638ce-6aa0-4b85-b27f-e1d07eb678c6") {
+    theFunction();
+    clearInterval(checkProductReady);
+  }
+}, 200);
+}

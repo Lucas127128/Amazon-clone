@@ -1,5 +1,5 @@
 import { Cart, Add_To_cart } from "../data/cart.js";
-import { Products } from "../data/products.js";
+import { Products,checkProductReady } from "../data/products.js";
 let ProductsHTML = "";
 function renderAmazonHomePage(){
 Products.forEach((products) => {
@@ -64,6 +64,9 @@ const ProductsGrid = document.querySelector(".products-grid");
 ProductsGrid.innerHTML = ProductsHTML;
 let AddToCartButton = document.querySelectorAll(".add-to-cart-button");
 let cart_Quantity = 0;
+if (localStorage.getItem("local_Storage_Cart")===null||localStorage.getItem("local_Storage_Cart")===undefined) {
+  localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
+}
 JSON.parse(localStorage.getItem("local_Storage_Cart")).forEach((value) => {
   cart_Quantity += value.Quantity;
 });
@@ -104,12 +107,4 @@ AddToCartButton.forEach((Button) => {
   });
 });
 }
-let checkProductReady = setInterval(()=>{
-  if(Products===null){
-    return;
-  } else if (Products[0].id==="e43638ce-6aa0-4b85-b27f-e1d07eb678c6"){
-    renderAmazonHomePage()
-    clearInterval(checkProductReady)
-    console.log(Products[0])
-  }
-},80)
+checkProductReady(renderAmazonHomePage)
