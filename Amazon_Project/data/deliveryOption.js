@@ -41,3 +41,14 @@ export function getDeliveryDate(DeliveryOptionId) {
   deliveryDate = deliveryDate.format("dddd, MMMM D");
   return deliveryDate;
 }
+
+export function getPriceString(priceCents, priceString) {
+  if (priceCents === 0) {
+      priceString = "FREE - ";
+    } else if (priceCents === 499) {
+      priceString = "$4.99 - ";
+    } else if (priceCents === 999) {
+      priceString = "$9.99 - ";
+    }
+    return priceString;
+}

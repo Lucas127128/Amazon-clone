@@ -1,9 +1,8 @@
-import { Cart } from "../../data/cart.js";
 import { Products, checkProductReady } from "../../data/products.js";
 import { getMatchingProduct } from "../../data/products.js";
-import { FormatCurrency } from "../Utils/Money.js";
+import { formatCurrency } from "../Utils/Money.js";
 export function renderPaymentSummary() {
-  let CheckoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
+  const CheckoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
@@ -28,11 +27,8 @@ export function renderPaymentSummary() {
   });
 
   const totalPriceBeforeTax = totalDeliveryFee + totalProductPrice;
-  console.log(totalPriceBeforeTax);
   const totalTax = totalPriceBeforeTax / 10;
-  console.log(totalTax);
   const totalOrderPrice = totalPriceBeforeTax + totalTax;
-  console.log(totalOrderPrice);
 
   const paymentSummaryHTML = `
     <div class="payment-summary-title">
@@ -40,33 +36,33 @@ export function renderPaymentSummary() {
         </div>
         <div class="payment-summary-row">
         <div>Items (${cartQuantity}):</div>
-        <div class="payment-summary-money">$${FormatCurrency(
+        <div class="payment-summary-money">$${formatCurrency(
           totalProductPrice
         )}</div>
         </div>
 
         <div class="payment-summary-row">
         <div>Shipping &amp; handling:</div>
-        <div class="payment-summary-money">$${FormatCurrency(
+        <div class="payment-summary-money">$${formatCurrency(
           totalDeliveryFee
         )}</div>
         </div>
 
         <div class="payment-summary-row subtotal-row">
         <div>Total before tax:</div>
-        <div class="payment-summary-money">$${FormatCurrency(
+        <div class="payment-summary-money">$${formatCurrency(
           totalPriceBeforeTax
         )}</div>
         </div>
 
         <div class="payment-summary-row">
         <div>Estimated tax (10%):</div>
-        <div class="payment-summary-money">$${FormatCurrency(totalTax)}</div>
+        <div class="payment-summary-money">$${formatCurrency(totalTax)}</div>
         </div>
 
         <div class="payment-summary-row total-row">
         <div>Order total:</div>
-        <div class="payment-summary-money">$${FormatCurrency(
+        <div class="payment-summary-money">$${formatCurrency(
           totalOrderPrice
         )}</div>
         </div>
@@ -78,4 +74,3 @@ export function renderPaymentSummary() {
   paymentSummary.innerHTML = paymentSummaryHTML;
 }
 checkProductReady(renderPaymentSummary)
-

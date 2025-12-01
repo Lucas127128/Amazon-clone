@@ -1,6 +1,6 @@
-import { Add_To_cart, Cart } from "../../data/cart.js";
+import { addToCart, Cart } from "../../data/cart.js";
 let cart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
-describe("test suite: Add_To_cart", () => {
+describe("test suite: addToCart", () => {
   it("add a new product to cart", () => {
     console.log(cart);
     //spyOn(localStorage, 'setItem')
@@ -9,7 +9,7 @@ describe("test suite: Add_To_cart", () => {
     //});
     cart = [];
     console.log(cart.length);
-    Add_To_cart("6b07d4e7-f540-454e-8a1e-363f25dbae7d", 4);
+    addToCart("6b07d4e7-f540-454e-8a1e-363f25dbae7d", 4);
     cart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
     console.log(cart.length);
     expect(cart.length).toEqual(1);
@@ -31,8 +31,10 @@ describe("test suite: Add_To_cart", () => {
         },
       ])
     );
-    Add_To_cart("6b07d4e7-f540-454e-8a1e-363f25dbae7d", 4);
+    console.log(JSON.parse(localStorage.getItem("local_Storage_Cart")))
+    addToCart("6b07d4e7-f540-454e-8a1e-363f25dbae7d", 4);
     cart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
+    console.log(cart)
     expect(cart.length).toEqual(1);
     expect(cart[0].ProductId).toEqual("6b07d4e7-f540-454e-8a1e-363f25dbae7d");
     expect(cart[0].Quantity).toEqual(8);

@@ -1,4 +1,4 @@
-import { FormatCurrency } from "../Scripts/Utils/Money.js";
+import { formatCurrency } from "../Scripts/Utils/Money.js";
 export function getMatchingCart(cart, productId) {
   let MatchingItem;
   cart.forEach((cartItem) => {
@@ -30,7 +30,7 @@ class Product {
   }
 
   getPrice() {
-    return `${FormatCurrency(this.priceCents)}`;
+    return `${formatCurrency(this.priceCents)}`;
   }
 
   extraInfoHTML() {
@@ -73,8 +73,6 @@ const tshirt = new Clothing({
   type: "clothing",
   sizeChartLink: "images/clothing-size-chart.png",
 });
-console.log(JSON.stringify(tshirt));
-console.log(tshirt.getPrice());
 
 const product1 = new Product({
   id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",

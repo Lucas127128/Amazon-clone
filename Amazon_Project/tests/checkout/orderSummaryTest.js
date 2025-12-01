@@ -1,14 +1,14 @@
 import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
-import { Cart, RemoveFromCart } from "../../data/cart.js";
+import { Cart, removeFromCart } from "../../data/cart.js";
 import { Products, checkProductReady } from "../../data/products.js";
-import { FormatCurrency } from "../../Scripts/Utils/Money.js";
+import { formatCurrency } from "../../Scripts/Utils/Money.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import {
   deliveryOption,
   getDeliveryDate,
   addWeekDays,
 } from "../../data/deliveryOption.js";
-import { UpdateDeliveryOption } from "../../data/cart.js";
+import { updateDeliveryOption } from "../../data/cart.js";
 import { getMatchingCart, getMatchingProduct } from "../../data/products.js";
 import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.js";
 function runTestSuite(){
@@ -32,7 +32,7 @@ function runTestSuite(){
     let CheckoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
   });
 
-  it("dispay the cart", () => {
+  it("display the cart", () => {
     let CheckoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
     const productId1 = CheckoutCart[0].ProductId;
     const productId2 = CheckoutCart[1].ProductId;

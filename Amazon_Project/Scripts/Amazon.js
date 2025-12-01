@@ -1,4 +1,4 @@
-import { Cart, Add_To_cart } from "../data/cart.js";
+import { Cart, addToCart } from "../data/cart.js";
 import { Products,checkProductReady } from "../data/products.js";
 let ProductsHTML = "";
 function renderAmazonHomePage(){
@@ -57,53 +57,50 @@ Products.forEach((products) => {
         </div>
     `;
 });
-const cartQuantity = document.querySelector(".cart-quantity");
-let ProductQuantity = 0;
-let ProductId = "";
-const ProductsGrid = document.querySelector(".products-grid");
-ProductsGrid.innerHTML = ProductsHTML;
-let AddToCartButton = document.querySelectorAll(".add-to-cart-button");
-let cart_Quantity = 0;
+const cartQuantityHTML = document.querySelector(".cart-quantity");
+const productsGrid = document.querySelector(".products-grid");
+productsGrid.innerHTML = ProductsHTML;
+const addToCartButton = document.querySelectorAll(".add-to-cart-button");
+let cartQuantity = 0;
 if (localStorage.getItem("local_Storage_Cart")===null||localStorage.getItem("local_Storage_Cart")===undefined) {
   localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
 }
 JSON.parse(localStorage.getItem("local_Storage_Cart")).forEach((value) => {
-  cart_Quantity += value.Quantity;
+  cartQuantity += value.Quantity;
 });
-cartQuantity.innerHTML = cart_Quantity;
-function Display_Cart_Quantity(
-  CartQuantityP,
-  cartQuantityP,
-  QuantitySelectorP
+cartQuantityHTML.innerHTML = cartQuantity;
+function displayCartQuantity(
+  CartQuantity,
+  CartQuantityHTML,
+  QuantitySelectorHTML
 ) {
+  let cartQuantity = CartQuantity;
   Cart.forEach((cartItem) => {
-    CartQuantityP += cartItem.Quantity;
-    console.log(cartItem.Quantity);
-    QuantitySelectorP.value = cartItem.Quantity;
+    QuantitySelectorHTML.value = cartItem.Quantity;
+    cartQuantity+=cartItem.Quantity
   });
-  cartQuantityP.innerHTML = CartQuantityP;
+  CartQuantityHTML.innerHTML = cartQuantity;
 }
-function Display_Added() {
-  const Added_To_Cart = document.querySelector(`.added-to-cart-${ProductId}`);
-  Added_To_Cart.classList.add("display-added-to-cart");
+function displayAdded(ProductId) {
+  const addedToCart = document.querySelector(`.added-to-cart-${ProductId}`);
+  addedToCart.classList.add("display-added-to-cart");
   setTimeout(() => {
-    Added_To_Cart.classList.remove("display-added-to-cart");
+    addedToCart.classList.remove("display-added-to-cart");
   }, 1500);
 }
-AddToCartButton.forEach((Button) => {
-  Button.addEventListener("click", () => {
-    ProductId = Button.dataset.productId;
+addToCartButton.forEach((button) => {
+  button.addEventListener("click", () => {
     clearTimeout();
-    let ProductContainer = Button.closest(".product-container");
-    let QuantitySelector = ProductContainer.querySelector(
+    const productId = button.dataset.productId;
+    const productContainer = button.closest(".product-container");
+    const quantitySelectorHTML = productContainer.querySelector(
       ".ProductQuantitySelector"
     );
-    let QuantityToAdd = parseInt(QuantitySelector.value);
-    let CartQuantity = 0;
-    Add_To_cart(ProductId, QuantityToAdd);
-    console.log(Cart);
-    Display_Cart_Quantity(CartQuantity, cartQuantity, QuantitySelector);
-    Display_Added();
+    const quantityToAdd = parseInt(quantitySelectorHTML.value);
+    const cartQuantity = 0;
+    addToCart(productId, quantityToAdd);
+    displayCartQuantity(cartQuantity, cartQuantityHTML, quantitySelectorHTML);
+    displayAdded(productId);
   });
 });
 }
