@@ -565,25 +565,19 @@ export const Products = [
 });
 */
 export let Products = [];
-const xhr = new XMLHttpRequest();
-xhr.addEventListener("load", () => {
-  Products = JSON.parse(xhr.response).map((productDetails) => {
-    if (productDetails.type === "clothing") {
-      return new Clothing(productDetails);
-    }
-    return new Product(productDetails);
-  });
-  console.log(Products[0]);
-});
-xhr.open("GET", "https://supersimplebackend.dev/products");
-xhr.send();
-export function checkProductReady(theFunction){
-  let checkProductReady = setInterval(() => {
-  if (Products === null) {
-    return;
-  } else if (Products[0].id === "e43638ce-6aa0-4b85-b27f-e1d07eb678c6") {
+
+export function getProducts(theFunction) {
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener("load", () => {
+    Products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === "clothing") {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
     theFunction();
-    clearInterval(checkProductReady);
-  }
-}, 200);
+  });
+
+  xhr.open("GET", "https://supersimplebackend.dev/products");
+  xhr.send();
 }

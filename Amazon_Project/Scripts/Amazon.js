@@ -1,9 +1,9 @@
 import { Cart, addToCart } from "../data/cart.js";
-import { Products,checkProductReady } from "../data/products.js";
+import { Products, getProducts } from "../data/products.js";
 let ProductsHTML = "";
-function renderAmazonHomePage(){
-Products.forEach((products) => {
-  ProductsHTML += `
+function renderAmazonHomePage() {
+  Products.forEach((products) => {
+    ProductsHTML += `
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
@@ -56,52 +56,64 @@ Products.forEach((products) => {
             </div>
         </div>
     `;
-});
-const cartQuantityHTML = document.querySelector(".cart-quantity");
-const productsGrid = document.querySelector(".products-grid");
-productsGrid.innerHTML = ProductsHTML;
-const addToCartButton = document.querySelectorAll(".add-to-cart-button");
-let cartQuantity = 0;
-if (localStorage.getItem("local_Storage_Cart")===null||localStorage.getItem("local_Storage_Cart")===undefined) {
-  localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
-}
-JSON.parse(localStorage.getItem("local_Storage_Cart")).forEach((value) => {
-  cartQuantity += value.Quantity;
-});
-cartQuantityHTML.innerHTML = cartQuantity;
-function displayCartQuantity(
-  CartQuantity,
-  CartQuantityHTML,
-  QuantitySelectorHTML
-) {
-  let cartQuantity = CartQuantity;
-  Cart.forEach((cartItem) => {
-    QuantitySelectorHTML.value = cartItem.Quantity;
-    cartQuantity+=cartItem.Quantity
   });
-  CartQuantityHTML.innerHTML = cartQuantity;
+  const cartQuantityHTML = document.querySelector(".cart-quantity");
+  const productsGrid = document.querySelector(".products-grid");
+  productsGrid.innerHTML = ProductsHTML;
+  const addToCartButton = document.querySelectorAll(".add-to-cart-button");
+  let cartQuantity = 0;
+  if (
+    localStorage.getItem("local_Storage_Cart") === null ||
+    localStorage.getItem("local_Storage_Cart") === undefined
+  ) {
+    localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
+  }
+  JSON.parse(localStorage.getItem("local_Storage_Cart")).forEach((value) => {
+    cartQuantity += value.Quantity;
+  });
+  cartQuantityHTML.innerHTML = cartQuantity;
+  function displayCartQuantity(
+    CartQuantity,
+    CartQuantityHTML,
+    QuantitySelectorHTML
+  ) {
+    let cartQuantity = CartQuantity;
+    Cart.forEach((cartItem) => {
+      QuantitySelectorHTML.value = cartItem.Quantity;
+      cartQuantity += cartItem.Quantity;
+    });
+    CartQuantityHTML.innerHTML = cartQuantity;
+  }
+  function displayAdded(ProductId) {
+    const addedToCart = document.querySelector(`.added-to-cart-${ProductId}`);
+    addedToCart.classList.add("display-added-to-cart");
+    setTimeout(() => {
+      addedToCart.classList.remove("display-added-to-cart");
+    }, 1500);
+  }
+  addToCartButton.forEach((button) => {
+    button.addEventListener("click", () => {
+      clearTimeout();
+      const productId = button.dataset.productId;
+      const productContainer = button.closest(".product-container");
+      const quantitySelectorHTML = productContainer.querySelector(
+        ".ProductQuantitySelector"
+      );
+      const quantityToAdd = parseInt(quantitySelectorHTML.value);
+      const cartQuantity = 0;
+      addToCart(productId, quantityToAdd);
+      displayCartQuantity(cartQuantity, cartQuantityHTML, quantitySelectorHTML);
+      displayAdded(productId);
+    });
+  });
 }
-function displayAdded(ProductId) {
-  const addedToCart = document.querySelector(`.added-to-cart-${ProductId}`);
-  addedToCart.classList.add("display-added-to-cart");
-  setTimeout(() => {
-    addedToCart.classList.remove("display-added-to-cart");
-  }, 1500);
-}
-addToCartButton.forEach((button) => {
-  button.addEventListener("click", () => {
-    clearTimeout();
-    const productId = button.dataset.productId;
-    const productContainer = button.closest(".product-container");
-    const quantitySelectorHTML = productContainer.querySelector(
-      ".ProductQuantitySelector"
-    );
-    const quantityToAdd = parseInt(quantitySelectorHTML.value);
-    const cartQuantity = 0;
-    addToCart(productId, quantityToAdd);
-    displayCartQuantity(cartQuantity, cartQuantityHTML, quantitySelectorHTML);
-    displayAdded(productId);
+new Promise((resolve) => {
+  getProducts(() => {
+    resolve();
+  });
+}).then(() => {
+  return new Promise((resolve) => {
+    renderAmazonHomePage();
+    resolve();
   });
 });
-}
-checkProductReady(renderAmazonHomePage)

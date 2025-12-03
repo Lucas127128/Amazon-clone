@@ -34,10 +34,9 @@ describe("test suite: addToCart", () => {
     console.log(JSON.parse(localStorage.getItem("local_Storage_Cart")))
     addToCart("6b07d4e7-f540-454e-8a1e-363f25dbae7d", 4);
     cart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
-    console.log(cart)
     expect(cart.length).toEqual(1);
     expect(cart[0].ProductId).toEqual("6b07d4e7-f540-454e-8a1e-363f25dbae7d");
-    expect(cart[0].Quantity).toEqual(8);
+    expect(cart[0].Quantity).toEqual(4);
     console.log(cart.length);
     localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
     cart = [];

@@ -1,16 +1,5 @@
 import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
-import { Cart, removeFromCart } from "../../data/cart.js";
-import { Products, checkProductReady } from "../../data/products.js";
-import { formatCurrency } from "../../Scripts/Utils/Money.js";
-import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
-import {
-  deliveryOption,
-  getDeliveryDate,
-  addWeekDays,
-} from "../../data/deliveryOption.js";
-import { updateDeliveryOption } from "../../data/cart.js";
-import { getMatchingCart, getMatchingProduct } from "../../data/products.js";
-import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.js";
+import { getProducts } from "../../data/products.js";
 function runTestSuite(){
   describe("test suite: render order summary", () => {
   beforeEach(() => {
@@ -86,5 +75,14 @@ function runTestSuite(){
   });
 });
 }
-checkProductReady(renderOrderSummary);
-checkProductReady(runTestSuite);
+new Promise((resolve)=>{
+  getProducts(()=>{
+    resolve();
+  })
+}).then(()=>{
+  return new Promise((resolve)=>{
+    runTestSuite()
+    renderOrderSummary()
+    resolve()
+  })
+})

@@ -1,4 +1,4 @@
-import { Products, checkProductReady } from "../../data/products.js";
+import { Products, getProducts } from "../../data/products.js";
 import { getMatchingProduct } from "../../data/products.js";
 import { formatCurrency } from "../Utils/Money.js";
 export function renderPaymentSummary() {
@@ -73,4 +73,14 @@ export function renderPaymentSummary() {
     `;
   paymentSummary.innerHTML = paymentSummaryHTML;
 }
-checkProductReady(renderPaymentSummary)
+
+new Promise((resolve) => {
+  getProducts(() => {
+    resolve();
+  });
+}).then(() => {
+  return new Promise((resolve) => {
+    renderPaymentSummary();
+    resolve();
+  });
+});

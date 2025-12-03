@@ -1,9 +1,5 @@
 import { removeFromCart, addToCart, getCart } from "../../data/cart.js";
-import {
-  Products,
-  checkProductReady,
-  getMatchingCart,
-} from "../../data/products.js";
+import { Products, getMatchingCart, getProducts } from "../../data/products.js";
 import {
   deliveryOption,
   getDeliveryDate,
@@ -177,5 +173,15 @@ export function renderOrderSummary() {
     return html;
   }
 }
-checkProductReady(renderOrderSummary);
+
+new Promise((resolve) => {
+  getProducts(() => {
+    resolve();
+  });
+}).then(() => {
+  return new Promise((resolve) => {
+    renderOrderSummary();
+    resolve();
+  });
+});
 //renderOrderSummary();
