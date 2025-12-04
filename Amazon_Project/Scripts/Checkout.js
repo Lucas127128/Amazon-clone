@@ -1,20 +1,11 @@
-import { getProducts } from "../data/products.js";
+import { getProducts, fetchProducts } from "../data/products.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 
-new Promise((resolve) => {
-  getProducts(() => {
-    resolve("value1");
-  });
-}).then((value) => {
-  return new Promise((resolve) => {
-    console.log(value)
-    renderOrderSummary();
-    renderPaymentSummary();
-    resolve();
-  });
-});
-
+fetchProducts().then(()=>{
+  renderOrderSummary();
+  renderPaymentSummary();
+})
 // Promise.all([
 //   new Promise((resolve) => {
 //     getProducts(() => {
@@ -26,4 +17,3 @@ new Promise((resolve) => {
 //     resolve();
 //   })
 // ])
-console.log("")

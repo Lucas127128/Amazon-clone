@@ -1,5 +1,5 @@
 import { Cart, addToCart } from "../data/cart.js";
-import { Products, getProducts } from "../data/products.js";
+import { Products, fetchProducts } from "../data/products.js";
 let ProductsHTML = "";
 function renderAmazonHomePage() {
   Products.forEach((products) => {
@@ -107,13 +107,7 @@ function renderAmazonHomePage() {
     });
   });
 }
-new Promise((resolve) => {
-  getProducts(() => {
-    resolve();
-  });
-}).then(() => {
-  return new Promise((resolve) => {
-    renderAmazonHomePage();
-    resolve();
-  });
-});
+
+fetchProducts().then(()=>{
+  renderAmazonHomePage()
+})

@@ -566,18 +566,18 @@ export const Products = [
 */
 export let Products = [];
 
-export function getProducts(theFunction) {
-  const xhr = new XMLHttpRequest();
-  xhr.addEventListener("load", () => {
-    Products = JSON.parse(xhr.response).map((productDetails) => {
-      if (productDetails.type === "clothing") {
-        return new Clothing(productDetails);
-      }
-      return new Product(productDetails);
+export function fetchProducts() {
+  const promise = fetch("https://supersimplebackend.dev/products")
+    .then((response) => {
+      return response.json();
+    })
+    .then((productsData) => {
+      Products = productsData.map((productDetails) => {
+        if (productDetails.type === "clothing") {
+          return new Clothing(productDetails);
+        }
+        return new Product(productDetails);
+      });
     });
-    theFunction();
-  });
-
-  xhr.open("GET", "https://supersimplebackend.dev/products");
-  xhr.send();
+    return promise;
 }
