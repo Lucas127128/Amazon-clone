@@ -78,7 +78,9 @@ function runTestSuite() {
   });
 }
 
-fetchProducts().then(() => {
+async function loadPage() {
+  await fetchProducts();
   runTestSuite();
-  renderOrderSummary();
-});
+  renderPaymentSummary();
+}
+loadPage();

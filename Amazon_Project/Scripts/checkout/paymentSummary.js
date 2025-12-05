@@ -74,6 +74,8 @@ export function renderPaymentSummary() {
   paymentSummary.innerHTML = paymentSummaryHTML;
 }
 
-fetchProducts(()=>{
-  renderPaymentSummary
-})
+async function loadPage() {
+  await fetchProducts();
+  renderPaymentSummary();
+}
+loadPage();

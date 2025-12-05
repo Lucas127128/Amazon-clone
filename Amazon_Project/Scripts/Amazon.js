@@ -108,6 +108,8 @@ function renderAmazonHomePage() {
   });
 }
 
-fetchProducts().then(()=>{
-  renderAmazonHomePage()
-})
+async function loadPage() {
+  await fetchProducts();
+  renderAmazonHomePage();
+}
+loadPage();

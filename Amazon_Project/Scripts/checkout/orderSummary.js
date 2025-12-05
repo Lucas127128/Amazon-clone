@@ -174,7 +174,9 @@ export function renderOrderSummary() {
   }
 }
 
-fetchProducts().then(()=>{
-  renderOrderSummary
-})
+async function loadPage() {
+  await fetchProducts();
+  renderOrderSummary();
+}
+loadPage();
 //renderOrderSummary();
