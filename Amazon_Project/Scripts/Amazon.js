@@ -7,7 +7,7 @@ function renderAmazonHomePage() {
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
-                src="${products.image}">
+                src="${"./Amazon_Project/"+products.image}">
             </div>
 
             <div class="product-name limit-text-to-2-lines">
@@ -45,7 +45,7 @@ function renderAmazonHomePage() {
             <div class="product-spacer"></div>
 
             <div class="added-to-cart added-to-cart-${products.id}">
-                <img src="images/icons/checkmark.png">
+                <img src="./Amazon_Project/images/icons/checkmark.png">
                 Added
             </div>
 

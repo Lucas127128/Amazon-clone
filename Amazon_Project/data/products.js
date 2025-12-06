@@ -26,7 +26,7 @@ class Product {
     this.priceCents = productDetails.priceCents;
   }
   getStarsUrl() {
-    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+    return `./Amazon_Project/images/ratings/rating-${this.rating.stars * 10}.png`;
   }
 
   getPrice() {
@@ -48,7 +48,7 @@ class Clothing extends Product {
 
   constructor(productDetails) {
     super(productDetails);
-    this.sizeChartLink = productDetails.sizeChartLink;
+    this.sizeChartLink = "./Amazon_Project/"+productDetails.sizeChartLink;
   }
 
   extraInfoHTML() {
@@ -573,6 +573,7 @@ export function fetchProducts() {
     })
     .then((productsData) => {
       Products = productsData.map((productDetails) => {
+        //productDetails.image="./Amazon_Project/"+productDetails.image
         if (productDetails.type === "clothing") {
           return new Clothing(productDetails);
         }
