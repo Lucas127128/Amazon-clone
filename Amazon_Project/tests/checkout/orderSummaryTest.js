@@ -79,8 +79,12 @@ function runTestSuite() {
 }
 
 async function loadPage() {
-  await fetchProducts();
-  runTestSuite();
-  renderPaymentSummary();
+  try {
+    await fetchProducts();
+    renderOrderSummary();
+    runTestSuite();
+  } catch(error) {
+    console.log(`unexpected network error: ${error}`);
+  }
 }
 loadPage();

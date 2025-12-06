@@ -175,8 +175,12 @@ export function renderOrderSummary() {
 }
 
 async function loadPage() {
-  await fetchProducts();
-  renderOrderSummary();
+  try {
+    await fetchProducts();
+    renderOrderSummary();
+  } catch(error) {
+    console.log(`unexpected network error: ${error}`);
+  }
 }
 loadPage();
 //renderOrderSummary();

@@ -3,9 +3,14 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 
 async function loadPage() {
-  await fetchProducts();
-  renderOrderSummary();
-  renderPaymentSummary();
+  try {
+    //throw "error";
+    await fetchProducts();
+    renderOrderSummary();
+    renderPaymentSummary();
+  } catch (error) {
+    console.log(`unexpected network error: ${error}`);
+  }
 }
 loadPage();
 // Promise.all([

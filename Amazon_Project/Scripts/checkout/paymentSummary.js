@@ -75,7 +75,11 @@ export function renderPaymentSummary() {
 }
 
 async function loadPage() {
-  await fetchProducts();
-  renderPaymentSummary();
+  try {
+      await fetchProducts();
+      renderPaymentSummary();
+    } catch(error) {
+      console.log(`unexpected network error: ${error}`);
+    }
 }
 loadPage();

@@ -109,7 +109,11 @@ function renderAmazonHomePage() {
 }
 
 async function loadPage() {
-  await fetchProducts();
-  renderAmazonHomePage();
+  try {
+      await fetchProducts();
+      renderAmazonHomePage();
+    } catch(error) {
+      console.log(`unexpected network error: ${error}`);
+    }
 }
 loadPage();

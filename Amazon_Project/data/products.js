@@ -578,6 +578,6 @@ export function fetchProducts() {
         }
         return new Product(productDetails);
       });
-    });
+    })
     return promise;
 }
