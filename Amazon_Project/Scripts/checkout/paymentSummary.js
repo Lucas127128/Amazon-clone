@@ -1,6 +1,7 @@
 import { Products, fetchProducts } from "../../data/products.js";
 import { getMatchingProduct } from "../../data/products.js";
 import { formatCurrency } from "../Utils/Money.js";
+import { addToOrders } from "../../data/orders.js";
 export function renderPaymentSummary() {
   const CheckoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
   let totalProductPrice = 0;
@@ -72,14 +73,43 @@ export function renderPaymentSummary() {
         </button>
     `;
   paymentSummary.innerHTML = paymentSummaryHTML;
+
+  const checkoutCart = CheckoutCart;
+  checkoutCart.map((cartItem) => {
+    cartItem.productId = cartItem.ProductId;
+    cartItem.quantity = cartItem.Quantity;
+    delete cartItem.Quantity;
+    delete cartItem.ProductId;
+    return cartItem;
+  });
+  const placeOrderHTML = document.querySelector(".place-order-button");
+  placeOrderHTML.addEventListener("click", async () => {
+    try {
+      const response = await fetch("https://supersimplebackend.dev/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: CheckoutCart,
+      }),
+    });
+    const order = await response.json();
+    localStorage.setItem("orders", JSON.stringify(order));
+    addToOrders(order);
+    } catch(error) {
+      console.log("Unexpected network issue: ")
+    }
+    location.href="/Amazon_Project/orders.html"
+  });
 }
 
 async function loadPage() {
   try {
-      await fetchProducts();
-      renderPaymentSummary();
-    } catch(error) {
-      console.log(`unexpected network error: ${error}`);
-    }
+    await fetchProducts();
+    renderPaymentSummary();
+  } catch (error) {
+    console.log(`unexpected network error: ${error}`);
+  }
 }
 loadPage();
