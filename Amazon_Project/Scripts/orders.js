@@ -3,22 +3,26 @@ import {
   getMatchingProduct,
   fetchProducts,
 } from "../data/products.js";
+import { formatCurrency } from "./Utils/Money.js";
 function renderPlacedOrder() {
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
   console.log(orders);
   const ordersHTML = document.querySelector(".orders-grid");
   orders.forEach((order) => {
+    const ISOOrderTime = order.orderTime;
+    const orderTime = new Date(ISOOrderTime).toLocaleDateString();
+
     const placedOrderContainerHTML = `
           <div class="order-container order-container-${order.id}">
           <div class="order-header">
                 <div class="order-header-left-section">
                   <div class="order-date">
-                    <div class="order-header-label">Order Placed:${order.orderTime}</div>
+                    <div class="order-header-label">Order Placed:${orderTime}</div>
                     <div></div>
                   </div>
                   <div class="order-total">
                     <div class="order-header-label">Total:</div>
-                    <div>$35.06</div>
+                    <div>$${formatCurrency(order.totalCostCents)}</div>
                   </div>
                 </div>
 
@@ -34,7 +38,8 @@ function renderPlacedOrder() {
     ordersHTML.innerHTML += placedOrderContainerHTML;
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(Products, product.productId);
-      console.log(matchingProduct);
+      const ISOdeliveryDate = product.estimatedDeliveryTime;
+      const deliveryDate = new Date(ISOdeliveryDate).toLocaleDateString();
       const orderDetail = document.querySelector(
         `.order-details-grid-${order.id}`
       );
@@ -47,7 +52,7 @@ function renderPlacedOrder() {
                   <div class="product-name">
                     ${matchingProduct.name}
                   </div>
-                  <div class="product-delivery-date">Arriving on: August 15</div>
+                  <div class="product-delivery-date">Arriving on: ${deliveryDate}</div>
                   <div class="product-quantity">Quantity: ${product.quantity}</div>
                   <button class="buy-again-button button-primary">
                     <img class="buy-again-icon" src="images/icons/buy-again.png" />
