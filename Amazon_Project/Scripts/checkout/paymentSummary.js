@@ -97,6 +97,7 @@ export function renderPaymentSummary() {
     const order = await response.json();
     localStorage.setItem("orders", JSON.stringify(order));
     addToOrders(order);
+    localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
     } catch(error) {
       console.log("Unexpected network issue: ")
     }
