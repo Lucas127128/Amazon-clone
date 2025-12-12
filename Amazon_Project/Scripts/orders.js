@@ -10,14 +10,19 @@ function renderPlacedOrder() {
   const ordersHTML = document.querySelector(".orders-grid");
   orders.forEach((order) => {
     const ISOOrderTime = order.orderTime;
-    const orderTime = new Date(ISOOrderTime).toLocaleDateString();
+    const format = {
+      weekday: 'long', 
+      month: 'long',   
+      day: 'numeric'   
+    };
+    const orderTime = new Date(ISOOrderTime).toLocaleDateString('en-US', format);
 
     const placedOrderContainerHTML = `
           <div class="order-container order-container-${order.id}">
           <div class="order-header">
                 <div class="order-header-left-section">
                   <div class="order-date">
-                    <div class="order-header-label">Order Placed:${orderTime}</div>
+                    <div class="order-header-label">Order Placed: ${orderTime}</div>
                     <div></div>
                   </div>
                   <div class="order-total">
@@ -39,7 +44,12 @@ function renderPlacedOrder() {
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(Products, product.productId);
       const ISOdeliveryDate = product.estimatedDeliveryTime;
-      const deliveryDate = new Date(ISOdeliveryDate).toLocaleDateString();
+      const format = {
+        weekday: 'long', 
+        month: 'long',   
+        day: 'numeric'   
+      };
+      const deliveryDate = new Date(ISOdeliveryDate).toLocaleDateString('en-US', format);
       const orderDetail = document.querySelector(
         `.order-details-grid-${order.id}`
       );
@@ -61,7 +71,7 @@ function renderPlacedOrder() {
                 </div>
 
                 <div class="product-actions">
-                  <a href="tracking.html?orderId=123&productId=456">
+                  <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
                     <button class="track-package-button button-secondary">
                       Track package
                     </button>
