@@ -218,3 +218,17 @@
     padding: 12px;
   }
 }
+.display-buy-again-success {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.buy-again-success {
+  opacity: 0;
+  display: none ;
+}
+
+.hide-buy-again-message {
+  opacity: 0;
+  display: none;
+}

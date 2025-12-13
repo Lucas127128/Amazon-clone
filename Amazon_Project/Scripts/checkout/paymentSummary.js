@@ -16,15 +16,15 @@ export function renderPaymentSummary() {
   });
 
   CheckoutCart.forEach((cartItem) => {
-    let delivery_Fee = 0;
+    let deliveryFee = 0;
     if (cartItem.deliveryOptionId === "1") {
-      delivery_Fee = 0;
+      deliveryFee = 0;
     } else if (cartItem.deliveryOptionId === "2") {
-      delivery_Fee = 499;
+      deliveryFee = 499;
     } else if (cartItem.deliveryOptionId === "3") {
-      delivery_Fee = 999;
+      deliveryFee = 999;
     }
-    totalDeliveryFee += delivery_Fee;
+    totalDeliveryFee += deliveryFee;
   });
 
   const totalPriceBeforeTax = totalDeliveryFee + totalProductPrice;
@@ -91,7 +91,7 @@ export function renderPaymentSummary() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        cart: CheckoutCart,
+        cart: checkoutCart,
       }),
     });
     const order = await response.json();

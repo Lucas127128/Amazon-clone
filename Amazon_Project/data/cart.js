@@ -11,17 +11,18 @@ export let Cart = [
 }*/
 ];
 export function addToCart(productId, quantityToAdd) {
-  const MatchingItem = getMatchingCart(Cart, productId)
+  let cart = JSON.parse(localStorage.getItem("local_Storage_Cart"))||[];
+  const MatchingItem = getMatchingCart(cart, productId);
   if (MatchingItem) {
     MatchingItem.Quantity = quantityToAdd;
   } else {
-    Cart.push({
+    cart.push({
       ProductId: productId,
       Quantity: quantityToAdd,
       deliveryOptionId: "1",
     });
   }
-  localStorage.setItem("local_Storage_Cart", JSON.stringify(Cart));
+  localStorage.setItem("local_Storage_Cart", JSON.stringify(cart));
 }
 
 export function removeFromCart(productId) {
@@ -62,4 +63,14 @@ export function getCart(cart) {
     cart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
   }
   return cart;
+}
+
+export function displayCartQuantity() {
+  let cartQuantity = 0;
+  const cartQuantityHTML = document.querySelector(".cart-quantity");
+  const cart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.Quantity;
+  });
+  cartQuantityHTML.innerHTML = cartQuantity;
 }

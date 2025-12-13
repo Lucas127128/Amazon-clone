@@ -4,20 +4,15 @@ import {
   fetchProducts,
 } from "../data/products.js";
 import { formatCurrency } from "./Utils/Money.js";
+import { addToCart, displayCartQuantity } from "../data/cart.js";
+import { getTimeString } from "../data/orders.js";
 function renderPlacedOrder() {
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  console.log(orders);
   const ordersHTML = document.querySelector(".orders-grid");
   orders.forEach((order) => {
-    const ISOOrderTime = order.orderTime;
-    const format = {
-      weekday: 'long', 
-      month: 'long',   
-      day: 'numeric'   
-    };
-    const orderTime = new Date(ISOOrderTime).toLocaleDateString('en-US', format);
-
-    const placedOrderContainerHTML = `
+    const orderTime = getTimeString(order.orderTime);
+    let placedOrderContainerHTML = "";
+    placedOrderContainerHTML += `
           <div class="order-container order-container-${order.id}">
           <div class="order-header">
                 <div class="order-header-left-section">
@@ -40,20 +35,15 @@ function renderPlacedOrder() {
               </div>
           </div>
     `;
-    ordersHTML.innerHTML += placedOrderContainerHTML;
+    ordersHTML.innerHTML = placedOrderContainerHTML;
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(Products, product.productId);
-      const ISOdeliveryDate = product.estimatedDeliveryTime;
-      const format = {
-        weekday: 'long', 
-        month: 'long',   
-        day: 'numeric'   
-      };
-      const deliveryDate = new Date(ISOdeliveryDate).toLocaleDateString('en-US', format);
+      const deliveryDate = getTimeString(product.estimatedDeliveryTime);
       const orderDetail = document.querySelector(
         `.order-details-grid-${order.id}`
       );
-      const placedOrderHTML = `
+      let placedOrderHTML = "";
+      placedOrderHTML = `
                 <div class="product-image-container">
                   <img src="${matchingProduct.image}" />
                 </div>
@@ -64,9 +54,10 @@ function renderPlacedOrder() {
                   </div>
                   <div class="product-delivery-date">Arriving on: ${deliveryDate}</div>
                   <div class="product-quantity">Quantity: ${product.quantity}</div>
-                  <button class="buy-again-button button-primary">
+                  <button class="buy-again-button button-primary" data-product-id="${product.productId}">
                     <img class="buy-again-icon" src="images/icons/buy-again.png" />
-                    <span class="buy-again-message">Buy it again</span>
+                    <span class="buy-again-message buy-again-message-${product.productId}">Buy it again</span>
+                    <span class="buy-again-success buy-again-success-${product.productId}">✓ Added</span>
                   </button>
                 </div>
 
@@ -81,6 +72,32 @@ function renderPlacedOrder() {
       orderDetail.innerHTML += placedOrderHTML;
     });
   });
+  const buyAgainButtons = document.querySelectorAll(".buy-again-button");
+      buyAgainButtons.forEach((buyAgainButton) => {
+        const productId = buyAgainButton.dataset.productId;
+        buyAgainButton.addEventListener("click", () => {
+          let productQuantity =
+            JSON.parse(localStorage.getItem(`${productId}-productQuantity`)) ||
+            0;
+          productQuantity += 1;
+          localStorage.setItem(`${productId}-productQuantity`, productQuantity);
+          addToCart(productId, productQuantity);
+          const buyAgainSuccessHTML = document.querySelector(
+            `.buy-again-success-${productId}`
+          );
+          const buyAgainMessageHTML = document.querySelector(
+            `.buy-again-message-${productId}`
+          );
+          buyAgainSuccessHTML.classList.add("display-buy-again-success");
+          buyAgainMessageHTML.classList.add("hide-buy-again-message");
+          displayCartQuantity()
+          setTimeout(() => {
+            buyAgainSuccessHTML.classList.remove("display-buy-again-success");
+            buyAgainMessageHTML.classList.remove("hide-buy-again-message");
+          }, 1500);
+        });
+      });
+  displayCartQuantity();
 }
 
 async function loadPage() {

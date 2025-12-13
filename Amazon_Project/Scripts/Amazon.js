@@ -1,4 +1,4 @@
-import { Cart, addToCart } from "../data/cart.js";
+import { addToCart, displayCartQuantity } from "../data/cart.js";
 import { Products, fetchProducts } from "../data/products.js";
 let ProductsHTML = "";
 function renderAmazonHomePage() {
@@ -7,7 +7,7 @@ function renderAmazonHomePage() {
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
-                src="${"./Amazon_Project/"+products.image}">
+                src="${"./Amazon_Project/" + products.image}">
             </div>
 
             <div class="product-name limit-text-to-2-lines">
@@ -57,33 +57,8 @@ function renderAmazonHomePage() {
         </div>
     `;
   });
-  const cartQuantityHTML = document.querySelector(".cart-quantity");
   const productsGrid = document.querySelector(".products-grid");
   productsGrid.innerHTML = ProductsHTML;
-  const addToCartButton = document.querySelectorAll(".add-to-cart-button");
-  let cartQuantity = 0;
-  if (
-    localStorage.getItem("local_Storage_Cart") === null ||
-    localStorage.getItem("local_Storage_Cart") === undefined
-  ) {
-    localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
-  }
-  JSON.parse(localStorage.getItem("local_Storage_Cart")).forEach((value) => {
-    cartQuantity += value.Quantity;
-  });
-  cartQuantityHTML.innerHTML = cartQuantity;
-  function displayCartQuantity(
-    CartQuantity,
-    CartQuantityHTML,
-    QuantitySelectorHTML
-  ) {
-    let cartQuantity = CartQuantity;
-    Cart.forEach((cartItem) => {
-      QuantitySelectorHTML.value = cartItem.Quantity;
-      cartQuantity += cartItem.Quantity;
-    });
-    CartQuantityHTML.innerHTML = cartQuantity;
-  }
   function displayAdded(ProductId) {
     const addedToCart = document.querySelector(`.added-to-cart-${ProductId}`);
     addedToCart.classList.add("display-added-to-cart");
@@ -91,18 +66,17 @@ function renderAmazonHomePage() {
       addedToCart.classList.remove("display-added-to-cart");
     }, 1500);
   }
+  const addToCartButton = document.querySelectorAll(".add-to-cart-button");
   addToCartButton.forEach((button) => {
     button.addEventListener("click", () => {
-      clearTimeout();
       const productId = button.dataset.productId;
       const productContainer = button.closest(".product-container");
       const quantitySelectorHTML = productContainer.querySelector(
         ".ProductQuantitySelector"
       );
       const quantityToAdd = parseInt(quantitySelectorHTML.value);
-      const cartQuantity = 0;
       addToCart(productId, quantityToAdd);
-      displayCartQuantity(cartQuantity, cartQuantityHTML, quantitySelectorHTML);
+      displayCartQuantity();
       displayAdded(productId);
     });
   });
@@ -110,10 +84,10 @@ function renderAmazonHomePage() {
 
 async function loadPage() {
   try {
-      await fetchProducts();
-      renderAmazonHomePage();
-    } catch(error) {
-      console.log(`unexpected network error: ${error}`);
-    }
+    await fetchProducts();
+    renderAmazonHomePage();
+  } catch (error) {
+    console.log(`unexpected network error: ${error}`);
+  }
 }
 loadPage();
