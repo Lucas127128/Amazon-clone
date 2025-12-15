@@ -26,7 +26,7 @@ class Product {
     this.priceCents = productDetails.priceCents;
   }
   getStarsUrl() {
-    return `./Amazon_Project/images/ratings/rating-${this.rating.stars * 10}.png`;
+    return `/images/ratings/rating-${this.rating.stars * 10}.png`;
   }
 
   getPrice() {

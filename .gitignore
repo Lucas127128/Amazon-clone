@@ -1,14 +1,7 @@
-Javascript tutorial
-.DS_Store
-./.DS_Store
-./Amazon_project/.DS_Store
-./Amazon_project/test_jasmine/.DS_Store
 *.DS_Store
 **.DS_Store
 .vscode
-Amazon_Project/data/backend-practice.js
 ./node_modules
 node_modules
 **node_modules
 *node_modules
-medama_darwin_arm64
