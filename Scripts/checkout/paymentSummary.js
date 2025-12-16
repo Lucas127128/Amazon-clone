@@ -100,7 +100,7 @@ export function renderPaymentSummary() {
     } catch(error) {
       console.log("Unexpected network issue: ")
     }
-    location.href="/Amazon_Project/orders.html"
+    location.href="/orders.html"
   });
 }
 
