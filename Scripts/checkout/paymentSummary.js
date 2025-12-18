@@ -85,22 +85,22 @@ export function renderPaymentSummary() {
   const placeOrderHTML = document.querySelector(".place-order-button");
   placeOrderHTML.addEventListener("click", async () => {
     try {
-      const response = await fetch("https://supersimplebackend.dev/orders", {
+    const response = await fetch("http://localhost:3000/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        cart: checkoutCart,
-      }),
+      body: JSON.stringify(
+        checkoutCart,
+      ),
     });
     const order = await response.json();
     addToOrders(order);
     localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
-    } catch(error) {
-      console.log("Unexpected network issue: ")
-    }
     location.href="/orders.html"
+    } catch(error) {
+      console.log(`Unexpected network issue: ${error}`)
+    }
   });
 }
 

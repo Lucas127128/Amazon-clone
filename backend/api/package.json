@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.0",
+    "dayjs": "^1.11.19",
     "elysia": "latest",
-    "elysia-ip": "^1.0.10",
     "elysiajs": "^0.0.0"
   },
   "devDependencies": {

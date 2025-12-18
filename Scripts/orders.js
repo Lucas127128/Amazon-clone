@@ -10,7 +10,7 @@ function renderPlacedOrder() {
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
   const ordersHTML = document.querySelector(".orders-grid");
   let placedOrderContainerHTML = "";
-  console.log(JSON.stringify(orders));
+  console.log(orders);
   orders.forEach((order) => {
     let placedOrderHTML = "";
     order.products.forEach((product) => {

@@ -1,8 +1,17 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
-import { ip } from "elysia-ip";
-import Products from "../../products.json";
-
+import { fetchProducts, Products } from "../../../data/products.js";
+import { productsPlugin } from "./products.js";
+import { ordersPlugin } from "./orders.js";
+export const date = new Date();
+export async function loadProducts() {
+  //wait for the products api service to start
+  try {
+    await fetchProducts();
+  } catch (error) {
+    console.log(error);
+  }
+}
 const app = new Elysia()
   .use(
     cors({
@@ -10,15 +19,12 @@ const app = new Elysia()
       method: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
       allowedHeaders: ["Content-Type", "Authorization"],
-    }),
-    ip()
+    })
   )
+  .use(productsPlugin)
+  .use(ordersPlugin)
+  .decorate("getTime", date.toLocaleTimeString())
   .get("/", () => "Hello Elysia")
-  .get("/products", ({request, server}) => {
-    const clientIP = server?.requestIP(request);;
-    console.log(`new request from ${clientIP.address}`);
-    return Products;
-  })
   .listen(3000);
 
 console.log(
