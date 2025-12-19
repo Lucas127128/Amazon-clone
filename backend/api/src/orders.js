@@ -1,7 +1,7 @@
 import { Elysia, t } from "elysia";
 import { getMatchingProduct, Products } from "../../../data/products.js";
 import { getDeliveryISOTime } from "./deliveryOption.js";
-import { date, loadProducts } from "./index.js";
+import { loadProducts } from "./index.js";
 
 async function getProducts() {
   await Bun.sleep(100);

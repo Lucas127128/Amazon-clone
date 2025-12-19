@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "vite": "^7.2.6"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.16"
+  },
+  "scripts": {
+    "test": "vitest ./vitest/utils"
   }
 }
