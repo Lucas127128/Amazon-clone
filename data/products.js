@@ -1,22 +1,17 @@
 import { formatCurrency } from "../Scripts/Utils/Money.js";
+
 export function getMatchingCart(cart, productId) {
-  let MatchingItem;
-  cart.forEach((cartItem) => {
-    if (productId === cartItem.ProductId) {
-      MatchingItem = cartItem;
-    }
-  });
+  const matchingItem = cart.find(
+    (cartItem) => cartItem.ProductId === productId
+  );
+  return matchingItem;
+}
+
+export function getMatchingProduct(products, productId) {
+  const MatchingItem = products.find((product) => product.id === productId);
   return MatchingItem;
 }
-export function getMatchingProduct(product, productId) {
-  let MatchingItem;
-  product.forEach((cartItem) => {
-    if (productId === cartItem.id) {
-      MatchingItem = cartItem;
-    }
-  });
-  return MatchingItem;
-}
+
 class Product {
   constructor(productDetails) {
     this.id = productDetails.id;

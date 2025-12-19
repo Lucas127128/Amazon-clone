@@ -4,6 +4,7 @@
   "workspaces": {
     "": {
       "dependencies": {
+        "bun-storage": "^2.0.5",
         "vite": "^7.2.6",
       },
       "devDependencies": {
@@ -133,6 +134,8 @@
     "@vitest/utils": ["@vitest/utils@4.0.16", "", { "dependencies": { "@vitest/pretty-format": "4.0.16", "tinyrainbow": "^3.0.3" } }, "sha512-h8z9yYhV3e1LEfaQ3zdypIrnAg/9hguReGZoS7Gl0aBG5xgA410zBqECqmaF/+RkTggRsfnzc1XaAHA6bmUufA=="],
 
     "assertion-error": ["assertion-error@2.0.1", "", {}, "sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA=="],
+
+    "bun-storage": ["bun-storage@2.0.5", "", {}, "sha512-cu65wo+a7cY4wbewyCcmog9N+THsz2xln9deHVcG1jir5Pf/2nUbo5HtFMLQHxQ5MQR8sPlUAwLgnGkPu10X3w=="],
 
     "chai": ["chai@6.2.1", "", {}, "sha512-p4Z49OGG5W/WBCPSS/dH3jQ73kD6tiMmUM+bckNK6Jr5JHMG3k9bg/BvKR8lKmtVBKmOiuVaV2ws8s9oSbwysg=="],
 

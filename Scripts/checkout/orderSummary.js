@@ -1,5 +1,9 @@
 import { removeFromCart, addToCart, getCart } from "../../data/cart.js";
-import { Products, getMatchingCart, fetchProducts } from "../../data/products.js";
+import {
+  Products,
+  getMatchingCart,
+  fetchProducts,
+} from "../../data/products.js";
 import {
   deliveryOption,
   getDeliveryDate,
@@ -16,7 +20,7 @@ export function renderOrderSummary() {
   const checkoutCart = CheckoutCart;
 
   let cartSummaryHTML = "";
-  checkoutCart.forEach(function (cartItem) {
+  checkoutCart.forEach((cartItem)=> {
     let matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
     cartSummaryHTML += `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}">
@@ -178,7 +182,7 @@ async function loadPage() {
   try {
     await fetchProducts();
     renderOrderSummary();
-  } catch(error) {
+  } catch (error) {
     console.log(`unexpected network error: ${error}`);
   }
 }

@@ -1,11 +1,12 @@
 {
   "dependencies": {
+    "bun-storage": "^2.0.5",
     "vite": "^7.2.6"
   },
   "devDependencies": {
     "vitest": "^4.0.16"
   },
   "scripts": {
-    "test": "vitest ./vitest/utils"
+    "test": "vitest vitest"
   }
 }

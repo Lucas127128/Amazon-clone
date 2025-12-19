@@ -1,4 +1,4 @@
-import { test, describe, vi, expect } from "vitest";
+import { test, describe, vi, expect, bench, expectTypeOf } from "vitest";
 import { formatCurrency } from "../../Scripts/Utils/Money.js";
 
 describe.concurrent("test suite: FormatCurrency", () => {
@@ -22,19 +22,11 @@ describe.concurrent("test suite: FormatCurrency", () => {
     expect(formatCurrency(-2095)).toBe("-20.95");
   });
 
-  test("not convert text", async ({ expect }) => {
+  test("not to convert string", async ({ expect }) => {
     expect(formatCurrency("money")).toBe("NaN");
   });
 
-  test("mocking practice", async ({ expect }) => {
-    let apples = 0;
-    const cart = {
-      getApples: () => 42,
-    };
-    const spy = vi.spyOn(cart, "getApples").mockImplementation(() => apples);
-    apples = 1;
-    expect(cart.getApples()).toBe(1);
-    expect(spy).toHaveBeenCalled();
-    expect(spy).toHaveReturnedWith(1)
-  });
+  test("return string",async({expect})=>{
+    expectTypeOf(formatCurrency("2095")).toBeString()
+  })
 });

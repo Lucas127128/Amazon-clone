@@ -11,7 +11,7 @@ export let Cart = [
 }*/
 ];
 export function addToCart(productId, quantityToAdd) {
-  let cart = JSON.parse(localStorage.getItem("local_Storage_Cart"))||[];
+  let cart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
   const MatchingItem = getMatchingCart(cart, productId);
   if (MatchingItem) {
     MatchingItem.Quantity = quantityToAdd;
@@ -41,14 +41,10 @@ export function updateDeliveryOption(
   deliveryOptionId,
   checkoutCart
 ) {
-  let MatchingItem;
-  checkoutCart.forEach((cartItem) => {
-    if (productId === cartItem.ProductId) {
-      MatchingItem = cartItem;
-      MatchingItem.deliveryOptionId = deliveryOptionId;
-    }
-  });
-
+  const MatchingItem = checkoutCart.find(
+    (cartItem) => cartItem.ProductId === productId
+  );
+  MatchingItem.deliveryOptionId = deliveryOptionId;
   localStorage.setItem("local_Storage_Cart", JSON.stringify(checkoutCart));
 }
 
