@@ -15,11 +15,12 @@ export async function loadProducts() {
 const app = new Elysia()
   .use(
     cors({
-      origin: "http://localhost:5173",
+      origin: ["http://localhost:5173", "http://localhost:63315", "http://localhost:8080"],
       method: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
       allowedHeaders: ["Content-Type", "Authorization"],
-    })
+    }
+  )
   )
   .use(productsPlugin)
   .use(ordersPlugin)

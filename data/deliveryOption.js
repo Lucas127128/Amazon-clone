@@ -1,4 +1,4 @@
-import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+import dayjs from "dayjs";
 export const deliveryOption = [
   {
     id: "1",
@@ -32,13 +32,12 @@ export function addWeekDays(businessDaysToAdd) {
 export function getDeliveryDate(DeliveryOptionId) {
   let deliveryDate = "";
   if (DeliveryOptionId === "1") {
-    deliveryDate = addWeekDays(7);
+    deliveryDate = addWeekDays(7).format("dddd, MMMM D");
   } else if (DeliveryOptionId === "2") {
-    deliveryDate = addWeekDays(3);
+    deliveryDate = addWeekDays(3).format("dddd, MMMM D");
   } else if (DeliveryOptionId === "3") {
-    deliveryDate = addWeekDays(1);
+    deliveryDate = addWeekDays(1).format("dddd, MMMM D");
   }
-  deliveryDate = deliveryDate.format("dddd, MMMM D");
   return deliveryDate;
 }
 

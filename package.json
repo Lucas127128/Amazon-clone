@@ -1,12 +1,17 @@
 {
   "dependencies": {
     "bun-storage": "^2.0.5",
-    "vite": "^7.2.6"
+    "dayjs": "^1.11.19",
+    "happy-dom": "^20.0.11",
+    "vite": "^7.3.0"
   },
   "devDependencies": {
+    "@vitest/browser-preview": "^4.0.16",
     "vitest": "^4.0.16"
   },
   "scripts": {
-    "test": "vitest vitest"
+    "test:data": "vitest vitest/data",
+    "test:checkout": "vitest vitest/checkout/orderSummary.test.js",
+    "test:browser": "vitest --config=vitest.browser.config.js --browser=safari 'vitest/checkout/orderSummary(browser-mode).test.js'"
   }
 }

@@ -20,8 +20,8 @@ export function renderOrderSummary() {
   const checkoutCart = CheckoutCart;
 
   let cartSummaryHTML = "";
-  checkoutCart.forEach((cartItem)=> {
-    let matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
+  checkoutCart.forEach((cartItem, cartOrder)=> {
+    const matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
     cartSummaryHTML += `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}">
       <div class="delivery-date-${
@@ -38,7 +38,7 @@ export function renderOrderSummary() {
         <div class="product-name">
           ${matchingProduct.name}
         </div>
-        <div class="product-price">
+        <div class="product-price product-price-${matchingProduct.id} ">
           $${matchingProduct.getPrice()}
         </div>
         <div class="product-quantity">
@@ -73,6 +73,10 @@ export function renderOrderSummary() {
       </div>
     </div>
     `;
+    if(cartOrder<5){
+      document.querySelector(".product-image").innerHTML=`<img class="product-image" fetchpriority=high
+        src="${matchingProduct.image}"></img>`
+    }
   });
 
   const orderSummary = document.querySelector(".order-summary");
