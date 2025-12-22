@@ -29,7 +29,7 @@ describe("test suite: Render order summary", () => {
       ".cart-item-container"
     );
     expect(cartItemContainers.length).toBe(2);
-    
+
     const checkoutCart =
       JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
     checkoutCart.forEach((cartItem, cartOrder) => {
@@ -68,16 +68,19 @@ describe("test suite: Render order summary", () => {
   test("removes the product", () => {
     let checkoutCart =
       JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    
     const productId1 = checkoutCart[0].ProductId;
     const productId2 = checkoutCart[1].ProductId;
-
     const deleteQuantityHTML1 = document.querySelector(
       `.delete-quantity-link-${productId1}`
     );
     deleteQuantityHTML1.click();
-
     checkoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    expect(checkoutCart.length).toBe(1);
+    expect(checkoutCart[0].ProductId).toBe(productId2);
+
     const cartItemContainer = document.querySelectorAll(".cart-item-container");
+    expect(cartItemContainer.length).toBe(1);
 
     const cartItemContainer1 = document.querySelector(
       `.cart-item-container-${productId1}`
@@ -85,12 +88,10 @@ describe("test suite: Render order summary", () => {
     const cartItemContainer2 = document.querySelector(
       `.cart-item-container-${productId2}`
     );
-    expect(cartItemContainer.length).toBe(1);
     expect(cartItemContainer1).toBe(null);
     expect(cartItemContainer2).not.toBe(null);
-    expect(checkoutCart.length).toBe(1);
-    expect(checkoutCart[0].ProductId).toBe(productId2);
-    cartItemContainer.innerHTML = [];
+
+    cartItemContainer2.innerHTML = [];
     document.querySelector(".test-container").innerHTML = "";
   });
 });
