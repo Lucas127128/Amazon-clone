@@ -1,13 +1,14 @@
 import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
-import { fetchProducts, Products } from "../../../data/products.js";
+import { Products, fetchInternalProducts } from "../../../data/products.js";
 import { productsPlugin } from "./products.js";
 import { ordersPlugin } from "./orders.js";
 export const date = new Date();
+
 export async function loadProducts() {
   //wait for the products api service to start
   try {
-    await fetchProducts();
+    await fetchInternalProducts();
   } catch (error) {
     console.log(error);
   }
@@ -15,12 +16,15 @@ export async function loadProducts() {
 const app = new Elysia()
   .use(
     cors({
-      origin: ["http://localhost:5173", "http://localhost:63315", "http://localhost:8080"],
+      origin: [
+        "http://localhost:5173",
+        "http://localhost:63315",
+        "https://localhost:8080",
+      ],
       method: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
       allowedHeaders: ["Content-Type", "Authorization"],
-    }
-  )
+    })
   )
   .use(productsPlugin)
   .use(ordersPlugin)

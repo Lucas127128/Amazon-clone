@@ -83,6 +83,22 @@ const product1 = new Product({
 export let Products = [];
 
 export function fetchProducts() {
+  const promise = fetch("https://localhost:3001/products")
+    .then((response) => {
+      return response.json();
+    })
+    .then((productsData) => {
+      Products = productsData.map((productDetails) => {
+        if (productDetails.type === "clothing") {
+          return new Clothing(productDetails);
+        }
+        return new Product(productDetails);
+      });
+    });
+  return promise;
+}
+
+export function fetchInternalProducts() {
   const promise = fetch("http://localhost:3000/products")
     .then((response) => {
       return response.json();

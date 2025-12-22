@@ -85,7 +85,8 @@ export function renderPaymentSummary() {
   const placeOrderHTML = document.querySelector(".place-order-button");
   placeOrderHTML.addEventListener("click", async () => {
     try {
-    const response = await fetch("http://localhost:3000/orders", {
+    console.log(JSON.stringify(checkoutCart))
+    const response = await fetch("https://localhost:3001/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

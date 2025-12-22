@@ -73,10 +73,6 @@ export function renderOrderSummary() {
       </div>
     </div>
     `;
-    if(cartOrder<5){
-      document.querySelector(".product-image").innerHTML=`<img class="product-image" fetchpriority=high
-        src="${matchingProduct.image}"></img>`
-    }
   });
 
   const orderSummary = document.querySelector(".order-summary");
