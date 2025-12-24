@@ -1,0 +1,102 @@
+import "./general-B6K0KYea.js";
+/* empty css                       */
+import { f as fetchProducts, g as getMatchingProduct, P as Products, b as formatCurrency, a as addToCart, d as displayCartQuantity } from "./cart-C9ab77dg.js";
+import { g as getTimeString } from "./orders-Ezh0RDI8.js";
+function renderPlacedOrder() {
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const ordersHTML = document.querySelector(".orders-grid");
+  let placedOrderContainerHTML = "";
+  console.log(orders);
+  orders.forEach((order) => {
+    let placedOrderHTML = "";
+    order.products.forEach((product) => {
+      const matchingProduct = getMatchingProduct(Products, product.productId);
+      const deliveryDate = getTimeString(product.estimatedDeliveryTime);
+      placedOrderHTML += `
+                <div class="product-image-container">
+                  <img src="${matchingProduct.image}" />
+                </div>
+
+                <div class="product-details">
+                  <div class="product-name">
+                    ${matchingProduct.name}
+                  </div>
+                  <div class="product-delivery-date">Arriving on: ${deliveryDate}</div>
+                  <div class="product-quantity">Quantity: ${product.quantity}</div>
+                  <button class="buy-again-button button-primary" data-product-id="${product.productId}">
+                    <img class="buy-again-icon" src="images/icons/buy-again.png" />
+                    <span class="buy-again-message buy-again-message-${product.productId}">Buy it again</span>
+                    <span class="buy-again-success buy-again-success-${product.productId}">✓ Added</span>
+                  </button>
+                </div>
+
+                <div class="product-actions">
+                  <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
+                    <button class="track-package-button button-secondary">
+                      Track package
+                    </button>
+                  </a>
+                </div>
+        `;
+    });
+    const orderTime = getTimeString(order.orderTime);
+    placedOrderContainerHTML += `
+          <div class="order-container order-container-${order.id}">
+          <div class="order-header">
+                <div class="order-header-left-section">
+                  <div class="order-date">
+                    <div class="order-header-label">Order Placed: ${orderTime}</div>
+                    <div></div>
+                  </div>
+                  <div class="order-total">
+                    <div class="order-header-label">Total:</div>
+                    <div>$${formatCurrency(order.totalCostCents)}</div>
+                  </div>
+                </div>
+
+                <div class="order-header-right-section">
+                  <div class="order-header-label">Order ID:</div>
+                  <div>${order.id}</div>
+                </div>
+              </div>
+              <div class="order-details-grid order-details-grid-${order.id}">
+              ${placedOrderHTML}
+              </div>
+          </div>
+    `;
+  });
+  ordersHTML.innerHTML = placedOrderContainerHTML;
+  const buyAgainButtons = document.querySelectorAll(".buy-again-button");
+  buyAgainButtons.forEach((buyAgainButton) => {
+    const productId = buyAgainButton.dataset.productId;
+    const buyAgainSuccessHTML = document.querySelector(
+      `.buy-again-success-${productId}`
+    );
+    const buyAgainMessageHTML = document.querySelector(
+      `.buy-again-message-${productId}`
+    );
+    buyAgainButton.addEventListener("click", () => {
+      let productQuantity = JSON.parse(localStorage.getItem(`${productId}-productQuantity`)) || 0;
+      productQuantity += 1;
+      localStorage.setItem(`${productId}-productQuantity`, productQuantity);
+      addToCart(productId, productQuantity);
+      buyAgainSuccessHTML.classList.add("display-buy-again-success");
+      buyAgainMessageHTML.classList.add("hide-buy-again-message");
+      displayCartQuantity();
+      setTimeout(() => {
+        buyAgainSuccessHTML.classList.remove("display-buy-again-success");
+        buyAgainMessageHTML.classList.remove("hide-buy-again-message");
+      }, 1500);
+    });
+  });
+  displayCartQuantity();
+}
+async function loadPage() {
+  try {
+    await fetchProducts();
+    renderPlacedOrder();
+  } catch (error) {
+    console.log(`unexpected network error: ${error}`);
+  }
+}
+loadPage();

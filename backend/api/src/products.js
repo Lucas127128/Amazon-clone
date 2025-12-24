@@ -1,5 +1,6 @@
 import { Elysia } from "elysia";
-import Products from "../../products.json";
+
+const Products = JSON.parse(await Bun.file("../products.json").text());
 
 export const productsPlugin = new Elysia().get(
   "/products",

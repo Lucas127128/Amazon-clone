@@ -3,11 +3,12 @@ import { Products, fetchProducts } from "../data/products.js";
 let ProductsHTML = "";
 function renderAmazonHomePage() {
   Products.forEach((products) => {
+    console.log(products.image);
     ProductsHTML += `
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
-                src="/${products.image}">
+                src="${products.image}">
             </div>
 
             <div class="product-name limit-text-to-2-lines">

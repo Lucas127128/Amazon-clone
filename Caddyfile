@@ -1,11 +1,11 @@
-# https://localhost:8080 {
-# 	encode zstd gzip
-# 	file_server
-# 	root * .
-# 	header {
-# 		Cache-Control "max-age=8640000, public"
-# 	}
-# }
+https://localhost:8080 {
+	encode zstd gzip
+	file_server
+	root * ./dist
+	header {
+		Cache-Control "max-age=8640000, public"
+	}
+}
 https://localhost:3001 {
 	reverse_proxy http://localhost:3000
 }

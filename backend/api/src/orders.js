@@ -1,5 +1,8 @@
 import { Elysia, t } from "elysia";
-import { getMatchingProduct, Products } from "../../../data/products.js";
+import {
+  getMatchingProduct,
+  Products,
+} from "../../../data/products-backend.js";
 import { getDeliveryISOTime } from "./deliveryOption.js";
 import { loadProducts } from "./index.js";
 

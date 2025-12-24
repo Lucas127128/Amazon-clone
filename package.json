@@ -10,8 +10,9 @@
     "vitest": "^4.0.16"
   },
   "scripts": {
-    "test:data": "vitest vitest/data",
-    "test:checkout": "vitest vitest/checkout/orderSummary.test.js",
-    "test:browser": "vitest --config=vitest.browser.config.js --browser=safari 'vitest/checkout/orderSummary(browser-mode).test.js'"
+    "test:data": "vitest tests/data",
+    "test:checkout": "vitest --config=vitest.browser.config.js --browser=safari tests/checkout/orderSummary.test.js",
+    "test:orders": "vitest --config=vitest.browser.config.js --browser=safari tests/orders.test.js",
+    "build": "vite build"
   }
 }
