@@ -12,19 +12,17 @@ export function getMatchingProduct(products, productId) {
   return MatchingItem;
 }
 
-class Product {
+export class Product {
   constructor(productDetails) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
   getStarsUrl() {
-    return new URL(
-      `/images/ratings/rating-${this.rating.stars * 10}.png`,
-      import.meta.url
-    ).href;
+    return `/images/ratings/rating-${this.rating.stars * 10}.png`;
   }
   getPrice() {
     return `${formatCurrency(this.priceCents)}`;
@@ -34,16 +32,17 @@ class Product {
     return ``;
   }
   getImageURL() {
-    return new URL(`${this.image}`, import.meta.url).href;
+    return this.image;
   }
   id;
   image;
   name;
   rating;
   priceCents;
+  keywords;
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink;
 
   constructor(productDetails) {

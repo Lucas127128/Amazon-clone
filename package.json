@@ -12,7 +12,8 @@
   "scripts": {
     "test:data": "vitest tests/data",
     "test:checkout": "vitest --config=vitest.browser.config.js --browser=safari tests/checkout/orderSummary.test.js",
-    "test:orders": "vitest --config=vitest.browser.config.js --browser=safari tests/orders.test.js",
+    "test:orders": "vitest --config=vitest.browser.config.js --browser=safari tests/api/orders-api.test.js",
+    "test:products": "vitest  --config=vitest.browser.config.js --browser=safari tests/api/products-api.test.js",
     "build": "vite build"
   }
 }
