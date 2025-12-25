@@ -3,7 +3,8 @@ import { getMatchingProduct } from "../../data/products.js";
 import { formatCurrency } from "../Utils/Money.js";
 import { addToOrders } from "../../data/orders.js";
 export function renderPaymentSummary() {
-  const CheckoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
+  const CheckoutCart =
+    JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
@@ -36,34 +37,36 @@ export function renderPaymentSummary() {
         Order Summary
         </div>
         <div class="payment-summary-row">
-        <div>Items (${cartQuantity}):</div>
-        <div class="payment-summary-money">$${formatCurrency(
+        <div class="cart-item-quantity">Items (${cartQuantity}):</div>
+        <div class="payment-summary-money total-products-price">$${formatCurrency(
           totalProductPrice
         )}</div>
         </div>
 
         <div class="payment-summary-row">
         <div>Shipping &amp; handling:</div>
-        <div class="payment-summary-money">$${formatCurrency(
+        <div class="payment-summary-money total-delivery-fee">$${formatCurrency(
           totalDeliveryFee
         )}</div>
         </div>
 
         <div class="payment-summary-row subtotal-row">
         <div>Total before tax:</div>
-        <div class="payment-summary-money">$${formatCurrency(
+        <div class="payment-summary-money total-price-before-tax">$${formatCurrency(
           totalPriceBeforeTax
         )}</div>
         </div>
 
         <div class="payment-summary-row">
         <div>Estimated tax (10%):</div>
-        <div class="payment-summary-money">$${formatCurrency(totalTax)}</div>
+        <div class="payment-summary-money total-tax">$${formatCurrency(
+          totalTax
+        )}</div>
         </div>
 
         <div class="payment-summary-row total-row">
         <div>Order total:</div>
-        <div class="payment-summary-money">$${formatCurrency(
+        <div class="payment-summary-money total-cost">$${formatCurrency(
           totalOrderPrice
         )}</div>
         </div>
@@ -85,22 +88,20 @@ export function renderPaymentSummary() {
   const placeOrderHTML = document.querySelector(".place-order-button");
   placeOrderHTML.addEventListener("click", async () => {
     try {
-    console.log(JSON.stringify(checkoutCart))
-    const response = await fetch("https://localhost:3001/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(
-        checkoutCart,
-      ),
-    });
-    const order = await response.json();
-    addToOrders(order);
-    localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
-    location.href="/orders.html"
-    } catch(error) {
-      console.log(`Unexpected network issue: ${error}`)
+      console.log(JSON.stringify(checkoutCart));
+      const response = await fetch("https://localhost:3001/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(checkoutCart),
+      });
+      const order = await response.json();
+      addToOrders(order);
+      localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
+      location.href = "/orders.html";
+    } catch (error) {
+      console.log(`Unexpected network issue: ${error}`);
     }
   });
 }

@@ -1,18 +1,18 @@
+import { expect, test, describe, beforeEach } from "vitest";
+import {
+  fetchProducts,
+  Products,
+  getMatchingProduct,
+} from "../../data/products.js";
+import { addToCart, updateDeliveryOption } from "../../data/cart.js";
+import { getDeliveryDate } from "../../data/deliveryOption.js";
+import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
 document.body.innerHTML = `
 <div class="test-container">
   <div class="order-summary"></div>
   <div class="return-to-home-link"></div>
   <div class="payment-summary"></div>
 </div>`;
-import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
-import {
-  fetchProducts,
-  Products,
-  getMatchingProduct,
-} from "../../data/products.js";
-import { expect, test, describe, beforeEach } from "vitest";
-import { addToCart, updateDeliveryOption } from "../../data/cart.js";
-import { getDeliveryDate } from "../../data/deliveryOption.js";
 
 describe("test suite: Render order summary", () => {
   beforeEach(async () => {
