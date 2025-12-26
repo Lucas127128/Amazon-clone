@@ -1,5 +1,5 @@
 import { beforeEach, describe, test } from "vitest";
-import { getTimeString, addToOrders } from "../../data/orders.js";
+import { getTimeString, addToOrders } from "../../data/orders.ts";
 import cart from "../../backend/api/cart.json";
 
 const response = await fetch("https://localhost:3001/orders", {
