@@ -3,9 +3,11 @@ import Products from "../../products.json";
 
 export const productsPlugin = new Elysia().get(
   "/products",
-  ({ request, server, getTime }) => {
-    const clientIP = server?.requestIP(request);
-    console.log(`new products request from ${clientIP.address} at ${getTime}`);
+  ({ request, server }) => {
+    const clientIP = server?.requestIP(request)?.address;
+    console.log(
+      `new products request from ${clientIP} at ${new Date().toLocaleTimeString()}`
+    );
     return Products;
   }
 );

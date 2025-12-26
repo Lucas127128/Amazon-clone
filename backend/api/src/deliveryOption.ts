@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 const Today = dayjs();
-export function addWeekDays(businessDaysToAdd) {
+export function addWeekDays(businessDaysToAdd: number) {
   let currentDate = Today;
   let daysAdded = 0;
   while (daysAdded < businessDaysToAdd) {
@@ -14,7 +14,7 @@ export function addWeekDays(businessDaysToAdd) {
   return currentDate;
 }
 
-export function getDeliveryISOTime(DeliveryOptionId) {
+export function getDeliveryISOTime(DeliveryOptionId: string) {
   if (DeliveryOptionId === "1") {
     return addWeekDays(7).toISOString();
   } else if (DeliveryOptionId === "2") {

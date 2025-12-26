@@ -1,21 +1,25 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import {
   getMatchingProduct,
   Products,
 } from "../../../data/products-backend.js";
-import { getDeliveryISOTime } from "./deliveryOption.js";
-import { loadProducts } from "./index.js";
+import { getDeliveryISOTime } from "./deliveryOption.ts";
+import { loadProducts } from "./index.ts";
 
 async function getProducts() {
   await Bun.sleep(100);
   await loadProducts();
 }
-
+interface Cart {
+  productId: string;
+  quantity: number;
+  deliveryOptionId: string;
+}
 async function startOrdersAPI() {
   await Bun.sleep(100);
   await loadProducts();
   class Product {
-    constructor(cartItem) {
+    constructor(cartItem: Cart) {
       const deliveryTime = getDeliveryISOTime(cartItem.deliveryOptionId);
       this.productId = cartItem.productId;
       this.quantity = cartItem.quantity;
@@ -27,7 +31,7 @@ async function startOrdersAPI() {
   }
 
   class Order {
-    constructor(cart) {
+    constructor(cart: Cart[]) {
       let totalCostsCents = 0;
       cart.forEach((cartItem) => {
         const matchingProduct = getMatchingProduct(
@@ -45,15 +49,17 @@ async function startOrdersAPI() {
     id;
     orderTime;
     totalCostCents;
-    products = [];
+    products: Product[] = [];
   }
 
   const orderPlugin = new Elysia().post(
     "/orders",
-    ({ body, request, server, getTime }) => {
-      const clientIP = server?.requestIP(request);
-      console.log(`new orders request from ${clientIP.address} at ${getTime}`);
-      const order = new Order(body);
+    ({ body, request, server }) => {
+      const clientIP = server?.requestIP(request)?.address;
+      console.log(
+        `new orders request from ${clientIP} at ${new Date().toLocaleTimeString()}`
+      );
+      const order = new Order(body as Cart[]);
       return new Response(JSON.stringify(order), {
         headers: {
           "Content-Type": "application/json; charset=utf-8",

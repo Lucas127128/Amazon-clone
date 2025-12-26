@@ -4,8 +4,8 @@ import {
   Products,
   fetchInternalProducts,
 } from "../../../data/products-backend.js";
-import { productsPlugin } from "./products.js";
-import { ordersPlugin } from "./orders.js";
+import { productsPlugin } from "./products.ts";
+import { ordersPlugin } from "./orders.ts";
 export const date = new Date();
 
 export async function loadProducts() {
@@ -14,6 +14,12 @@ export async function loadProducts() {
     await fetchInternalProducts();
   } catch (error) {
     console.log(error);
+  }
+}
+
+class Time {
+  get(value: string) {
+    return date.toLocaleTimeString();
   }
 }
 const app = new Elysia()
@@ -25,14 +31,13 @@ const app = new Elysia()
         "https://localhost:8080",
         "https://localhost",
       ],
-      method: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
       allowedHeaders: ["Content-Type", "Authorization"],
     })
   )
   .use(productsPlugin)
   .use(ordersPlugin)
-  .decorate("getTime", date.toLocaleTimeString())
+  .decorate("getTime", new Time())
   .get("/", () => "Hello Elysia")
   .listen(3000);
 
