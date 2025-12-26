@@ -1,4 +1,10 @@
-This is the repo that record my learning journey in js front end.
+This is a very basic clone of Amazon(for my own learning).
+
+**Build:**
+
+```bash
+bun run build
+```
 
 **Acknowledgement:**
 
