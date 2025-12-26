@@ -1,0 +1,1 @@
+const r=JSON.parse(localStorage.getItem("orders"))||[];function n(e){r.unshift(e),localStorage.setItem("orders",JSON.stringify(r))}function a(e){const t={weekday:"long",month:"long",day:"numeric"};return new Date(e).toLocaleDateString("en-US",t)}export{n as a,a as g};

@@ -1,11 +1,11 @@
 import { afterAll, beforeAll, describe, expect, test } from "vitest";
-import { addToCart, updateDeliveryOption } from "../../data/cart.js";
+import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.js";
 import {
   fetchProducts,
   getMatchingProduct,
   Products,
 } from "../../data/products.js";
-import { formatCurrency } from "../../Scripts/Utils/Money.js";
+import { formatCurrency } from "../../Scripts/Utils/Money.ts";
 import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.js";
 document.body.innerHTML = `
 <div class="test-container">
@@ -20,7 +20,7 @@ describe("test suite: Render payment summary", () => {
     addToCart("15b6fc6f-327a-4ec4-896f-486349e85a3d", 1);
     addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 2);
     await fetchProducts();
-    const cart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    const cart = getCart();
     updateDeliveryOption("15b6fc6f-327a-4ec4-896f-486349e85a3d", "2", cart);
     renderPaymentSummary();
   });
@@ -35,7 +35,7 @@ describe("test suite: Render payment summary", () => {
   });
 
   test.concurrent("display products cost", ({ expect }) => {
-    const cart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    const cart = getCart();
     let totalProductPrice = 0;
     cart.forEach((cartItem) => {
       const matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
@@ -52,7 +52,7 @@ describe("test suite: Render payment summary", () => {
 
   test.concurrent("display delivery fee", ({ expect }) => {
     let totalDeliveryFee = 0;
-    const cart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    const cart = getCart();
     cart.forEach((cartItem) => {
       let deliveryFee = 0;
       if (cartItem.deliveryOptionId === "1") {

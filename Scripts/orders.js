@@ -3,14 +3,13 @@ import {
   getMatchingProduct,
   fetchProducts,
 } from "../data/products.js";
-import { formatCurrency } from "./Utils/Money.js";
+import { formatCurrency } from "./Utils/Money.ts";
 import { addToCart, displayCartQuantity } from "../data/cart.js";
 import { getTimeString } from "../data/orders.js";
 function renderPlacedOrder() {
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
   const ordersHTML = document.querySelector(".orders-grid");
   let placedOrderContainerHTML = "";
-  console.log(orders);
   orders.forEach((order) => {
     let placedOrderHTML = "";
     order.products.forEach((product) => {

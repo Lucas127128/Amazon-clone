@@ -4,7 +4,7 @@ import {
   Products,
   getMatchingProduct,
 } from "../../data/products.js";
-import { addToCart, updateDeliveryOption } from "../../data/cart.js";
+import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.js";
 import { getDeliveryDate } from "../../data/deliveryOption.js";
 import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
 document.body.innerHTML = `
@@ -30,8 +30,7 @@ describe("test suite: Render order summary", () => {
     );
     expect(cartItemContainers.length).toBe(2);
 
-    const checkoutCart =
-      JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    const checkoutCart = getCart();
     checkoutCart.forEach((cartItem, cartOrder) => {
       //cart quantity test
       const productId = cartItem.ProductId;
@@ -45,8 +44,7 @@ describe("test suite: Render order summary", () => {
       //delivery date test
       updateDeliveryOption(productId, String(cartOrder + 1), checkoutCart);
       renderOrderSummary();
-      const updatedCheckoutCart =
-        JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+      const updatedCheckoutCart = getCart();
       const deliveryDate = getDeliveryDate(
         updatedCheckoutCart[cartOrder].deliveryOptionId
       );
@@ -66,8 +64,7 @@ describe("test suite: Render order summary", () => {
   });
 
   test("removes the product", () => {
-    let checkoutCart =
-      JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    let checkoutCart = getCart();
 
     const productId1 = checkoutCart[0].ProductId;
     const productId2 = checkoutCart[1].ProductId;
@@ -75,7 +72,7 @@ describe("test suite: Render order summary", () => {
       `.delete-quantity-link-${productId1}`
     );
     deleteQuantityHTML1.click();
-    checkoutCart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+    checkoutCart = getCart();
     expect(checkoutCart.length).toBe(1);
     expect(checkoutCart[0].ProductId).toBe(productId2);
 

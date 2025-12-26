@@ -1,17 +1,17 @@
 import { Products, fetchProducts } from "../../data/products.js";
 import { getMatchingProduct } from "../../data/products.js";
-import { formatCurrency } from "../Utils/Money.js";
+import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.js";
+import { getCart } from "../../data/cart.js";
 export function renderPaymentSummary() {
-  const CheckoutCart =
-    JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+  const CheckoutCart = getCart();
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
   const paymentSummary = document.querySelector(".payment-summary");
   CheckoutCart.forEach((cartItem) => {
     const productItem = getMatchingProduct(Products, cartItem.ProductId);
-    let totalPrice = productItem.priceCents * cartItem.Quantity;
+    const totalPrice = productItem.priceCents * cartItem.Quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.Quantity;
   });
@@ -88,7 +88,6 @@ export function renderPaymentSummary() {
   const placeOrderHTML = document.querySelector(".place-order-button");
   placeOrderHTML.addEventListener("click", async () => {
     try {
-      console.log(JSON.stringify(checkoutCart));
       const response = await fetch("https://localhost:3001/orders", {
         method: "POST",
         headers: {
@@ -98,7 +97,7 @@ export function renderPaymentSummary() {
       });
       const order = await response.json();
       addToOrders(order);
-      localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
+      localStorage.setItem("cart", JSON.stringify([]));
       location.href = "/orders.html";
     } catch (error) {
       console.log(`Unexpected network issue: ${error}`);

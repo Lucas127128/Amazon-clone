@@ -23,6 +23,7 @@ const app = new Elysia()
         "http://localhost:5173",
         "http://localhost:63315",
         "https://localhost:8080",
+        "https://localhost",
       ],
       method: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,

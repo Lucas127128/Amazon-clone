@@ -1,4 +1,4 @@
-import { formatCurrency } from "../Scripts/Utils/Money.js";
+import { formatCurrency } from "../Scripts/Utils/Money.ts";
 
 export function getMatchingCart(cart, productId) {
   const matchingItem = cart.find(

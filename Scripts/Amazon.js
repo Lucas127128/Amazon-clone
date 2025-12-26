@@ -1,9 +1,8 @@
-import { addToCart, displayCartQuantity } from "../data/cart.js";
+import { addToCart, displayCartQuantity, getCart } from "../data/cart.js";
 import { Products, fetchProducts } from "../data/products.js";
 let ProductsHTML = "";
 function renderAmazonHomePage() {
   Products.forEach((products) => {
-    console.log(products.image);
     ProductsHTML += `
         <div class="product-container">
             <div class="product-image-container">

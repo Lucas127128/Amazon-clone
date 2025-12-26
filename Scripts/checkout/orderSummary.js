@@ -15,12 +15,9 @@ import { getMatchingProduct } from "../../data/products.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
 export function renderOrderSummary() {
-  let CheckoutCart = "";
-  CheckoutCart = getCart(CheckoutCart);
-  const checkoutCart = CheckoutCart;
-
+  const checkoutCart = getCart();
   let cartSummaryHTML = "";
-  checkoutCart.forEach((cartItem, cartOrder)=> {
+  checkoutCart.forEach((cartItem) => {
     const matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
     cartSummaryHTML += `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}">
@@ -129,8 +126,8 @@ export function renderOrderSummary() {
   let quantityToAdd = "";
   const quantityInputHTML = document.querySelectorAll(`.quantity_Input`);
   quantityInputHTML.forEach((quantityInput) => {
-    quantityInput.addEventListener("keyup", (e) => {
-      quantityToAdd = Number(quantityInput.value);
+    quantityInput.addEventListener("change", (e) => {
+      quantityToAdd = Number(e.target.value);
     });
   });
   const saveQuantityHTML = document.querySelectorAll(`.save-quantity-link`);

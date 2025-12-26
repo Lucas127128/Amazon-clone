@@ -11,10 +11,10 @@ export let Cart = [
 }*/
 ];
 export function addToCart(productId, quantityToAdd) {
-  let cart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
-  const MatchingItem = getMatchingCart(cart, productId);
-  if (MatchingItem) {
-    MatchingItem.Quantity = quantityToAdd;
+  const cart = getCart();
+  const matchingItem = getMatchingCart(cart, productId);
+  if (matchingItem) {
+    matchingItem.Quantity = quantityToAdd;
   } else {
     cart.push({
       ProductId: productId,
@@ -22,17 +22,17 @@ export function addToCart(productId, quantityToAdd) {
       deliveryOptionId: "1",
     });
   }
-  localStorage.setItem("local_Storage_Cart", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 export function removeFromCart(productId) {
   let newCart = [];
-  JSON.parse(localStorage.getItem("local_Storage_Cart")).forEach((Product) => {
+  getCart().forEach((Product) => {
     if (Product.ProductId != productId) {
       newCart.push(Product);
     }
   });
-  localStorage.setItem("local_Storage_Cart", JSON.stringify(newCart));
+  localStorage.setItem("cart", JSON.stringify(newCart));
   Cart = newCart;
 }
 
@@ -41,30 +41,22 @@ export function updateDeliveryOption(
   deliveryOptionId,
   checkoutCart
 ) {
-  const MatchingItem = checkoutCart.find(
+  const matchingItem = checkoutCart.find(
     (cartItem) => cartItem.ProductId === productId
   );
-  MatchingItem.deliveryOptionId = deliveryOptionId;
-  localStorage.setItem("local_Storage_Cart", JSON.stringify(checkoutCart));
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  localStorage.setItem("cart", JSON.stringify(checkoutCart));
 }
 
-export function getCart(cart) {
-  if (
-    localStorage.getItem("local_Storage_Cart") === null ||
-    localStorage.getItem("local_Storage_Cart") === undefined
-  ) {
-    localStorage.setItem("local_Storage_Cart", JSON.stringify([]));
-    cart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
-  } else {
-    cart = JSON.parse(localStorage.getItem("local_Storage_Cart"));
-  }
+export function getCart() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
   return cart;
 }
 
 export function displayCartQuantity() {
   let cartQuantity = 0;
   const cartQuantityHTML = document.querySelector(".cart-quantity");
-  const cart = JSON.parse(localStorage.getItem("local_Storage_Cart")) || [];
+  const cart = getCart();
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.Quantity;
   });
