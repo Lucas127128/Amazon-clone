@@ -4,7 +4,7 @@ import {
   Products,
   getMatchingProduct,
 } from "../../data/products.js";
-import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.js";
+import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.ts";
 import { getDeliveryDate } from "../../data/deliveryOption.ts";
 import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
 document.body.innerHTML = `

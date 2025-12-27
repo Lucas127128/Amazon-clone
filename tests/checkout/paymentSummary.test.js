@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, test } from "vitest";
-import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.js";
+import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.ts";
 import {
   fetchProducts,
   getMatchingProduct,

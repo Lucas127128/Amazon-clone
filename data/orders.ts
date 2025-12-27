@@ -1,9 +1,9 @@
-interface Product {
+export interface Product {
   productId: string;
   quantity: number;
   estimatedDeliveryTime: string;
 }
-interface Order {
+export interface Order {
   id: string;
   orderTime: string;
   totalCostsCents: number;

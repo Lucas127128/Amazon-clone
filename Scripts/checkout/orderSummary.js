@@ -1,4 +1,9 @@
-import { removeFromCart, addToCart, getCart } from "../../data/cart.js";
+import {
+  removeFromCart,
+  addToCart,
+  getCart,
+  updateDeliveryOption,
+} from "../../data/cart.ts";
 import {
   Products,
   getMatchingCart,
@@ -10,7 +15,6 @@ import {
   addWeekDays,
   getPriceString,
 } from "../../data/deliveryOption.ts";
-import { updateDeliveryOption } from "../../data/cart.js";
 import { getMatchingProduct } from "../../data/products.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 

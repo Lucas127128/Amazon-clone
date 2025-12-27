@@ -1,7 +1,8 @@
 import { describe, expect, test } from "vitest";
-import { addToCart, getCart } from "../../data/cart.js";
+import { addToCart, getCart } from "../../data/cart.ts";
 describe.concurrent("test suite: addToCart", () => {
   test("add a new product to cart", async ({ expect }) => {
+    localStorage.clear();
     addToCart("6b07d4e7-f540-454e-8a1e-363f25dbae7d", 4);
     const cart = getCart();
     expect(cart.length).toBe(1);

@@ -2,7 +2,7 @@ import { Products, fetchProducts } from "../../data/products.js";
 import { getMatchingProduct } from "../../data/products.js";
 import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
-import { getCart } from "../../data/cart.js";
+import { getCart } from "../../data/cart.ts";
 export function renderPaymentSummary() {
   const CheckoutCart = getCart();
   let totalProductPrice = 0;

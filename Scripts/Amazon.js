@@ -1,4 +1,4 @@
-import { addToCart, displayCartQuantity, getCart } from "../data/cart.js";
+import { addToCart, displayCartQuantity, getCart } from "../data/cart.ts";
 import { Products, fetchProducts } from "../data/products.js";
 let ProductsHTML = "";
 function renderAmazonHomePage() {

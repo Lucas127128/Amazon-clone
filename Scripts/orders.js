@@ -4,7 +4,7 @@ import {
   fetchProducts,
 } from "../data/products.js";
 import { formatCurrency } from "./Utils/Money.ts";
-import { addToCart, displayCartQuantity } from "../data/cart.js";
+import { addToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString } from "../data/orders.ts";
 function renderPlacedOrder() {
   const orders = JSON.parse(localStorage.getItem("orders")) || [];

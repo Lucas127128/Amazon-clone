@@ -1,5 +1,5 @@
 import { getMatchingCart } from "./products.js";
-export let Cart = [
+export let Cart: Cart[] = [
   /*{
     ProductId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     Quantity: 2,
@@ -10,7 +10,7 @@ export let Cart = [
     deliveryOptionId: '2'
 }*/
 ];
-export function addToCart(productId, quantityToAdd) {
+export function addToCart(productId: string, quantityToAdd: number) {
   const cart = getCart();
   const matchingItem = getMatchingCart(cart, productId);
   if (matchingItem) {
@@ -25,11 +25,16 @@ export function addToCart(productId, quantityToAdd) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-export function removeFromCart(productId) {
-  let newCart = [];
-  getCart().forEach((Product) => {
-    if (Product.ProductId != productId) {
-      newCart.push(Product);
+interface Cart {
+  ProductId: string;
+  Quantity: number;
+  deliveryOptionId: string;
+}
+export function removeFromCart(productId: string) {
+  let newCart: Cart[] = [];
+  getCart().forEach((cartItem: Cart) => {
+    if (cartItem.ProductId != productId) {
+      newCart.push(cartItem);
     }
   });
   localStorage.setItem("cart", JSON.stringify(newCart));
@@ -37,28 +42,29 @@ export function removeFromCart(productId) {
 }
 
 export function updateDeliveryOption(
-  productId,
-  deliveryOptionId,
-  checkoutCart
+  productId: string,
+  deliveryOptionId: string,
+  checkoutCart: Cart[]
 ) {
-  const matchingItem = checkoutCart.find(
+  const matchingItem: Cart = checkoutCart?.find(
     (cartItem) => cartItem.ProductId === productId
-  );
+  )!;
   matchingItem.deliveryOptionId = deliveryOptionId;
   localStorage.setItem("cart", JSON.stringify(checkoutCart));
 }
 
 export function getCart() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const savedCart = localStorage.getItem("cart");
+  const cart: Cart[] = savedCart ? JSON.parse(savedCart) : [];
   return cart;
 }
 
 export function displayCartQuantity() {
   let cartQuantity = 0;
-  const cartQuantityHTML = document.querySelector(".cart-quantity");
+  const cartQuantityHTML = document.querySelector(".cart-quantity")!;
   const cart = getCart();
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.Quantity;
   });
-  cartQuantityHTML.innerHTML = cartQuantity;
+  cartQuantityHTML.innerHTML = String(cartQuantity);
 }
