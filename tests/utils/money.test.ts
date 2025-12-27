@@ -23,10 +23,10 @@ describe.concurrent("test suite: FormatCurrency", () => {
   });
 
   test("not to convert string", async ({ expect }) => {
-    expect(formatCurrency("money")).toBe("NaN");
+    expect(formatCurrency("money" as any)).toBe("NaN");
   });
 
   test("return string", async ({ expect }) => {
-    expectTypeOf(formatCurrency("2095")).toBeString();
+    expectTypeOf(formatCurrency("2095" as any)).toBeString();
   });
 });

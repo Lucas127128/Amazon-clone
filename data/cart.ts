@@ -46,11 +46,17 @@ export function updateDeliveryOption(
   deliveryOptionId: string,
   checkoutCart: Cart[]
 ) {
-  const matchingItem: Cart = checkoutCart?.find(
+  const matchingItem = checkoutCart?.find(
     (cartItem) => cartItem.ProductId === productId
-  )!;
-  matchingItem.deliveryOptionId = deliveryOptionId;
-  localStorage.setItem("cart", JSON.stringify(checkoutCart));
+  );
+  if (matchingItem) {
+    matchingItem.deliveryOptionId = deliveryOptionId;
+    localStorage.setItem("cart", JSON.stringify(checkoutCart));
+  } else {
+    console.error(
+      "Cannot update delivery option because the product id is not valid."
+    );
+  }
 }
 
 export function getCart() {
@@ -61,10 +67,12 @@ export function getCart() {
 
 export function displayCartQuantity() {
   let cartQuantity = 0;
-  const cartQuantityHTML = document.querySelector(".cart-quantity")!;
+  const cartQuantityHTML = document.querySelector(".cart-quantity");
   const cart = getCart();
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.Quantity;
   });
-  cartQuantityHTML.innerHTML = String(cartQuantity);
+  if (cartQuantityHTML) {
+    cartQuantityHTML.innerHTML = String(cartQuantity);
+  }
 }

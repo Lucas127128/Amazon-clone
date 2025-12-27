@@ -15,7 +15,7 @@
     "test:checkout": "vitest --config=vitest.browser.config.js --browser=safari tests/checkout",
     "test:orders-api": "vitest --config=vitest.browser.config.js --browser=safari tests/api/orders-api.test.js",
     "test:products-api": "vitest  --config=vitest.browser.config.js --browser=safari tests/api/products-api.test.js",
-    "test:money": "vitest tests/utils/money.test.js",
+    "test:money": "vitest tests/utils/money.test.ts",
     "build": "vite build"
   }
 }
