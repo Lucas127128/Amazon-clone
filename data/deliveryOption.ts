@@ -1,4 +1,4 @@
-import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+import dayjs from "dayjs";
 export const deliveryOption = [
   {
     id: "1",
@@ -17,7 +17,7 @@ export const deliveryOption = [
   },
 ];
 const Today = dayjs();
-export function addWeekDays(businessDaysToAdd) {
+export function addWeekDays(businessDaysToAdd: number) {
   let currentDate = Today;
   let daysAdded = 0;
   while (daysAdded < businessDaysToAdd) {
@@ -29,25 +29,25 @@ export function addWeekDays(businessDaysToAdd) {
   }
   return currentDate;
 }
-export function getDeliveryDate(DeliveryOptionId) {
+export function getDeliveryDate(deliveryOptionId: string) {
   let deliveryDate = "";
-  if (DeliveryOptionId === "1") {
+  if (deliveryOptionId === "1") {
     deliveryDate = addWeekDays(7).format("dddd, MMMM D");
-  } else if (DeliveryOptionId === "2") {
+  } else if (deliveryOptionId === "2") {
     deliveryDate = addWeekDays(3).format("dddd, MMMM D");
-  } else if (DeliveryOptionId === "3") {
+  } else if (deliveryOptionId === "3") {
     deliveryDate = addWeekDays(1).format("dddd, MMMM D");
   }
   return deliveryDate;
 }
 
-export function getPriceString(priceCents, priceString) {
+export function getPriceString(priceCents: number, priceString: string) {
   if (priceCents === 0) {
-      priceString = "FREE - ";
-    } else if (priceCents === 499) {
-      priceString = "$4.99 - ";
-    } else if (priceCents === 999) {
-      priceString = "$9.99 - ";
-    }
-    return priceString;
+    priceString = "FREE - ";
+  } else if (priceCents === 499) {
+    priceString = "$4.99 - ";
+  } else if (priceCents === 999) {
+    priceString = "$9.99 - ";
+  }
+  return priceString;
 }

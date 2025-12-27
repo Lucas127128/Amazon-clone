@@ -14,12 +14,12 @@ export function addWeekDays(businessDaysToAdd: number) {
   return currentDate;
 }
 
-export function getDeliveryISOTime(DeliveryOptionId: string) {
-  if (DeliveryOptionId === "1") {
+export function getDeliveryISOTime(deliveryOptionId: string) {
+  if (deliveryOptionId === "1") {
     return addWeekDays(7).toISOString();
-  } else if (DeliveryOptionId === "2") {
+  } else if (deliveryOptionId === "2") {
     return addWeekDays(3).toISOString();
-  } else if (DeliveryOptionId === "3") {
+  } else if (deliveryOptionId === "3") {
     return addWeekDays(1).toISOString();
   }
 }

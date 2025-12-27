@@ -9,7 +9,7 @@ import {
   getDeliveryDate,
   addWeekDays,
   getPriceString,
-} from "../../data/deliveryOption.js";
+} from "../../data/deliveryOption.ts";
 import { updateDeliveryOption } from "../../data/cart.js";
 import { getMatchingProduct } from "../../data/products.js";
 import { renderPaymentSummary } from "./paymentSummary.js";

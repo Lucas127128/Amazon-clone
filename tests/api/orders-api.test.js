@@ -1,7 +1,7 @@
 import { test, describe, expect, beforeAll } from "vitest";
 import cart from "../../backend/api/cart.json";
 import { getTimeString } from "../../data/orders.ts";
-import { getDeliveryDate } from "../../data/deliveryOption.js";
+import { getDeliveryDate } from "../../data/deliveryOption.ts";
 import {
   getMatchingProduct,
   fetchProducts,
