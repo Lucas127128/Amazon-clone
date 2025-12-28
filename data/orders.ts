@@ -6,13 +6,15 @@ export interface Product {
 export interface Order {
   id: string;
   orderTime: string;
-  totalCostsCents: number;
-  products: Product;
+  totalCostCents: number;
+  products: Product[];
 }
-const savedOrders = localStorage.getItem("orders");
-const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
 
 export function addToOrders(order: Order) {
+  const savedOrders = localStorage.getItem("orders");
+  const orders: Order[] = savedOrders
+    ? (JSON.parse(savedOrders) as Order[])
+    : [];
   orders.unshift(order);
   localStorage.setItem("orders", JSON.stringify(orders));
 }
