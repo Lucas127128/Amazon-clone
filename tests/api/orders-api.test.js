@@ -6,7 +6,7 @@ import {
   getMatchingProduct,
   fetchProducts,
   Products,
-} from "../../data/products-backend.js";
+} from "../../data/products-backend.ts";
 
 const response = await fetch("https://localhost:3001/orders", {
   method: "POST",

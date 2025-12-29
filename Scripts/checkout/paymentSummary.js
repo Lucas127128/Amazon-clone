@@ -1,5 +1,8 @@
-import { Products, fetchProducts } from "../../data/products.js";
-import { getMatchingProduct } from "../../data/products.js";
+import {
+  Products,
+  fetchProducts,
+  getMatchingProduct,
+} from "../../data/products.ts";
 import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";

@@ -5,7 +5,7 @@ import {
   Products,
   Product,
   Clothing,
-} from "../../data/products-backend.js";
+} from "../../data/products-backend.ts";
 
 await fetchInternalProducts();
 

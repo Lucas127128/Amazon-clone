@@ -1,5 +1,5 @@
 import { addToCart, displayCartQuantity, getCart } from "../data/cart.ts";
-import { Products, fetchProducts } from "../data/products.js";
+import { Products, fetchProducts } from "../data/products.ts";
 let ProductsHTML = "";
 function renderAmazonHomePage() {
   Products.forEach((products) => {

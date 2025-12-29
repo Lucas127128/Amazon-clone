@@ -2,7 +2,7 @@ import {
   Products,
   getMatchingProduct,
   fetchProducts,
-} from "../data/products.js";
+} from "../data/products.ts";
 import { formatCurrency } from "./Utils/Money.ts";
 import { addToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString } from "../data/orders.ts";

@@ -3,7 +3,7 @@ import { cors } from "@elysiajs/cors";
 import {
   Products,
   fetchInternalProducts,
-} from "../../../data/products-backend.js";
+} from "../../../data/products-backend.ts";
 import { productsPlugin } from "./products.ts";
 import { ordersPlugin } from "./orders.ts";
 export const date = new Date();

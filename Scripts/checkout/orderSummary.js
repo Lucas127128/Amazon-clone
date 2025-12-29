@@ -8,14 +8,14 @@ import {
   Products,
   getMatchingCart,
   fetchProducts,
-} from "../../data/products.js";
+  getMatchingProduct,
+} from "../../data/products.ts";
 import {
   deliveryOption,
   getDeliveryDate,
   addWeekDays,
   getPriceString,
 } from "../../data/deliveryOption.ts";
-import { getMatchingProduct } from "../../data/products.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
 export function renderOrderSummary() {

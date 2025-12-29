@@ -4,7 +4,7 @@ import {
   fetchProducts,
   getMatchingProduct,
   Products,
-} from "../../data/products.js";
+} from "../../data/products.ts";
 import { formatCurrency } from "../../Scripts/Utils/Money.ts";
 import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.js";
 document.body.innerHTML = `

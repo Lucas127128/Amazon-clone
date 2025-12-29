@@ -3,7 +3,7 @@ import {
   fetchProducts,
   Products,
   getMatchingProduct,
-} from "../../data/products.js";
+} from "../../data/products.ts";
 import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.ts";
 import { getDeliveryDate } from "../../data/deliveryOption.ts";
 import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";

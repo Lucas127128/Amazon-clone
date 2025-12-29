@@ -2,7 +2,7 @@ import { Elysia } from "elysia";
 import {
   getMatchingProduct,
   Products,
-} from "../../../data/products-backend.js";
+} from "../../../data/products-backend.ts";
 import { getDeliveryISOTime } from "./deliveryOption.ts";
 import { loadProducts } from "./index.ts";
 
@@ -38,9 +38,11 @@ async function startOrdersAPI() {
           Products,
           cartItem.productId
         );
-        totalCostsCents += matchingProduct.priceCents;
-        const product = new Product(cartItem);
-        this.products.push(product);
+        if (matchingProduct) {
+          totalCostsCents += matchingProduct.priceCents;
+          const product = new Product(cartItem);
+          this.products.push(product);
+        }
       });
       this.id = crypto.randomUUID();
       this.orderTime = new Date();

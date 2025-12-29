@@ -1,4 +1,4 @@
-import { getMatchingCart } from "./products.js";
+import { getMatchingCart } from "./products.ts";
 export let Cart: Cart[] = [
   /*{
     ProductId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -25,7 +25,7 @@ export function addToCart(productId: string, quantityToAdd: number) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-interface Cart {
+export interface Cart {
   ProductId: string;
   Quantity: number;
   deliveryOptionId: string;
