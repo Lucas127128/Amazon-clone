@@ -13,8 +13,9 @@
   "scripts": {
     "test:data": "vitest --config=vitest.browser.config.js --browser=safari tests/data",
     "test:checkout": "vitest --config=vitest.browser.config.js --browser=safari tests/checkout",
-    "test:orders-api": "vitest --config=vitest.browser.config.js --browser=safari tests/api/orders-api.test.js",
-    "test:products-api": "vitest  --config=vitest.browser.config.js --browser=safari tests/api/products-api.test.js",
+    "test:orders-api": "vitest --config=vitest.browser.config.js --browser=safari tests/api/orders-api.test.ts",
+    "test:products-api": "vitest  --config=vitest.browser.config.js --browser=safari tests/api/products-api.test.ts",
+    "test:api": "vitest --config=vitest.browser.config.js --browser=safari tests/api",
     "test:money": "vitest tests/utils/money.test.ts",
     "build": "vite build"
   }

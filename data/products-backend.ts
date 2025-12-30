@@ -80,7 +80,7 @@ export class Clothing extends Product {
   }
 }
 
-export let Products = [];
+export let Products: ClothingInterface[] | ProductInterface[] = [];
 
 export function fetchProducts() {
   const promise = fetch("https://localhost:3001/products")

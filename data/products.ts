@@ -19,7 +19,7 @@ interface Rating {
   stars: number;
   count: number;
 }
-interface ProductInterface {
+export interface ProductInterface {
   id: string;
   image: string;
   name: string;
@@ -29,7 +29,7 @@ interface ProductInterface {
   type: string;
 }
 
-interface ClothingInterface extends ProductInterface {
+export interface ClothingInterface extends ProductInterface {
   sizeChartLink: string;
   type: string;
 }
@@ -78,7 +78,7 @@ class Clothing extends Product {
   }
 }
 
-export let Products = [];
+export let Products: ClothingInterface[] | ProductInterface[] = [];
 
 export function fetchProducts() {
   const promise = fetch("https://localhost:3001/products")
