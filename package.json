@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/k6": "^1.4.0",
     "bun-storage": "^2.0.5",
     "dayjs": "^1.11.19",
     "happy-dom": "^20.0.11",

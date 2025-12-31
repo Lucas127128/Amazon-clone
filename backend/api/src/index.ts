@@ -1,9 +1,6 @@
 import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
-import {
-  Products,
-  fetchInternalProducts,
-} from "../../../data/products-backend.ts";
+import { fetchInternalProducts } from "../../../data/products-backend.ts";
 import { productsPlugin } from "./products.ts";
 import { ordersPlugin } from "./orders.ts";
 export const date = new Date();
@@ -23,6 +20,11 @@ class Time {
   }
 }
 const app = new Elysia()
+  .onError(({ code, error }) => {
+    if (code === "VALIDATION") {
+      console.error(error?.message);
+    }
+  })
   .use(
     cors({
       origin: [
