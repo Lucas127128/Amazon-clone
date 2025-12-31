@@ -17,12 +17,12 @@ const response = await fetch("https://localhost:3001/orders", {
   body: JSON.stringify(cart),
 });
 const order: Order = await response.json();
-console.log(order);
 
 await fetchProducts();
 
 describe("order api test", () => {
   test.concurrent("order id test", ({ expect }) => {
+    console.log(order);
     expect(typeof order.id).toBe("string");
   });
 

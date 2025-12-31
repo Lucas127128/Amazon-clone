@@ -1,0 +1,67 @@
+{
+  "id": "505a34a5-592f-4a7c-9c01-7599fbb56ff3",
+  "orderTime": "2025-12-31T08:00:33.400Z",
+  "products": [
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "54e0eccd-8f36-462b-b68a-8182611d9add",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "3ebe75dc-64d2-4137-8860-1f5a963e534b",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "dd82ca78-a18b-4e2a-9250-31e67412f98d",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "77919bbe-0e56-475b-adde-4f24dfed3a04",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "3fdfe8d6-9a15-4979-b459-585b0d0545b9",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "58b4fc92-e98c-42aa-8c55-b6b79996769a",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "5968897c-4d27-4872-89f6-5bcb052746d7",
+      "quantity": 1
+    },
+    {
+      "estimatedDeliveryTime": "2026-01-09T07:53:57.096Z",
+      "productId": "aad29d11-ea98-41ee-9285-b916638cac4a",
+      "quantity": 1
+    }
+  ],
+  "totalCostCents": 27367
+}
