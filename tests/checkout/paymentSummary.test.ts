@@ -44,10 +44,11 @@ describe("test suite: Render payment summary", () => {
     const totalProductsPriceHTML = document.querySelector(
       ".total-products-price"
     );
-    expect(totalProductsPriceHTML.innerText).toBe(
+    expect(totalProductsPriceHTML.textContent).toBe(
       `$${formatCurrency(totalProductPrice)}`
     );
-    localStorage.setItem("totalProductPrice", totalProductPrice);
+
+    localStorage.setItem("totalProductPrice", String(totalProductPrice));
   });
 
   test.concurrent("display delivery fee", ({ expect }) => {
@@ -65,10 +66,10 @@ describe("test suite: Render payment summary", () => {
       totalDeliveryFee += deliveryFee;
     });
     const totalDeliveryFeeHTML = document.querySelector(".total-delivery-fee");
-    expect(totalDeliveryFeeHTML.innerText).toBe(
+    expect(totalDeliveryFeeHTML.textContent).toBe(
       `$${formatCurrency(totalDeliveryFee)}`
     );
-    localStorage.setItem("totalDeliveryFee", totalDeliveryFee);
+    localStorage.setItem("totalDeliveryFee", String(totalDeliveryFee));
   });
 
   test.concurrent("display total price before tax", ({ expect }) => {
@@ -78,10 +79,10 @@ describe("test suite: Render payment summary", () => {
     const totalPriceBeforeTaxHTML = document.querySelector(
       ".total-price-before-tax"
     );
-    expect(totalPriceBeforeTaxHTML.innerText).toBe(
+    expect(totalPriceBeforeTaxHTML.textContent).toBe(
       `$${formatCurrency(totalPriceBeforeTax)}`
     );
-    localStorage.setItem("totalPriceBeforeTax", totalPriceBeforeTax);
+    localStorage.setItem("totalPriceBeforeTax", String(totalPriceBeforeTax));
   });
 
   test.concurrent("display tax", ({ expect }) => {
@@ -90,8 +91,8 @@ describe("test suite: Render payment summary", () => {
     );
     const estimatedTax = totalPriceBeforeTax * 0.1;
     const totalTaxHTML = document.querySelector(".total-tax");
-    expect(totalTaxHTML.innerText).toBe(`$${formatCurrency(estimatedTax)}`);
-    localStorage.setItem("estimatedTax", estimatedTax);
+    expect(totalTaxHTML.textContent).toBe(`$${formatCurrency(estimatedTax)}`);
+    localStorage.setItem("estimatedTax", String(estimatedTax));
   });
 
   test.concurrent("display total cost", ({ expect }) => {
@@ -101,6 +102,6 @@ describe("test suite: Render payment summary", () => {
     );
     const totalCost = estimatedTax + totalPriceBeforeTax;
     const totalCostHTML = document.querySelector(".total-cost");
-    expect(totalCostHTML.innerText).toBe(`$${formatCurrency(totalCost)}`);
+    expect(totalCostHTML.textContent).toBe(`$${formatCurrency(totalCost)}`);
   });
 });
