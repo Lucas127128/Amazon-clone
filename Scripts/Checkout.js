@@ -1,5 +1,5 @@
 import { fetchProducts } from "../data/products.ts";
-import { renderOrderSummary } from "./checkout/orderSummary.js";
+import { renderOrderSummary } from "./checkout/orderSummary.ts";
 import { renderPaymentSummary } from "./checkout/paymentSummary.ts";
 
 async function loadPage() {

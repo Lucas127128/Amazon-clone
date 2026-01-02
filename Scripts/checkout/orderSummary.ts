@@ -83,7 +83,7 @@ export function renderOrderSummary() {
   checkoutCart.forEach((cartItem) => {
     cartQuantity += cartItem.Quantity;
   });
-  function deliveryOptionsHTML(matchingProductId) {
+  function deliveryOptionsHTML(matchingProductId: string) {
     let html = "";
     let priceString = "";
     deliveryOption.forEach((deliveryOptions) => {
@@ -113,7 +113,7 @@ export function renderOrderSummary() {
   }
   returnHomeHTML.innerHTML = `${cartQuantity} items`;
   document
-    .querySelectorAll(`.update-quantity-link`)
+    .querySelectorAll<HTMLElement>(`.update-quantity-link`)
     .forEach((updateQuantityHTML) => {
       updateQuantityHTML.addEventListener("click", function () {
         const productId = updateQuantityHTML.dataset.productId;
@@ -127,14 +127,15 @@ export function renderOrderSummary() {
         saveQuantityHTML.classList.add("Display_Update_Element");
       });
     });
-  let quantityToAdd = "";
+  let quantityToAdd = 0;
   const quantityInputHTML = document.querySelectorAll(`.quantity_Input`);
   quantityInputHTML.forEach((quantityInput) => {
     quantityInput.addEventListener("change", (e) => {
       quantityToAdd = Number(e.target.value);
     });
   });
-  const saveQuantityHTML = document.querySelectorAll(`.save-quantity-link`);
+  const saveQuantityHTML =
+    document.querySelectorAll<HTMLElement>(`.save-quantity-link`);
   saveQuantityHTML.forEach((saveQuantity) => {
     saveQuantity.addEventListener("click", function () {
       const ProductId = saveQuantity.dataset.productId;
@@ -144,7 +145,7 @@ export function renderOrderSummary() {
     });
   });
   document
-    .querySelectorAll(".delete-quantity-link")
+    .querySelectorAll<HTMLElement>(".delete-quantity-link")
     .forEach((deleteProductHTML) => {
       deleteProductHTML.addEventListener("click", () => {
         const productId = deleteProductHTML.dataset.productId;
@@ -153,7 +154,7 @@ export function renderOrderSummary() {
         renderPaymentSummary();
       });
     });
-  const deliveryOptionsInputHTML = document.querySelectorAll(
+  const deliveryOptionsInputHTML = document.querySelectorAll<HTMLElement>(
     ".delivery-option-input"
   );
   deliveryOptionsInputHTML.forEach((deliveryOptionInputHTML) => {
@@ -166,12 +167,17 @@ export function renderOrderSummary() {
     });
   });
   checkoutCart.forEach((cartItem) => {
-    document.getElementById(
+    const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.ProductId}`
-    ).checked = true;
+    );
+    if (deliveryOptionButtonHTML instanceof HTMLInputElement) {
+      deliveryOptionButtonHTML.checked = true;
+    } else {
+      console.error("Fail to get the HTML element");
+    }
   });
 
-  function deliveryDateHTML(productId) {
+  function deliveryDateHTML(productId: string) {
     let cartItem = getMatchingCart(checkoutCart, productId);
     const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
     const html = `Delivery date: ${deliveryDate}`;

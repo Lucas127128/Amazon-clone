@@ -6,7 +6,7 @@ import {
 } from "../../data/products.ts";
 import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.ts";
 import { getDeliveryDate } from "../../data/deliveryOption.ts";
-import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.js";
+import { renderOrderSummary } from "../../Scripts/checkout/orderSummary.ts";
 document.body.innerHTML = `
 <div class="test-container">
   <div class="order-summary"></div>
