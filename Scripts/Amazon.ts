@@ -1,9 +1,9 @@
-import { addToCart, displayCartQuantity, getCart } from "../data/cart.ts";
-import { Products, fetchProducts } from "../data/products.ts";
-let ProductsHTML = "";
+import { addToCart, displayCartQuantity, getCart } from "../data/cart";
+import { Products, fetchProducts } from "../data/products";
+let productsHTML = "";
 function renderAmazonHomePage() {
   Products.forEach((products) => {
-    ProductsHTML += `
+    productsHTML += `
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
@@ -58,22 +58,39 @@ function renderAmazonHomePage() {
     `;
   });
   const productsGrid = document.querySelector(".products-grid");
-  productsGrid.innerHTML = ProductsHTML;
-  function displayAdded(ProductId) {
-    const addedToCart = document.querySelector(`.added-to-cart-${ProductId}`);
-    addedToCart.classList.add("display-added-to-cart");
-    setTimeout(() => {
-      addedToCart.classList.remove("display-added-to-cart");
-    }, 1500);
+  if (productsGrid instanceof HTMLElement) {
+    productsGrid.innerHTML = productsHTML;
+  } else {
+    console.error("Fail to select a HTML element");
   }
-  const addToCartButton = document.querySelectorAll(".add-to-cart-button");
+  function displayAdded(productId: string) {
+    const addedToCart = document.querySelector(`.added-to-cart-${productId}`);
+    if (addedToCart) {
+      addedToCart.classList.add("display-added-to-cart");
+      setTimeout(() => {
+        addedToCart.classList.remove("display-added-to-cart");
+      }, 1500);
+    } else {
+      console.error("Fail to select a HTML element");
+    }
+  }
+  const addToCartButton = document.querySelectorAll<HTMLButtonElement>(
+    ".add-to-cart-button"
+  );
   addToCartButton.forEach((button) => {
     button.addEventListener("click", () => {
       const productId = button.dataset.productId;
-      const productContainer = button.closest(".product-container");
-      const quantitySelectorHTML = productContainer.querySelector(
-        ".ProductQuantitySelector"
-      );
+      const productContainer = button?.closest(".product-container");
+      const quantitySelectorHTML =
+        productContainer?.querySelector<HTMLInputElement>(
+          ".ProductQuantitySelector"
+        );
+      if (!quantitySelectorHTML?.value || !productId) {
+        console.error(
+          "Fail to get the HTML element or the product id dataset is incorrect"
+        );
+        return;
+      }
       const quantityToAdd = parseInt(quantitySelectorHTML.value);
       addToCart(productId, quantityToAdd);
       displayCartQuantity();
