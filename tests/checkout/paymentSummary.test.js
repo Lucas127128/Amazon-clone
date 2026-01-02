@@ -6,7 +6,7 @@ import {
   Products,
 } from "../../data/products.ts";
 import { formatCurrency } from "../../Scripts/Utils/Money.ts";
-import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.js";
+import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.ts";
 document.body.innerHTML = `
 <div class="test-container">
   <div class="order-summary"></div>

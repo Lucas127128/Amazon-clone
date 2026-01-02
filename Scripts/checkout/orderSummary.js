@@ -16,7 +16,7 @@ import {
   addWeekDays,
   getPriceString,
 } from "../../data/deliveryOption.ts";
-import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderPaymentSummary } from "./paymentSummary.ts";
 
 export function renderOrderSummary() {
   const checkoutCart = getCart();

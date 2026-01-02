@@ -8,10 +8,7 @@ export function getMatchingCart(cart: Cart[], productId: string) {
   return matchingItem;
 }
 
-export function getMatchingProduct(
-  products: ProductInterface[],
-  productId: string
-) {
+export function getMatchingProduct(products: Product[], productId: string) {
   const MatchingItem = products.find((product) => product.id === productId);
   return MatchingItem;
 }

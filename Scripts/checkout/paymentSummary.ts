@@ -6,6 +6,7 @@ import {
 import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
+import { Cart } from "../../backend/api/src/orders.ts";
 export function renderPaymentSummary() {
   const CheckoutCart = getCart();
   let totalProductPrice = 0;
@@ -14,6 +15,10 @@ export function renderPaymentSummary() {
   const paymentSummary = document.querySelector(".payment-summary");
   CheckoutCart.forEach((cartItem) => {
     const productItem = getMatchingProduct(Products, cartItem.ProductId);
+    if (!productItem) {
+      console.error("Fail to get matching product");
+      return;
+    }
     const totalPrice = productItem.priceCents * cartItem.Quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.Quantity;
@@ -78,17 +83,25 @@ export function renderPaymentSummary() {
         Place your order
         </button>
     `;
+  if (!paymentSummary) {
+    console.error("Fail to select HTML element");
+    return;
+  }
   paymentSummary.innerHTML = paymentSummaryHTML;
 
-  const checkoutCart = CheckoutCart;
-  checkoutCart.map((cartItem) => {
-    cartItem.productId = cartItem.ProductId;
-    cartItem.quantity = cartItem.Quantity;
-    delete cartItem.Quantity;
-    delete cartItem.ProductId;
-    return cartItem;
+  const checkoutCart: Cart[] = CheckoutCart.map((cartItem) => {
+    const { ProductId, Quantity, ...rest } = cartItem;
+    return {
+      ...rest,
+      productId: ProductId,
+      quantity: Quantity,
+    };
   });
   const placeOrderHTML = document.querySelector(".place-order-button");
+  if (!placeOrderHTML) {
+    console.error("Fail to get the HTML element");
+    return;
+  }
   placeOrderHTML.addEventListener("click", async () => {
     try {
       const response = await fetch("https://localhost:3001/orders", {

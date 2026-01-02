@@ -10,7 +10,7 @@ async function getProducts() {
   await Bun.sleep(100);
   await loadProducts();
 }
-interface Cart {
+export interface Cart {
   productId: string;
   quantity: number;
   deliveryOptionId: string;

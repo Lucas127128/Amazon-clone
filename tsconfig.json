@@ -1,11 +1,9 @@
 {
     "compilerOptions": {
         "noEmit": true,
-        "module": "esnext",
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
         "allowImportingTsExtensions": true,
-        "strict": true
     }
 }
