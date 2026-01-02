@@ -1,14 +1,17 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
 import { Cart } from "../data/cart.ts";
 
-export function getMatchingCart(cart: Cart[], productId: string) {
+export function getMatchingCart(cart: Cart[], productId: string): Cart {
   const matchingItem = cart.find(
     (cartItem) => cartItem.ProductId === productId
   );
   return matchingItem;
 }
 
-export function getMatchingProduct(products: Product[], productId: string) {
+export function getMatchingProduct(
+  products: Product[],
+  productId: string
+): Product {
   const MatchingItem = products.find((product) => product.id === productId);
   return MatchingItem;
 }

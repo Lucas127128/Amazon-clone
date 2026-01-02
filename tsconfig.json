@@ -5,5 +5,7 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "allowImportingTsExtensions": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
     }
 }

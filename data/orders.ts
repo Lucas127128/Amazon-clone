@@ -19,7 +19,7 @@ export function addToOrders(order: Order) {
   localStorage.setItem("orders", JSON.stringify(orders));
 }
 
-export function getTimeString(ISOOrderTime: string) {
+export function getTimeString(ISOOrderTime: string): string {
   const format: Intl.DateTimeFormatOptions = {
     weekday: "long",
     month: "long",

@@ -29,7 +29,7 @@ export function addWeekDays(businessDaysToAdd: number) {
   }
   return currentDate;
 }
-export function getDeliveryDate(deliveryOptionId: string) {
+export function getDeliveryDate(deliveryOptionId: string): string {
   let deliveryDate = "";
   if (deliveryOptionId === "1") {
     deliveryDate = addWeekDays(7).format("dddd, MMMM D");
@@ -41,7 +41,10 @@ export function getDeliveryDate(deliveryOptionId: string) {
   return deliveryDate;
 }
 
-export function getPriceString(priceCents: number, priceString: string) {
+export function getPriceString(
+  priceCents: number,
+  priceString: string
+): string {
   if (priceCents === 0) {
     priceString = "FREE - ";
   } else if (priceCents === 499) {

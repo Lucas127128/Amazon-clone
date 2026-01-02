@@ -1,4 +1,3 @@
-import { value } from "happy-dom/lib/PropertySymbol";
 import { getMatchingCart } from "./products.ts";
 export let Cart: Cart[] = [
   /*{
@@ -42,14 +41,12 @@ export function removeFromCart(productId: string) {
 export function updateDeliveryOption(
   productId: string,
   deliveryOptionId: string,
-  checkoutCart: Cart[]
+  cart: Cart[]
 ) {
-  const matchingItem = checkoutCart?.find(
-    (cartItem) => cartItem.ProductId === productId
-  );
+  const matchingItem = getMatchingCart(cart, productId);
   if (matchingItem) {
     matchingItem.deliveryOptionId = deliveryOptionId;
-    localStorage.setItem("cart", JSON.stringify(checkoutCart));
+    localStorage.setItem("cart", JSON.stringify(cart));
   } else {
     console.error(
       "Cannot update delivery option because the product id is not valid."
@@ -57,7 +54,7 @@ export function updateDeliveryOption(
   }
 }
 
-export function getCart() {
+export function getCart(): Cart[] {
   const savedCart = localStorage.getItem("cart");
   const cart: Cart[] = savedCart ? JSON.parse(savedCart) : [];
   return cart;
