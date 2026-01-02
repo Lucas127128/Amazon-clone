@@ -1,3 +1,4 @@
+import { value } from "happy-dom/lib/PropertySymbol";
 import { getMatchingCart } from "./products.ts";
 export let Cart: Cart[] = [
   /*{
@@ -31,12 +32,9 @@ export interface Cart {
   deliveryOptionId: string;
 }
 export function removeFromCart(productId: string) {
-  let newCart: Cart[] = [];
-  getCart().forEach((cartItem: Cart) => {
-    if (cartItem.ProductId != productId) {
-      newCart.push(cartItem);
-    }
-  });
+  const newCart: Cart[] = getCart().filter(
+    (cartItem: Cart) => cartItem.ProductId !== productId
+  );
   localStorage.setItem("cart", JSON.stringify(newCart));
   Cart = newCart;
 }

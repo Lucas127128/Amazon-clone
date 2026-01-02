@@ -1,19 +1,28 @@
 import { bench } from "vitest";
+import { filterFromCart, removeFromCart, addToCart } from "../data/cart.ts";
+import products from "../backend/products.json" with {type: "json"}
 
-//const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const numbers = [];
-for (let i = 0; i < 10000; i++) {
-  const randomNumber = Number(Math.round(Math.random() * 10).toFixed(0));
-  numbers[i] = randomNumber;
-}
-bench("forEach", () => {
-  numbers.forEach((number) => {
-    if (number === 5) {
-      return number;
-    }
-  });
+const productsId = [];
+products.forEach((product) => {
+  productsId.push(product.id);
 });
 
-bench("find", () => {
-  return numbers.find((number) => number === 5);
+productsId.forEach((productId) => {
+  const numbers = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+  ];
+  const randomNumber = numbers[Math.floor(Math.round() * numbers.length)];
+  addToCart(productId, randomNumber);
+});
+
+bench("filter", () => {
+  const randomProductId =
+    productsId[Math.floor(Math.round() * productsId.length)];
+  filterFromCart(randomProductId);
+});
+
+bench("forEach", () => {
+  const randomProductId =
+    productsId[Math.floor(Math.round() * productsId.length)];
+  removeFromCart(randomProductId);
 });
