@@ -72,7 +72,5 @@ export function displayCartQuantity() {
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.Quantity;
   });
-  if (cartQuantityHTML) {
-    cartQuantityHTML.innerHTML = String(cartQuantity);
-  }
+  cartQuantityHTML.textContent = String(cartQuantity);
 }

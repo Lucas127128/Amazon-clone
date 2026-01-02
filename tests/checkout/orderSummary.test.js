@@ -37,7 +37,7 @@ describe("test suite: Render order summary", () => {
       const quantityHTML = document.querySelector(
         `.js-product-quantity-${productId}`
       );
-      expect(quantityHTML.innerText).toContain(
+      expect(quantityHTML.textContent).toContain(
         `Quantity: ${cartItem.Quantity}`
       );
 
@@ -58,7 +58,7 @@ describe("test suite: Render order summary", () => {
       const productPrice = document.querySelector(
         `.product-price-${productId}`
       );
-      expect(productPrice.innerText).toContain(`$${product.getPrice()}`);
+      expect(productPrice.textContent).toContain(`$${product.getPrice()}`);
     });
     cartItemContainers.innerHTML = [];
   });
