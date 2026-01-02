@@ -18,6 +18,6 @@
     "test:products-api": "vitest  --config=vitest.browser.config.js --browser=safari tests/api/products-api.test.ts",
     "test:api": "vitest --config=vitest.browser.config.js --browser=safari tests/api",
     "test:money": "vitest tests/utils/money.test.ts",
-    "build": "vite build"
+    "build": "vite build --minify=true"
   }
 }
