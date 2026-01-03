@@ -37,6 +37,10 @@ describe("test suite: Render order summary", () => {
       const quantityHTML = document.querySelector(
         `.js-product-quantity-${productId}`
       );
+      if (!quantityHTML) {
+        console.error("Fail to select HTML element");
+        return;
+      }
       expect(quantityHTML.textContent).toContain(
         `Quantity: ${cartItem.Quantity}`
       );
@@ -51,6 +55,9 @@ describe("test suite: Render order summary", () => {
       const deliveryDateHTML = document.querySelector(
         `.delivery-date-${productId}`
       );
+      if (!deliveryDateHTML) {
+        return;
+      }
       expect(deliveryDateHTML.innerHTML).toContain(deliveryDate);
 
       //products price test
@@ -58,9 +65,19 @@ describe("test suite: Render order summary", () => {
       const productPrice = document.querySelector(
         `.product-price-${productId}`
       );
+      if (!productPrice) {
+        console.error("Fail to select HTML element");
+        return;
+      }
       expect(productPrice.textContent).toContain(`$${product.getPrice()}`);
     });
-    cartItemContainers.innerHTML = [];
+    if (!cartItemContainers) {
+      console.error("Fail to select HTML element");
+      return;
+    }
+    cartItemContainers.forEach((cartItemHTML) => {
+      cartItemHTML.innerHTML = "";
+    });
   });
 
   test("removes the product", () => {
@@ -68,9 +85,13 @@ describe("test suite: Render order summary", () => {
 
     const productId1 = checkoutCart[0].ProductId;
     const productId2 = checkoutCart[1].ProductId;
-    const deleteQuantityHTML1 = document.querySelector(
+    const deleteQuantityHTML1 = document.querySelector<HTMLButtonElement>(
       `.delete-quantity-link-${productId1}`
     );
+    if (!deleteQuantityHTML1) {
+      console.error("Fail to select HTML element");
+      return;
+    }
     deleteQuantityHTML1.click();
     checkoutCart = getCart();
     expect(checkoutCart.length).toBe(1);
@@ -87,8 +108,16 @@ describe("test suite: Render order summary", () => {
     );
     expect(cartItemContainer1).toBe(null);
     expect(cartItemContainer2).not.toBe(null);
-
-    cartItemContainer2.innerHTML = [];
-    document.querySelector(".test-container").innerHTML = "";
+    if (!cartItemContainer2) {
+      console.error("Fail to select HTML element");
+      return;
+    }
+    cartItemContainer2.innerHTML = "";
+    const testContainerHTML = document.querySelector(".test-container");
+    if (!testContainerHTML) {
+      console.error("Fail to select HTML element");
+      return;
+    }
+    testContainerHTML.innerHTML = "";
   });
 });
