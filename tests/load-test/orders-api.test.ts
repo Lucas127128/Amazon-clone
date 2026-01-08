@@ -1,6 +1,6 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import cart from "../../backend/api/cart.json";
+import cart from "../../src/api/cart.json";
 const order = JSON.parse(open("../../backend/api/order.json"));
 
 export const options = {

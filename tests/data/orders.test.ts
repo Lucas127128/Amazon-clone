@@ -1,5 +1,5 @@
 import { beforeEach, describe, test } from "vitest";
-import { getTimeString, addToOrders, Order } from "../../data/orders.ts";
+import { getTimeString, addToOrders, Order } from "../../src/data/orders.ts";
 
 const order: Order = {
   id: "7259cc88-e5b2-4445-a21a-eaafa8e7e8bb",

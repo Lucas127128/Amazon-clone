@@ -1,5 +1,5 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
-import { Cart } from "../data/cart.ts";
+import { Cart } from "./cart.ts";
 
 export function getMatchingCart(cart: Cart[], productId: string): Cart {
   const matchingItem = cart.find(
@@ -9,9 +9,9 @@ export function getMatchingCart(cart: Cart[], productId: string): Cart {
 }
 
 export function getMatchingProduct(
-  products: Product[],
+  products: ProductInterface[],
   productId: string
-): Product {
+): ProductInterface {
   const MatchingItem = products.find((product) => product.id === productId);
   return MatchingItem;
 }
@@ -19,7 +19,7 @@ interface Rating {
   stars: number;
   count: number;
 }
-export interface ProductInterface {
+interface ProductInterface {
   id: string;
   image: string;
   name: string;
@@ -29,17 +29,18 @@ export interface ProductInterface {
   type: string;
 }
 
-export interface ClothingInterface extends ProductInterface {
+interface ClothingInterface extends ProductInterface {
   sizeChartLink: string;
   type: string;
 }
-class Product {
+export class Product {
   constructor(productDetails: ProductInterface) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
   getStarsUrl() {
     return `/images/ratings/rating-${this.rating.stars * 10}.png`;
@@ -59,9 +60,10 @@ class Product {
   name;
   rating;
   priceCents;
+  keywords;
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink;
 
   constructor(productDetails: ClothingInterface) {
@@ -78,7 +80,7 @@ class Clothing extends Product {
   }
 }
 
-export let Products: Clothing[] | Product[] = [];
+export let Products: ClothingInterface[] | ProductInterface[] = [];
 
 export function fetchProducts() {
   const promise = fetch("https://localhost:3001/products")

@@ -1,12 +1,16 @@
 import { afterAll, beforeAll, describe, expect, test } from "vitest";
-import { addToCart, updateDeliveryOption, getCart } from "../../data/cart.ts";
+import {
+  addToCart,
+  updateDeliveryOption,
+  getCart,
+} from "../../src/data/cart.ts";
 import {
   fetchProducts,
   getMatchingProduct,
   Products,
-} from "../../data/products.ts";
-import { formatCurrency } from "../../Scripts/Utils/Money.ts";
-import { renderPaymentSummary } from "../../Scripts/checkout/paymentSummary.ts";
+} from "../../src/data/products.ts";
+import { formatCurrency } from "../../src/Scripts/Utils/Money.ts";
+import { renderPaymentSummary } from "../../src/Scripts/checkout/paymentSummary.ts";
 document.body.innerHTML = `
 <div class="test-container">
   <div class="order-summary"></div>

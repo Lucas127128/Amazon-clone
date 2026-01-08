@@ -6,7 +6,7 @@ import {
 import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
-import { Cart } from "../../backend/api/src/orders.ts";
+import { Cart } from "../../api/orders.ts";
 export function renderPaymentSummary() {
   const CheckoutCart = getCart();
   let totalProductPrice = 0;

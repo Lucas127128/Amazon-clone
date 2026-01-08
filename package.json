@@ -1,13 +1,16 @@
 {
   "dependencies": {
+    "@elysiajs/cors": "^1.4.1",
     "@types/k6": "^1.4.0",
     "bun-storage": "^2.0.5",
     "dayjs": "^1.11.19",
+    "elysia": "^1.4.21",
     "happy-dom": "^20.0.11",
     "node-modules-inspector": "^1.2.0",
     "vite": "^7.3.0"
   },
   "devDependencies": {
+    "bun-types": "1.3.5",
     "@types/bun": "^1.3.5",
     "@vitest/browser-preview": "^4.0.16",
     "vitest": "^4.0.16"
@@ -20,6 +23,7 @@
     "test:api": "vitest --config=vitest.browser.config.js --browser=safari tests/api",
     "test:money": "vitest tests/utils/money.test.ts",
     "build": "vite build --minify=true",
-    "inspect": "node-modules-inspector"
+    "inspect": "node-modules-inspector",
+    "api": "bun run --watch ./src/api/index.ts"
   }
 }

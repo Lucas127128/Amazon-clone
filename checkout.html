@@ -11,19 +11,22 @@
     <!-- Load a font called Roboto from Google Fonts. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="/styles/shared/Roboto.css" rel="stylesheet" />
+    <link href="/src/styles/shared/Roboto.css" rel="stylesheet" />
 
     <!-- Here are the CSS files for this page. -->
-    <link rel="stylesheet" href="styles/shared/general.css" />
-    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css" />
-    <link rel="stylesheet" href="styles/pages/checkout/checkout.css" />
+    <link rel="stylesheet" href="/src/styles/shared/general.css" />
+    <link
+      rel="stylesheet"
+      href="/src/styles/pages/checkout/checkout-header.css"
+    />
+    <link rel="stylesheet" href="/src/styles/pages/checkout/checkout.css" />
     <link rel="icon" href="./images/favicon/favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <div class="checkout-header">
       <div class="header-content">
         <div class="checkout-header-left-section">
-          <a href="../index.html">
+          <a href="./index.html">
             <img class="amazon-logo" src="images/amazon-logo.png" />
             <img
               class="amazon-mobile-logo"
@@ -54,6 +57,6 @@
       </div>
     </div>
 
-    <script type="module" src="./Scripts/checkout.ts"></script>
+    <script type="module" src="./src/Scripts/checkout.ts"></script>
   </body>
 </html>

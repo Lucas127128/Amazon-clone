@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import Products from "../../products.json";
+import Products from "./products.json";
 
 export const productsPlugin = new Elysia().get(
   "/products",

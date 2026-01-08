@@ -8,7 +8,7 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
-        "module": "preserve",
-        "target": "es2024"
+        "target": "es2024",
+        "module": "nodenext"
     }
 }
