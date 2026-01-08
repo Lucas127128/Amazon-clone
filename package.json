@@ -4,6 +4,7 @@
     "bun-storage": "^2.0.5",
     "dayjs": "^1.11.19",
     "happy-dom": "^20.0.11",
+    "node-modules-inspector": "^1.2.0",
     "vite": "^7.3.0"
   },
   "devDependencies": {
@@ -18,6 +19,7 @@
     "test:products-api": "vitest  --config=vitest.browser.config.js --browser=safari tests/api/products-api.test.ts",
     "test:api": "vitest --config=vitest.browser.config.js --browser=safari tests/api",
     "test:money": "vitest tests/utils/money.test.ts",
-    "build": "vite build --minify=true"
+    "build": "vite build --minify=true",
+    "inspect": "node-modules-inspector"
   }
 }

@@ -1,0 +1,131 @@
+import {
+  Products,
+  getMatchingProduct,
+  fetchProducts,
+} from "../data/products.ts";
+import { formatCurrency } from "./Utils/Money.ts";
+import { addToCart, displayCartQuantity } from "../data/cart.ts";
+import { getTimeString, Order } from "../data/orders.ts";
+function renderPlacedOrder() {
+  const savedOrders = localStorage.getItem("orders");
+  const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
+  const ordersHTML = document.querySelector(".orders-grid");
+  let placedOrderContainerHTML = "";
+  orders.forEach((order) => {
+    console.log(order);
+    let placedOrderHTML = "";
+    order.products.forEach((product) => {
+      const matchingProduct = getMatchingProduct(Products, product.productId);
+      const deliveryDate = getTimeString(product.estimatedDeliveryTime);
+      placedOrderHTML += `
+        <div class="product-image-container">
+          <img src="${matchingProduct.image}" />
+        </div>
+
+        <div class="product-details">
+          <div class="product-name">
+            ${matchingProduct.name}
+          </div>
+          <div class="product-delivery-date">Arriving on: ${deliveryDate}</div>
+          <div class="product-quantity">Quantity: ${product.quantity}</div>
+          <button class="buy-again-button button-primary" data-product-id="${product.productId}">
+            <img class="buy-again-icon" src="images/icons/buy-again.png" />
+            <span class="buy-again-message buy-again-message-${product.productId}">Buy it again</span>
+            <span class="buy-again-success buy-again-success-${product.productId}">✓ Added</span>
+          </button>
+        </div>
+
+        <div class="product-actions">
+          <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
+            <button class="track-package-button button-secondary">
+              Track package
+            </button>
+          </a>
+        </div>
+        `;
+    });
+    const orderTime = getTimeString(order.orderTime);
+    placedOrderContainerHTML += `
+      <div class="order-container order-container-${order.id}">
+        <div class="order-header">
+          <div class="order-header-left-section">
+            <div class="order-date">
+              <div class="order-header-label">Order Placed: ${orderTime}</div>
+              <div></div>
+            </div>
+            <div class="order-total">
+              <div class="order-header-label">Total:</div>
+              <div>$${formatCurrency(order.totalCostCents)}</div>
+            </div>
+          </div>
+
+          <div class="order-header-right-section">
+            <div class="order-header-label">Order ID:</div>
+            <div>${order.id}</div>
+          </div>
+        </div>
+        <div class="order-details-grid order-details-grid-${order.id}">
+        ${placedOrderHTML}
+        </div>
+      </div>
+    `;
+  });
+  if (!ordersHTML) {
+    console.error("Fail to select the HTML element");
+    return;
+  }
+  ordersHTML.innerHTML = placedOrderContainerHTML;
+  const buyAgainButtons =
+    document.querySelectorAll<HTMLButtonElement>(".buy-again-button");
+  buyAgainButtons.forEach((buyAgainButton) => {
+    const productId = buyAgainButton.dataset.productId;
+    const buyAgainSuccessHTML = document.querySelector(
+      `.buy-again-success-${productId}`
+    );
+    const buyAgainMessageHTML = document.querySelector(
+      `.buy-again-message-${productId}`
+    );
+    buyAgainButton.addEventListener("click", () => {
+      const savedProductQuantity = localStorage.getItem(
+        `${productId}-productQuantity`
+      );
+      if (!savedProductQuantity) {
+        console.error("Fail to get localStorage");
+        return;
+      }
+      let productQuantity = Number(savedProductQuantity);
+      productQuantity += 1;
+      localStorage.setItem(
+        `${productId}-productQuantity`,
+        String(productQuantity)
+      );
+      if (!productId) {
+        console.error("Fail to get productId");
+        return;
+      }
+      addToCart(productId, productQuantity);
+      if (!buyAgainSuccessHTML || !buyAgainMessageHTML) {
+        console.error("Fail to select the HTML element");
+        return;
+      }
+      buyAgainSuccessHTML.classList.add("display-buy-again-success");
+      buyAgainMessageHTML.classList.add("hide-buy-again-message");
+      displayCartQuantity();
+      setTimeout(() => {
+        buyAgainSuccessHTML.classList.remove("display-buy-again-success");
+        buyAgainMessageHTML.classList.remove("hide-buy-again-message");
+      }, 1500);
+    });
+  });
+  displayCartQuantity();
+}
+
+async function loadPage() {
+  try {
+    await fetchProducts();
+    renderPlacedOrder();
+  } catch (error) {
+    console.log(`unexpected network error: ${error}`);
+  }
+}
+loadPage();
