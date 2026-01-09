@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 import { getMatchingProduct, Products } from "../data/products-backend.ts";
-import { getDeliveryISOTime } from "./deliveryOption.ts";
+import { getDeliveryISOTime } from "../data/deliveryOption.ts";
 import { loadProducts } from "./index.ts";
 
 async function getProducts() {

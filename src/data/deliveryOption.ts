@@ -52,3 +52,13 @@ export function getPriceString(priceCents: number): string {
   }
   return priceString;
 }
+
+export function getDeliveryISOTime(deliveryOptionId: string) {
+  if (deliveryOptionId === "1") {
+    return addWeekDays(7).toISOString();
+  } else if (deliveryOptionId === "2") {
+    return addWeekDays(3).toISOString();
+  } else if (deliveryOptionId === "3") {
+    return addWeekDays(1).toISOString();
+  }
+}
