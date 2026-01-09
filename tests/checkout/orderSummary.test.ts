@@ -50,7 +50,7 @@ describe("test suite: Render order summary", () => {
       );
 
       //delivery date test
-      updateDeliveryOption(productId, String(cartOrder + 1), checkoutCart);
+      updateDeliveryOption(productId, String(cartOrder + 1));
       renderOrderSummary();
       const updatedCheckoutCart = getCart();
       const deliveryDate = getDeliveryDate(
@@ -65,7 +65,7 @@ describe("test suite: Render order summary", () => {
       expect(deliveryDateHTML.innerHTML).toContain(deliveryDate);
 
       //products price test
-      const product = getMatchingProduct(Products, productId);
+      const matchingProduct = getMatchingProduct(Products, productId);
       const productPrice = document.querySelector(
         `.product-price-${productId}`
       );
@@ -73,7 +73,13 @@ describe("test suite: Render order summary", () => {
         console.error("Fail to select HTML element");
         return;
       }
-      expect(productPrice.textContent).toContain(`$${product.getPrice()}`);
+      if (!matchingProduct) {
+        console.error("Fail to get the cart");
+        return;
+      }
+      expect(productPrice.textContent).toContain(
+        `$${matchingProduct.getPrice()}`
+      );
     });
     if (!cartItemContainers) {
       console.error("Fail to select HTML element");

@@ -17,6 +17,10 @@ function renderPlacedOrder() {
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(Products, product.productId);
       const deliveryDate = getTimeString(product.estimatedDeliveryTime);
+      if (!matchingProduct) {
+        console.error("Fail to get the cart");
+        return;
+      }
       placedOrderHTML += `
         <div class="product-image-container">
           <img src="${matchingProduct.image}" />

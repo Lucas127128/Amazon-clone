@@ -24,8 +24,7 @@ describe("test suite: Render payment summary", () => {
     addToCart("15b6fc6f-327a-4ec4-896f-486349e85a3d", 1);
     addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 2);
     await fetchProducts();
-    const cart = getCart();
-    updateDeliveryOption("15b6fc6f-327a-4ec4-896f-486349e85a3d", "2", cart);
+    updateDeliveryOption("15b6fc6f-327a-4ec4-896f-486349e85a3d", "2");
     renderPaymentSummary();
   });
 
@@ -35,6 +34,10 @@ describe("test suite: Render payment summary", () => {
 
   test.concurrent("display cart quantity", ({ expect }) => {
     const cartQuantity = document.querySelector(".cart-item-quantity");
+    if (!cartQuantity) {
+      console.error("Fail to select HTML element");
+      return;
+    }
     expect(cartQuantity.innerHTML).toContain(3);
   });
 
@@ -43,11 +46,19 @@ describe("test suite: Render payment summary", () => {
     let totalProductPrice = 0;
     cart.forEach((cartItem) => {
       const matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
+      if (!matchingProduct) {
+        console.error("Fail to get the cart");
+        return;
+      }
       totalProductPrice += matchingProduct.priceCents * cartItem.Quantity;
     });
     const totalProductsPriceHTML = document.querySelector(
       ".total-products-price"
     );
+    if (!totalProductsPriceHTML) {
+      console.error("Fail to select HTML element");
+      return;
+    }
     expect(totalProductsPriceHTML.textContent).toBe(
       `$${formatCurrency(totalProductPrice)}`
     );
@@ -70,6 +81,10 @@ describe("test suite: Render payment summary", () => {
       totalDeliveryFee += deliveryFee;
     });
     const totalDeliveryFeeHTML = document.querySelector(".total-delivery-fee");
+    if (!totalDeliveryFeeHTML) {
+      console.error("Fail to select HTML element");
+      return;
+    }
     expect(totalDeliveryFeeHTML.textContent).toBe(
       `$${formatCurrency(totalDeliveryFee)}`
     );
@@ -83,6 +98,10 @@ describe("test suite: Render payment summary", () => {
     const totalPriceBeforeTaxHTML = document.querySelector(
       ".total-price-before-tax"
     );
+    if (!totalPriceBeforeTaxHTML) {
+      console.error("Fail to select HTML element");
+      return;
+    }
     expect(totalPriceBeforeTaxHTML.textContent).toBe(
       `$${formatCurrency(totalPriceBeforeTax)}`
     );
@@ -95,6 +114,10 @@ describe("test suite: Render payment summary", () => {
     );
     const estimatedTax = totalPriceBeforeTax * 0.1;
     const totalTaxHTML = document.querySelector(".total-tax");
+    if (!totalTaxHTML) {
+      console.error("Fail to select HTML element");
+      return;
+    }
     expect(totalTaxHTML.textContent).toBe(`$${formatCurrency(estimatedTax)}`);
     localStorage.setItem("estimatedTax", String(estimatedTax));
   });
@@ -106,6 +129,10 @@ describe("test suite: Render payment summary", () => {
     );
     const totalCost = estimatedTax + totalPriceBeforeTax;
     const totalCostHTML = document.querySelector(".total-cost");
+    if (!totalCostHTML) {
+      console.error("Fail to select HTML element");
+      return;
+    }
     expect(totalCostHTML.textContent).toBe(`$${formatCurrency(totalCost)}`);
   });
 });

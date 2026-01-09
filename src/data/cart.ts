@@ -31,18 +31,17 @@ export interface Cart {
   deliveryOptionId: string;
 }
 export function removeFromCart(productId: string) {
-  const newCart: Cart[] = getCart().filter(
+  const cart: Cart[] = getCart().filter(
     (cartItem: Cart) => cartItem.ProductId !== productId
   );
-  localStorage.setItem("cart", JSON.stringify(newCart));
-  Cart = newCart;
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 export function updateDeliveryOption(
   productId: string,
-  deliveryOptionId: string,
-  cart: Cart[]
+  deliveryOptionId: string
 ) {
+  const cart = getCart();
   const matchingItem = getMatchingCart(cart, productId);
   if (matchingItem) {
     matchingItem.deliveryOptionId = deliveryOptionId;
@@ -67,5 +66,8 @@ export function displayCartQuantity() {
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.Quantity;
   });
+  if (!cartQuantityHTML) {
+    return;
+  }
   cartQuantityHTML.textContent = String(cartQuantity);
 }

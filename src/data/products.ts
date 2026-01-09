@@ -1,19 +1,24 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
 import { Cart } from "./cart.ts";
 
-export function getMatchingCart(cart: Cart[], productId: string): Cart {
+export function getMatchingCart(
+  cart: Cart[],
+  productId: string
+): Cart | undefined {
   const matchingItem = cart.find(
     (cartItem) => cartItem.ProductId === productId
   );
-  return matchingItem;
+  if (matchingItem) {
+    return matchingItem;
+  }
 }
 
 export function getMatchingProduct(
   products: Product[],
   productId: string
-): Product {
-  const MatchingItem = products.find((product) => product.id === productId);
-  return MatchingItem;
+): Product | undefined {
+  const matchingItem = products.find((product) => product.id === productId);
+  return matchingItem;
 }
 interface Rating {
   stars: number;
@@ -54,15 +59,15 @@ class Product {
   getImageURL() {
     return this.image;
   }
-  id;
-  image;
-  name;
-  rating;
-  priceCents;
+  id: string;
+  image: string;
+  name: string;
+  rating: Rating;
+  priceCents: number;
 }
 
 class Clothing extends Product {
-  sizeChartLink;
+  sizeChartLink: string;
 
   constructor(productDetails: ClothingInterface) {
     super(productDetails);

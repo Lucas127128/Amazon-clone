@@ -41,10 +41,8 @@ export function getDeliveryDate(deliveryOptionId: string): string {
   return deliveryDate;
 }
 
-export function getPriceString(
-  priceCents: number,
-  priceString: string
-): string {
+export function getPriceString(priceCents: number): string {
+  let priceString = "";
   if (priceCents === 0) {
     priceString = "FREE - ";
   } else if (priceCents === 499) {

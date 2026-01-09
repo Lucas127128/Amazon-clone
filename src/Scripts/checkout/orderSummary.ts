@@ -23,6 +23,10 @@ export function renderOrderSummary() {
   let cartSummaryHTML = "";
   checkoutCart.forEach((cartItem) => {
     const matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
+    if (!matchingProduct) {
+      console.error("Fail to get the product");
+      return;
+    }
     cartSummaryHTML += `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}">
       <div class="delivery-date-${
@@ -78,6 +82,10 @@ export function renderOrderSummary() {
 
   const orderSummary = document.querySelector(".order-summary");
   const returnHomeHTML = document.querySelector(".return-to-home-link");
+  if (!orderSummary) {
+    console.error("Fail to select HTML element");
+    return;
+  }
   orderSummary.innerHTML = cartSummaryHTML;
   let cartQuantity = 0;
   checkoutCart.forEach((cartItem) => {
@@ -85,12 +93,11 @@ export function renderOrderSummary() {
   });
   function deliveryOptionsHTML(matchingProductId: string) {
     let html = "";
-    let priceString = "";
     deliveryOption.forEach((deliveryOptions) => {
       const deliveryDate = addWeekDays(deliveryOptions.deliveryDays).format(
         "dddd, MMMM D"
       );
-      priceString = getPriceString(deliveryOptions.priceCents, priceString);
+      const priceString = getPriceString(deliveryOptions.priceCents);
       html += `<div>
             <input type="radio" class="delivery-option-input"
                 name="delivery-option-${matchingProductId}"
@@ -111,6 +118,10 @@ export function renderOrderSummary() {
     });
     return html;
   }
+  if (!returnHomeHTML) {
+    console.error("Fail to select HTML element");
+    return;
+  }
   returnHomeHTML.innerHTML = `${cartQuantity} items`;
   document
     .querySelectorAll<HTMLElement>(`.update-quantity-link`)
@@ -123,6 +134,10 @@ export function renderOrderSummary() {
         const saveQuantityHTML = document.querySelector(
           `.save-quantity-link-${productId}`
         );
+        if (!quantityInputHTML || !saveQuantityHTML) {
+          console.error("Fail to select HTML element");
+          return;
+        }
         quantityInputHTML.classList.add("Display_Update_Element");
         saveQuantityHTML.classList.add("Display_Update_Element");
       });
@@ -131,15 +146,24 @@ export function renderOrderSummary() {
   const quantityInputHTML = document.querySelectorAll(`.quantity_Input`);
   quantityInputHTML.forEach((quantityInput) => {
     quantityInput.addEventListener("change", (e) => {
-      quantityToAdd = Number(e.target.value);
+      if (e.target instanceof HTMLInputElement) {
+        quantityToAdd = Number(e.target.value);
+      } else {
+        console.error("Fail to get the event target");
+        return;
+      }
     });
   });
   const saveQuantityHTML =
     document.querySelectorAll<HTMLElement>(`.save-quantity-link`);
   saveQuantityHTML.forEach((saveQuantity) => {
     saveQuantity.addEventListener("click", function () {
-      const ProductId = saveQuantity.dataset.productId;
-      addToCart(ProductId, quantityToAdd);
+      const productId = saveQuantity?.dataset?.productId;
+      if (!productId) {
+        console.error("Fail to get productId from HTML dataset");
+        return;
+      }
+      addToCart(productId, quantityToAdd);
       renderOrderSummary();
       renderPaymentSummary();
     });
@@ -149,6 +173,10 @@ export function renderOrderSummary() {
     .forEach((deleteProductHTML) => {
       deleteProductHTML.addEventListener("click", () => {
         const productId = deleteProductHTML.dataset.productId;
+        if (!productId) {
+          console.error("Fail to get productId from HTML dataset");
+          return;
+        }
         removeFromCart(productId);
         renderOrderSummary();
         renderPaymentSummary();
@@ -160,8 +188,12 @@ export function renderOrderSummary() {
   deliveryOptionsInputHTML.forEach((deliveryOptionInputHTML) => {
     deliveryOptionInputHTML.addEventListener("change", () => {
       const deliveryChoiceId = deliveryOptionInputHTML.dataset.deliveryChoiceId;
-      const ProductId = deliveryOptionInputHTML.dataset.productId;
-      updateDeliveryOption(ProductId, deliveryChoiceId, checkoutCart);
+      const productId = deliveryOptionInputHTML.dataset.productId;
+      if (!productId || !deliveryChoiceId) {
+        console.error("Fail to get productId from HTML dataset");
+        return;
+      }
+      updateDeliveryOption(productId, deliveryChoiceId);
       renderOrderSummary();
       renderPaymentSummary();
     });
@@ -179,6 +211,10 @@ export function renderOrderSummary() {
 
   function deliveryDateHTML(productId: string) {
     let cartItem = getMatchingCart(checkoutCart, productId);
+    if (!cartItem) {
+      console.error("Fail to get the cart");
+      return;
+    }
     const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
     const html = `Delivery date: ${deliveryDate}`;
     return html;
