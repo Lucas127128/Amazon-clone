@@ -6,7 +6,7 @@ import {
   getMatchingProduct,
   fetchProducts,
   Products,
-} from "../../src/data/products-backend.ts";
+} from "../../src/data/products.ts";
 import { Order, Product } from "../../src/data/orders.ts";
 
 const response = await fetch("https://localhost:3001/orders", {

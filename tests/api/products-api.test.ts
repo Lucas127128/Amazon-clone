@@ -5,7 +5,7 @@ import {
   Products,
   Product,
   Clothing,
-} from "../../src/data/products-backend.ts";
+} from "../../src/data/products.ts";
 import {
   ClothingInterface,
   ProductInterface,

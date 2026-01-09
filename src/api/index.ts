@@ -1,6 +1,6 @@
 import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
-import { fetchInternalProducts } from "../data/products-backend.ts";
+import { fetchInternalProducts } from "../data/products.ts";
 import { productsPlugin } from "./products.ts";
 import { ordersPlugin } from "./orders.ts";
 export const date = new Date();

@@ -8,9 +8,7 @@ export function getMatchingCart(
   const matchingItem = cart.find(
     (cartItem) => cartItem.ProductId === productId
   );
-  if (matchingItem) {
-    return matchingItem;
-  }
+  return matchingItem;
 }
 
 export function getMatchingProduct(
@@ -38,13 +36,14 @@ export interface ClothingInterface extends ProductInterface {
   sizeChartLink: string;
   type: string;
 }
-class Product {
+export class Product {
   constructor(productDetails: ProductInterface) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
   getStarsUrl() {
     return `/images/ratings/rating-${this.rating.stars * 10}.png`;
@@ -64,9 +63,10 @@ class Product {
   name: string;
   rating: Rating;
   priceCents: number;
+  keywords: string[];
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink: string;
 
   constructor(productDetails: ClothingInterface) {
