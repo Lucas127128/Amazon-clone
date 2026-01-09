@@ -37,7 +37,7 @@ describe("test suite: Render order summary", () => {
     const checkoutCart = getCart();
     checkoutCart.forEach((cartItem, cartOrder) => {
       //cart quantity test
-      const productId = cartItem.ProductId;
+      const productId = cartItem.productId;
       const quantityHTML = document.querySelector(
         `.js-product-quantity-${productId}`
       );
@@ -46,7 +46,7 @@ describe("test suite: Render order summary", () => {
         return;
       }
       expect(quantityHTML.textContent).toContain(
-        `Quantity: ${cartItem.Quantity}`
+        `Quantity: ${cartItem.quantity}`
       );
 
       //delivery date test
@@ -93,8 +93,8 @@ describe("test suite: Render order summary", () => {
   test("removes the product", () => {
     let checkoutCart = getCart();
 
-    const productId1 = checkoutCart[0].ProductId;
-    const productId2 = checkoutCart[1].ProductId;
+    const productId1 = checkoutCart[0].productId;
+    const productId2 = checkoutCart[1].productId;
     const deleteQuantityHTML1 = document.querySelector<HTMLButtonElement>(
       `.delete-quantity-link-${productId1}`
     );
@@ -105,7 +105,7 @@ describe("test suite: Render order summary", () => {
     deleteQuantityHTML1.click();
     checkoutCart = getCart();
     expect(checkoutCart.length).toBe(1);
-    expect(checkoutCart[0].ProductId).toBe(productId2);
+    expect(checkoutCart[0].productId).toBe(productId2);
 
     const cartItemContainer = document.querySelectorAll(".cart-item-container");
     expect(cartItemContainer.length).toBe(1);

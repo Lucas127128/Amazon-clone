@@ -90,13 +90,8 @@ function renderPlacedOrder() {
       `.buy-again-message-${productId}`
     );
     buyAgainButton.addEventListener("click", () => {
-      const savedProductQuantity = localStorage.getItem(
-        `${productId}-productQuantity`
-      );
-      if (!savedProductQuantity) {
-        console.error("Fail to get localStorage");
-        return;
-      }
+      const savedProductQuantity =
+        localStorage.getItem(`${productId}-productQuantity`) || "0";
       let productQuantity = Number(savedProductQuantity);
       productQuantity += 1;
       localStorage.setItem(

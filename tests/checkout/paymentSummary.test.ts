@@ -45,12 +45,12 @@ describe("test suite: Render payment summary", () => {
     const cart = getCart();
     let totalProductPrice = 0;
     cart.forEach((cartItem) => {
-      const matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
+      const matchingProduct = getMatchingProduct(Products, cartItem.productId);
       if (!matchingProduct) {
         console.error("Fail to get the cart");
         return;
       }
-      totalProductPrice += matchingProduct.priceCents * cartItem.Quantity;
+      totalProductPrice += matchingProduct.priceCents * cartItem.quantity;
     });
     const totalProductsPriceHTML = document.querySelector(
       ".total-products-price"

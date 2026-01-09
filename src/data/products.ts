@@ -6,7 +6,7 @@ export function getMatchingCart(
   productId: string
 ): Cart | undefined {
   const matchingItem = cart.find(
-    (cartItem) => cartItem.ProductId === productId
+    (cartItem) => cartItem.productId === productId
   );
   return matchingItem;
 }

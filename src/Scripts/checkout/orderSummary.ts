@@ -22,7 +22,7 @@ export function renderOrderSummary() {
   const checkoutCart = getCart();
   let cartSummaryHTML = "";
   checkoutCart.forEach((cartItem) => {
-    const matchingProduct = getMatchingProduct(Products, cartItem.ProductId);
+    const matchingProduct = getMatchingProduct(Products, cartItem.productId);
     if (!matchingProduct) {
       console.error("Fail to get the product");
       return;
@@ -48,7 +48,7 @@ export function renderOrderSummary() {
         </div>
         <div class="product-quantity">
           <span class="js-product-quantity-${matchingProduct.id}">
-          Quantity: <span class="quantity-label">${cartItem.Quantity}</span>
+          Quantity: <span class="quantity-label">${cartItem.quantity}</span>
           </span>
           <span class="update-quantity-link link-primary" data-product-id="${
             matchingProduct.id
@@ -89,7 +89,7 @@ export function renderOrderSummary() {
   orderSummary.innerHTML = cartSummaryHTML;
   let cartQuantity = 0;
   checkoutCart.forEach((cartItem) => {
-    cartQuantity += cartItem.Quantity;
+    cartQuantity += cartItem.quantity;
   });
   function deliveryOptionsHTML(matchingProductId: string) {
     let html = "";
@@ -200,7 +200,7 @@ export function renderOrderSummary() {
   });
   checkoutCart.forEach((cartItem) => {
     const deliveryOptionButtonHTML = document.getElementById(
-      `${cartItem.deliveryOptionId}-${cartItem.ProductId}`
+      `${cartItem.deliveryOptionId}-${cartItem.productId}`
     );
     if (deliveryOptionButtonHTML instanceof HTMLInputElement) {
       deliveryOptionButtonHTML.checked = true;

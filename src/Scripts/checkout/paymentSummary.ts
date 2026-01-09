@@ -6,25 +6,24 @@ import {
 import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
-import { Cart } from "../../api/orders.ts";
 export function renderPaymentSummary() {
-  const CheckoutCart = getCart();
+  const checkoutCart = getCart();
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
   const paymentSummary = document.querySelector(".payment-summary");
-  CheckoutCart.forEach((cartItem) => {
-    const productItem = getMatchingProduct(Products, cartItem.ProductId);
+  checkoutCart.forEach((cartItem) => {
+    const productItem = getMatchingProduct(Products, cartItem.productId);
     if (!productItem) {
       console.error("Fail to get matching product");
       return;
     }
-    const totalPrice = productItem.priceCents * cartItem.Quantity;
+    const totalPrice = productItem.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
-    cartQuantity += cartItem.Quantity;
+    cartQuantity += cartItem.quantity;
   });
 
-  CheckoutCart.forEach((cartItem) => {
+  checkoutCart.forEach((cartItem) => {
     let deliveryFee = 0;
     if (cartItem.deliveryOptionId === "1") {
       deliveryFee = 0;
@@ -89,14 +88,6 @@ export function renderPaymentSummary() {
   }
   paymentSummary.innerHTML = paymentSummaryHTML;
 
-  const checkoutCart: Cart[] = CheckoutCart.map((cartItem) => {
-    const { ProductId, Quantity, ...rest } = cartItem;
-    return {
-      ...rest,
-      productId: ProductId,
-      quantity: Quantity,
-    };
-  });
   const placeOrderHTML = document.querySelector(".place-order-button");
   if (!placeOrderHTML) {
     console.error("Fail to get the HTML element");
