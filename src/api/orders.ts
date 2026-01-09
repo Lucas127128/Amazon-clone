@@ -1,17 +1,14 @@
 import { Elysia } from "elysia";
 import { getMatchingProduct, Products } from "../data/products.ts";
 import { getDeliveryISOTime } from "../data/deliveryOption.ts";
+import { Cart } from "../data/cart.ts";
 import { loadProducts } from "./index.ts";
 
 async function getProducts() {
   await Bun.sleep(100);
   await loadProducts();
 }
-export interface Cart {
-  productId: string;
-  quantity: number;
-  deliveryOptionId: string;
-}
+
 async function startOrdersAPI() {
   await Bun.sleep(100);
   await loadProducts();
