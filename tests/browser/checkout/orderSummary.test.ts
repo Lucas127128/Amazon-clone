@@ -3,14 +3,14 @@ import {
   fetchProducts,
   Products,
   getMatchingProduct,
-} from "../../src/data/products.ts";
+} from "../../../src/data/products.ts";
 import {
   addToCart,
   updateDeliveryOption,
   getCart,
-} from "../../src/data/cart.ts";
-import { getDeliveryDate } from "../../src/data/deliveryOption.ts";
-import { renderOrderSummary } from "../../src/Scripts/checkout/orderSummary.ts";
+} from "../../../src/data/cart.ts";
+import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
+import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
 document.body.innerHTML = `
 <div class="test-container">
   <div class="order-summary"></div>

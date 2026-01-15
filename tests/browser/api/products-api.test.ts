@@ -1,15 +1,15 @@
 import { describe, test, expect } from "vitest";
-import productsJSON from "../../src/api/products.json";
+import productsJSON from "../../../src/api/products.json";
 import {
   fetchInternalProducts,
   Products,
   Product,
   Clothing,
-} from "../../src/data/products.ts";
+} from "../../../src/data/products.ts";
 import {
   ClothingInterface,
   ProductInterface,
-} from "../../src/data/products.ts";
+} from "../../../src/data/products.ts";
 
 await fetchInternalProducts();
 

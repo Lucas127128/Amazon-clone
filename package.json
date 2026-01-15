@@ -4,25 +4,26 @@
     "@types/k6": "^1.5.0",
     "bun-storage": "^2.0.5",
     "dayjs": "^1.11.19",
-    "elysia": "^1.4.21",
-    "happy-dom": "^20.1.0",
+    "elysia": "^1.4.22",
+    "happy-dom": "^20.3.0",
     "k6": "^0.0.0",
     "node-modules-inspector": "^1.2.0",
     "vite": "^7.3.1"
   },
   "devDependencies": {
     "bun-types": "1.3.5",
-    "@types/bun": "^1.3.5",
-    "@vitest/browser-preview": "^4.0.16",
-    "vitest": "^4.0.16"
+    "@types/bun": "^1.3.6",
+    "@vitest/browser-preview": "^4.0.17",
+    "vitest": "^4.0.17"
   },
   "scripts": {
-    "test:data": "vitest --config=vitest.browser.config.js --browser=safari tests/data",
-    "test:checkout": "vitest --config=vitest.browser.config.js --browser=safari tests/checkout",
-    "test:orders-api": "vitest --config=vitest.browser.config.js --browser=safari tests/api/orders-api.test.ts",
-    "test:products-api": "vitest  --config=vitest.browser.config.js --browser=safari tests/api/products-api.test.ts",
-    "test:api": "vitest --config=vitest.browser.config.js --browser=safari tests/api",
-    "test:money": "vitest tests/utils/money.test.ts",
+    "test:data": "vitest --config=vitest.browser.config.js --browser=safari tests/browser/data",
+    "test:checkout": "vitest --config=vitest.browser.config.js --browser=safari tests/browser/checkout",
+    "test:api": "vitest --config=vitest.browser.config.js --browser=safari tests/browser/api",
+    "test:money": "vitest tests/normal/utils/money.test.ts",
+    "test:browser": "vitest --config=vitest.browser.config.js --browser=safari tests/browser",
+    "test:normal": "vitest tests/normal",
+    "test": "bun run test:browser && bun run test:normal",
     "build": "vite build --minify='esbuild'",
     "inspect": "node-modules-inspector",
     "api": "bun run --watch ./src/api/index.ts"

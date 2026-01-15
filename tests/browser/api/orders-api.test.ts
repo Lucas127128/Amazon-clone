@@ -1,13 +1,13 @@
 import { test, describe, expect, beforeAll } from "vitest";
-import cart from "../../src/api/cart.json";
-import { getTimeString } from "../../src/data/orders.ts";
-import { getDeliveryDate } from "../../src//data/deliveryOption.ts";
+import cart from "../../../src/api/cart.json";
+import { getTimeString } from "../../../src/data/orders.ts";
+import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
 import {
   getMatchingProduct,
   fetchProducts,
   Products,
-} from "../../src/data/products.ts";
-import { Order, Product } from "../../src/data/orders.ts";
+} from "../../../src/data/products.ts";
+import { Order, Product } from "../../../src/data/orders.ts";
 
 const response = await fetch("https://localhost:3001/orders", {
   method: "POST",

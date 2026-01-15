@@ -13,4 +13,7 @@ export default defineConfig({
     },
     minify: "esbuild",
   },
+  server: {
+    port: 5174,
+  },
 });
