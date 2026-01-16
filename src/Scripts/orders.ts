@@ -6,6 +6,7 @@ import {
 import { formatCurrency } from "./Utils/Money.ts";
 import { addToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString, Order } from "../data/orders.ts";
+import { checkType, checkTruthy } from "./Utils/typeChecker.ts";
 function renderPlacedOrder() {
   const savedOrders = localStorage.getItem("orders");
   const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
@@ -17,10 +18,7 @@ function renderPlacedOrder() {
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(Products, product.productId);
       const deliveryDate = getTimeString(product.estimatedDeliveryTime);
-      if (!matchingProduct) {
-        console.error("Fail to get the cart");
-        return;
-      }
+      checkTruthy(matchingProduct, "Fail to get the cart");
       placedOrderHTML += `
         <div class="product-image-container">
           <img src="${matchingProduct.image}" />
@@ -68,53 +66,73 @@ function renderPlacedOrder() {
             <div>${order.id}</div>
           </div>
         </div>
-        <div class="order-details-grid order-details-grid-${order.id}">
+        <div class="order-details-grid order-details-grid-${
+          order.id
+        } data-order-Id=${order.id}">
         ${placedOrderHTML}
         </div>
       </div>
     `;
   });
-  if (!ordersHTML) {
-    console.error("Fail to select the HTML element");
-    return;
-  }
+  checkTruthy(ordersHTML);
   ordersHTML.innerHTML = placedOrderContainerHTML;
-  const buyAgainButtons =
-    document.querySelectorAll<HTMLButtonElement>(".buy-again-button");
-  buyAgainButtons.forEach((buyAgainButton) => {
+
+  function displayBuyAgainMessage(
+    buyAgainMessageHTML: Element,
+    buyAgainSuccessHTML: Element
+  ): void {
+    checkTruthy(buyAgainSuccessHTML);
+    checkTruthy(buyAgainMessageHTML);
+    buyAgainSuccessHTML.classList.add("display-buy-again-success");
+    buyAgainMessageHTML.classList.add("hide-buy-again-message");
+    displayCartQuantity();
+    setTimeout(() => {
+      buyAgainSuccessHTML.classList.remove("display-buy-again-success");
+      buyAgainMessageHTML.classList.remove("hide-buy-again-message");
+    }, 1500);
+  }
+  ordersHTML.addEventListener("click", (event) => {
+    let buyAgainButton = <HTMLButtonElement>event.target;
+    /*The event target may be the child element inside the buy again button and
+    do not contain the "buy-again-button" class. If this is the situation,
+    I need to set the buyAgainButton to its parent element, which is the 
+    actual buy again button element, not the child element of it. */
+    if (
+      !buyAgainButton.classList.contains("buy-again-button") &&
+      !buyAgainButton.parentElement?.classList.contains("buy-again-button")
+    ) {
+      return;
+    } else if (
+      !buyAgainButton.classList.contains("buy-again-button") &&
+      buyAgainButton.parentElement?.classList.contains("buy-again-button")
+    ) {
+      buyAgainButton = <HTMLButtonElement>buyAgainButton.parentElement;
+    }
+
     const productId = buyAgainButton.dataset.productId;
-    const buyAgainSuccessHTML = document.querySelector(
-      `.buy-again-success-${productId}`
+    const buyAgainSuccessHTML = buyAgainButton.querySelector(
+      `span.buy-again-success-${productId}`
     );
-    const buyAgainMessageHTML = document.querySelector(
-      `.buy-again-message-${productId}`
+    const buyAgainMessageHTML = buyAgainButton.querySelector(
+      `span.buy-again-message-${productId}`
     );
-    buyAgainButton.addEventListener("click", () => {
-      const savedProductQuantity =
-        localStorage.getItem(`${productId}-productQuantity`) || "0";
-      let productQuantity = Number(savedProductQuantity);
-      productQuantity += 1;
-      localStorage.setItem(
-        `${productId}-productQuantity`,
-        String(productQuantity)
-      );
-      if (!productId) {
-        console.error("Fail to get productId");
-        return;
-      }
-      addToCart(productId, productQuantity);
-      if (!buyAgainSuccessHTML || !buyAgainMessageHTML) {
-        console.error("Fail to select the HTML element");
-        return;
-      }
-      buyAgainSuccessHTML.classList.add("display-buy-again-success");
-      buyAgainMessageHTML.classList.add("hide-buy-again-message");
-      displayCartQuantity();
-      setTimeout(() => {
-        buyAgainSuccessHTML.classList.remove("display-buy-again-success");
-        buyAgainMessageHTML.classList.remove("hide-buy-again-message");
-      }, 1500);
-    });
+
+    const orderId =
+      buyAgainButton?.parentElement?.parentElement?.dataset.orderId;
+    const savedProductQuantity =
+      localStorage.getItem(`${productId}-${orderId}-productQuantity`) || "0";
+    let productQuantity = Number(savedProductQuantity);
+    productQuantity += 1;
+    localStorage.setItem(
+      `${productId}-${orderId}-productQuantity`,
+      String(productQuantity)
+    );
+    checkTruthy(productId, "Fail to get productId");
+    addToCart(productId, productQuantity);
+
+    checkTruthy(buyAgainMessageHTML);
+    checkTruthy(buyAgainSuccessHTML);
+    displayBuyAgainMessage(buyAgainMessageHTML, buyAgainSuccessHTML);
   });
   displayCartQuantity();
 }
@@ -124,7 +142,7 @@ async function loadPage() {
     await fetchProducts();
     renderPlacedOrder();
   } catch (error) {
-    console.log(`unexpected network error: ${error}`);
+    console.error(`unexpected network error: ${error}`);
   }
 }
 loadPage();
