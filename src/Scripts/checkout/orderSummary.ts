@@ -230,4 +230,3 @@ async function loadPage() {
   }
 }
 loadPage();
-//renderOrderSummary();

@@ -58,44 +58,47 @@ function renderAmazonHomePage() {
     `;
   });
   const productsGrid = document.querySelector(".products-grid");
-  if (productsGrid instanceof HTMLElement) {
-    productsGrid.innerHTML = productsHTML;
-  } else {
+  if (!productsGrid) {
     console.error("Fail to select a HTML element");
+    return;
   }
+  productsGrid.innerHTML = productsHTML;
+
   function displayAdded(productId: string) {
     const addedToCart = document.querySelector(`.added-to-cart-${productId}`);
-    if (addedToCart) {
-      addedToCart.classList.add("display-added-to-cart");
-      setTimeout(() => {
-        addedToCart.classList.remove("display-added-to-cart");
-      }, 1500);
-    } else {
+    if (!addedToCart) {
       console.error("Fail to select a HTML element");
+      return;
     }
+    addedToCart.classList.add("display-added-to-cart");
+    setTimeout(() => {
+      addedToCart.classList.remove("display-added-to-cart");
+    }, 1500);
   }
-  const addToCartButton = document.querySelectorAll<HTMLButtonElement>(
-    ".add-to-cart-button"
-  );
-  addToCartButton.forEach((button) => {
-    button.addEventListener("click", () => {
-      const productId = button.dataset.productId;
-      const productContainer = button?.closest(".product-container");
-      const quantitySelectorHTML =
-        productContainer?.querySelector<HTMLInputElement>(
-          ".ProductQuantitySelector"
-        );
-      if (!quantitySelectorHTML?.value || !productId) {
-        console.error(
-          "Fail to get the HTML element or the product id dataset is incorrect"
-        );
-        return;
-      }
-      const quantityToAdd = parseInt(quantitySelectorHTML.value);
-      addToCart(productId, quantityToAdd);
-      displayCartQuantity();
-      displayAdded(productId);
-    });
+
+  productsGrid.addEventListener("click", (event) => {
+    const button = <HTMLButtonElement>event.target;
+    if (!(button instanceof HTMLButtonElement) || !button) {
+      console.error("Fail to select HTML element");
+      return;
+    }
+
+    const productId = button.dataset.productId;
+    const productContainer = button.parentElement;
+    const quantitySelectorHTML =
+      productContainer?.querySelector<HTMLInputElement>(
+        ".ProductQuantitySelector"
+      );
+    if (!quantitySelectorHTML?.value || !productId) {
+      console.error(
+        "Fail to get the HTML element or the product id dataset is incorrect"
+      );
+      return;
+    }
+    const quantityToAdd = parseInt(quantitySelectorHTML.value);
+    addToCart(productId, quantityToAdd);
+    displayCartQuantity();
+    displayAdded(productId);
   });
 }
 
