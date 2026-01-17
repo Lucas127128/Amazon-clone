@@ -4,9 +4,9 @@ import {
   fetchProducts,
 } from "../data/products.ts";
 import { formatCurrency } from "./Utils/Money.ts";
-import { addToCart, displayCartQuantity } from "../data/cart.ts";
+import { incrementAddToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString, Order } from "../data/orders.ts";
-import { checkType, checkTruthy } from "./Utils/typeChecker.ts";
+import { checkTruthy } from "./Utils/typeChecker.ts";
 function renderPlacedOrder() {
   const savedOrders = localStorage.getItem("orders");
   const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
@@ -18,7 +18,7 @@ function renderPlacedOrder() {
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(Products, product.productId);
       const deliveryDate = getTimeString(product.estimatedDeliveryTime);
-      checkTruthy(matchingProduct, "Fail to get the cart");
+      checkTruthy(matchingProduct);
       placedOrderHTML += `
         <div class="product-image-container">
           <img src="${matchingProduct.image}" />
@@ -47,6 +47,7 @@ function renderPlacedOrder() {
         `;
     });
     const orderTime = getTimeString(order.orderTime);
+    console.log(order.id);
     placedOrderContainerHTML += `
       <div class="order-container order-container-${order.id}">
         <div class="order-header">
@@ -68,7 +69,7 @@ function renderPlacedOrder() {
         </div>
         <div class="order-details-grid order-details-grid-${
           order.id
-        } data-order-Id=${order.id}">
+        } data-order-id="${order.id}">
         ${placedOrderHTML}
         </div>
       </div>
@@ -79,7 +80,7 @@ function renderPlacedOrder() {
 
   function displayBuyAgainMessage(
     buyAgainMessageHTML: Element,
-    buyAgainSuccessHTML: Element
+    buyAgainSuccessHTML: Element,
   ): void {
     checkTruthy(buyAgainSuccessHTML);
     checkTruthy(buyAgainMessageHTML);
@@ -93,10 +94,12 @@ function renderPlacedOrder() {
   }
   ordersHTML.addEventListener("click", (event) => {
     let buyAgainButton = <HTMLButtonElement>event.target;
-    /*The event target may be the child element inside the buy again button and
+    /*
+    The event target may be the child element inside the buy again button and
     do not contain the "buy-again-button" class. If this is the situation,
     I need to set the buyAgainButton to its parent element, which is the 
-    actual buy again button element, not the child element of it. */
+    actual buy again button element, not the child element of it. 
+    */
     if (
       !buyAgainButton.classList.contains("buy-again-button") &&
       !buyAgainButton.parentElement?.classList.contains("buy-again-button")
@@ -111,24 +114,14 @@ function renderPlacedOrder() {
 
     const productId = buyAgainButton.dataset.productId;
     const buyAgainSuccessHTML = buyAgainButton.querySelector(
-      `span.buy-again-success-${productId}`
+      `span.buy-again-success-${productId}`,
     );
     const buyAgainMessageHTML = buyAgainButton.querySelector(
-      `span.buy-again-message-${productId}`
+      `span.buy-again-message-${productId}`,
     );
 
-    const orderId =
-      buyAgainButton?.parentElement?.parentElement?.dataset.orderId;
-    const savedProductQuantity =
-      localStorage.getItem(`${productId}-${orderId}-productQuantity`) || "0";
-    let productQuantity = Number(savedProductQuantity);
-    productQuantity += 1;
-    localStorage.setItem(
-      `${productId}-${orderId}-productQuantity`,
-      String(productQuantity)
-    );
     checkTruthy(productId, "Fail to get productId");
-    addToCart(productId, productQuantity);
+    incrementAddToCart(productId, 1);
 
     checkTruthy(buyAgainMessageHTML);
     checkTruthy(buyAgainSuccessHTML);

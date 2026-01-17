@@ -1,5 +1,6 @@
-import { addToCart, displayCartQuantity, getCart } from "../data/cart";
+import { incrementAddToCart, displayCartQuantity } from "../data/cart";
 import { Products, fetchProducts } from "../data/products";
+import { checkTruthy } from "./Utils/typeChecker";
 let productsHTML = "";
 function renderAmazonHomePage() {
   Products.forEach((products) => {
@@ -58,18 +59,12 @@ function renderAmazonHomePage() {
     `;
   });
   const productsGrid = document.querySelector(".products-grid");
-  if (!productsGrid) {
-    console.error("Fail to select a HTML element");
-    return;
-  }
+  checkTruthy(productsGrid, "Fail to select HTML element");
   productsGrid.innerHTML = productsHTML;
 
   function displayAdded(productId: string) {
     const addedToCart = document.querySelector(`.added-to-cart-${productId}`);
-    if (!addedToCart) {
-      console.error("Fail to select a HTML element");
-      return;
-    }
+    checkTruthy(addedToCart, "Fail to select HTML element");
     addedToCart.classList.add("display-added-to-cart");
     setTimeout(() => {
       addedToCart.classList.remove("display-added-to-cart");
@@ -78,25 +73,25 @@ function renderAmazonHomePage() {
 
   productsGrid.addEventListener("click", (event) => {
     const button = <HTMLButtonElement>event.target;
-    if (!(button instanceof HTMLButtonElement) || !button) {
-      console.error("Fail to select HTML element");
-      return;
-    }
 
     const productId = button.dataset.productId;
     const productContainer = button.parentElement;
     const quantitySelectorHTML =
       productContainer?.querySelector<HTMLInputElement>(
-        ".ProductQuantitySelector"
+        ".ProductQuantitySelector",
       );
-    if (!quantitySelectorHTML?.value || !productId) {
+    if (!quantitySelectorHTML?.value) {
       console.error(
-        "Fail to get the HTML element or the product id dataset is incorrect"
+        "Fail to get the HTML element or the product id dataset is incorrect",
       );
       return;
     }
+    checkTruthy(
+      productId,
+      "Fail to get the HTML element or the product id dataset is incorrect",
+    );
     const quantityToAdd = parseInt(quantitySelectorHTML.value);
-    addToCart(productId, quantityToAdd);
+    incrementAddToCart(productId, quantityToAdd);
     displayCartQuantity();
     displayAdded(productId);
   });

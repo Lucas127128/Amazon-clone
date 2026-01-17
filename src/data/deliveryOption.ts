@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { checkTruthy } from "../Scripts/Utils/typeChecker";
 export const deliveryOption = [
   {
     id: "1",

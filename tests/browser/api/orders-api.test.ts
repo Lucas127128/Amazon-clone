@@ -22,7 +22,6 @@ await fetchProducts();
 
 describe("order api test", () => {
   test.concurrent("order id test", ({ expect }) => {
-    console.log(order);
     expect(typeof order.id).toBe("string");
   });
 
@@ -43,14 +42,14 @@ describe("order api test", () => {
       const cartItem = cart[productNumber];
       const estimatedDeliveryTime = getDeliveryDate(cartItem.deliveryOptionId);
       expect(estimatedDeliveryTime).toBe(
-        getTimeString(products.estimatedDeliveryTime)
+        getTimeString(products.estimatedDeliveryTime),
       );
     });
 
     let matchingProduct;
     cart.forEach((cartItem) => {
       matchingProduct = order.products.find(
-        (product) => cartItem.productId === product.productId
+        (product) => cartItem.productId === product.productId,
       );
       //test product quantity
       if (matchingProduct) {

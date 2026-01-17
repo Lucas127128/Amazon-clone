@@ -4,7 +4,6 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.ts";
 
 async function loadPage() {
   try {
-    //throw "error";
     await fetchProducts();
     renderOrderSummary();
     renderPaymentSummary();

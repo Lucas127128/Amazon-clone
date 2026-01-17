@@ -3,6 +3,7 @@ import { getMatchingProduct, Products } from "../data/products.ts";
 import { getDeliveryISOTime } from "../data/deliveryOption.ts";
 import { Cart } from "../data/cart.ts";
 import { loadProducts } from "./index.ts";
+import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
 
 async function getProducts() {
   await Bun.sleep(100);
@@ -30,13 +31,12 @@ async function startOrdersAPI() {
       cart.forEach((cartItem) => {
         const matchingProduct = getMatchingProduct(
           Products,
-          cartItem.productId
+          cartItem.productId,
         );
-        if (matchingProduct) {
-          totalCostsCents += matchingProduct.priceCents;
-          const product = new Product(cartItem);
-          this.products.push(product);
-        }
+        checkTruthy(matchingProduct);
+        totalCostsCents += matchingProduct.priceCents;
+        const product = new Product(cartItem);
+        this.products.push(product);
       });
       this.id = crypto.randomUUID();
       this.orderTime = new Date();
@@ -53,7 +53,7 @@ async function startOrdersAPI() {
     ({ body, request, server }) => {
       const clientIP = server?.requestIP(request)?.address;
       console.log(
-        `new orders request from ${clientIP} at ${new Date().toLocaleTimeString()}`
+        `new orders request from ${clientIP} at ${new Date().toLocaleTimeString()}`,
       );
       const order = new Order(body as Cart[]);
       return new Response(JSON.stringify(order), {
@@ -61,7 +61,7 @@ async function startOrdersAPI() {
           "Content-Type": "application/json; charset=utf-8",
         },
       });
-    }
+    },
   );
   console.log(`🦊 Elysia is running`);
   console.log("Orders api service starts");

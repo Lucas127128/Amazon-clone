@@ -1,4 +1,5 @@
 import { getMatchingCart } from "./products.ts";
+import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
 export let Cart: Cart[] = [
   /*{
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -12,9 +13,25 @@ export let Cart: Cart[] = [
 ];
 export function addToCart(productId: string, quantityToAdd: number) {
   const cart = getCart();
+  console.log(cart);
   const matchingItem = getMatchingCart(cart, productId);
   if (matchingItem) {
     matchingItem.quantity = quantityToAdd;
+  } else {
+    cart.push({
+      productId: productId,
+      quantity: quantityToAdd,
+      deliveryOptionId: "1",
+    });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+export function incrementAddToCart(productId: string, quantityToAdd: number) {
+  const cart = getCart();
+  const matchingItem = getMatchingCart(cart, productId);
+  if (matchingItem) {
+    matchingItem.quantity += quantityToAdd;
   } else {
     cart.push({
       productId: productId,
@@ -32,14 +49,14 @@ export interface Cart {
 }
 export function removeFromCart(productId: string) {
   const cart: Cart[] = getCart().filter(
-    (cartItem: Cart) => cartItem.productId !== productId
+    (cartItem: Cart) => cartItem.productId !== productId,
   );
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 export function updateDeliveryOption(
   productId: string,
-  deliveryOptionId: string
+  deliveryOptionId: string,
 ) {
   const cart = getCart();
   const matchingItem = getMatchingCart(cart, productId);
@@ -48,7 +65,7 @@ export function updateDeliveryOption(
     localStorage.setItem("cart", JSON.stringify(cart));
   } else {
     console.error(
-      "Cannot update delivery option because the product id is not valid."
+      "Cannot update delivery option because the product id is not valid.",
     );
   }
 }
@@ -66,8 +83,6 @@ export function displayCartQuantity() {
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.quantity;
   });
-  if (!cartQuantityHTML) {
-    return;
-  }
+  checkTruthy(cartQuantityHTML);
   cartQuantityHTML.textContent = String(cartQuantity);
 }

@@ -1,19 +1,20 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
 import { Cart } from "./cart.ts";
+import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
 
 export function getMatchingCart(
   cart: Cart[],
-  productId: string
+  productId: string,
 ): Cart | undefined {
   const matchingItem = cart.find(
-    (cartItem) => cartItem.productId === productId
+    (cartItem) => cartItem.productId === productId,
   );
   return matchingItem;
 }
 
 export function getMatchingProduct(
   products: Product[],
-  productId: string
+  productId: string,
 ): Product | undefined {
   const matchingItem = products.find((product) => product.id === productId);
   return matchingItem;
@@ -97,7 +98,7 @@ export function fetchProducts() {
             return new Clothing(productDetails as ClothingInterface);
           }
           return new Product(productDetails);
-        }
+        },
       );
     });
   return promise;
@@ -115,7 +116,7 @@ export function fetchInternalProducts() {
             return new Clothing(productDetails as ClothingInterface);
           }
           return new Product(productDetails);
-        }
+        },
       );
     });
   return promise;

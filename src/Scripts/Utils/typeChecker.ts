@@ -1,7 +1,7 @@
 export function checkType(
   variable: any,
   expectType: any,
-  customMessage: string = "Error"
+  customMessage: string = "Error",
 ): void {
   if (typeof variable !== expectType) {
     const actualType = typeof variable;
@@ -13,8 +13,8 @@ export function checkType(
 }
 
 export function checkTruthy(
-  variable: any,
-  customMessage: string = "Error"
+  variable: any | undefined | null,
+  customMessage: string = "Error",
 ): asserts variable {
   if (!variable) {
     throw new Error(`

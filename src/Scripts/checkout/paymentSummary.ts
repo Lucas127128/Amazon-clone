@@ -6,6 +6,7 @@ import {
 import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
+import { checkTruthy } from "../Utils/typeChecker.ts";
 export function renderPaymentSummary() {
   const checkoutCart = getCart();
   let totalProductPrice = 0;
@@ -14,10 +15,7 @@ export function renderPaymentSummary() {
   const paymentSummary = document.querySelector(".payment-summary");
   checkoutCart.forEach((cartItem) => {
     const productItem = getMatchingProduct(Products, cartItem.productId);
-    if (!productItem) {
-      console.error("Fail to get matching product");
-      return;
-    }
+    checkTruthy(productItem, "Fail to get matching product");
     const totalPrice = productItem.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.quantity;
@@ -82,17 +80,11 @@ export function renderPaymentSummary() {
         Place your order
         </button>
     `;
-  if (!paymentSummary) {
-    console.error("Fail to select HTML element");
-    return;
-  }
+  checkTruthy(paymentSummary, "Fail to select HTML element");
   paymentSummary.innerHTML = paymentSummaryHTML;
 
   const placeOrderHTML = document.querySelector(".place-order-button");
-  if (!placeOrderHTML) {
-    console.error("Fail to get the HTML element");
-    return;
-  }
+  checkTruthy(placeOrderHTML, "Fail to get the HTML element");
   placeOrderHTML.addEventListener("click", async () => {
     try {
       const response = await fetch("https://localhost:3001/orders", {
@@ -107,7 +99,7 @@ export function renderPaymentSummary() {
       localStorage.setItem("cart", JSON.stringify([]));
       location.href = "/orders.html";
     } catch (error) {
-      console.log(`Unexpected network issue: ${error}`);
+      console.error(`Unexpected network issue: ${error}`);
     }
   });
 }

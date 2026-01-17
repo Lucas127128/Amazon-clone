@@ -17,16 +17,14 @@ import {
   getPriceString,
 } from "../../data/deliveryOption.ts";
 import { renderPaymentSummary } from "./paymentSummary.ts";
+import { checkTruthy } from "../Utils/typeChecker.ts";
 
 export function renderOrderSummary() {
   const checkoutCart = getCart();
   let cartSummaryHTML = "";
   checkoutCart.forEach((cartItem) => {
     const matchingProduct = getMatchingProduct(Products, cartItem.productId);
-    if (!matchingProduct) {
-      console.error("Fail to get the product");
-      return;
-    }
+    checkTruthy(matchingProduct);
     cartSummaryHTML += `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}">
       <div class="delivery-date-${
@@ -82,10 +80,7 @@ export function renderOrderSummary() {
 
   const orderSummary = document.querySelector(".order-summary");
   const returnHomeHTML = document.querySelector(".return-to-home-link");
-  if (!orderSummary) {
-    console.error("Fail to select HTML element");
-    return;
-  }
+  checkTruthy(orderSummary, "Fail to select HTML element");
   orderSummary.innerHTML = cartSummaryHTML;
   let cartQuantity = 0;
   checkoutCart.forEach((cartItem) => {
@@ -95,33 +90,32 @@ export function renderOrderSummary() {
     let html = "";
     deliveryOption.forEach((deliveryOptions) => {
       const deliveryDate = addWeekDays(deliveryOptions.deliveryDays).format(
-        "dddd, MMMM D"
+        "dddd, MMMM D",
       );
       const priceString = getPriceString(deliveryOptions.priceCents);
-      html += `<div>
-            <input type="radio" class="delivery-option-input"
-                name="delivery-option-${matchingProductId}"
-                data-delivery-choice-id="${deliveryOptions.id}"
-                data-product-id="${matchingProductId}"
-                value='${deliveryDate}'
-                id="${deliveryOptions.id}-${matchingProductId}">
-                <div>
-                <div class="delivery-option-date">
-                    ${deliveryDate}
-                </div>
+      html += `
+        <div>
+          <input type="radio" 
+          class="delivery-option-input"
+          name="delivery-option-${matchingProductId}"
+          data-delivery-choice-id="${deliveryOptions.id}"
+          data-product-id="${matchingProductId}"
+          value='${deliveryDate}'
+          id="${deliveryOptions.id}-${matchingProductId}">
+          <div>
+            <div class="delivery-option-date">
+              ${deliveryDate}
             </div>
-                <div class="delivery-option-price">
-                    ${priceString}Shipping
-                </div>
-                </div>
-                `;
+          </div>
+          <div class="delivery-option-price">
+            ${priceString}Shipping
+          </div>
+        </div>
+      `;
     });
     return html;
   }
-  if (!returnHomeHTML) {
-    console.error("Fail to select HTML element");
-    return;
-  }
+  checkTruthy(returnHomeHTML, "Fail to select HTML element");
   returnHomeHTML.innerHTML = `${cartQuantity} items`;
   document
     .querySelectorAll<HTMLElement>(`.update-quantity-link`)
@@ -129,15 +123,13 @@ export function renderOrderSummary() {
       updateQuantityHTML.addEventListener("click", function () {
         const productId = updateQuantityHTML.dataset.productId;
         const quantityInputHTML = document.querySelector(
-          `.quantity_Input_${productId}`
+          `.quantity_Input_${productId}`,
         );
         const saveQuantityHTML = document.querySelector(
-          `.save-quantity-link-${productId}`
+          `.save-quantity-link-${productId}`,
         );
-        if (!quantityInputHTML || !saveQuantityHTML) {
-          console.error("Fail to select HTML element");
-          return;
-        }
+        checkTruthy(saveQuantityHTML, "Fail to select HTML element");
+        checkTruthy(quantityInputHTML, "Fail to select HTML element");
         quantityInputHTML.classList.add("Display_Update_Element");
         saveQuantityHTML.classList.add("Display_Update_Element");
       });
@@ -159,10 +151,7 @@ export function renderOrderSummary() {
   saveQuantityHTML.forEach((saveQuantity) => {
     saveQuantity.addEventListener("click", function () {
       const productId = saveQuantity?.dataset?.productId;
-      if (!productId) {
-        console.error("Fail to get productId from HTML dataset");
-        return;
-      }
+      checkTruthy(productId, "Fail to get productId from HTML dataset");
       addToCart(productId, quantityToAdd);
       renderOrderSummary();
       renderPaymentSummary();
@@ -173,26 +162,22 @@ export function renderOrderSummary() {
     .forEach((deleteProductHTML) => {
       deleteProductHTML.addEventListener("click", () => {
         const productId = deleteProductHTML.dataset.productId;
-        if (!productId) {
-          console.error("Fail to get productId from HTML dataset");
-          return;
-        }
+        checkTruthy(productId, "Fail to get productId from HTML dataset");
         removeFromCart(productId);
         renderOrderSummary();
         renderPaymentSummary();
       });
     });
   const deliveryOptionsInputHTML = document.querySelectorAll<HTMLElement>(
-    ".delivery-option-input"
+    ".delivery-option-input",
   );
   deliveryOptionsInputHTML.forEach((deliveryOptionInputHTML) => {
     deliveryOptionInputHTML.addEventListener("change", () => {
       const deliveryChoiceId = deliveryOptionInputHTML.dataset.deliveryChoiceId;
       const productId = deliveryOptionInputHTML.dataset.productId;
-      if (!productId || !deliveryChoiceId) {
-        console.error("Fail to get productId from HTML dataset");
-        return;
-      }
+      checkTruthy(productId, "Fail to get productId from HTML dataset");
+      checkTruthy(deliveryChoiceId, "Fail to get productId from HTML dataset");
+
       updateDeliveryOption(productId, deliveryChoiceId);
       renderOrderSummary();
       renderPaymentSummary();
@@ -200,7 +185,7 @@ export function renderOrderSummary() {
   });
   checkoutCart.forEach((cartItem) => {
     const deliveryOptionButtonHTML = document.getElementById(
-      `${cartItem.deliveryOptionId}-${cartItem.productId}`
+      `${cartItem.deliveryOptionId}-${cartItem.productId}`,
     );
     if (deliveryOptionButtonHTML instanceof HTMLInputElement) {
       deliveryOptionButtonHTML.checked = true;
@@ -211,10 +196,7 @@ export function renderOrderSummary() {
 
   function deliveryDateHTML(productId: string) {
     let cartItem = getMatchingCart(checkoutCart, productId);
-    if (!cartItem) {
-      console.error("Fail to get the cart");
-      return;
-    }
+    checkTruthy(cartItem);
     const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
     const html = `Delivery date: ${deliveryDate}`;
     return html;
