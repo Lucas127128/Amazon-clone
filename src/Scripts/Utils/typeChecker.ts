@@ -1,13 +1,12 @@
-export function checkType(
+export function checkInstanceOf(
   variable: any,
-  expectType: any,
+  expectInstance: any,
   customMessage: string = "Error",
-): void {
-  if (typeof variable !== expectType) {
-    const actualType = typeof variable;
+): asserts variable {
+  if (!(variable instanceof expectInstance)) {
     throw new Error(`
     ${customMessage}: 
-    Expect ${variable} is ${expectType} but get ${actualType}
+    Expect ${variable} is ${expectInstance} but it is not
     `);
   }
 }
@@ -23,4 +22,18 @@ export function checkTruthy(
     `);
   }
   return;
+}
+
+export function checkManyTruthy(
+  variables: unknown[],
+  customMessage: string = "Error",
+): asserts variables {
+  variables.forEach((variable) => {
+    if (!variable) {
+      throw new Error(`
+    ${customMessage}:
+    The value of ${variable} is falsy
+    `);
+    }
+  });
 }

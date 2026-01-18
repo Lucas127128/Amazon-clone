@@ -1,13 +1,14 @@
 import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
-import { fetchInternalProducts } from "../data/products.ts";
+import { fetchProducts } from "../data/products.ts";
 import { productsPlugin } from "./products.ts";
 import { ordersPlugin } from "./orders.ts";
+import { internal } from "../data/axios.ts";
 export const date = new Date();
 
 export async function loadProducts() {
   try {
-    await fetchInternalProducts();
+    await fetchProducts(internal);
   } catch (error) {
     console.log(error);
   }

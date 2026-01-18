@@ -17,7 +17,7 @@ import {
   getPriceString,
 } from "../../data/deliveryOption.ts";
 import { renderPaymentSummary } from "./paymentSummary.ts";
-import { checkTruthy } from "../Utils/typeChecker.ts";
+import { checkTruthy, checkInstanceOf } from "../Utils/typeChecker.ts";
 
 export function renderOrderSummary() {
   const checkoutCart = getCart();
@@ -26,10 +26,8 @@ export function renderOrderSummary() {
     const matchingProduct = getMatchingProduct(Products, cartItem.productId);
     checkTruthy(matchingProduct);
     cartSummaryHTML += `
-    <div class="cart-item-container cart-item-container-${matchingProduct.id}">
-      <div class="delivery-date-${
-        matchingProduct.id
-      } delivery-date" data-product-id="${matchingProduct.id}">
+    <div class="cart-item-container cart-item-container-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
+      <div class="delivery-date-${matchingProduct.id} delivery-date" >
         ${deliveryDateHTML(matchingProduct.id)}
       </div>
 
@@ -48,9 +46,7 @@ export function renderOrderSummary() {
           <span class="js-product-quantity-${matchingProduct.id}">
           Quantity: <span class="quantity-label">${cartItem.quantity}</span>
           </span>
-          <span class="update-quantity-link link-primary" data-product-id="${
-            matchingProduct.id
-          }">
+          <span class="update-quantity-link link-primary" >
           Update
           </span>
           <input type="number" class="quantity_Input_${
@@ -58,11 +54,11 @@ export function renderOrderSummary() {
           } quantity_Input" style="width: 40px;">
           <span class="save-quantity-link-${
             matchingProduct.id
-          } link-primary save-quantity-link" 
-          data-product-id="${matchingProduct.id}">Save</span>
+          } link-primary save-quantity-link" >
+            Save</span>
           <span class="delete-quantity-link delete-quantity-link-${
             matchingProduct.id
-          } link-primary" data-product-Id="${matchingProduct.id}">
+          } link-primary">
           Delete
           </span>
         </div>
@@ -117,72 +113,69 @@ export function renderOrderSummary() {
   }
   checkTruthy(returnHomeHTML, "Fail to select HTML element");
   returnHomeHTML.innerHTML = `${cartQuantity} items`;
-  document
-    .querySelectorAll<HTMLElement>(`.update-quantity-link`)
-    .forEach((updateQuantityHTML) => {
-      updateQuantityHTML.addEventListener("click", function () {
-        const productId = updateQuantityHTML.dataset.productId;
-        const quantityInputHTML = document.querySelector(
-          `.quantity_Input_${productId}`,
-        );
-        const saveQuantityHTML = document.querySelector(
-          `.save-quantity-link-${productId}`,
-        );
-        checkTruthy(saveQuantityHTML, "Fail to select HTML element");
-        checkTruthy(quantityInputHTML, "Fail to select HTML element");
-        quantityInputHTML.classList.add("Display_Update_Element");
-        saveQuantityHTML.classList.add("Display_Update_Element");
-      });
+
+  function renderCart() {
+    renderOrderSummary();
+    renderPaymentSummary();
+  }
+
+  function handleUpdateQuantity(target: HTMLElement, productId: string) {
+    const quantityInputHTML = target?.parentElement?.querySelector(
+      `.quantity_Input_${productId}`,
+    );
+    const saveQuantityHTML = target?.parentElement?.querySelector(
+      `.save-quantity-link-${productId}`,
+    );
+    checkTruthy(saveQuantityHTML, "Fail to select HTML element");
+    checkTruthy(quantityInputHTML, "Fail to select HTML element");
+    quantityInputHTML.classList.add("Display_Update_Element");
+    saveQuantityHTML.classList.add("Display_Update_Element");
+  }
+
+  const cartItemContainers = document.querySelectorAll<HTMLElement>(
+    ".cart-item-container",
+  );
+  cartItemContainers.forEach((cartItemContainer) => {
+    const productId = cartItemContainer.dataset.productId;
+    checkTruthy(productId, "Fail to get productId from dataset");
+    let quantityToAdd = 0;
+
+    cartItemContainer.addEventListener("click", (event) => {
+      const target = <HTMLElement>event.target;
+      checkTruthy(target);
+
+      if (target.classList.contains("update-quantity-link")) {
+        handleUpdateQuantity(target, productId);
+      } else if (target.classList.contains("save-quantity-link")) {
+        addToCart(productId, quantityToAdd);
+        renderCart();
+      } else if (target.classList.contains("delete-quantity-link")) {
+        removeFromCart(productId);
+        renderCart();
+      }
     });
-  let quantityToAdd = 0;
-  const quantityInputHTML = document.querySelectorAll(`.quantity_Input`);
-  quantityInputHTML.forEach((quantityInput) => {
-    quantityInput.addEventListener("change", (e) => {
-      if (e.target instanceof HTMLInputElement) {
-        quantityToAdd = Number(e.target.value);
-      } else {
-        console.error("Fail to get the event target");
-        return;
+    cartItemContainer.addEventListener("change", (event) => {
+      const target = <HTMLInputElement>event.target;
+      checkTruthy(target, "Fail to get the event target");
+      if (target.classList.contains("quantity_Input")) {
+        checkInstanceOf(
+          target,
+          HTMLInputElement,
+          "Fail to get the event target",
+        );
+        quantityToAdd = Number(target.value);
+      } else if (target.classList.contains("delivery-option-input")) {
+        const deliveryChoiceId = target.dataset.deliveryChoiceId;
+        checkTruthy(
+          deliveryChoiceId,
+          "Fail to get productId from HTML dataset",
+        );
+        updateDeliveryOption(productId, deliveryChoiceId);
+        renderCart();
       }
     });
   });
-  const saveQuantityHTML =
-    document.querySelectorAll<HTMLElement>(`.save-quantity-link`);
-  saveQuantityHTML.forEach((saveQuantity) => {
-    saveQuantity.addEventListener("click", function () {
-      const productId = saveQuantity?.dataset?.productId;
-      checkTruthy(productId, "Fail to get productId from HTML dataset");
-      addToCart(productId, quantityToAdd);
-      renderOrderSummary();
-      renderPaymentSummary();
-    });
-  });
-  document
-    .querySelectorAll<HTMLElement>(".delete-quantity-link")
-    .forEach((deleteProductHTML) => {
-      deleteProductHTML.addEventListener("click", () => {
-        const productId = deleteProductHTML.dataset.productId;
-        checkTruthy(productId, "Fail to get productId from HTML dataset");
-        removeFromCart(productId);
-        renderOrderSummary();
-        renderPaymentSummary();
-      });
-    });
-  const deliveryOptionsInputHTML = document.querySelectorAll<HTMLElement>(
-    ".delivery-option-input",
-  );
-  deliveryOptionsInputHTML.forEach((deliveryOptionInputHTML) => {
-    deliveryOptionInputHTML.addEventListener("change", () => {
-      const deliveryChoiceId = deliveryOptionInputHTML.dataset.deliveryChoiceId;
-      const productId = deliveryOptionInputHTML.dataset.productId;
-      checkTruthy(productId, "Fail to get productId from HTML dataset");
-      checkTruthy(deliveryChoiceId, "Fail to get productId from HTML dataset");
 
-      updateDeliveryOption(productId, deliveryChoiceId);
-      renderOrderSummary();
-      renderPaymentSummary();
-    });
-  });
   checkoutCart.forEach((cartItem) => {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
@@ -191,6 +184,7 @@ export function renderOrderSummary() {
       deliveryOptionButtonHTML.checked = true;
     } else {
       console.error("Fail to get the HTML element");
+      return;
     }
   });
 
@@ -208,7 +202,7 @@ async function loadPage() {
     await fetchProducts();
     renderOrderSummary();
   } catch (error) {
-    console.log(`unexpected network error: ${error}`);
+    console.error(`unexpected network error: ${error}`);
   }
 }
 loadPage();

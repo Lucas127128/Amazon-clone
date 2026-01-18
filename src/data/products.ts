@@ -1,6 +1,7 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
 import { Cart } from "./cart.ts";
-import { internal, external } from "./axios.ts";
+import { external } from "./axios.ts";
+import { AxiosInstance } from "axios";
 
 export function getMatchingCart(
   cart: Cart[],
@@ -35,14 +36,14 @@ export interface ProductInterface {
 }
 
 export class Product {
-  constructor(productDetails: ProductInterface, isClothing = false) {
+  constructor(productDetails: ProductInterface, isClothing: boolean) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
     this.keywords = productDetails.keywords;
-    if (isClothing) {
+    if (isClothing === true) {
       this.extraInfoHTML = `
         <a href='/images/clothing-size-chart.webp' target='_blank'>
           Size chart
@@ -74,28 +75,12 @@ export class Product {
 
 export let Products: Product[] = [];
 
-export async function fetchProducts() {
-  const products: ProductInterface[] = (await external.get("/products")).data;
-  const clothingList: string[] = (await external.get("/clothingList")).data;
+export async function fetchProducts(axiosInstance: AxiosInstance = external) {
+  const products: ProductInterface[] = (await axiosInstance.get("/products"))
+    .data;
+  const clothings: string[] = (await axiosInstance.get("/clothingList")).data;
   Products = products.map((product) => {
-    clothingList.forEach((clothingId) => {
-      if (clothingId === product.id) {
-        return new Product(product, true);
-      }
-    });
-    return new Product(product);
-  });
-}
-
-export async function fetchInternalProducts() {
-  const products: ProductInterface[] = (await internal.get("/products")).data;
-  const clothingList: string[] = (await internal.get("/clothingList")).data;
-  Products = products.map((product) => {
-    clothingList.forEach((clothingId) => {
-      if (clothingId === product.id) {
-        return new Product(product, true);
-      }
-    });
-    return new Product(product);
+    const isClothing = clothings.includes(product.id);
+    return new Product(product, isClothing);
   });
 }

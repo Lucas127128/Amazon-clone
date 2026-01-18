@@ -11,7 +11,6 @@ export default defineConfig({
         tracking: resolve("tracking.html"),
       },
     },
-    minify: "esbuild",
   },
   server: {
     port: 5174,

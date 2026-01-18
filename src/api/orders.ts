@@ -1,21 +1,22 @@
 import { Elysia } from "elysia";
 import {
-  fetchInternalProducts,
+  fetchProducts,
   getMatchingProduct,
   Products,
 } from "../data/products.ts";
 import { getDeliveryISOTime } from "../data/deliveryOption.ts";
 import { Cart } from "../data/cart.ts";
 import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
+import { internal } from "../data/axios.ts";
 
 async function getProducts() {
   await Bun.sleep(100);
-  await fetchInternalProducts();
+  await fetchProducts(internal);
 }
 
 async function startOrdersAPI() {
   await Bun.sleep(100);
-  await fetchInternalProducts();
+  await fetchProducts(internal);
   class Product {
     constructor(cartItem: Cart) {
       const deliveryTime = getDeliveryISOTime(cartItem.deliveryOptionId);

@@ -73,6 +73,9 @@ function renderAmazonHomePage() {
 
   productsGrid.addEventListener("click", (event) => {
     const button = <HTMLButtonElement>event.target;
+    if (!button.classList.contains("add-to-cart-button")) {
+      return;
+    }
 
     const productId = button.dataset.productId;
     const productContainer = button.parentElement;
@@ -80,12 +83,10 @@ function renderAmazonHomePage() {
       productContainer?.querySelector<HTMLInputElement>(
         ".ProductQuantitySelector",
       );
-    if (!quantitySelectorHTML?.value) {
-      console.error(
-        "Fail to get the HTML element or the product id dataset is incorrect",
-      );
-      return;
-    }
+    checkTruthy(
+      quantitySelectorHTML,
+      "Fail to get the HTML element or the product id dataset is incorrect",
+    );
     checkTruthy(
       productId,
       "Fail to get the HTML element or the product id dataset is incorrect",
