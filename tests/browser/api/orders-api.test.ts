@@ -7,17 +7,10 @@ import {
   fetchProducts,
   Products,
 } from "../../../src/data/products.ts";
-import { Order, Product } from "../../../src/data/orders.ts";
+import { Order } from "../../../src/data/orders.ts";
+import { external } from "../../../src/data/axios.ts";
 
-const response = await fetch("https://localhost:3001/orders", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(cart),
-});
-const order: Order = await response.json();
-
+const order: Order = (await external.post("/orders", cart)).data;
 await fetchProducts();
 
 describe("order api test", () => {

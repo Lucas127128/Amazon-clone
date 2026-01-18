@@ -7,6 +7,7 @@ import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
 import { checkTruthy } from "../Utils/typeChecker.ts";
+import { external } from "../../data/axios.ts";
 export function renderPaymentSummary() {
   const checkoutCart = getCart();
   let totalProductPrice = 0;
@@ -87,14 +88,7 @@ export function renderPaymentSummary() {
   checkTruthy(placeOrderHTML, "Fail to get the HTML element");
   placeOrderHTML.addEventListener("click", async () => {
     try {
-      const response = await fetch("https://localhost:3001/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(checkoutCart),
-      });
-      const order = await response.json();
+      const order = (await external.post("/orders", checkoutCart)).data;
       addToOrders(order);
       localStorage.setItem("cart", JSON.stringify([]));
       location.href = "/orders.html";

@@ -1,5 +1,6 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
 import { Cart } from "./cart.ts";
+import { internal, external } from "./axios.ts";
 
 export function getMatchingCart(
   cart: Cart[],
@@ -74,12 +75,8 @@ export class Product {
 export let Products: Product[] = [];
 
 export async function fetchProducts() {
-  const productsPromise = await fetch("https://localhost:3001/products");
-  const clothingListPromise = await fetch(
-    "https://localhost:3001/clothingList",
-  );
-  const products: ProductInterface[] = await productsPromise.json();
-  const clothingList: string[] = await clothingListPromise.json();
+  const products: ProductInterface[] = (await external.get("/products")).data;
+  const clothingList: string[] = (await external.get("/clothingList")).data;
   Products = products.map((product) => {
     clothingList.forEach((clothingId) => {
       if (clothingId === product.id) {
@@ -91,10 +88,8 @@ export async function fetchProducts() {
 }
 
 export async function fetchInternalProducts() {
-  const productsPromise = await fetch("http://localhost:3000/products");
-  const clothingListPromise = await fetch("http://localhost:3000/clothingList");
-  const products: ProductInterface[] = await productsPromise.json();
-  const clothingList: string[] = await clothingListPromise.json();
+  const products: ProductInterface[] = (await internal.get("/products")).data;
+  const clothingList: string[] = (await internal.get("/clothingList")).data;
   Products = products.map((product) => {
     clothingList.forEach((clothingId) => {
       if (clothingId === product.id) {
