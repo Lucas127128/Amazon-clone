@@ -41,7 +41,7 @@ function renderAmazonHomePage() {
                 <option value="10">10</option>
                 </select>
             </div>
-            ${products.extraInfoHTML()}
+            ${products.extraInfoHTML}
 
             <div class="product-spacer"></div>
 

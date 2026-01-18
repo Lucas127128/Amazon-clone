@@ -6,7 +6,6 @@ import { ordersPlugin } from "./orders.ts";
 export const date = new Date();
 
 export async function loadProducts() {
-  //wait for the products api service to start
   try {
     await fetchInternalProducts();
   } catch (error) {
@@ -35,7 +34,7 @@ const app = new Elysia()
       ],
       credentials: true,
       allowedHeaders: ["Content-Type", "Authorization"],
-    })
+    }),
   )
   .use(productsPlugin)
   .use(ordersPlugin)
@@ -44,5 +43,5 @@ const app = new Elysia()
   .listen(3000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
 );

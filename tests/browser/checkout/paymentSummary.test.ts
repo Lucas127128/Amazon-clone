@@ -53,14 +53,14 @@ describe("test suite: Render payment summary", () => {
       totalProductPrice += matchingProduct.priceCents * cartItem.quantity;
     });
     const totalProductsPriceHTML = document.querySelector(
-      ".total-products-price"
+      ".total-products-price",
     );
     if (!totalProductsPriceHTML) {
       console.error("Fail to select HTML element");
       return;
     }
     expect(totalProductsPriceHTML.textContent).toBe(
-      `$${formatCurrency(totalProductPrice)}`
+      `$${formatCurrency(totalProductPrice)}`,
     );
 
     localStorage.setItem("totalProductPrice", String(totalProductPrice));
@@ -86,7 +86,7 @@ describe("test suite: Render payment summary", () => {
       return;
     }
     expect(totalDeliveryFeeHTML.textContent).toBe(
-      `$${formatCurrency(totalDeliveryFee)}`
+      `$${formatCurrency(totalDeliveryFee)}`,
     );
     localStorage.setItem("totalDeliveryFee", String(totalDeliveryFee));
   });
@@ -96,21 +96,21 @@ describe("test suite: Render payment summary", () => {
     const totalDeliveryFee = Number(localStorage.getItem("totalDeliveryFee"));
     const totalPriceBeforeTax = totalProductPrice + totalDeliveryFee;
     const totalPriceBeforeTaxHTML = document.querySelector(
-      ".total-price-before-tax"
+      ".total-price-before-tax",
     );
     if (!totalPriceBeforeTaxHTML) {
       console.error("Fail to select HTML element");
       return;
     }
     expect(totalPriceBeforeTaxHTML.textContent).toBe(
-      `$${formatCurrency(totalPriceBeforeTax)}`
+      `$${formatCurrency(totalPriceBeforeTax)}`,
     );
     localStorage.setItem("totalPriceBeforeTax", String(totalPriceBeforeTax));
   });
 
   test.concurrent("display tax", ({ expect }) => {
     const totalPriceBeforeTax = Number(
-      localStorage.getItem("totalPriceBeforeTax")
+      localStorage.getItem("totalPriceBeforeTax"),
     );
     const estimatedTax = totalPriceBeforeTax * 0.1;
     const totalTaxHTML = document.querySelector(".total-tax");
@@ -125,7 +125,7 @@ describe("test suite: Render payment summary", () => {
   test.concurrent("display total cost", ({ expect }) => {
     const estimatedTax = Number(localStorage.getItem("estimatedTax"));
     const totalPriceBeforeTax = Number(
-      localStorage.getItem("totalPriceBeforeTax")
+      localStorage.getItem("totalPriceBeforeTax"),
     );
     const totalCost = estimatedTax + totalPriceBeforeTax;
     const totalCostHTML = document.querySelector(".total-cost");

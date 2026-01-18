@@ -30,7 +30,7 @@ describe("test suite: Render order summary", () => {
   test("display the cart", () => {
     //test number of cart items rendered
     const cartItemContainers = document.querySelectorAll(
-      ".cart-item-container"
+      ".cart-item-container",
     );
     expect(cartItemContainers.length).toBe(2);
 
@@ -39,14 +39,14 @@ describe("test suite: Render order summary", () => {
       //cart quantity test
       const productId = cartItem.productId;
       const quantityHTML = document.querySelector(
-        `.js-product-quantity-${productId}`
+        `.js-product-quantity-${productId}`,
       );
       if (!quantityHTML) {
         console.error("Fail to select HTML element");
         return;
       }
       expect(quantityHTML.textContent).toContain(
-        `Quantity: ${cartItem.quantity}`
+        `Quantity: ${cartItem.quantity}`,
       );
 
       //delivery date test
@@ -54,10 +54,10 @@ describe("test suite: Render order summary", () => {
       renderOrderSummary();
       const updatedCheckoutCart = getCart();
       const deliveryDate = getDeliveryDate(
-        updatedCheckoutCart[cartOrder].deliveryOptionId
+        updatedCheckoutCart[cartOrder].deliveryOptionId,
       );
       const deliveryDateHTML = document.querySelector(
-        `.delivery-date-${productId}`
+        `.delivery-date-${productId}`,
       );
       if (!deliveryDateHTML) {
         return;
@@ -67,7 +67,7 @@ describe("test suite: Render order summary", () => {
       //products price test
       const matchingProduct = getMatchingProduct(Products, productId);
       const productPrice = document.querySelector(
-        `.product-price-${productId}`
+        `.product-price-${productId}`,
       );
       if (!productPrice) {
         console.error("Fail to select HTML element");
@@ -78,7 +78,7 @@ describe("test suite: Render order summary", () => {
         return;
       }
       expect(productPrice.textContent).toContain(
-        `$${matchingProduct.getPrice()}`
+        `$${matchingProduct.getPrice()}`,
       );
     });
     if (!cartItemContainers) {
@@ -96,7 +96,7 @@ describe("test suite: Render order summary", () => {
     const productId1 = checkoutCart[0].productId;
     const productId2 = checkoutCart[1].productId;
     const deleteQuantityHTML1 = document.querySelector<HTMLButtonElement>(
-      `.delete-quantity-link-${productId1}`
+      `.delete-quantity-link-${productId1}`,
     );
     if (!deleteQuantityHTML1) {
       console.error("Fail to select HTML element");
@@ -111,10 +111,10 @@ describe("test suite: Render order summary", () => {
     expect(cartItemContainer.length).toBe(1);
 
     const cartItemContainer1 = document.querySelector(
-      `.cart-item-container-${productId1}`
+      `.cart-item-container-${productId1}`,
     );
     const cartItemContainer2 = document.querySelector(
-      `.cart-item-container-${productId2}`
+      `.cart-item-container-${productId2}`,
     );
     expect(cartItemContainer1).toBe(null);
     expect(cartItemContainer2).not.toBe(null);

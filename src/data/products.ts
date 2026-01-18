@@ -1,6 +1,5 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
 import { Cart } from "./cart.ts";
-import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
 
 export function getMatchingCart(
   cart: Cart[],
@@ -19,10 +18,12 @@ export function getMatchingProduct(
   const matchingItem = products.find((product) => product.id === productId);
   return matchingItem;
 }
+
 interface Rating {
   stars: number;
   count: number;
 }
+
 export interface ProductInterface {
   id: string;
   image: string;
@@ -30,22 +31,27 @@ export interface ProductInterface {
   rating: Rating;
   priceCents: number;
   keywords: string[];
-  type: string;
 }
 
-export interface ClothingInterface extends ProductInterface {
-  sizeChartLink: string;
-  type: string;
-}
 export class Product {
-  constructor(productDetails: ProductInterface) {
+  constructor(productDetails: ProductInterface, isClothing = false) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
     this.keywords = productDetails.keywords;
+    if (isClothing) {
+      this.extraInfoHTML = `
+        <a href='/images/clothing-size-chart.webp' target='_blank'>
+          Size chart
+        </a>
+      `;
+    } else {
+      this.extraInfoHTML = ``;
+    }
   }
+
   getStarsUrl() {
     return `/images/ratings/rating-${this.rating.stars * 10}.png`;
   }
@@ -53,9 +59,6 @@ export class Product {
     return `${formatCurrency(this.priceCents)}`;
   }
 
-  extraInfoHTML() {
-    return ``;
-  }
   getImageURL() {
     return this.image;
   }
@@ -65,59 +68,39 @@ export class Product {
   rating: Rating;
   priceCents: number;
   keywords: string[];
+  extraInfoHTML: string;
 }
 
-export class Clothing extends Product {
-  sizeChartLink: string;
+export let Products: Product[] = [];
 
-  constructor(productDetails: ClothingInterface) {
-    super(productDetails);
-    this.sizeChartLink = productDetails.sizeChartLink;
-  }
-
-  extraInfoHTML() {
-    return `
-    <a href="${this.sizeChartLink}" target="_blank">
-      Size chart
-    </a>
-    `;
-  }
-}
-
-export let Products: Clothing[] | Product[] = [];
-
-export function fetchProducts() {
-  const promise = fetch("https://localhost:3001/products")
-    .then((response) => {
-      return response.json();
-    })
-    .then((productsData) => {
-      Products = productsData.map(
-        (productDetails: ProductInterface | ClothingInterface) => {
-          if (productDetails?.type === "clothing") {
-            return new Clothing(productDetails as ClothingInterface);
-          }
-          return new Product(productDetails);
-        },
-      );
+export async function fetchProducts() {
+  const productsPromise = await fetch("https://localhost:3001/products");
+  const clothingListPromise = await fetch(
+    "https://localhost:3001/clothingList",
+  );
+  const products: ProductInterface[] = await productsPromise.json();
+  const clothingList: string[] = await clothingListPromise.json();
+  Products = products.map((product) => {
+    clothingList.forEach((clothingId) => {
+      if (clothingId === product.id) {
+        return new Product(product, true);
+      }
     });
-  return promise;
+    return new Product(product);
+  });
 }
 
-export function fetchInternalProducts() {
-  const promise = fetch("http://localhost:3000/products")
-    .then((response) => {
-      return response.json();
-    })
-    .then((productsData) => {
-      Products = productsData.map(
-        (productDetails: ProductInterface | ClothingInterface) => {
-          if (productDetails?.type === "clothing") {
-            return new Clothing(productDetails as ClothingInterface);
-          }
-          return new Product(productDetails);
-        },
-      );
+export async function fetchInternalProducts() {
+  const productsPromise = await fetch("http://localhost:3000/products");
+  const clothingListPromise = await fetch("http://localhost:3000/clothingList");
+  const products: ProductInterface[] = await productsPromise.json();
+  const clothingList: string[] = await clothingListPromise.json();
+  Products = products.map((product) => {
+    clothingList.forEach((clothingId) => {
+      if (clothingId === product.id) {
+        return new Product(product, true);
+      }
     });
-  return promise;
+    return new Product(product);
+  });
 }

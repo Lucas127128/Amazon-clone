@@ -1,30 +1,25 @@
 import { describe, test, expect } from "vitest";
 import productsJSON from "../../../src/api/products.json";
+import clothingList from "../../../src/api/clothing.json";
 import {
-  fetchInternalProducts,
-  Products,
+  fetchProducts,
   Product,
-  Clothing,
+  Products,
 } from "../../../src/data/products.ts";
-import {
-  ClothingInterface,
-  ProductInterface,
-} from "../../../src/data/products.ts";
-
-await fetchInternalProducts();
 
 describe("products api test", () => {
-  test("products quantity", () => {
-    const products = productsJSON.map(
-      (productDetails: ProductInterface | ClothingInterface) => {
-        if (productDetails?.type === "clothing") {
-          return new Clothing(productDetails as ClothingInterface);
+  test("deliver correct products", async () => {
+    await fetchProducts();
+    const products = productsJSON.map((product) => {
+      clothingList.forEach((clothingId) => {
+        if (clothingId === product.id) {
+          return new Product(product, true);
         }
-        return new Product(productDetails);
-      }
-    );
-    Products.forEach((product, productNumber) => {
-      expect(product).toEqual(products[productNumber]);
+      });
+      return new Product(product);
+    });
+    Products.forEach((product, productIndex) => {
+      expect(product).toEqual(products[productIndex]);
     });
   });
 });
