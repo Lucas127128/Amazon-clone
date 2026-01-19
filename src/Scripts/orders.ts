@@ -11,7 +11,7 @@ function renderPlacedOrder() {
   const savedOrders = localStorage.getItem("orders");
   const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
   const ordersHTML = document.querySelector(".orders-grid");
-  let placedOrderContainerHTML = "";
+  checkTruthy(ordersHTML);
   orders.forEach((order) => {
     console.log(order);
     let placedOrderHTML = "";
@@ -48,7 +48,7 @@ function renderPlacedOrder() {
     });
     const orderTime = getTimeString(order.orderTime);
     console.log(order.id);
-    placedOrderContainerHTML += `
+    const placedOrderContainerHTML = `
       <div class="order-container order-container-${order.id}">
         <div class="order-header">
           <div class="order-header-left-section">
@@ -74,9 +74,8 @@ function renderPlacedOrder() {
         </div>
       </div>
     `;
+    ordersHTML.insertAdjacentHTML("beforeend", placedOrderContainerHTML);
   });
-  checkTruthy(ordersHTML);
-  ordersHTML.innerHTML = placedOrderContainerHTML;
 
   function displayBuyAgainMessage(
     buyAgainMessageHTML: Element,
@@ -86,7 +85,7 @@ function renderPlacedOrder() {
     checkTruthy(buyAgainMessageHTML);
     buyAgainSuccessHTML.classList.add("display-buy-again-success");
     buyAgainMessageHTML.classList.add("hide-buy-again-message");
-    displayCartQuantity();
+    displayCartQuantity("cart-quantity");
     setTimeout(() => {
       buyAgainSuccessHTML.classList.remove("display-buy-again-success");
       buyAgainMessageHTML.classList.remove("hide-buy-again-message");
@@ -127,7 +126,7 @@ function renderPlacedOrder() {
     checkTruthy(buyAgainSuccessHTML);
     displayBuyAgainMessage(buyAgainMessageHTML, buyAgainSuccessHTML);
   });
-  displayCartQuantity();
+  displayCartQuantity("cart-quantity");
 }
 
 async function loadPage() {

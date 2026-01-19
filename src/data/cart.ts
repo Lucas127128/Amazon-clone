@@ -67,13 +67,16 @@ export function getCart(): Cart[] {
   return cart;
 }
 
-export function displayCartQuantity() {
+export function displayCartQuantity(
+  cartQuantityHTMLClass: string,
+  extraString: string = "",
+) {
   let cartQuantity = 0;
-  const cartQuantityHTML = document.querySelector(".cart-quantity");
+  const cartQuantityHTML = document.querySelector(`.${cartQuantityHTMLClass}`);
   const cart = getCart();
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.quantity;
   });
   checkTruthy(cartQuantityHTML);
-  cartQuantityHTML.textContent = String(cartQuantity);
+  cartQuantityHTML.textContent = String(cartQuantity) + extraString;
 }

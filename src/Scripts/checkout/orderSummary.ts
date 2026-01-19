@@ -3,6 +3,7 @@ import {
   addToCart,
   getCart,
   updateDeliveryOption,
+  displayCartQuantity,
 } from "../../data/cart.ts";
 import {
   Products,
@@ -21,11 +22,13 @@ import { checkTruthy, checkInstanceOf } from "../Utils/typeChecker.ts";
 
 export function renderOrderSummary() {
   const checkoutCart = getCart();
-  let cartSummaryHTML = "";
+  const orderSummary = document.querySelector(".order-summary");
+  checkTruthy(orderSummary, "Fail to select HTML element");
+  orderSummary.innerHTML = "";
   checkoutCart.forEach((cartItem) => {
     const matchingProduct = getMatchingProduct(Products, cartItem.productId);
     checkTruthy(matchingProduct);
-    cartSummaryHTML += `
+    const cartSummaryHTML = `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
       <div class="delivery-date-${matchingProduct.id} delivery-date" >
         ${deliveryDateHTML(matchingProduct.id)}
@@ -72,17 +75,10 @@ export function renderOrderSummary() {
       </div>
     </div>
     `;
+    orderSummary.insertAdjacentHTML("beforeend", cartSummaryHTML);
   });
 
-  const orderSummary = document.querySelector(".order-summary");
-  const returnHomeHTML = document.querySelector(".return-to-home-link");
-  checkTruthy(orderSummary, "Fail to select HTML element");
-  orderSummary.innerHTML = cartSummaryHTML;
-  let cartQuantity = 0;
-  checkoutCart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
-  function deliveryOptionsHTML(matchingProductId: string) {
+  function deliveryOptionsHTML(matchingProductId: string): string {
     let html = "";
     deliveryOption.forEach((deliveryOptions) => {
       const deliveryDate = addWeekDays(deliveryOptions.deliveryDays).format(
@@ -93,10 +89,7 @@ export function renderOrderSummary() {
         <div>
           <input type="radio" 
           class="delivery-option-input"
-          name="delivery-option-${matchingProductId}"
           data-delivery-choice-id="${deliveryOptions.id}"
-          data-product-id="${matchingProductId}"
-          value='${deliveryDate}'
           id="${deliveryOptions.id}-${matchingProductId}">
           <div>
             <div class="delivery-option-date">
@@ -111,8 +104,14 @@ export function renderOrderSummary() {
     });
     return html;
   }
-  checkTruthy(returnHomeHTML, "Fail to select HTML element");
-  returnHomeHTML.innerHTML = `${cartQuantity} items`;
+  displayCartQuantity("return-to-home-link", " items");
+  function deliveryDateHTML(productId: string) {
+    const cartItem = getMatchingCart(checkoutCart, productId);
+    checkTruthy(cartItem);
+    const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
+    const html = `Delivery date: ${deliveryDate}`;
+    return html;
+  }
 
   function renderCart() {
     renderOrderSummary();
@@ -180,21 +179,12 @@ export function renderOrderSummary() {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
     );
-    if (deliveryOptionButtonHTML instanceof HTMLInputElement) {
-      deliveryOptionButtonHTML.checked = true;
-    } else {
+    if (!(deliveryOptionButtonHTML instanceof HTMLInputElement)) {
       console.error("Fail to get the HTML element");
       return;
     }
+    deliveryOptionButtonHTML.checked = true;
   });
-
-  function deliveryDateHTML(productId: string) {
-    let cartItem = getMatchingCart(checkoutCart, productId);
-    checkTruthy(cartItem);
-    const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
-    const html = `Delivery date: ${deliveryDate}`;
-    return html;
-  }
 }
 
 async function loadPage() {

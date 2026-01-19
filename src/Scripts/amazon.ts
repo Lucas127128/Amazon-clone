@@ -1,10 +1,13 @@
 import { incrementAddToCart, displayCartQuantity } from "../data/cart";
 import { Products, fetchProducts } from "../data/products";
 import { checkTruthy } from "./Utils/typeChecker";
-let productsHTML = "";
+
 function renderAmazonHomePage() {
+  const productsGrid = document.querySelector(".products-grid");
+  checkTruthy(productsGrid, "Fail to select HTML element");
+
   Products.forEach((products) => {
-    productsHTML += `
+    const productsHTML = `
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
@@ -57,10 +60,8 @@ function renderAmazonHomePage() {
             </div>
         </div>
     `;
+    productsGrid.insertAdjacentHTML("beforeend", productsHTML);
   });
-  const productsGrid = document.querySelector(".products-grid");
-  checkTruthy(productsGrid, "Fail to select HTML element");
-  productsGrid.innerHTML = productsHTML;
 
   function displayAdded(productId: string) {
     const addedToCart = document.querySelector(`.added-to-cart-${productId}`);
@@ -93,9 +94,10 @@ function renderAmazonHomePage() {
     );
     const quantityToAdd = parseInt(quantitySelectorHTML.value);
     incrementAddToCart(productId, quantityToAdd);
-    displayCartQuantity();
+    displayCartQuantity("cart-quantity");
     displayAdded(productId);
   });
+  displayCartQuantity("cart-quantity");
 }
 
 async function loadPage() {

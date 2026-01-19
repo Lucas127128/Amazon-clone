@@ -6,7 +6,7 @@
     "bun-storage": "^2.0.5",
     "dayjs": "^1.11.19",
     "elysia": "^1.4.22",
-    "happy-dom": "^20.3.0",
+    "happy-dom": "^20.3.3",
     "k6": "^0.0.0",
     "node-modules-inspector": "^1.2.0",
     "vite": "^7.3.1"

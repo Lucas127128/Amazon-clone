@@ -25,7 +25,7 @@ export function checkTruthy(
 }
 
 export function checkManyTruthy(
-  variables: unknown[],
+  variables: any[],
   customMessage: string = "Error",
 ): asserts variables {
   variables.forEach((variable) => {
