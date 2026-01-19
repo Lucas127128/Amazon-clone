@@ -5,7 +5,7 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.ts";
 async function loadPage() {
   try {
     await fetchProducts();
-    renderOrderSummary();
+    await renderOrderSummary();
     renderPaymentSummary();
   } catch (error) {
     console.log(`unexpected network error: ${error}`);

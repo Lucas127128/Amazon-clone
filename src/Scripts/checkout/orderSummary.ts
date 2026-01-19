@@ -1,37 +1,25 @@
-import {
-  removeFromCart,
-  addToCart,
-  getCart,
-  updateDeliveryOption,
-  displayCartQuantity,
-} from "../../data/cart.ts";
-import {
-  Products,
-  getMatchingCart,
-  fetchProducts,
-  getMatchingProduct,
-} from "../../data/products.ts";
-import {
-  deliveryOption,
-  getDeliveryDate,
-  addWeekDays,
-  getPriceString,
-} from "../../data/deliveryOption.ts";
-import { renderPaymentSummary } from "./paymentSummary.ts";
 import { checkTruthy, checkInstanceOf } from "../Utils/typeChecker.ts";
+const cartModule = import("../../data/cart");
+const productsModule = import("../../data/products");
+const deliveryOptionModule = import("../../data/deliveryOption");
+const paymentSummaryModule = import("./paymentSummary.ts");
 
-export function renderOrderSummary() {
-  const checkoutCart = getCart();
+export async function renderOrderSummary() {
+  const checkoutCart = (await cartModule).getCart();
   const orderSummary = document.querySelector(".order-summary");
   checkTruthy(orderSummary, "Fail to select HTML element");
   orderSummary.innerHTML = "";
-  checkoutCart.forEach((cartItem) => {
-    const matchingProduct = getMatchingProduct(Products, cartItem.productId);
+  for (const cartItem of checkoutCart) {
+    const Products = (await productsModule).Products;
+    const matchingProduct = (await productsModule).getMatchingProduct(
+      Products,
+      cartItem.productId,
+    );
     checkTruthy(matchingProduct);
     const cartSummaryHTML = `
     <div class="cart-item-container cart-item-container-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
       <div class="delivery-date-${matchingProduct.id} delivery-date" >
-        ${deliveryDateHTML(matchingProduct.id)}
+        ${await deliveryDateHTML(matchingProduct.id)}
       </div>
 
       <div class="cart-item-details-grid">
@@ -70,15 +58,20 @@ export function renderOrderSummary() {
         <div class="delivery-options-title">
           Choose a delivery option:
         </div>
-        ${deliveryOptionsHTML(matchingProduct.id)}
+        ${await deliveryOptionsHTML(matchingProduct.id)}
         </div>
       </div>
     </div>
     `;
     orderSummary.insertAdjacentHTML("beforeend", cartSummaryHTML);
-  });
+  }
 
-  function deliveryOptionsHTML(matchingProductId: string): string {
+  async function deliveryOptionsHTML(
+    matchingProductId: string,
+  ): Promise<string> {
+    const deliveryOption = (await deliveryOptionModule).deliveryOption;
+    const addWeekDays = (await deliveryOptionModule).addWeekDays;
+    const getPriceString = (await deliveryOptionModule).getPriceString;
     let html = "";
     deliveryOption.forEach((deliveryOptions) => {
       const deliveryDate = addWeekDays(deliveryOptions.deliveryDays).format(
@@ -104,8 +97,10 @@ export function renderOrderSummary() {
     });
     return html;
   }
-  displayCartQuantity("return-to-home-link", " items");
-  function deliveryDateHTML(productId: string) {
+  (await cartModule).displayCartQuantity("return-to-home-link", " items");
+  async function deliveryDateHTML(productId: string) {
+    const getMatchingCart = (await productsModule).getMatchingCart;
+    const getDeliveryDate = (await deliveryOptionModule).getDeliveryDate;
     const cartItem = getMatchingCart(checkoutCart, productId);
     checkTruthy(cartItem);
     const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
@@ -113,9 +108,9 @@ export function renderOrderSummary() {
     return html;
   }
 
-  function renderCart() {
-    renderOrderSummary();
-    renderPaymentSummary();
+  async function renderCart() {
+    await renderOrderSummary();
+    (await paymentSummaryModule).renderPaymentSummary();
   }
 
   function handleUpdateQuantity(target: HTMLElement, productId: string) {
@@ -139,21 +134,21 @@ export function renderOrderSummary() {
     checkTruthy(productId, "Fail to get productId from dataset");
     let quantityToAdd = 0;
 
-    cartItemContainer.addEventListener("click", (event) => {
+    cartItemContainer.addEventListener("click", async (event) => {
       const target = <HTMLElement>event.target;
       checkTruthy(target);
 
       if (target.classList.contains("update-quantity-link")) {
         handleUpdateQuantity(target, productId);
       } else if (target.classList.contains("save-quantity-link")) {
-        addToCart(productId, quantityToAdd);
-        renderCart();
+        (await cartModule).addToCart(productId, quantityToAdd);
+        await renderCart();
       } else if (target.classList.contains("delete-quantity-link")) {
-        removeFromCart(productId);
-        renderCart();
+        (await cartModule).removeFromCart(productId);
+        await renderCart();
       }
     });
-    cartItemContainer.addEventListener("change", (event) => {
+    cartItemContainer.addEventListener("change", async (event) => {
       const target = <HTMLInputElement>event.target;
       checkTruthy(target, "Fail to get the event target");
       if (target.classList.contains("quantity_Input")) {
@@ -169,8 +164,8 @@ export function renderOrderSummary() {
           deliveryChoiceId,
           "Fail to get productId from HTML dataset",
         );
-        updateDeliveryOption(productId, deliveryChoiceId);
-        renderCart();
+        (await cartModule).updateDeliveryOption(productId, deliveryChoiceId);
+        await renderCart();
       }
     });
   });
@@ -189,8 +184,9 @@ export function renderOrderSummary() {
 
 async function loadPage() {
   try {
+    const fetchProducts = (await productsModule).fetchProducts;
     await fetchProducts();
-    renderOrderSummary();
+    await renderOrderSummary();
   } catch (error) {
     console.error(`unexpected network error: ${error}`);
   }

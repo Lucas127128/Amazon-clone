@@ -11,6 +11,9 @@ import {
 } from "../../../src/data/cart.ts";
 import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
 import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
+import { external } from "../../../src/data/axios.ts";
+import { sleep } from "../../../src/Scripts/Utils/sleep.ts";
+
 document.body.innerHTML = `
 <div class="test-container">
   <div class="order-summary"></div>
@@ -23,8 +26,9 @@ describe("test suite: Render order summary", () => {
     localStorage.clear();
     addToCart("15b6fc6f-327a-4ec4-896f-486349e85a3d", 1);
     addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 2);
-    await fetchProducts();
-    renderOrderSummary();
+
+    await fetchProducts(external);
+    await renderOrderSummary();
   });
 
   test("display the cart", () => {
@@ -35,7 +39,7 @@ describe("test suite: Render order summary", () => {
     expect(cartItemContainers.length).toBe(2);
 
     const checkoutCart = getCart();
-    checkoutCart.forEach((cartItem, cartOrder) => {
+    checkoutCart.forEach(async (cartItem, cartOrder) => {
       //cart quantity test
       const productId = cartItem.productId;
       const quantityHTML = document.querySelector(
@@ -51,7 +55,7 @@ describe("test suite: Render order summary", () => {
 
       //delivery date test
       updateDeliveryOption(productId, String(cartOrder + 1));
-      renderOrderSummary();
+      await renderOrderSummary();
       const updatedCheckoutCart = getCart();
       const deliveryDate = getDeliveryDate(
         updatedCheckoutCart[cartOrder].deliveryOptionId,
@@ -90,7 +94,7 @@ describe("test suite: Render order summary", () => {
     });
   });
 
-  test("removes the product", () => {
+  test("removes the product", async () => {
     let checkoutCart = getCart();
 
     const productId1 = checkoutCart[0].productId;
@@ -103,7 +107,10 @@ describe("test suite: Render order summary", () => {
       return;
     }
     deleteQuantityHTML1.click();
+    await sleep(400);
     checkoutCart = getCart();
+    console.log("checkoutCart:", checkoutCart);
+    console.log(checkoutCart.length);
     expect(checkoutCart.length).toBe(1);
     expect(checkoutCart[0].productId).toBe(productId2);
 
