@@ -1,7 +1,6 @@
 import { expect, test, describe, beforeEach } from "vitest";
 import {
   fetchProducts,
-  Products,
   getMatchingProduct,
 } from "../../../src/data/products.ts";
 import {
@@ -55,7 +54,7 @@ describe("test suite: Render order summary", () => {
 
       //delivery date test
       updateDeliveryOption(productId, String(cartOrder + 1));
-      await renderOrderSummary();
+      renderOrderSummary();
       const updatedCheckoutCart = getCart();
       const deliveryDate = getDeliveryDate(
         updatedCheckoutCart[cartOrder].deliveryOptionId,
@@ -69,6 +68,7 @@ describe("test suite: Render order summary", () => {
       expect(deliveryDateHTML.innerHTML).toContain(deliveryDate);
 
       //products price test
+      const Products = await fetchProducts();
       const matchingProduct = getMatchingProduct(Products, productId);
       const productPrice = document.querySelector(
         `.product-price-${productId}`,

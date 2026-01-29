@@ -7,9 +7,9 @@ import {
 import {
   fetchProducts,
   getMatchingProduct,
-  Products,
 } from "../../../src/data/products.ts";
 import { formatCurrency } from "../../../src/Scripts/Utils/Money.ts";
+import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
 import { renderPaymentSummary } from "../../../src/Scripts/checkout/paymentSummary.ts";
 document.body.innerHTML = `
 <div class="test-container">
@@ -23,8 +23,8 @@ describe("test suite: Render payment summary", () => {
     localStorage.clear();
     addToCart("15b6fc6f-327a-4ec4-896f-486349e85a3d", 1);
     addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 2);
-    await fetchProducts();
     updateDeliveryOption("15b6fc6f-327a-4ec4-896f-486349e85a3d", "2");
+    renderOrderSummary();
     renderPaymentSummary();
   });
 
@@ -41,9 +41,10 @@ describe("test suite: Render payment summary", () => {
     expect(cartQuantity.innerHTML).toContain(3);
   });
 
-  test.concurrent("display products cost", ({ expect }) => {
+  test.concurrent("display products cost", async ({ expect }) => {
     const cart = getCart();
     let totalProductPrice = 0;
+    const Products = await fetchProducts();
     cart.forEach((cartItem) => {
       const matchingProduct = getMatchingProduct(Products, cartItem.productId);
       if (!matchingProduct) {

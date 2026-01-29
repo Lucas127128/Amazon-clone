@@ -5,7 +5,6 @@ import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
 import {
   getMatchingProduct,
   fetchProducts,
-  Products,
 } from "../../../src/data/products.ts";
 import { Order } from "../../../src/data/orders.ts";
 import { external } from "../../../src/data/axios.ts";
@@ -54,10 +53,11 @@ describe("order api test", () => {
     expect(typeof matchingProduct).toBe("object");
   });
 
-  test.concurrent("order cost test", ({ expect }) => {
+  test.concurrent("order cost test", async ({ expect }) => {
     expect(typeof order.totalCostCents).toBe("number");
 
     let totalCostCents = 0;
+    const Products = await fetchProducts();
     cart.forEach((cartItem) => {
       const product = getMatchingProduct(Products, cartItem?.productId);
       if (product) {

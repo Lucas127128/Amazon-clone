@@ -1,14 +1,12 @@
-import { fetchProducts } from "../data/products.ts";
 import { renderOrderSummary } from "./checkout/orderSummary.ts";
 import { renderPaymentSummary } from "./checkout/paymentSummary.ts";
 
 async function loadPage() {
   try {
-    await fetchProducts();
-    await renderOrderSummary();
+    renderOrderSummary();
     renderPaymentSummary();
   } catch (error) {
-    console.log(`unexpected network error: ${error}`);
+    console.error(`unexpected network error: ${error}`);
   }
 }
 loadPage();

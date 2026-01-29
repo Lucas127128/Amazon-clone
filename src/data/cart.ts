@@ -1,6 +1,5 @@
 import { getMatchingCart } from "./products.ts";
 import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
-export let Cart: Cart[] = [];
 
 export function addToCart(productId: string, quantityToAdd: number) {
   const cart = getCart();

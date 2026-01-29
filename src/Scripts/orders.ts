@@ -1,8 +1,4 @@
-import {
-  Products,
-  getMatchingProduct,
-  fetchProducts,
-} from "../data/products.ts";
+import { getMatchingProduct, fetchProducts } from "../data/products.ts";
 import { formatCurrency } from "./Utils/Money.ts";
 import { incrementAddToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString, Order } from "../data/orders.ts";
@@ -12,11 +8,12 @@ function renderPlacedOrder() {
   const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
   const ordersHTML = document.querySelector(".orders-grid");
   checkTruthy(ordersHTML);
-  orders.forEach((order) => {
+  orders.forEach(async (order) => {
     console.log(order);
     let placedOrderHTML = "";
+    const products = await fetchProducts();
     order.products.forEach((product) => {
-      const matchingProduct = getMatchingProduct(Products, product.productId);
+      const matchingProduct = getMatchingProduct(products, product.productId);
       const deliveryDate = getTimeString(product.estimatedDeliveryTime);
       checkTruthy(matchingProduct);
       placedOrderHTML += `

@@ -73,14 +73,17 @@ export class Product {
   extraInfoHTML: string;
 }
 
-export let Products: Product[] = [];
+// export let Products: Product[] = [];
 
-export async function fetchProducts(axiosInstance: AxiosInstance = external) {
+export async function fetchProducts(
+  axiosInstance: AxiosInstance = external,
+): Promise<Product[]> {
   const products: ProductInterface[] = (await axiosInstance.get("/products"))
     .data;
   const clothings: string[] = (await axiosInstance.get("/clothingList")).data;
-  Products = products.map((product) => {
+  const Products = products.map((product) => {
     const isClothing = clothings.includes(product.id);
     return new Product(product, isClothing);
   });
+  return Products;
 }

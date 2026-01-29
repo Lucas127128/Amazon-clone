@@ -1,9 +1,5 @@
 import { Elysia } from "elysia";
-import {
-  fetchProducts,
-  getMatchingProduct,
-  Products,
-} from "../data/products.ts";
+import { fetchProducts, getMatchingProduct } from "../data/products.ts";
 import { getDeliveryISOTime } from "../data/deliveryOption.ts";
 import { Cart } from "../data/cart.ts";
 import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
@@ -29,6 +25,7 @@ async function startOrdersAPI() {
     estimatedDeliveryTime;
   }
 
+  const Products = await fetchProducts();
   class Order {
     constructor(cart: Cart[]) {
       let totalCostsCents = 0;

@@ -1,21 +1,18 @@
-import {
-  Products,
-  fetchProducts,
-  getMatchingProduct,
-} from "../../data/products.ts";
+import { fetchProducts, getMatchingProduct } from "../../data/products.ts";
 import { formatCurrency } from "../Utils/Money.ts";
 import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
 import { checkTruthy } from "../Utils/typeChecker.ts";
 import { external } from "../../data/axios.ts";
-export function renderPaymentSummary() {
+export async function renderPaymentSummary() {
   const checkoutCart = getCart();
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
   const paymentSummary = document.querySelector(".payment-summary");
+  const products = await fetchProducts();
   checkoutCart.forEach((cartItem) => {
-    const productItem = getMatchingProduct(Products, cartItem.productId);
+    const productItem = getMatchingProduct(products, cartItem.productId);
     checkTruthy(productItem, "Fail to get matching product");
     const totalPrice = productItem.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
