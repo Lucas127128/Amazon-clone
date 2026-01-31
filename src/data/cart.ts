@@ -3,7 +3,6 @@ import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
 
 export function addToCart(productId: string, quantityToAdd: number) {
   const cart = getCart();
-  console.log(cart);
   const matchingItem = getMatchingCart(cart, productId);
   if (matchingItem) {
     matchingItem.quantity = quantityToAdd;

@@ -91,7 +91,7 @@ describe("test suite: Render order summary", () => {
     );
     checkTruthy(deleteQuantityHTML1);
     deleteQuantityHTML1.click();
-    await sleep(100);
+    await sleep(40);
     checkoutCart = getCart();
     expect(checkoutCart.length).toBe(1);
     expect(checkoutCart[0].productId).toBe(productId2);

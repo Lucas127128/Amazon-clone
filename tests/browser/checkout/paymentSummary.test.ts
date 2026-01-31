@@ -89,7 +89,7 @@ describe("test suite: Render payment summary", () => {
     const totalProductPrice = Number(localStorage.getItem("totalProductPrice"));
     const totalDeliveryFee = Number(localStorage.getItem("totalDeliveryFee"));
     const totalPriceBeforeTax = totalProductPrice + totalDeliveryFee;
-    await sleep(100);
+    await sleep(50);
     const totalPriceBeforeTaxHTML = document.querySelector(
       ".total-price-before-tax",
     );

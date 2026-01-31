@@ -18,7 +18,7 @@ export const deliveryOption = [
   },
 ];
 
-export function addWeekDays(
+function addWeekDays(
   businessDaysToAdd: number,
   currentDate: Temporal.Instant | Temporal.PlainDate,
 ) {
@@ -99,6 +99,5 @@ export function getDeliveryISOTime(deliveryOptionId: string) {
   } else {
     throw new Error("deliveryOptionId is not valid");
   }
-  console.log(deliveryISOTime);
   return deliveryISOTime;
 }

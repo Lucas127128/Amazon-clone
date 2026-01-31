@@ -1,6 +1,6 @@
 import { beforeEach, describe, test } from "vitest";
 import { getTimeString, addToOrders, Order } from "../../../src/data/orders.ts";
-import dayjs from "dayjs";
+import { dateFormatOption } from "../../../src/data/deliveryOption.ts";
 import { Temporal } from "temporal-polyfill";
 
 const order: Order = {
@@ -53,7 +53,10 @@ describe("test suite: addToOrders", () => {
 
   test.concurrent("get time string from ISO time", ({ expect }) => {
     const ISOOrderTime = Temporal.Now.instant().toJSON();
-    const orderTime = dayjs(ISOOrderTime).format("dddd, MMMM D");
+    const orderTime = Temporal.Instant.from(ISOOrderTime).toLocaleString(
+      "en-US",
+      dateFormatOption,
+    );
     expect(getTimeString(ISOOrderTime)).toBe(orderTime);
   });
 });

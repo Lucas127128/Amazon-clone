@@ -1,4 +1,4 @@
-import { test, describe, expect, beforeAll, vi } from "vitest";
+import { test, describe, expect } from "vitest";
 import cart from "../../../src/api/cart.json";
 import { getTimeString } from "../../../src/data/orders.ts";
 import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
@@ -35,7 +35,6 @@ describe("order api test", () => {
 
       const cartItem = cart[productNumber];
       const estimatedDeliveryTime = getDeliveryDate(cartItem.deliveryOptionId);
-      console.log(products.estimatedDeliveryTime);
       expect(getTimeString(products.estimatedDeliveryTime)).toEqual(
         estimatedDeliveryTime,
       );

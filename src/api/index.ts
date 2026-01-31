@@ -2,7 +2,7 @@ import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { fetchProducts } from "../data/products.ts";
 import { productsPlugin } from "./products.ts";
-import { ordersPlugin } from "./orders.ts";
+import { orderPlugin } from "./orders.ts";
 import { internal } from "../data/axios.ts";
 export const date = new Date();
 
@@ -36,7 +36,7 @@ const app = new Elysia()
     }),
   )
   .use(productsPlugin)
-  .use(ordersPlugin)
+  .use(orderPlugin)
   .decorate("getTime", new Time())
   .get("/", () => "Hello Elysia")
   .listen(3000);

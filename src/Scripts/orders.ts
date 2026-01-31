@@ -9,7 +9,6 @@ function renderPlacedOrder() {
   const ordersHTML = document.querySelector(".orders-grid");
   checkTruthy(ordersHTML);
   orders.forEach(async (order) => {
-    console.log(order);
     let placedOrderHTML = "";
     const products = await fetchProducts();
     order.products.forEach((product) => {
@@ -44,7 +43,6 @@ function renderPlacedOrder() {
         `;
     });
     const orderTime = getTimeString(order.orderTime);
-    console.log(order.id);
     const placedOrderContainerHTML = `
       <div class="order-container order-container-${order.id}">
         <div class="order-header">

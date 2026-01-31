@@ -21,10 +21,10 @@ export function getMatchingProduct(
   return matchingItem;
 }
 
-export function getMatchingProductInterface(
-  products: ProductInterface[],
+export function getMatchingRawProduct(
+  products: RawProduct[],
   productId: string,
-): ProductInterface | undefined {
+): RawProduct | undefined {
   const matchingItem = products.find((product) => product.id === productId);
   return matchingItem;
 }
@@ -34,7 +34,7 @@ interface Rating {
   count: number;
 }
 
-export interface ProductInterface {
+export interface RawProduct {
   id: string;
   image: string;
   name: string;
@@ -44,14 +44,14 @@ export interface ProductInterface {
 }
 
 export class Product {
-  constructor(productDetails: ProductInterface, isClothing: boolean) {
+  constructor(productDetails: RawProduct, isClothing: boolean) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
     this.keywords = productDetails.keywords;
-    if (isClothing === true) {
+    if (isClothing) {
       this.extraInfoHTML = `
         <a href='/images/clothing-size-chart.webp' target='_blank'>
           Size chart
@@ -81,17 +81,14 @@ export class Product {
   extraInfoHTML: string;
 }
 
-// export let Products: Product[] = [];
-
 export async function fetchProducts(
   axiosInstance: AxiosInstance = external,
 ): Promise<Product[]> {
-  const products: ProductInterface[] = (await axiosInstance.get("/products"))
-    .data;
+  const rawProducts: RawProduct[] = (await axiosInstance.get("/products")).data;
   const clothings: string[] = (await axiosInstance.get("/clothingList")).data;
-  const Products = products.map((product) => {
+  const products = rawProducts.map((product) => {
     const isClothing = clothings.includes(product.id);
     return new Product(product, isClothing);
   });
-  return Products;
+  return products;
 }
