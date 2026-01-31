@@ -10,6 +10,7 @@
         "moduleResolution": "bundler",
         "module": "esnext",
         "target": "esnext",
-        "strict": true
+        "strict": true,
+        "skipLibCheck": true
     }
 }
