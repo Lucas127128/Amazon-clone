@@ -13,7 +13,7 @@ export const productsPlugin = new Elysia()
   .get("/clothingList", ({ request, server }) => {
     const clientIP = server?.requestIP(request)?.address;
     console.log(
-      `new products request from ${clientIP} at ${new Date().toLocaleTimeString()}`,
+      `new clothing request from ${clientIP} at ${new Date().toLocaleTimeString()}`,
     );
     return clothingList;
   });

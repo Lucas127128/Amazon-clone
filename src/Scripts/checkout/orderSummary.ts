@@ -13,7 +13,6 @@ import {
 import {
   deliveryOption,
   getDeliveryDate,
-  addWeekDays,
   getPriceString,
 } from "../../data/deliveryOption.ts";
 import { renderPaymentSummary } from "./paymentSummary.ts";
@@ -81,9 +80,7 @@ export async function renderOrderSummary() {
   function deliveryOptionsHTML(matchingProductId: string): string {
     let html = "";
     deliveryOption.forEach((deliveryOptions) => {
-      const deliveryDate = addWeekDays(deliveryOptions.deliveryDays).format(
-        "dddd, MMMM D",
-      );
+      const deliveryDate = getDeliveryDate(deliveryOptions.id);
       const priceString = getPriceString(deliveryOptions.priceCents);
       html += `
         <div>

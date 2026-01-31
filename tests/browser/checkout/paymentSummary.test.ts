@@ -11,6 +11,9 @@ import {
 import { formatCurrency } from "../../../src/Scripts/Utils/Money.ts";
 import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
 import { renderPaymentSummary } from "../../../src/Scripts/checkout/paymentSummary.ts";
+import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
+import { sleep } from "../../../src/Scripts/Utils/sleep.ts";
+
 document.body.innerHTML = `
 <div class="test-container">
   <div class="order-summary"></div>
@@ -24,42 +27,34 @@ describe("test suite: Render payment summary", () => {
     addToCart("15b6fc6f-327a-4ec4-896f-486349e85a3d", 1);
     addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 2);
     updateDeliveryOption("15b6fc6f-327a-4ec4-896f-486349e85a3d", "2");
-    renderOrderSummary();
     renderPaymentSummary();
+    renderOrderSummary();
   });
 
   afterAll(() => {
     localStorage.clear();
   });
 
-  test.concurrent("display cart quantity", ({ expect }) => {
+  test.concurrent("display cart quantity", async ({ expect }) => {
+    await sleep(20);
     const cartQuantity = document.querySelector(".cart-item-quantity");
-    if (!cartQuantity) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(cartQuantity, "Fail to select HTML element");
     expect(cartQuantity.innerHTML).toContain(3);
   });
 
   test.concurrent("display products cost", async ({ expect }) => {
     const cart = getCart();
     let totalProductPrice = 0;
-    const Products = await fetchProducts();
+    const products = await fetchProducts();
     cart.forEach((cartItem) => {
-      const matchingProduct = getMatchingProduct(Products, cartItem.productId);
-      if (!matchingProduct) {
-        console.error("Fail to get the cart");
-        return;
-      }
+      const matchingProduct = getMatchingProduct(products, cartItem.productId);
+      checkTruthy(matchingProduct, "Fail to get the cart");
       totalProductPrice += matchingProduct.priceCents * cartItem.quantity;
     });
     const totalProductsPriceHTML = document.querySelector(
       ".total-products-price",
     );
-    if (!totalProductsPriceHTML) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(totalProductsPriceHTML, "Fail to select HTML element");
     expect(totalProductsPriceHTML.textContent).toBe(
       `$${formatCurrency(totalProductPrice)}`,
     );
@@ -67,7 +62,7 @@ describe("test suite: Render payment summary", () => {
     localStorage.setItem("totalProductPrice", String(totalProductPrice));
   });
 
-  test.concurrent("display delivery fee", ({ expect }) => {
+  test("display delivery fee", async () => {
     let totalDeliveryFee = 0;
     const cart = getCart();
     cart.forEach((cartItem) => {
@@ -81,59 +76,50 @@ describe("test suite: Render payment summary", () => {
       }
       totalDeliveryFee += deliveryFee;
     });
+    await sleep(20);
     const totalDeliveryFeeHTML = document.querySelector(".total-delivery-fee");
-    if (!totalDeliveryFeeHTML) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(totalDeliveryFeeHTML, "Fail to select HTML element");
     expect(totalDeliveryFeeHTML.textContent).toBe(
       `$${formatCurrency(totalDeliveryFee)}`,
     );
     localStorage.setItem("totalDeliveryFee", String(totalDeliveryFee));
   });
 
-  test.concurrent("display total price before tax", ({ expect }) => {
+  test("display total price before tax", async () => {
     const totalProductPrice = Number(localStorage.getItem("totalProductPrice"));
     const totalDeliveryFee = Number(localStorage.getItem("totalDeliveryFee"));
     const totalPriceBeforeTax = totalProductPrice + totalDeliveryFee;
+    await sleep(100);
     const totalPriceBeforeTaxHTML = document.querySelector(
       ".total-price-before-tax",
     );
-    if (!totalPriceBeforeTaxHTML) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(totalPriceBeforeTaxHTML, "Fail to select HTML element");
     expect(totalPriceBeforeTaxHTML.textContent).toBe(
       `$${formatCurrency(totalPriceBeforeTax)}`,
     );
     localStorage.setItem("totalPriceBeforeTax", String(totalPriceBeforeTax));
   });
 
-  test.concurrent("display tax", ({ expect }) => {
+  test.concurrent("display tax", async ({ expect }) => {
     const totalPriceBeforeTax = Number(
       localStorage.getItem("totalPriceBeforeTax"),
     );
     const estimatedTax = totalPriceBeforeTax * 0.1;
+    await sleep(20);
     const totalTaxHTML = document.querySelector(".total-tax");
-    if (!totalTaxHTML) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(totalTaxHTML, "Fail to select HTML element");
     expect(totalTaxHTML.textContent).toBe(`$${formatCurrency(estimatedTax)}`);
     localStorage.setItem("estimatedTax", String(estimatedTax));
   });
 
-  test.concurrent("display total cost", ({ expect }) => {
+  test("display total cost", () => {
     const estimatedTax = Number(localStorage.getItem("estimatedTax"));
     const totalPriceBeforeTax = Number(
       localStorage.getItem("totalPriceBeforeTax"),
     );
     const totalCost = estimatedTax + totalPriceBeforeTax;
     const totalCostHTML = document.querySelector(".total-cost");
-    if (!totalCostHTML) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(totalCostHTML, "Fail to select HTML element");
     expect(totalCostHTML.textContent).toBe(`$${formatCurrency(totalCost)}`);
   });
 });

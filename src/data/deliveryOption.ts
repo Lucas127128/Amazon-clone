@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { checkTruthy } from "../Scripts/Utils/typeChecker";
+import { Temporal } from "temporal-polyfill";
+
 export const deliveryOption = [
   {
     id: "1",
@@ -17,27 +17,60 @@ export const deliveryOption = [
     priceCents: 999,
   },
 ];
-const Today = dayjs();
-export function addWeekDays(businessDaysToAdd: number) {
-  let currentDate = Today;
-  let daysAdded = 0;
-  while (daysAdded < businessDaysToAdd) {
-    currentDate = currentDate.add(1, "day");
-    const dayOfWeek = currentDate.day();
-    if (dayOfWeek !== 6 && dayOfWeek !== 0) {
-      daysAdded++;
+
+export function addWeekDays(
+  businessDaysToAdd: number,
+  currentDate: Temporal.Instant | Temporal.PlainDate,
+) {
+  let currentTime = currentDate;
+  if (currentTime instanceof Temporal.Instant) {
+    let daysAdded = 0;
+    const duration = Temporal.Duration.from({ hours: 24 });
+    while (daysAdded < businessDaysToAdd) {
+      currentTime = currentTime.add(duration);
+      const dayOfWeek = currentTime.toZonedDateTimeISO("UTC").dayOfWeek;
+      if (dayOfWeek !== 6 && dayOfWeek !== 7) {
+        daysAdded++;
+      }
+    }
+  } else if (currentTime instanceof Temporal.PlainDate) {
+    let daysAdded = 0;
+    const duration = Temporal.Duration.from({ hours: 24 });
+    while (daysAdded < businessDaysToAdd) {
+      currentTime = currentTime.add(duration);
+      const dayOfWeek = currentTime.dayOfWeek;
+      if (dayOfWeek !== 6 && dayOfWeek !== 7) {
+        daysAdded++;
+      }
     }
   }
-  return currentDate;
+  return currentTime;
 }
+
+export const dateFormatOption: Intl.DateTimeFormatOptions = {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+};
+
 export function getDeliveryDate(deliveryOptionId: string): string {
   let deliveryDate = "";
+  const localNow = Temporal.Now.plainDateISO();
   if (deliveryOptionId === "1") {
-    deliveryDate = addWeekDays(7).format("dddd, MMMM D");
+    deliveryDate = addWeekDays(7, localNow).toLocaleString(
+      "en-US",
+      dateFormatOption,
+    );
   } else if (deliveryOptionId === "2") {
-    deliveryDate = addWeekDays(3).format("dddd, MMMM D");
+    deliveryDate = addWeekDays(3, localNow).toLocaleString(
+      "en-US",
+      dateFormatOption,
+    );
   } else if (deliveryOptionId === "3") {
-    deliveryDate = addWeekDays(1).format("dddd, MMMM D");
+    deliveryDate = addWeekDays(1, localNow).toLocaleString(
+      "en-US",
+      dateFormatOption,
+    );
   }
   return deliveryDate;
 }
@@ -55,11 +88,17 @@ export function getPriceString(priceCents: number): string {
 }
 
 export function getDeliveryISOTime(deliveryOptionId: string) {
+  const isoNow = Temporal.Now.instant();
+  let deliveryISOTime = "";
   if (deliveryOptionId === "1") {
-    return addWeekDays(7).toISOString();
+    deliveryISOTime = addWeekDays(7, isoNow).toJSON();
   } else if (deliveryOptionId === "2") {
-    return addWeekDays(3).toISOString();
+    deliveryISOTime = addWeekDays(3, isoNow).toJSON();
   } else if (deliveryOptionId === "3") {
-    return addWeekDays(1).toISOString();
+    deliveryISOTime = addWeekDays(1, isoNow).toJSON();
+  } else {
+    throw new Error("deliveryOptionId is not valid");
   }
+  console.log(deliveryISOTime);
+  return deliveryISOTime;
 }

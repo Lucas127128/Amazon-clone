@@ -1,3 +1,6 @@
+import { Temporal } from "temporal-polyfill";
+import { dateFormatOption } from "./deliveryOption";
+
 export interface Product {
   productId: string;
   quantity: number;
@@ -20,11 +23,13 @@ export function addToOrders(order: Order) {
 }
 
 export function getTimeString(ISOOrderTime: string): string {
-  const format: Intl.DateTimeFormatOptions = {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  };
-  const orderTime = new Date(ISOOrderTime).toLocaleDateString("en-US", format);
+  const orderInstantTime = Temporal.Instant.from(ISOOrderTime);
+  const orderLocalTime = orderInstantTime.toZonedDateTimeISO(
+    Temporal.Now.timeZoneId(),
+  );
+  const orderTime = Temporal.PlainDate.from(orderLocalTime).toLocaleString(
+    "en-US",
+    dateFormatOption,
+  );
   return orderTime;
 }

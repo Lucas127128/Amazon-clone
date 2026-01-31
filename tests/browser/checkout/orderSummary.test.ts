@@ -10,8 +10,8 @@ import {
 } from "../../../src/data/cart.ts";
 import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
 import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
-import { external } from "../../../src/data/axios.ts";
 import { sleep } from "../../../src/Scripts/Utils/sleep.ts";
+import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
 
 document.body.innerHTML = `
 <div class="test-container">
@@ -26,75 +26,62 @@ describe("test suite: Render order summary", () => {
     addToCart("15b6fc6f-327a-4ec4-896f-486349e85a3d", 1);
     addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 2);
 
-    await fetchProducts(external);
     await renderOrderSummary();
   });
 
-  test("display the cart", () => {
-    //test number of cart items rendered
-    const cartItemContainers = document.querySelectorAll(
-      ".cart-item-container",
-    );
-    expect(cartItemContainers.length).toBe(2);
+  describe("display the cart", async () => {
+    const cartItemContainers = document.querySelector(".order-summary");
+    console.log(cartItemContainers);
+    test.concurrent("number of cart items rendered", ({ expect }) => {
+      expect(cartItemContainers?.childElementCount).toBe(2);
+    });
 
     const checkoutCart = getCart();
     checkoutCart.forEach(async (cartItem, cartOrder) => {
-      //cart quantity test
       const productId = cartItem.productId;
-      const quantityHTML = document.querySelector(
-        `.js-product-quantity-${productId}`,
-      );
-      if (!quantityHTML) {
-        console.error("Fail to select HTML element");
-        return;
-      }
-      expect(quantityHTML.textContent).toContain(
-        `Quantity: ${cartItem.quantity}`,
-      );
 
-      //delivery date test
-      updateDeliveryOption(productId, String(cartOrder + 1));
-      renderOrderSummary();
-      const updatedCheckoutCart = getCart();
-      const deliveryDate = getDeliveryDate(
-        updatedCheckoutCart[cartOrder].deliveryOptionId,
-      );
-      const deliveryDateHTML = document.querySelector(
-        `.delivery-date-${productId}`,
-      );
-      if (!deliveryDateHTML) {
-        return;
-      }
-      expect(deliveryDateHTML.innerHTML).toContain(deliveryDate);
+      test.concurrent("display cart quantity", ({ expect }) => {
+        const quantityHTML = document.querySelector(
+          `.js-product-quantity-${productId}`,
+        );
+        checkTruthy(quantityHTML, "Fail to select HTML element");
+        expect(quantityHTML.textContent).toContain(
+          `Quantity: ${cartItem.quantity}`,
+        );
+      });
 
-      //products price test
-      const Products = await fetchProducts();
-      const matchingProduct = getMatchingProduct(Products, productId);
-      const productPrice = document.querySelector(
-        `.product-price-${productId}`,
-      );
-      if (!productPrice) {
-        console.error("Fail to select HTML element");
-        return;
-      }
-      if (!matchingProduct) {
-        console.error("Fail to get the cart");
-        return;
-      }
-      expect(productPrice.textContent).toContain(
-        `$${matchingProduct.getPrice()}`,
-      );
+      test.concurrent("delivery date", ({ expect }) => {
+        updateDeliveryOption(productId, String(cartOrder + 1));
+        renderOrderSummary();
+        const updatedCheckoutCart = getCart();
+        const deliveryDate = getDeliveryDate(
+          updatedCheckoutCart[cartOrder].deliveryOptionId,
+        );
+        const deliveryDateHTML = document.querySelector(
+          `.delivery-date-${productId}`,
+        );
+        checkTruthy(deliveryDateHTML);
+        expect(deliveryDateHTML.innerHTML).toContain(deliveryDate);
+      });
+
+      test.concurrent("products price", async ({ expect }) => {
+        const products = await fetchProducts();
+        const matchingProduct = getMatchingProduct(products, productId);
+        const productPrice = document.querySelector(
+          `.product-price-${productId}`,
+        );
+        checkTruthy(productPrice);
+        checkTruthy(matchingProduct, "Fail to get the cart");
+        expect(productPrice.textContent).toContain(
+          `$${matchingProduct.getPrice()}`,
+        );
+      });
     });
-    if (!cartItemContainers) {
-      console.error("Fail to select HTML element");
-      return;
-    }
-    cartItemContainers.forEach((cartItemHTML) => {
-      cartItemHTML.innerHTML = "";
-    });
+    checkTruthy(cartItemContainers, "Fail to select HTML element");
+    cartItemContainers.innerHTML = "";
   });
 
-  test("removes the product", async () => {
+  test.concurrent("removes the product", async ({ expect }) => {
     let checkoutCart = getCart();
 
     const productId1 = checkoutCart[0].productId;
@@ -102,15 +89,10 @@ describe("test suite: Render order summary", () => {
     const deleteQuantityHTML1 = document.querySelector<HTMLButtonElement>(
       `.delete-quantity-link-${productId1}`,
     );
-    if (!deleteQuantityHTML1) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(deleteQuantityHTML1);
     deleteQuantityHTML1.click();
-    await sleep(400);
+    await sleep(100);
     checkoutCart = getCart();
-    console.log("checkoutCart:", checkoutCart);
-    console.log(checkoutCart.length);
     expect(checkoutCart.length).toBe(1);
     expect(checkoutCart[0].productId).toBe(productId2);
 
@@ -125,16 +107,7 @@ describe("test suite: Render order summary", () => {
     );
     expect(cartItemContainer1).toBe(null);
     expect(cartItemContainer2).not.toBe(null);
-    if (!cartItemContainer2) {
-      console.error("Fail to select HTML element");
-      return;
-    }
+    checkTruthy(cartItemContainer2);
     cartItemContainer2.innerHTML = "";
-    const testContainerHTML = document.querySelector(".test-container");
-    if (!testContainerHTML) {
-      console.error("Fail to select HTML element");
-      return;
-    }
-    testContainerHTML.innerHTML = "";
   });
 });

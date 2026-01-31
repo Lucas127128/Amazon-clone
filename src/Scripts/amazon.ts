@@ -102,7 +102,6 @@ async function renderAmazonHomePage() {
 
 async function loadPage() {
   try {
-    await fetchProducts();
     renderAmazonHomePage();
   } catch (error) {
     console.log(`unexpected network error: ${error}`);

@@ -1,37 +1,41 @@
 import { Elysia } from "elysia";
-import { fetchProducts, getMatchingProduct } from "../data/products.ts";
+import {
+  getMatchingProductInterface,
+  ProductInterface,
+} from "../data/products.ts";
 import { getDeliveryISOTime } from "../data/deliveryOption.ts";
 import { Cart } from "../data/cart.ts";
 import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
-import { internal } from "../data/axios.ts";
-
-async function getProducts() {
-  await Bun.sleep(100);
-  await fetchProducts(internal);
-}
+import { Temporal } from "temporal-polyfill";
 
 async function startOrdersAPI() {
-  await Bun.sleep(100);
-  await fetchProducts(internal);
   class Product {
     constructor(cartItem: Cart) {
-      const deliveryTime = getDeliveryISOTime(cartItem.deliveryOptionId);
-      this.productId = cartItem.productId;
-      this.quantity = cartItem.quantity;
-      this.estimatedDeliveryTime = deliveryTime;
+      try {
+        console.log(cartItem.deliveryOptionId);
+        const deliveryTime = getDeliveryISOTime(cartItem.deliveryOptionId);
+        console.log(deliveryTime);
+        this.productId = cartItem.productId;
+        this.quantity = cartItem.quantity;
+        this.estimatedDeliveryTime = deliveryTime;
+      } catch (error) {
+        console.error(error);
+      }
     }
     productId;
     quantity;
     estimatedDeliveryTime;
   }
 
-  const Products = await fetchProducts();
+  const products: ProductInterface[] = await Bun.file(
+    "./src/api/products.json",
+  ).json();
   class Order {
     constructor(cart: Cart[]) {
       let totalCostsCents = 0;
       cart.forEach((cartItem) => {
-        const matchingProduct = getMatchingProduct(
-          Products,
+        const matchingProduct = getMatchingProductInterface(
+          products,
           cartItem.productId,
         );
         checkTruthy(matchingProduct);
@@ -40,7 +44,7 @@ async function startOrdersAPI() {
         this.products.push(product);
       });
       this.id = crypto.randomUUID();
-      this.orderTime = new Date();
+      this.orderTime = Temporal.Now.instant().toJSON();
       this.totalCostCents = totalCostsCents;
     }
     id;
@@ -69,9 +73,4 @@ async function startOrdersAPI() {
   return orderPlugin;
 }
 
-function startOrderAPI() {
-  getProducts();
-  startOrdersAPI();
-}
-startOrderAPI();
 export const ordersPlugin = startOrdersAPI();

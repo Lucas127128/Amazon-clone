@@ -21,6 +21,14 @@ export function getMatchingProduct(
   return matchingItem;
 }
 
+export function getMatchingProductInterface(
+  products: ProductInterface[],
+  productId: string,
+): ProductInterface | undefined {
+  const matchingItem = products.find((product) => product.id === productId);
+  return matchingItem;
+}
+
 interface Rating {
   stars: number;
   count: number;

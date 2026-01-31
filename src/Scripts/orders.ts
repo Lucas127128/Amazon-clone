@@ -128,7 +128,6 @@ function renderPlacedOrder() {
 
 async function loadPage() {
   try {
-    await fetchProducts();
     renderPlacedOrder();
   } catch (error) {
     console.error(`unexpected network error: ${error}`);

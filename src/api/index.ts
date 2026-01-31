@@ -20,10 +20,8 @@ class Time {
   }
 }
 const app = new Elysia()
-  .onError(({ code, error }) => {
-    if (code === "VALIDATION") {
-      console.error(error?.message);
-    }
+  .onAfterResponse(({ request, response, set }) => {
+    console.log(set.status);
   })
   .use(
     cors({

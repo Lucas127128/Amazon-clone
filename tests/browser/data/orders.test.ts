@@ -1,5 +1,7 @@
 import { beforeEach, describe, test } from "vitest";
 import { getTimeString, addToOrders, Order } from "../../../src/data/orders.ts";
+import dayjs from "dayjs";
+import { Temporal } from "temporal-polyfill";
 
 const order: Order = {
   id: "7259cc88-e5b2-4445-a21a-eaafa8e7e8bb",
@@ -46,22 +48,12 @@ describe("test suite: addToOrders", () => {
       expect(orders[0]).toEqual(order);
       expect(orders[1]).toEqual(order);
       expect(orders[2]).toEqual(order);
-      localStorage.setItem("orders", JSON.stringify([]));
-      localStorage.clear();
-    }
+    },
   );
 
   test.concurrent("get time string from ISO time", ({ expect }) => {
-    const ISOOrderTime = String(new Date());
-    const format: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    };
-    const orderTime = new Date(ISOOrderTime).toLocaleDateString(
-      "en-US",
-      format
-    );
+    const ISOOrderTime = Temporal.Now.instant().toJSON();
+    const orderTime = dayjs(ISOOrderTime).format("dddd, MMMM D");
     expect(getTimeString(ISOOrderTime)).toBe(orderTime);
   });
 });
