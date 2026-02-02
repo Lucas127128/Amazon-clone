@@ -1,4 +1,5 @@
 import { Temporal } from "temporal-polyfill";
+import { match } from "ts-pattern";
 
 export const deliveryOption = [
   {
@@ -20,28 +21,16 @@ export const deliveryOption = [
 
 function addWeekDays(
   businessDaysToAdd: number,
-  currentDate: Temporal.Instant | Temporal.PlainDate,
+  currentDate: Temporal.PlainDate,
 ) {
   let currentTime = currentDate;
-  if (currentTime instanceof Temporal.Instant) {
-    let daysAdded = 0;
-    const duration = Temporal.Duration.from({ hours: 24 });
-    while (daysAdded < businessDaysToAdd) {
-      currentTime = currentTime.add(duration);
-      const dayOfWeek = currentTime.toZonedDateTimeISO("UTC").dayOfWeek;
-      if (dayOfWeek !== 6 && dayOfWeek !== 7) {
-        daysAdded++;
-      }
-    }
-  } else if (currentTime instanceof Temporal.PlainDate) {
-    let daysAdded = 0;
-    const duration = Temporal.Duration.from({ hours: 24 });
-    while (daysAdded < businessDaysToAdd) {
-      currentTime = currentTime.add(duration);
-      const dayOfWeek = currentTime.dayOfWeek;
-      if (dayOfWeek !== 6 && dayOfWeek !== 7) {
-        daysAdded++;
-      }
+  let daysAdded = 0;
+  const duration = Temporal.Duration.from({ hours: 24 });
+  while (daysAdded < businessDaysToAdd) {
+    currentTime = currentTime.add(duration);
+    const dayOfWeek = currentTime.dayOfWeek;
+    if (dayOfWeek !== 6 && dayOfWeek !== 7) {
+      daysAdded++;
     }
   }
   return currentTime;
@@ -54,50 +43,32 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
 };
 
 export function getDeliveryDate(deliveryOptionId: string): string {
-  let deliveryDate = "";
   const localNow = Temporal.Now.plainDateISO();
-  if (deliveryOptionId === "1") {
-    deliveryDate = addWeekDays(7, localNow).toLocaleString(
-      "en-US",
-      dateFormatOption,
-    );
-  } else if (deliveryOptionId === "2") {
-    deliveryDate = addWeekDays(3, localNow).toLocaleString(
-      "en-US",
-      dateFormatOption,
-    );
-  } else if (deliveryOptionId === "3") {
-    deliveryDate = addWeekDays(1, localNow).toLocaleString(
-      "en-US",
-      dateFormatOption,
-    );
-  }
-  return deliveryDate;
+  const deliveryDate = addWeekDays(
+    getDeliveryPriceCents(deliveryOptionId),
+    localNow,
+  );
+  return deliveryDate.toLocaleString("en-US", dateFormatOption);
 }
 
 export function getPriceString(priceCents: number): string {
-  let priceString = "";
-  if (priceCents === 0) {
-    priceString = "FREE - ";
-  } else if (priceCents === 499) {
-    priceString = "$4.99 - ";
-  } else if (priceCents === 999) {
-    priceString = "$9.99 - ";
-  }
+  const priceString = match(priceCents)
+    .with(0, () => "FREE - ")
+    .with(499, () => "$4.99 - ")
+    .with(999, () => "$9.99 - ")
+    .otherwise(() => {
+      throw new Error(`priceCents ${priceCents} is not valid`);
+    });
   return priceString;
 }
 
-export function getDeliveryISOTime(deliveryOptionId: string) {
-  const isoNow = Temporal.Now.instant();
-  let deliveryISOTime = "";
-  if (deliveryOptionId === "1") {
-    deliveryISOTime = addWeekDays(7, isoNow).toJSON();
-  } else if (deliveryOptionId === "2") {
-    deliveryISOTime = addWeekDays(3, isoNow).toJSON();
-  } else if (deliveryOptionId === "3") {
-    deliveryISOTime = addWeekDays(1, isoNow).toJSON();
-  } else {
-    throw new Error("deliveryOptionId is not valid");
-  }
-  return deliveryISOTime;
+export function getDeliveryPriceCents(deliveryOptionId: string): number {
+  const deliveryFee = match(deliveryOptionId)
+    .with("1", () => 0)
+    .with("2", () => 499)
+    .with("3", () => 999)
+    .otherwise(() => {
+      throw new Error(`deliveryOptionId ${deliveryOptionId} is not valid`);
+    });
+  return deliveryFee;
 }

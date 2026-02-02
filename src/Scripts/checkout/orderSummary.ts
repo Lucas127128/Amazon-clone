@@ -19,6 +19,7 @@ import { renderPaymentSummary } from "./paymentSummary.ts";
 import { checkTruthy, checkInstanceOf } from "../Utils/typeChecker.ts";
 
 export async function renderOrderSummary() {
+  const html = String.raw;
   const checkoutCart = getCart();
   const products = await fetchProducts();
   const orderSummary = document.querySelector(".order-summary");
@@ -27,79 +28,77 @@ export async function renderOrderSummary() {
   checkoutCart.forEach((cartItem) => {
     const matchingProduct = getMatchingProduct(products, cartItem.productId);
     checkTruthy(matchingProduct);
-    const cartSummaryHTML = `
-    <div class="cart-item-container cart-item-container-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
-      <div class="delivery-date-${matchingProduct.id} delivery-date" >
-        ${deliveryDateHTML(matchingProduct.id)}
-      </div>
+    const cartSummaryHTML = html`
+      <div
+        class="cart-item-container cart-item-container-${matchingProduct.id}"
+        data-product-id="${matchingProduct.id}"
+      >
+        <div class="delivery-date-${matchingProduct.id} delivery-date">
+          ${deliveryDateHTML(matchingProduct.id)}
+        </div>
 
-      <div class="cart-item-details-grid">
-        <img class="product-image"
-        src="${matchingProduct.image}">
+        <div class="cart-item-details-grid">
+          <img class="product-image" src="${matchingProduct.image}" />
 
-        <div class="cart-item-details">
-        <div class="product-name">
-          ${matchingProduct.name}
-        </div>
-        <div class="product-price product-price-${matchingProduct.id} ">
-          $${matchingProduct.getPrice()}
-        </div>
-        <div class="product-quantity">
-          <span class="js-product-quantity-${matchingProduct.id}">
-          Quantity: <span class="quantity-label">${cartItem.quantity}</span>
-          </span>
-          <span class="update-quantity-link link-primary" >
-          Update
-          </span>
-          <input type="number" class="quantity_Input_${
-            matchingProduct.id
-          } quantity_Input" style="width: 40px;">
-          <span class="save-quantity-link-${
-            matchingProduct.id
-          } link-primary save-quantity-link" >
-            Save</span>
-          <span class="delete-quantity-link delete-quantity-link-${
-            matchingProduct.id
-          } link-primary">
-          Delete
-          </span>
-        </div>
-        </div>
-        <div class="delivery-options">
-        <div class="delivery-options-title">
-          Choose a delivery option:
-        </div>
-        ${deliveryOptionsHTML(matchingProduct.id)}
+          <div class="cart-item-details">
+            <div class="product-name">${matchingProduct.name}</div>
+            <div class="product-price product-price-${matchingProduct.id} ">
+              $${matchingProduct.getPrice()}
+            </div>
+            <div class="product-quantity">
+              <span class="js-product-quantity-${matchingProduct.id}">
+                Quantity:
+                <span class="quantity-label">${cartItem.quantity}</span>
+              </span>
+              <span class="update-quantity-link link-primary"> Update </span>
+              <input
+                type="number"
+                class="quantity_Input_${matchingProduct.id} quantity_Input"
+                style="width: 40px;"
+              />
+              <span
+                class="save-quantity-link-${matchingProduct.id} link-primary save-quantity-link"
+              >
+                Save</span
+              >
+              <span
+                class="delete-quantity-link delete-quantity-link-${matchingProduct.id} link-primary"
+              >
+                Delete
+              </span>
+            </div>
+          </div>
+          <div class="delivery-options">
+            <div class="delivery-options-title">Choose a delivery option:</div>
+            ${deliveryOptionsHTML(matchingProduct.id)}
+          </div>
         </div>
       </div>
-    </div>
     `;
     orderSummary.insertAdjacentHTML("beforeend", cartSummaryHTML);
   });
 
   function deliveryOptionsHTML(matchingProductId: string): string {
-    let html = "";
+    let deliveryOptionsHTML = "";
     deliveryOption.forEach((deliveryOptions) => {
       const deliveryDate = getDeliveryDate(deliveryOptions.id);
       const priceString = getPriceString(deliveryOptions.priceCents);
-      html += `
+      deliveryOptionsHTML += html`
         <div>
-          <input type="radio" 
-          class="delivery-option-input"
-          data-delivery-choice-id="${deliveryOptions.id}"
-          id="${deliveryOptions.id}-${matchingProductId}">
+          <input
+            type="radio"
+            class="delivery-option-input"
+            data-delivery-choice-id="${deliveryOptions.id}"
+            id="${deliveryOptions.id}-${matchingProductId}"
+          />
           <div>
-            <div class="delivery-option-date">
-              ${deliveryDate}
-            </div>
+            <div class="delivery-option-date">${deliveryDate}</div>
           </div>
-          <div class="delivery-option-price">
-            ${priceString}Shipping
-          </div>
+          <div class="delivery-option-price">${priceString}Shipping</div>
         </div>
       `;
     });
-    return html;
+    return deliveryOptionsHTML;
   }
   displayCartQuantity("return-to-home-link", " items");
   function deliveryDateHTML(productId: string) {

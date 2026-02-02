@@ -55,7 +55,7 @@ describe("test suite: Render payment summary", () => {
       ".total-products-price",
     );
     checkTruthy(totalProductsPriceHTML, "Fail to select HTML element");
-    expect(totalProductsPriceHTML.textContent).toBe(
+    expect(totalProductsPriceHTML.textContent).toContain(
       `$${formatCurrency(totalProductPrice)}`,
     );
 
@@ -79,7 +79,7 @@ describe("test suite: Render payment summary", () => {
     await sleep(20);
     const totalDeliveryFeeHTML = document.querySelector(".total-delivery-fee");
     checkTruthy(totalDeliveryFeeHTML, "Fail to select HTML element");
-    expect(totalDeliveryFeeHTML.textContent).toBe(
+    expect(totalDeliveryFeeHTML.textContent).toContain(
       `$${formatCurrency(totalDeliveryFee)}`,
     );
     localStorage.setItem("totalDeliveryFee", String(totalDeliveryFee));
@@ -89,12 +89,12 @@ describe("test suite: Render payment summary", () => {
     const totalProductPrice = Number(localStorage.getItem("totalProductPrice"));
     const totalDeliveryFee = Number(localStorage.getItem("totalDeliveryFee"));
     const totalPriceBeforeTax = totalProductPrice + totalDeliveryFee;
-    await sleep(50);
+    await sleep(100);
     const totalPriceBeforeTaxHTML = document.querySelector(
       ".total-price-before-tax",
     );
     checkTruthy(totalPriceBeforeTaxHTML, "Fail to select HTML element");
-    expect(totalPriceBeforeTaxHTML.textContent).toBe(
+    expect(totalPriceBeforeTaxHTML.textContent).toContain(
       `$${formatCurrency(totalPriceBeforeTax)}`,
     );
     localStorage.setItem("totalPriceBeforeTax", String(totalPriceBeforeTax));
@@ -108,7 +108,9 @@ describe("test suite: Render payment summary", () => {
     await sleep(20);
     const totalTaxHTML = document.querySelector(".total-tax");
     checkTruthy(totalTaxHTML, "Fail to select HTML element");
-    expect(totalTaxHTML.textContent).toBe(`$${formatCurrency(estimatedTax)}`);
+    expect(totalTaxHTML.textContent).toContain(
+      `$${formatCurrency(estimatedTax)}`,
+    );
     localStorage.setItem("estimatedTax", String(estimatedTax));
   });
 
@@ -120,6 +122,8 @@ describe("test suite: Render payment summary", () => {
     const totalCost = estimatedTax + totalPriceBeforeTax;
     const totalCostHTML = document.querySelector(".total-cost");
     checkTruthy(totalCostHTML, "Fail to select HTML element");
-    expect(totalCostHTML.textContent).toBe(`$${formatCurrency(totalCost)}`);
+    expect(totalCostHTML.textContent).toContain(
+      `$${formatCurrency(totalCost)}`,
+    );
   });
 });

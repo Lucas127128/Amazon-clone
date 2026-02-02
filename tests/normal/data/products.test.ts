@@ -6,9 +6,9 @@ import {
   getMatchingRawProduct,
   fetchProducts,
   getMatchingCart,
-} from "../../src/data/products";
-import { external } from "../../src/data/axios";
-import { Cart } from "../../src/data/cart";
+} from "../../../src/data/products";
+import { external } from "../../../src/data/axios";
+import { Cart } from "../../../src/data/cart";
 
 const correctRawProduct: RawProduct = {
   id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",

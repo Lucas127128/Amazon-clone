@@ -1,21 +1,8 @@
 import { Elysia } from "elysia";
 import { getMatchingRawProduct, RawProduct } from "../data/products.ts";
-import { getDeliveryISOTime } from "../data/deliveryOption.ts";
 import { Cart } from "../data/cart.ts";
 import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
 import { Temporal } from "temporal-polyfill";
-
-class Product {
-  constructor(cartItem: Cart) {
-    const deliveryTime = getDeliveryISOTime(cartItem.deliveryOptionId);
-    this.productId = cartItem.productId;
-    this.quantity = cartItem.quantity;
-    this.estimatedDeliveryTime = deliveryTime;
-  }
-  productId;
-  quantity;
-  estimatedDeliveryTime;
-}
 
 const products: RawProduct[] = await Bun.file("./src/api/products.json").json();
 class Order {
@@ -28,8 +15,7 @@ class Order {
       );
       checkTruthy(matchingProduct);
       totalCostsCents += matchingProduct.priceCents;
-      const product = new Product(cartItem);
-      this.products.push(product);
+      this.products.push(cartItem);
     });
     this.id = crypto.randomUUID();
     this.orderTime = Temporal.Now.instant().toJSON();
@@ -38,7 +24,7 @@ class Order {
   id;
   orderTime;
   totalCostCents;
-  products: Product[] = [];
+  products: Cart[] = [];
 }
 
 export const orderPlugin = new Elysia().post(

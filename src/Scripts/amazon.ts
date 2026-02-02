@@ -6,8 +6,9 @@ async function renderAmazonHomePage() {
   const productsGrid = document.querySelector(".products-grid");
   checkTruthy(productsGrid, "Fail to select HTML element");
   const products = await fetchProducts();
+  const html = String.raw;
   products.forEach((products) => {
-    const productsHTML = `
+    const productsHTML = html`
       <div class="product-container">
           <div class="product-image-container">
               <img class="product-image"

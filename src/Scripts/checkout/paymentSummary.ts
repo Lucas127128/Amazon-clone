@@ -4,6 +4,8 @@ import { addToOrders } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
 import { checkTruthy } from "../Utils/typeChecker.ts";
 import { external } from "../../data/axios.ts";
+import { getDeliveryPriceCents } from "../../data/deliveryOption.ts";
+
 export async function renderPaymentSummary() {
   const checkoutCart = getCart();
   let totalProductPrice = 0;
@@ -17,17 +19,8 @@ export async function renderPaymentSummary() {
     const totalPrice = productItem.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.quantity;
-  });
 
-  checkoutCart.forEach((cartItem) => {
-    let deliveryFee = 0;
-    if (cartItem.deliveryOptionId === "1") {
-      deliveryFee = 0;
-    } else if (cartItem.deliveryOptionId === "2") {
-      deliveryFee = 499;
-    } else if (cartItem.deliveryOptionId === "3") {
-      deliveryFee = 999;
-    }
+    const deliveryFee = getDeliveryPriceCents(cartItem.deliveryOptionId);
     totalDeliveryFee += deliveryFee;
   });
 
@@ -35,49 +28,46 @@ export async function renderPaymentSummary() {
   const totalTax = totalPriceBeforeTax / 10;
   const totalOrderPrice = totalPriceBeforeTax + totalTax;
 
-  const paymentSummaryHTML = `
-    <div class="payment-summary-title">
-        Order Summary
-        </div>
-        <div class="payment-summary-row">
-        <div class="cart-item-quantity">Items (${cartQuantity}):</div>
-        <div class="payment-summary-money total-products-price">$${formatCurrency(
-          totalProductPrice,
-        )}</div>
-        </div>
+  const html = String.raw;
+  const paymentSummaryHTML = html`
+    <div class="payment-summary-title">Order Summary</div>
+    <div class="payment-summary-row">
+      <div class="cart-item-quantity">Items (${cartQuantity}):</div>
+      <div class="payment-summary-money total-products-price">
+        $${formatCurrency(totalProductPrice)}
+      </div>
+    </div>
 
-        <div class="payment-summary-row">
-        <div>Shipping &amp; handling:</div>
-        <div class="payment-summary-money total-delivery-fee">$${formatCurrency(
-          totalDeliveryFee,
-        )}</div>
-        </div>
+    <div class="payment-summary-row">
+      <div>Shipping &amp; handling:</div>
+      <div class="payment-summary-money total-delivery-fee">
+        $${formatCurrency(totalDeliveryFee)}
+      </div>
+    </div>
 
-        <div class="payment-summary-row subtotal-row">
-        <div>Total before tax:</div>
-        <div class="payment-summary-money total-price-before-tax">$${formatCurrency(
-          totalPriceBeforeTax,
-        )}</div>
-        </div>
+    <div class="payment-summary-row subtotal-row">
+      <div>Total before tax:</div>
+      <div class="payment-summary-money total-price-before-tax">
+        $${formatCurrency(totalPriceBeforeTax)}
+      </div>
+    </div>
 
-        <div class="payment-summary-row">
-        <div>Estimated tax (10%):</div>
-        <div class="payment-summary-money total-tax">$${formatCurrency(
-          totalTax,
-        )}</div>
-        </div>
+    <div class="payment-summary-row">
+      <div>Estimated tax (10%):</div>
+      <div class="payment-summary-money total-tax">
+        $${formatCurrency(totalTax)}
+      </div>
+    </div>
 
-        <div class="payment-summary-row total-row">
-        <div>Order total:</div>
-        <div class="payment-summary-money total-cost">$${formatCurrency(
-          totalOrderPrice,
-        )}</div>
-        </div>
+    <div class="payment-summary-row total-row">
+      <div>Order total:</div>
+      <div class="payment-summary-money total-cost">
+        $${formatCurrency(totalOrderPrice)}
+      </div>
+    </div>
 
-        <button class="place-order-button button-primary">
-        Place your order
-        </button>
-    `;
+    <button class="place-order-button button-primary">Place your order</button>
+  `;
   checkTruthy(paymentSummary, "Fail to select HTML element");
   paymentSummary.innerHTML = paymentSummaryHTML;
 
@@ -94,13 +84,3 @@ export async function renderPaymentSummary() {
     }
   });
 }
-
-async function loadPage() {
-  try {
-    await fetchProducts();
-    renderPaymentSummary();
-  } catch (error) {
-    console.log(`unexpected network error: ${error}`);
-  }
-}
-loadPage();

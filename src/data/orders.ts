@@ -1,16 +1,12 @@
 import { Temporal } from "temporal-polyfill";
 import { dateFormatOption } from "./deliveryOption";
+import { Cart } from "./cart";
 
-export interface Product {
-  productId: string;
-  quantity: number;
-  estimatedDeliveryTime: string;
-}
 export interface Order {
   id: string;
   orderTime: string;
   totalCostCents: number;
-  products: Product[];
+  products: Cart[];
 }
 
 export function addToOrders(order: Order) {
@@ -23,13 +19,8 @@ export function addToOrders(order: Order) {
 }
 
 export function getTimeString(ISOOrderTime: string): string {
-  const orderInstantTime = Temporal.Instant.from(ISOOrderTime);
-  const orderLocalTime = orderInstantTime.toZonedDateTimeISO(
-    Temporal.Now.timeZoneId(),
-  );
-  const orderTime = Temporal.PlainDate.from(orderLocalTime).toLocaleString(
-    "en-US",
-    dateFormatOption,
-  );
+  const orderTime = Temporal.Instant.from(ISOOrderTime)
+    .toZonedDateTimeISO(Temporal.Now.timeZoneId())
+    .toLocaleString("en-US", dateFormatOption);
   return orderTime;
 }

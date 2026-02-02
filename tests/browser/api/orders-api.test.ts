@@ -1,7 +1,6 @@
 import { test, describe, expect } from "vitest";
 import cart from "../../../src/api/cart.json";
 import { getTimeString } from "../../../src/data/orders.ts";
-import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
 import {
   getMatchingProduct,
   fetchProducts,
@@ -30,15 +29,7 @@ describe("order api test", () => {
     expect(cart.length).toBe(order.products.length);
 
     //test delivery time
-    order.products.forEach((products, productNumber: number) => {
-      expect(typeof products.estimatedDeliveryTime).toBe("string");
-
-      const cartItem = cart[productNumber];
-      const estimatedDeliveryTime = getDeliveryDate(cartItem.deliveryOptionId);
-      expect(getTimeString(products.estimatedDeliveryTime)).toEqual(
-        estimatedDeliveryTime,
-      );
-    });
+    expect(order.products).toEqual(cart);
 
     let matchingProduct;
     cart.forEach((cartItem) => {

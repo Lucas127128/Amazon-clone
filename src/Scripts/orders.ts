@@ -3,47 +3,58 @@ import { formatCurrency } from "./Utils/Money.ts";
 import { incrementAddToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString, Order } from "../data/orders.ts";
 import { checkTruthy } from "./Utils/typeChecker.ts";
+import { getDeliveryDate } from "../data/deliveryOption.ts";
 function renderPlacedOrder() {
   const savedOrders = localStorage.getItem("orders");
   const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
   const ordersHTML = document.querySelector(".orders-grid");
   checkTruthy(ordersHTML);
+  const html = String.raw;
   orders.forEach(async (order) => {
     let placedOrderHTML = "";
     const products = await fetchProducts();
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(products, product.productId);
-      const deliveryDate = getTimeString(product.estimatedDeliveryTime);
+      const deliveryDate = getDeliveryDate(product.deliveryOptionId);
       checkTruthy(matchingProduct);
-      placedOrderHTML += `
+      placedOrderHTML += html`
         <div class="product-image-container">
           <img src="${matchingProduct.image}" />
         </div>
 
         <div class="product-details">
-          <div class="product-name">
-            ${matchingProduct.name}
-          </div>
+          <div class="product-name">${matchingProduct.name}</div>
           <div class="product-delivery-date">Arriving on: ${deliveryDate}</div>
           <div class="product-quantity">Quantity: ${product.quantity}</div>
-          <button class="buy-again-button button-primary" data-product-id="${product.productId}">
+          <button
+            class="buy-again-button button-primary"
+            data-product-id="${product.productId}"
+          >
             <img class="buy-again-icon" src="images/icons/buy-again.png" />
-            <span class="buy-again-message buy-again-message-${product.productId}">Buy it again</span>
-            <span class="buy-again-success buy-again-success-${product.productId}">✓ Added</span>
+            <span
+              class="buy-again-message buy-again-message-${product.productId}"
+              >Buy it again</span
+            >
+            <span
+              class="buy-again-success buy-again-success-${product.productId}"
+              >✓ Added</span
+            >
           </button>
         </div>
 
         <div class="product-actions">
-          <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
+          <a
+            href="tracking.html?orderId=${order.id}&productId=${product.productId}"
+          >
             <button class="track-package-button button-secondary">
               Track package
             </button>
           </a>
         </div>
-        `;
+      `;
     });
     const orderTime = getTimeString(order.orderTime);
-    const placedOrderContainerHTML = `
+    const placedOrderContainerHTML = html`
       <div class="order-container order-container-${order.id}">
         <div class="order-header">
           <div class="order-header-left-section">

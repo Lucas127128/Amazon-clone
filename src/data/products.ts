@@ -84,8 +84,8 @@ export class Product {
 export async function fetchProducts(
   axiosInstance: AxiosInstance = external,
 ): Promise<Product[]> {
-  const rawProducts: RawProduct[] = (await axiosInstance.get("/products")).data;
   const clothings: string[] = (await axiosInstance.get("/clothingList")).data;
+  const rawProducts: RawProduct[] = (await axiosInstance.get("/products")).data;
   const products = rawProducts.map((product) => {
     const isClothing = clothings.includes(product.id);
     return new Product(product, isClothing);

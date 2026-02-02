@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { stripHTMLComments } from "@zade/vite-plugin-strip-html-comments";
 
 export default defineConfig({
   build: {
@@ -14,4 +15,5 @@ export default defineConfig({
   server: {
     port: 5174,
   },
+  plugins: [stripHTMLComments()],
 });
