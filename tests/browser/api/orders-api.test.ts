@@ -1,17 +1,14 @@
 import { test, describe, expect } from "vitest";
 import cart from "../../../src/api/cart.json";
 import { getTimeString } from "../../../src/data/orders.ts";
-import {
-  getMatchingProduct,
-  fetchProducts,
-} from "../../../src/data/products.ts";
+import { fetchProducts } from "../../../src/data/products.ts";
 import { Order } from "../../../src/data/orders.ts";
 import { external } from "../../../src/data/axios.ts";
 import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
 import { Temporal } from "temporal-polyfill";
+import { calculatePrices } from "../../../src/data/payment.ts";
 
 const order: Order = (await external.post("/orders", cart)).data;
-await fetchProducts();
 
 describe("order api test", () => {
   test.concurrent("order id test", ({ expect }) => {
@@ -48,13 +45,8 @@ describe("order api test", () => {
   test.concurrent("order cost test", async ({ expect }) => {
     expect(typeof order.totalCostCents).toBe("number");
 
-    let totalCostCents = 0;
     const products = await fetchProducts();
-    cart.forEach((cartItem) => {
-      const matchingProduct = getMatchingProduct(products, cartItem?.productId);
-      checkTruthy(matchingProduct, "There is no matching product");
-      totalCostCents += matchingProduct.priceCents;
-    });
-    expect(order.totalCostCents).toBe(totalCostCents);
+    const { totalOrderPrice } = calculatePrices(cart, products);
+    expect(order.totalCostCents).toBe(totalOrderPrice);
   });
 });

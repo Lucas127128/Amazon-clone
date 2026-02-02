@@ -1,25 +1,17 @@
 import { Elysia } from "elysia";
-import { getMatchingRawProduct, RawProduct } from "../data/products.ts";
+import { Product, RawProduct } from "../data/products.ts";
 import { Cart } from "../data/cart.ts";
-import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
 import { Temporal } from "temporal-polyfill";
+import { calculatePrices } from "../data/payment.ts";
 
 const products: RawProduct[] = await Bun.file("./src/api/products.json").json();
 class Order {
   constructor(cart: Cart[]) {
-    let totalCostsCents = 0;
-    cart.forEach((cartItem) => {
-      const matchingProduct = getMatchingRawProduct(
-        products,
-        cartItem.productId,
-      );
-      checkTruthy(matchingProduct);
-      totalCostsCents += matchingProduct.priceCents;
-      this.products.push(cartItem);
-    });
+    const { totalOrderPrice } = calculatePrices(cart, products as Product[]);
+    this.totalCostCents = totalOrderPrice;
     this.id = crypto.randomUUID();
     this.orderTime = Temporal.Now.instant().toJSON();
-    this.totalCostCents = totalCostsCents;
+    this.products = cart;
   }
   id;
   orderTime;

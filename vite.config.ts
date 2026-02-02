@@ -12,8 +12,8 @@ export default defineConfig({
       },
     },
   },
+  plugins: [stripHTMLComments()],
   server: {
     port: 5174,
   },
-  plugins: [stripHTMLComments()],
 });
