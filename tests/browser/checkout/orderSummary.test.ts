@@ -72,9 +72,7 @@ describe("test suite: Render order summary", () => {
         );
         checkTruthy(productPrice);
         checkTruthy(matchingProduct, "Fail to get the cart");
-        expect(productPrice.textContent).toContain(
-          `$${matchingProduct.getPrice()}`,
-        );
+        expect(productPrice.textContent).toContain(`$${matchingProduct.price}`);
       });
     });
     checkTruthy(cartItemContainers, "Fail to select HTML element");

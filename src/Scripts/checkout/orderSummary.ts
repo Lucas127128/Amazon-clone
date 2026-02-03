@@ -43,7 +43,7 @@ export async function renderOrderSummary() {
           <div class="cart-item-details">
             <div class="product-name">${matchingProduct.name}</div>
             <div class="product-price product-price-${matchingProduct.id} ">
-              $${matchingProduct.getPrice()}
+              $${matchingProduct.price}
             </div>
             <div class="product-quantity">
               <span class="js-product-quantity-${matchingProduct.id}">

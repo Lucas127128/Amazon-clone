@@ -48,37 +48,28 @@ export class Product {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
-    this.rating = productDetails.rating;
+    this.ratingCount = productDetails.rating.count;
     this.priceCents = productDetails.priceCents;
     this.keywords = productDetails.keywords;
+    this.starsUrl = `/images/ratings/rating-${productDetails.rating.stars * 10}.png`;
+    this.price = `${formatCurrency(productDetails.priceCents)}`;
     if (isClothing) {
       this.extraInfoHTML = `
         <a href='/images/clothing-size-chart.webp' target='_blank'>
           Size chart
         </a>
       `;
-    } else {
-      this.extraInfoHTML = ``;
     }
-  }
-
-  getStarsUrl() {
-    return `/images/ratings/rating-${this.rating.stars * 10}.png`;
-  }
-  getPrice() {
-    return `${formatCurrency(this.priceCents)}`;
-  }
-
-  getImageURL() {
-    return this.image;
   }
   id: string;
   image: string;
   name: string;
-  rating: Rating;
+  ratingCount: number;
   priceCents: number;
   keywords: string[];
-  extraInfoHTML: string;
+  extraInfoHTML: string = "";
+  starsUrl: string;
+  price: string;
 }
 
 export async function fetchProducts(

@@ -49,14 +49,9 @@ export function updateDeliveryOption(
 ) {
   const cart = getCart();
   const matchingItem = getMatchingCart(cart, productId);
-  if (matchingItem) {
-    matchingItem.deliveryOptionId = deliveryOptionId;
-    localStorage.setItem("cart", JSON.stringify(cart));
-  } else {
-    console.error(
-      "Cannot update delivery option because the product id is not valid.",
-    );
-  }
+  checkTruthy(matchingItem, "The product id is not valid.");
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 export function getCart(): Cart[] {

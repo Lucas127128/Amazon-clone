@@ -26,7 +26,7 @@ describe("Get matching item", async () => {
       "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
     );
     const correctProduct = new Product(correctRawProduct, false);
-    expect(matchingProduct).toEqual(new Product(correctProduct, false));
+    expect(matchingProduct).toEqual(correctProduct);
   });
 
   test.concurrent("get matching raw product", async ({ expect }) => {
@@ -89,30 +89,11 @@ describe("fetch products", () => {
       keywords: ["kleenex", "tissues", "kitchen", "tissues box", "napkins"],
       name: "Ultra Soft Tissue 2-Ply - 18 Box",
       priceCents: 2374,
-      rating: {
-        count: 99,
-        stars: 4,
-      },
+      ratingCount: 99,
       extraInfoHTML: "",
-      getImageURL() {
-        return "/images/products/facial-tissue-2-ply-18-boxes.webp";
-      },
-      getPrice() {
-        return "23.74";
-      },
-      getStarsUrl() {
-        return "/images/ratings/rating-40.png";
-      },
+      price: "23.74",
+      starsUrl: "/images/ratings/rating-40.png",
     };
-    expect(product.id).toEqual(correctProduct.id);
-    expect(product.image).toEqual(correctProduct.image);
-    expect(product.keywords).toEqual(correctProduct.keywords);
-    expect(product.name).toEqual(correctProduct.name);
-    expect(product.priceCents).toEqual(correctProduct.priceCents);
-    expect(product.rating).toEqual(correctProduct.rating);
-    expect(product.getImageURL()).toEqual(correctProduct.getImageURL());
-    expect(product.getPrice()).toEqual(correctProduct.getPrice());
-    expect(product.getStarsUrl()).toEqual(correctProduct.getStarsUrl());
-    expect(product.extraInfoHTML).toEqual(correctProduct.extraInfoHTML);
+    expect(product).toEqual(correctProduct);
   });
 });

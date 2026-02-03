@@ -21,14 +21,14 @@ async function renderAmazonHomePage() {
 
           <div class="product-rating-container">
               <img class="product-rating-stars"
-              src="${products.getStarsUrl()}">
+              src="${products.starsUrl}">
               <div class="product-rating-count link-primary">
-              ${products.rating.count}
+              ${products.ratingCount}
               </div>
           </div>
 
           <div class="product-price">
-              $${products.getPrice()}
+              $${products.price}
           </div>
 
           <div class="product-quantity-container">
