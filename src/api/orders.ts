@@ -1,15 +1,21 @@
 import { Elysia } from "elysia";
-import { Product, RawProduct } from "../data/products.ts";
+import { Product, RawProduct, transformProducts } from "../data/products.ts";
 import { Cart } from "../data/cart.ts";
 import { Temporal } from "temporal-polyfill";
 import { calculatePrices } from "../data/payment.ts";
+import { nanoid } from "nanoid";
 
-const products: RawProduct[] = await Bun.file("./src/api/products.json").json();
+const rawProducts: RawProduct[] = await Bun.file(
+  "./src/api/products.json",
+).json();
+const clothings: string[] = await Bun.file("./src/api/clothing.json").json();
+const products = transformProducts(rawProducts, clothings);
+
 class Order {
   constructor(cart: Cart[]) {
-    const { totalOrderPrice } = calculatePrices(cart, products as Product[]);
+    const { totalOrderPrice } = calculatePrices(cart, products);
     this.totalCostCents = totalOrderPrice;
-    this.id = crypto.randomUUID();
+    this.id = nanoid(7);
     this.orderTime = Temporal.Now.instant().toJSON();
     this.products = cart;
   }

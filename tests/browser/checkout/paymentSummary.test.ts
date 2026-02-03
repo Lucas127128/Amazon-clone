@@ -12,8 +12,7 @@ import { formatCurrency } from "../../../src/Scripts/Utils/Money.ts";
 import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
 import { renderPaymentSummary } from "../../../src/Scripts/checkout/paymentSummary.ts";
 import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
-import { sleep } from "../../../src/Scripts/Utils/sleep.ts";
-import { getDeliveryPriceCents } from "../../../src/data/deliveryOption.ts";
+import sleep from "../../../src/Scripts/Utils/sleep.ts";
 
 document.body.innerHTML = `
 <div class="test-container">
@@ -25,9 +24,9 @@ document.body.innerHTML = `
 describe("test suite: Render payment summary", () => {
   beforeAll(async () => {
     localStorage.clear();
-    addToCart("15b6fc6f-327a-4ec4-896f-486349e85a3d", 1);
-    addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 2);
-    updateDeliveryOption("15b6fc6f-327a-4ec4-896f-486349e85a3d", "2");
+    addToCart("59LXo", 1);
+    addToCart("Hwme8", 2);
+    updateDeliveryOption("59LXo", "2");
     renderPaymentSummary();
     renderOrderSummary();
   });

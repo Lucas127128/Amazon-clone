@@ -1,15 +1,9 @@
 import products from "./products.json";
+import { nanoid } from "nanoid";
 
-const newProducts = products.map((product) => {
-  const newProduct = {
-    id: product.id,
-    image: product.image,
-    name: product.name,
-    rating: product.rating,
-    priceCents: product.priceCents,
-    keywords: product.keywords,
-  };
-  return newProduct;
+const newProducts = [...products];
+newProducts.map((newProduct) => {
+  newProduct.id = nanoid(5);
 });
 
 // console.log(newProducts);

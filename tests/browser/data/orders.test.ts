@@ -4,12 +4,12 @@ import { dateFormatOption } from "../../../src/data/deliveryOption.ts";
 import { Temporal } from "temporal-polyfill";
 
 const order: Order = {
-  id: "7259cc88-e5b2-4445-a21a-eaafa8e7e8bb",
+  id: "B8WQz",
   orderTime: "2025-12-27T14:53:47.359Z",
   totalCostCents: 1899,
   products: [
     {
-      productId: "54e0eccd-8f36-462b-b68a-8182611d9add",
+      productId: "ADSpL",
       quantity: 1,
       deliveryOptionId: "1",
     },
