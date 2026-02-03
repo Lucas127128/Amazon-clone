@@ -83,7 +83,6 @@ describe("fetch products", () => {
 
   test.concurrent("Generate product object", ({ expect }) => {
     const product = new Product(correctRawProduct, false);
-    console.log(product.getStarsUrl());
     const correctProduct: Product = {
       id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
       image: "/images/products/facial-tissue-2-ply-18-boxes.webp",

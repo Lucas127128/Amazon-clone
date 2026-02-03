@@ -11,7 +11,7 @@ import {
   getMatchingProduct,
 } from "../../data/products.ts";
 import {
-  deliveryOption,
+  deliveryOptions,
   getDeliveryDate,
   getPriceString,
 } from "../../data/deliveryOption.ts";
@@ -80,7 +80,7 @@ export async function renderOrderSummary() {
 
   function deliveryOptionsHTML(matchingProductId: string): string {
     let deliveryOptionsHTML = "";
-    deliveryOption.forEach((deliveryOptions) => {
+    deliveryOptions.forEach((deliveryOptions) => {
       const deliveryDate = getDeliveryDate(deliveryOptions.id);
       const priceString = getPriceString(deliveryOptions.priceCents);
       deliveryOptionsHTML += html`

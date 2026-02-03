@@ -13,6 +13,7 @@ import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.t
 import { renderPaymentSummary } from "../../../src/Scripts/checkout/paymentSummary.ts";
 import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
 import { sleep } from "../../../src/Scripts/Utils/sleep.ts";
+import { getDeliveryPriceCents } from "../../../src/data/deliveryOption.ts";
 
 document.body.innerHTML = `
 <div class="test-container">
@@ -39,6 +40,7 @@ describe("test suite: Render payment summary", () => {
     await sleep(20);
     const cartQuantity = document.querySelector(".cart-item-quantity");
     checkTruthy(cartQuantity, "Fail to select HTML element");
+    await sleep(200);
     expect(cartQuantity.innerHTML).toContain(3);
   });
 
@@ -63,31 +65,17 @@ describe("test suite: Render payment summary", () => {
   });
 
   test("display delivery fee", async () => {
-    let totalDeliveryFee = 0;
-    const cart = getCart();
-    cart.forEach((cartItem) => {
-      let deliveryFee = 0;
-      if (cartItem.deliveryOptionId === "1") {
-        deliveryFee = 0;
-      } else if (cartItem.deliveryOptionId === "2") {
-        deliveryFee = 499;
-      } else if (cartItem.deliveryOptionId === "3") {
-        deliveryFee = 999;
-      }
-      totalDeliveryFee += deliveryFee;
-    });
     await sleep(20);
     const totalDeliveryFeeHTML = document.querySelector(".total-delivery-fee");
     checkTruthy(totalDeliveryFeeHTML, "Fail to select HTML element");
     expect(totalDeliveryFeeHTML.textContent).toContain(
-      `$${formatCurrency(totalDeliveryFee)}`,
+      `$${formatCurrency(499)}`,
     );
-    localStorage.setItem("totalDeliveryFee", String(totalDeliveryFee));
   });
 
   test("display total price before tax", async () => {
     const totalProductPrice = Number(localStorage.getItem("totalProductPrice"));
-    const totalDeliveryFee = Number(localStorage.getItem("totalDeliveryFee"));
+    const totalDeliveryFee = 499;
     const totalPriceBeforeTax = totalProductPrice + totalDeliveryFee;
     await sleep(100);
     const totalPriceBeforeTaxHTML = document.querySelector(

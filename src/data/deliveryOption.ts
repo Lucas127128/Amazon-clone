@@ -1,7 +1,8 @@
 import { Temporal } from "temporal-polyfill";
 import { match } from "ts-pattern";
+import { formatCurrency } from "../Scripts/Utils/Money";
 
-export const deliveryOption = [
+export const deliveryOptions = [
   {
     id: "1",
     deliveryDays: 7,
@@ -19,7 +20,7 @@ export const deliveryOption = [
   },
 ];
 
-function addWeekDays(
+export function addWeekDays(
   businessDaysToAdd: number,
   currentDate: Temporal.PlainDate,
 ) {
@@ -44,18 +45,22 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
 
 export function getDeliveryDate(deliveryOptionId: string): string {
   const localNow = Temporal.Now.plainDateISO();
-  const deliveryDate = addWeekDays(
-    getDeliveryPriceCents(deliveryOptionId),
-    localNow,
-  );
+  const deliveryDate = match(deliveryOptionId)
+    .with("1", () => addWeekDays(7, localNow))
+    .with("2", () => addWeekDays(3, localNow))
+    .with("3", () => addWeekDays(1, localNow))
+    .otherwise(() => {
+      throw new Error(`deliveryOptionId ${deliveryOptionId} is not valid`);
+    });
   return deliveryDate.toLocaleString("en-US", dateFormatOption);
 }
 
 export function getPriceString(priceCents: number): string {
   const priceString = match(priceCents)
+    .returnType<string>()
     .with(0, () => "FREE - ")
-    .with(499, () => "$4.99 - ")
-    .with(999, () => "$9.99 - ")
+    .with(499, () => `$${formatCurrency(499)} - `)
+    .with(999, () => `$${formatCurrency(999)} - `)
     .otherwise(() => {
       throw new Error(`priceCents ${priceCents} is not valid`);
     });
@@ -64,6 +69,7 @@ export function getPriceString(priceCents: number): string {
 
 export function getDeliveryPriceCents(deliveryOptionId: string): number {
   const deliveryFee = match(deliveryOptionId)
+    .returnType<number>()
     .with("1", () => 0)
     .with("2", () => 499)
     .with("3", () => 999)
