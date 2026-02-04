@@ -1,4 +1,4 @@
-import { getMatchingProduct, fetchProducts } from "../data/products.ts";
+import { getMatchingProduct, getProducts } from "../data/products.ts";
 import { formatCurrency } from "./Utils/Money.ts";
 import { incrementAddToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString, Order } from "../data/orders.ts";
@@ -12,7 +12,7 @@ function renderPlacedOrder() {
   const html = String.raw;
   orders.forEach(async (order) => {
     let placedOrderHTML = "";
-    const products = await fetchProducts();
+    const products = await getProducts();
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(products, product.productId);
       const deliveryDate = getDeliveryDate(product.deliveryOptionId);

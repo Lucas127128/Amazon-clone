@@ -1,11 +1,11 @@
 import { incrementAddToCart, displayCartQuantity } from "../data/cart";
-import { fetchProducts } from "../data/products";
+import { getProducts } from "../data/products";
 import { checkTruthy } from "./Utils/typeChecker";
 
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector(".products-grid");
   checkTruthy(productsGrid, "Fail to select HTML element");
-  const products = await fetchProducts();
+  const products = await getProducts();
   const html = String.raw;
   products.forEach((products) => {
     const productsHTML = html`

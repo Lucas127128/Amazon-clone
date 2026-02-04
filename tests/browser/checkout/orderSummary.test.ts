@@ -1,8 +1,5 @@
 import { expect, test, describe, beforeEach } from "vitest";
-import {
-  fetchProducts,
-  getMatchingProduct,
-} from "../../../src/data/products.ts";
+import { getMatchingProduct, getProducts } from "../../../src/data/products.ts";
 import {
   addToCart,
   updateDeliveryOption,
@@ -65,7 +62,7 @@ describe("test suite: Render order summary", () => {
       });
 
       test.concurrent("products price", async ({ expect }) => {
-        const products = await fetchProducts();
+        const products = await getProducts();
         const matchingProduct = getMatchingProduct(products, productId);
         const productPrice = document.querySelector(
           `.product-price-${productId}`,

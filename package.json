@@ -4,6 +4,7 @@
     "@zade/vite-plugin-strip-html-comments": "npm:@jsr/zade__vite-plugin-strip-html-comments",
     "axios": "^1.13.4",
     "elysia": "^1.4.22",
+    "idb-keyval": "^6.2.2",
     "nanoid": "^5.1.6",
     "signal-polyfill": "^0.2.2",
     "signal-utils": "^0.21.1",

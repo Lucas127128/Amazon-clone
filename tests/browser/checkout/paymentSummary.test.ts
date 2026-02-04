@@ -4,10 +4,7 @@ import {
   updateDeliveryOption,
   getCart,
 } from "../../../src/data/cart.ts";
-import {
-  fetchProducts,
-  getMatchingProduct,
-} from "../../../src/data/products.ts";
+import { getProducts, getMatchingProduct } from "../../../src/data/products.ts";
 import { formatCurrency } from "../../../src/Scripts/Utils/Money.ts";
 import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
 import { renderPaymentSummary } from "../../../src/Scripts/checkout/paymentSummary.ts";
@@ -46,7 +43,7 @@ describe("test suite: Render payment summary", () => {
   test.concurrent("display products cost", async ({ expect }) => {
     const cart = getCart();
     let totalProductPrice = 0;
-    const products = await fetchProducts();
+    const products = await getProducts();
     cart.forEach((cartItem) => {
       const matchingProduct = getMatchingProduct(products, cartItem.productId);
       checkTruthy(matchingProduct, "Fail to get the cart");

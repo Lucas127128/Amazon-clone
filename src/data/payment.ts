@@ -1,6 +1,6 @@
 import { Cart } from "./cart";
 import { checkTruthy } from "../Scripts/Utils/typeChecker";
-import { getMatchingProduct, Product, RawProduct } from "./products";
+import { getMatchingProduct, Product } from "./products";
 import { getDeliveryPriceCents } from "./deliveryOption";
 
 interface Prices {

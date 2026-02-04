@@ -6,9 +6,9 @@ import {
   displayCartQuantity,
 } from "../../data/cart.ts";
 import {
-  fetchProducts,
   getMatchingCart,
   getMatchingProduct,
+  getProducts,
 } from "../../data/products.ts";
 import {
   deliveryOptions,
@@ -21,7 +21,7 @@ import { checkTruthy, checkInstanceOf } from "../Utils/typeChecker.ts";
 export async function renderOrderSummary() {
   const html = String.raw;
   const checkoutCart = getCart();
-  const products = await fetchProducts();
+  const products = await getProducts();
   const orderSummary = document.querySelector(".order-summary");
   checkTruthy(orderSummary, "Fail to select HTML element");
   orderSummary.innerHTML = "";

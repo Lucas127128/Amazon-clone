@@ -1,7 +1,7 @@
 import { test, describe, expect } from "vitest";
 import cart from "../../../src/api/cart.json";
 import { getTimeString } from "../../../src/data/orders.ts";
-import { fetchProducts } from "../../../src/data/products.ts";
+import { getProducts } from "../../../src/data/products.ts";
 import { Order } from "../../../src/data/orders.ts";
 import { external } from "../../../src/data/axios.ts";
 import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
@@ -45,7 +45,7 @@ describe("order api test", () => {
   test.concurrent("order cost test", async ({ expect }) => {
     expect(typeof order.totalCostCents).toBe("number");
 
-    const products = await fetchProducts();
+    const products = await getProducts();
     const { totalOrderPrice } = calculatePrices(cart, products);
     expect(order.totalCostCents).toBe(totalOrderPrice);
   });

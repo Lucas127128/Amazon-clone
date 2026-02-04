@@ -2,6 +2,7 @@ import { formatCurrency } from "../Scripts/Utils/Money.ts";
 import { Cart } from "./cart.ts";
 import { external } from "./axios.ts";
 import { AxiosInstance } from "axios";
+import { get, set } from "idb-keyval";
 
 export function getMatchingCart(
   cart: Cart[],
@@ -89,5 +90,15 @@ export function transformProducts(
     const isClothing = clothings.includes(product.id);
     return new Product(product, isClothing);
   });
+  return products;
+}
+
+export async function getProducts(): Promise<Product[]> {
+  new Promise(() => {
+    fetchProducts().then((products) => {
+      set("products", products);
+    });
+  });
+  const products = get("products") || fetchProducts();
   return products;
 }

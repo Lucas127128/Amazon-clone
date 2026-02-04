@@ -4,11 +4,11 @@ import { getCart } from "../../data/cart.ts";
 import { checkTruthy } from "../Utils/typeChecker.ts";
 import { external } from "../../data/axios.ts";
 import { calculatePrices } from "../../data/payment.ts";
-import { fetchProducts } from "../../data/products.ts";
+import { getProducts } from "../../data/products.ts";
 
 export async function renderPaymentSummary() {
   const checkoutCart = getCart();
-  const products = await fetchProducts();
+  const products = await getProducts();
   const prices = calculatePrices(checkoutCart, products);
 
   const paymentSummary = document.querySelector(".payment-summary");
