@@ -1,5 +1,5 @@
 export function checkInstanceOf(
-  variable: any,
+  variable: unknown,
   expectInstance: any,
   customMessage: string = "Error",
 ): asserts variable {
@@ -12,7 +12,7 @@ export function checkInstanceOf(
 }
 
 export function checkTruthy(
-  variable: any | undefined | null,
+  variable: unknown,
   customMessage: string = "Error",
 ): asserts variable {
   if (!variable) {

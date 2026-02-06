@@ -1,4 +1,4 @@
-import { renderOrderSummary } from "./checkout/orderSummary.ts";
+import { renderOrderSummary } from "./checkout/cartSummary.ts";
 import { renderPaymentSummary } from "./checkout/paymentSummary.ts";
 
 async function loadPage() {

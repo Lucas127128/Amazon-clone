@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Roboto", Arial;
+  src: url(/src/styles/shared/Roboto-2/Roboto-VariableFont_wdth\,wght.ttf);
+}
+
 body {
   font-family: Roboto, Arial;
   color: rgb(33, 33, 33);

@@ -4,7 +4,7 @@ import { fetchProducts } from "../data/products.ts";
 import { productsPlugin } from "./products.ts";
 import { orderPlugin } from "./orders.ts";
 import { internal } from "../data/axios.ts";
-export const date = new Date();
+import { Temporal } from "temporal-polyfill";
 
 export async function loadProducts() {
   try {
@@ -16,7 +16,7 @@ export async function loadProducts() {
 
 class Time {
   get(value: string) {
-    return date.toLocaleTimeString();
+    return Temporal.PlainTime.toString();
   }
 }
 const app = new Elysia()

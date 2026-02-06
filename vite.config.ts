@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import { stripHTMLComments } from "@zade/vite-plugin-strip-html-comments";
+import htmlMinifier from "vite-plugin-html-minifier";
 
 export default defineConfig({
   build: {
@@ -12,7 +12,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [stripHTMLComments()],
+  plugins: [htmlMinifier({ minify: true })],
   server: {
     port: 5174,
   },

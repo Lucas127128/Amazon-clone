@@ -86,19 +86,26 @@ export function transformProducts(
   rawProducts: RawProduct[],
   clothings: string[],
 ): Product[] {
-  const products = rawProducts.map((product) => {
-    const isClothing = clothings.includes(product.id);
-    return new Product(product, isClothing);
-  });
+  const products = rawProducts
+    .sort((a, b) => {
+      if (a.rating.stars === b.rating.stars) {
+        return b.rating.count - a.rating.count;
+      }
+      return b.rating.stars - a.rating.stars;
+    })
+    .map((product) => {
+      const isClothing = clothings.includes(product.id);
+      return new Product(product, isClothing);
+    });
   return products;
 }
 
 export async function getProducts(): Promise<Product[]> {
   new Promise(() => {
-    fetchProducts().then((products) => {
+    fetchProducts().then(async (products) => {
       set("products", products);
     });
   });
-  const products = get("products") || fetchProducts();
+  const products = (await get("products")) || (await fetchProducts());
   return products;
 }

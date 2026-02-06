@@ -6,7 +6,7 @@ import {
   getCart,
 } from "../../../src/data/cart.ts";
 import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
-import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
+import { renderOrderSummary } from "../../../src/Scripts/checkout/cartSummary.ts";
 import sleep from "../../../src/Scripts/Utils/sleep.ts";
 import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
 

@@ -1,6 +1,6 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-const products = JSON.parse(open("../../../backend/products.json"));
+const products = JSON.parse(open("../../../backend/rawProducts.json"));
 
 export const options = {
   vus: 4200,

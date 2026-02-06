@@ -1,209 +1,42 @@
 [
   {
-    "id": "HYNZb",
-    "image": "/images/products/athletic-cotton-socks-6-pairs.webp",
-    "name": "Black and Gray Athletic Cotton Socks - 6 Pairs",
-    "rating": { "stars": 4.5, "count": 87 },
-    "priceCents": 1090,
-    "keywords": ["socks", "sports", "apparel"]
-  },
-  {
-    "id": "VXszx",
-    "image": "/images/products/intermediate-composite-basketball.webp",
-    "name": "Intermediate Size Basketball",
-    "rating": { "stars": 4, "count": 127 },
-    "priceCents": 2095,
-    "keywords": ["sports", "basketballs"]
-  },
-  {
-    "id": "_7u2l",
-    "image": "/images/products/adults-plain-cotton-tshirt-2-pack-teal.webp",
-    "name": "Adults Plain Cotton T-Shirt - 2 Pack",
-    "rating": { "stars": 4.5, "count": 56 },
-    "priceCents": 799,
-    "keywords": ["tshirts", "apparel", "mens"]
-  },
-  {
     "id": "7nDww",
     "image": "/images/products/black-2-slot-toaster.webp",
     "name": "2 Slot Toaster - Black",
-    "rating": { "stars": 5, "count": 2197 },
+    "ratingCount": 2197,
     "priceCents": 1899,
-    "keywords": ["toaster", "kitchen", "appliances"]
-  },
-  {
-    "id": "hhdQQ",
-    "image": "/images/products/6-piece-white-dinner-plate-set.webp",
-    "name": "6 Piece White Dinner Plate Set",
-    "rating": { "stars": 4, "count": 37 },
-    "priceCents": 2067,
-    "keywords": ["plates", "kitchen", "dining"]
-  },
-  {
-    "id": "rL8Xd",
-    "image": "/images/products/6-piece-non-stick-baking-set.webp",
-    "name": "6-Piece Nonstick, Carbon Steel Oven Bakeware Baking Set",
-    "rating": { "stars": 4.5, "count": 175 },
-    "priceCents": 3499,
-    "keywords": ["kitchen", "cookware"]
-  },
-  {
-    "id": "WHQbG",
-    "image": "/images/products/plain-hooded-fleece-sweatshirt-yellow.webp",
-    "name": "Plain Hooded Fleece Sweatshirt",
-    "rating": { "stars": 4.5, "count": 317 },
-    "priceCents": 2400,
-    "keywords": ["hoodies", "sweaters", "apparel"]
-  },
-  {
-    "id": "-dl8q",
-    "image": "/images/products/luxury-tower-set-6-piece.webp",
-    "name": "Luxury Towel Set - Graphite Gray",
-    "rating": { "stars": 4.5, "count": 144 },
-    "priceCents": 3599,
-    "keywords": ["bathroom", "washroom", "restroom", "towels", "bath towels"]
-  },
-  {
-    "id": "59LXo",
-    "image": "/images/products/liquid-laundry-detergent-plain.webp",
-    "name": "Liquid Laundry Detergent, 110 Loads, 82.5 Fl Oz",
-    "rating": { "stars": 4.5, "count": 305 },
-    "priceCents": 2899,
-    "keywords": ["bathroom", "cleaning"]
-  },
-  {
-    "id": "Hwme8",
-    "image": "/images/products/knit-athletic-sneakers-gray.webp",
-    "name": "Waterproof Knit Athletic Sneakers - Gray",
-    "rating": { "stars": 4, "count": 89 },
-    "priceCents": 3390,
-    "keywords": ["shoes", "running shoes", "footwear"]
-  },
-  {
-    "id": "acmQY",
-    "image": "/images/products/women-chiffon-beachwear-coverup-black.webp",
-    "name": "Women's Chiffon Beachwear Cover Up - Black",
-    "rating": { "stars": 4.5, "count": 235 },
-    "priceCents": 2070,
-    "keywords": ["robe", "swimsuit", "swimming", "bathing", "apparel"]
-  },
-  {
-    "id": "z_MJt",
-    "image": "/images/products/round-sunglasses-black.webp",
-    "name": "Round Sunglasses",
-    "rating": { "stars": 4.5, "count": 30 },
-    "priceCents": 1560,
-    "keywords": ["accessories", "shades"]
-  },
-  {
-    "id": "651eE",
-    "image": "/images/products/women-beach-sandals.webp",
-    "name": "Women's Two Strap Buckle Sandals - Tan",
-    "rating": { "stars": 4.5, "count": 562 },
-    "priceCents": 2499,
-    "keywords": ["footwear", "sandals", "womens", "beach", "summer"]
-  },
-  {
-    "id": "I2PJ7",
-    "image": "/images/products/blackout-curtain-set-beige.webp",
-    "name": "Blackout Curtains Set 4-Pack - Beige",
-    "rating": { "stars": 4.5, "count": 232 },
-    "priceCents": 4599,
-    "keywords": ["bedroom", "curtains", "home"]
-  },
-  {
-    "id": "JN1O0",
-    "image": "/images/products/men-slim-fit-summer-shorts-gray.webp",
-    "name": "Men's Slim-Fit Summer Shorts",
-    "rating": { "stars": 4, "count": 160 },
-    "priceCents": 1699,
-    "keywords": ["shorts", "apparel", "mens"]
+    "keywords": ["toaster", "kitchen", "appliances"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-50.png",
+    "price": "18.99"
   },
   {
     "id": "fNEjY",
     "image": "/images/products/electric-glass-and-steel-hot-water-kettle.webp",
     "name": "Electric Glass and Steel Hot Tea Water Kettle - 1.7-Liter",
-    "rating": { "stars": 5, "count": 846 },
+    "ratingCount": 846,
     "priceCents": 3074,
-    "keywords": ["water boiler", "appliances", "kitchen"]
+    "keywords": ["water boiler", "appliances", "kitchen"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-50.png",
+    "price": "30.74"
   },
   {
-    "id": "sMmsZ",
-    "image": "/images/products/facial-tissue-2-ply-18-boxes.webp",
-    "name": "Ultra Soft Tissue 2-Ply - 18 Box",
-    "rating": { "stars": 4, "count": 99 },
-    "priceCents": 2374,
-    "keywords": ["kleenex", "tissues", "kitchen", "tissues box", "napkins"]
-  },
-  {
-    "id": "Q5VYy",
-    "image": "/images/products/straw-sunhat.webp",
-    "name": "Straw Lifeguard Sun Hat",
-    "rating": { "stars": 4, "count": 215 },
-    "priceCents": 2200,
-    "keywords": ["hats", "straw hats", "summer", "apparel"]
-  },
-  {
-    "id": "eZufd",
-    "image": "/images/products/sky-flower-stud-earrings.webp",
-    "name": "Sterling Silver Sky Flower Stud Earrings",
-    "rating": { "stars": 4.5, "count": 52 },
-    "priceCents": 1799,
-    "keywords": ["jewelry", "accessories", "womens"]
-  },
-  {
-    "id": "p4JhV",
-    "image": "/images/products/women-stretch-popover-hoodie-black.webp",
-    "name": "Women's Stretch Popover Hoodie",
-    "rating": { "stars": 4.5, "count": 2465 },
-    "priceCents": 1374,
-    "keywords": ["hooded", "hoodies", "sweaters", "womens", "apparel"]
-  },
-  {
-    "id": "FAkFh",
-    "image": "/images/products/bathroom-rug.webp",
-    "name": "Bathroom Bath Rug Mat 20 x 31 Inch - Grey",
-    "rating": { "stars": 4.5, "count": 119 },
-    "priceCents": 1250,
-    "keywords": ["bathmat", "bathroom", "home"]
-  },
-  {
-    "id": "Iea2L",
-    "image": "/images/products/women-knit-ballet-flat-black.webp",
-    "name": "Women's Knit Ballet Flat",
-    "rating": { "stars": 4, "count": 326 },
-    "priceCents": 2640,
-    "keywords": ["shoes", "flats", "womens", "footwear"]
-  },
-  {
-    "id": "3YFV3",
-    "image": "/images/products/men-golf-polo-t-shirt-blue.webp",
-    "name": "Men's Regular-Fit Quick-Dry Golf Polo Shirt",
-    "rating": { "stars": 4.5, "count": 2556 },
-    "priceCents": 1599,
-    "keywords": ["tshirts", "shirts", "apparel", "mens"]
-  },
-  {
-    "id": "sYyRc",
-    "image": "/images/products/trash-can-with-foot-pedal-50-liter.webp",
-    "name": "Trash Can with Foot Pedal - Brushed Stainless Steel",
-    "rating": { "stars": 4.5, "count": 2286 },
-    "priceCents": 8300,
-    "keywords": ["garbage", "bins", "cans", "kitchen"]
-  },
-  {
-    "id": "ISs-Z",
-    "image": "/images/products/duvet-cover-set-blue-twin.webp",
-    "name": "Duvet Cover Set with Zipper Closure",
-    "rating": { "stars": 4, "count": 456 },
-    "priceCents": 2399,
-    "keywords": ["bedroom", "bed sheets", "sheets", "covers", "home"]
+    "id": "cXh3C",
+    "image": "/images/products/floral-mixing-bowl-set.webp",
+    "name": "10-Piece Mixing Bowl Set with Lids - Floral",
+    "ratingCount": 679,
+    "priceCents": 3899,
+    "keywords": ["mixing bowls", "baking", "cookware", "kitchen"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-50.png",
+    "price": "38.99"
   },
   {
     "id": "B8WQz",
     "image": "/images/products/women-chunky-beanie-gray.webp",
     "name": "Women's Chunky Cable Beanie - Gray",
-    "rating": { "stars": 5, "count": 83 },
+    "ratingCount": 83,
     "priceCents": 1250,
     "keywords": [
       "hats",
@@ -212,134 +45,427 @@
       "tuques",
       "apparel",
       "womens"
-    ]
+    ],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-50.png",
+    "price": "12.50"
   },
   {
     "id": "ADSpL",
     "image": "/images/products/men-chino-pants-beige.webp",
     "name": "Men's Classic-fit Pleated Chino Pants",
-    "rating": { "stars": 4.5, "count": 9017 },
+    "ratingCount": 9017,
     "priceCents": 2290,
-    "keywords": ["pants", "apparel", "mens"]
-  },
-  {
-    "id": "RhYrl",
-    "image": "/images/products/men-athletic-shoes-green.webp",
-    "name": "Men's Athletic Sneaker",
-    "rating": { "stars": 4, "count": 229 },
-    "priceCents": 3890,
-    "keywords": ["shoes", "running shoes", "footwear", "mens"]
-  },
-  {
-    "id": "VlaSe",
-    "image": "/images/products/men-navigator-sunglasses-brown.webp",
-    "name": "Men's Navigator Sunglasses Pilot",
-    "rating": { "stars": 3.5, "count": 42 },
-    "priceCents": 1690,
-    "keywords": ["sunglasses", "glasses", "accessories", "shades"]
-  },
-  {
-    "id": "vSKv_",
-    "image": "/images/products/non-stick-cooking-set-15-pieces.webp",
-    "name": "Non-Stick Cookware Set, Pots, Pans and Utensils - 15 Pieces",
-    "rating": { "stars": 4.5, "count": 511 },
-    "priceCents": 6797,
-    "keywords": ["cooking set", "kitchen"]
-  },
-  {
-    "id": "sCJkl",
-    "image": "/images/products/vanity-mirror-silver.webp",
-    "name": "Vanity Mirror with Heavy Base - Chrome",
-    "rating": { "stars": 4.5, "count": 130 },
-    "priceCents": 1649,
-    "keywords": ["bathroom", "washroom", "mirrors", "home"]
-  },
-  {
-    "id": "5ZfMs",
-    "image": "/images/products/women-french-terry-fleece-jogger-camo.webp",
-    "name": "Women's Fleece Jogger Sweatpant",
-    "rating": { "stars": 4.5, "count": 248 },
-    "priceCents": 2400,
-    "keywords": ["pants", "sweatpants", "jogging", "apparel", "womens"]
-  },
-  {
-    "id": "REDFR",
-    "image": "/images/products/double-elongated-twist-french-wire-earrings.webp",
-    "name": "Double Oval Twist French Wire Earrings - Gold",
-    "rating": { "stars": 4.5, "count": 117 },
-    "priceCents": 2400,
-    "keywords": ["accessories", "womens"]
-  },
-  {
-    "id": "5GFcb",
-    "image": "/images/products/round-airtight-food-storage-containers.webp",
-    "name": "Round Airtight Food Storage Containers - 5 Piece",
-    "rating": { "stars": 4, "count": 126 },
-    "priceCents": 2899,
-    "keywords": ["boxes", "food containers", "kitchen"]
-  },
-  {
-    "id": "vnrsz",
-    "image": "/images/products/coffeemaker-with-glass-carafe-black.webp",
-    "name": "Coffeemaker with Glass Carafe and Reusable Filter - 25 Oz, Black",
-    "rating": { "stars": 4.5, "count": 1211 },
-    "priceCents": 2250,
-    "keywords": ["coffeemakers", "kitchen", "appliances"]
-  },
-  {
-    "id": "6IxpJ",
-    "image": "/images/products/blackout-curtains-black.webp",
-    "name": "Blackout Curtains Set 42 x 84-Inch - Black, 2 Panels",
-    "rating": { "stars": 4.5, "count": 363 },
-    "priceCents": 3099,
-    "keywords": ["bedroom", "home"]
-  },
-  {
-    "id": "nliib",
-    "image": "/images/products/cotton-bath-towels-teal.webp",
-    "name": "100% Cotton Bath Towels - 2 Pack, Light Teal",
-    "rating": { "stars": 4.5, "count": 93 },
-    "priceCents": 2110,
-    "keywords": ["bathroom", "home", "towels"]
-  },
-  {
-    "id": "qQhL5",
-    "image": "/images/products/knit-athletic-sneakers-pink.webp",
-    "name": "Waterproof Knit Athletic Sneakers - Pink",
-    "rating": { "stars": 4, "count": 89 },
-    "priceCents": 3390,
-    "keywords": ["shoes", "running shoes", "footwear", "womens"]
-  },
-  {
-    "id": "Wix4Z",
-    "image": "/images/products/countertop-blender-64-oz.webp",
-    "name": "Countertop Blender - 64oz, 1400 Watts",
-    "rating": { "stars": 4, "count": 3 },
-    "priceCents": 10747,
-    "keywords": ["food blenders", "kitchen", "appliances"]
-  },
-  {
-    "id": "cXh3C",
-    "image": "/images/products/floral-mixing-bowl-set.webp",
-    "name": "10-Piece Mixing Bowl Set with Lids - Floral",
-    "rating": { "stars": 5, "count": 679 },
-    "priceCents": 3899,
-    "keywords": ["mixing bowls", "baking", "cookware", "kitchen"]
-  },
-  {
-    "id": "2P1FT",
-    "image": "/images/products/kitchen-paper-towels-30-pack.webp",
-    "name": "2-Ply Kitchen Paper Towels - 30 Pack",
-    "rating": { "stars": 4.5, "count": 1045 },
-    "priceCents": 5799,
-    "keywords": ["kitchen", "kitchen towels", "tissues"]
+    "keywords": ["pants", "apparel", "mens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "22.90"
   },
   {
     "id": "xjQ3y",
     "image": "/images/products/men-cozy-fleece-zip-up-hoodie-red.webp",
     "name": "Men's Full-Zip Hooded Fleece Sweatshirt",
-    "rating": { "stars": 4.5, "count": 3157 },
+    "ratingCount": 3157,
     "priceCents": 2400,
-    "keywords": ["sweaters", "hoodies", "apparel", "mens"]
+    "keywords": ["sweaters", "hoodies", "apparel", "mens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "24.00"
+  },
+  {
+    "id": "3YFV3",
+    "image": "/images/products/men-golf-polo-t-shirt-blue.webp",
+    "name": "Men's Regular-Fit Quick-Dry Golf Polo Shirt",
+    "ratingCount": 2556,
+    "priceCents": 1599,
+    "keywords": ["tshirts", "shirts", "apparel", "mens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "15.99"
+  },
+  {
+    "id": "p4JhV",
+    "image": "/images/products/women-stretch-popover-hoodie-black.webp",
+    "name": "Women's Stretch Popover Hoodie",
+    "ratingCount": 2465,
+    "priceCents": 1374,
+    "keywords": ["hooded", "hoodies", "sweaters", "womens", "apparel"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "13.74"
+  },
+  {
+    "id": "sYyRc",
+    "image": "/images/products/trash-can-with-foot-pedal-50-liter.webp",
+    "name": "Trash Can with Foot Pedal - Brushed Stainless Steel",
+    "ratingCount": 2286,
+    "priceCents": 8300,
+    "keywords": ["garbage", "bins", "cans", "kitchen"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "83.00"
+  },
+  {
+    "id": "vnrsz",
+    "image": "/images/products/coffeemaker-with-glass-carafe-black.webp",
+    "name": "Coffeemaker with Glass Carafe and Reusable Filter - 25 Oz, Black",
+    "ratingCount": 1211,
+    "priceCents": 2250,
+    "keywords": ["coffeemakers", "kitchen", "appliances"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "22.50"
+  },
+  {
+    "id": "2P1FT",
+    "image": "/images/products/kitchen-paper-towels-30-pack.webp",
+    "name": "2-Ply Kitchen Paper Towels - 30 Pack",
+    "ratingCount": 1045,
+    "priceCents": 5799,
+    "keywords": ["kitchen", "kitchen towels", "tissues"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "57.99"
+  },
+  {
+    "id": "651eE",
+    "image": "/images/products/women-beach-sandals.webp",
+    "name": "Women's Two Strap Buckle Sandals - Tan",
+    "ratingCount": 562,
+    "priceCents": 2499,
+    "keywords": ["footwear", "sandals", "womens", "beach", "summer"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "24.99"
+  },
+  {
+    "id": "vSKv_",
+    "image": "/images/products/non-stick-cooking-set-15-pieces.webp",
+    "name": "Non-Stick Cookware Set, Pots, Pans and Utensils - 15 Pieces",
+    "ratingCount": 511,
+    "priceCents": 6797,
+    "keywords": ["cooking set", "kitchen"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "67.97"
+  },
+  {
+    "id": "6IxpJ",
+    "image": "/images/products/blackout-curtains-black.webp",
+    "name": "Blackout Curtains Set 42 x 84-Inch - Black, 2 Panels",
+    "ratingCount": 363,
+    "priceCents": 3099,
+    "keywords": ["bedroom", "home"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "30.99"
+  },
+  {
+    "id": "WHQbG",
+    "image": "/images/products/plain-hooded-fleece-sweatshirt-yellow.webp",
+    "name": "Plain Hooded Fleece Sweatshirt",
+    "ratingCount": 317,
+    "priceCents": 2400,
+    "keywords": ["hoodies", "sweaters", "apparel"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "24.00"
+  },
+  {
+    "id": "59LXo",
+    "image": "/images/products/liquid-laundry-detergent-plain.webp",
+    "name": "Liquid Laundry Detergent, 110 Loads, 82.5 Fl Oz",
+    "ratingCount": 305,
+    "priceCents": 2899,
+    "keywords": ["bathroom", "cleaning"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "28.99"
+  },
+  {
+    "id": "5ZfMs",
+    "image": "/images/products/women-french-terry-fleece-jogger-camo.webp",
+    "name": "Women's Fleece Jogger Sweatpant",
+    "ratingCount": 248,
+    "priceCents": 2400,
+    "keywords": ["pants", "sweatpants", "jogging", "apparel", "womens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "24.00"
+  },
+  {
+    "id": "acmQY",
+    "image": "/images/products/women-chiffon-beachwear-coverup-black.webp",
+    "name": "Women's Chiffon Beachwear Cover Up - Black",
+    "ratingCount": 235,
+    "priceCents": 2070,
+    "keywords": ["robe", "swimsuit", "swimming", "bathing", "apparel"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "20.70"
+  },
+  {
+    "id": "I2PJ7",
+    "image": "/images/products/blackout-curtain-set-beige.webp",
+    "name": "Blackout Curtains Set 4-Pack - Beige",
+    "ratingCount": 232,
+    "priceCents": 4599,
+    "keywords": ["bedroom", "curtains", "home"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "45.99"
+  },
+  {
+    "id": "rL8Xd",
+    "image": "/images/products/6-piece-non-stick-baking-set.webp",
+    "name": "6-Piece Nonstick, Carbon Steel Oven Bakeware Baking Set",
+    "ratingCount": 175,
+    "priceCents": 3499,
+    "keywords": ["kitchen", "cookware"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "34.99"
+  },
+  {
+    "id": "-dl8q",
+    "image": "/images/products/luxury-tower-set-6-piece.webp",
+    "name": "Luxury Towel Set - Graphite Gray",
+    "ratingCount": 144,
+    "priceCents": 3599,
+    "keywords": ["bathroom", "washroom", "restroom", "towels", "bath towels"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "35.99"
+  },
+  {
+    "id": "sCJkl",
+    "image": "/images/products/vanity-mirror-silver.webp",
+    "name": "Vanity Mirror with Heavy Base - Chrome",
+    "ratingCount": 130,
+    "priceCents": 1649,
+    "keywords": ["bathroom", "washroom", "mirrors", "home"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "16.49"
+  },
+  {
+    "id": "FAkFh",
+    "image": "/images/products/bathroom-rug.webp",
+    "name": "Bathroom Bath Rug Mat 20 x 31 Inch - Grey",
+    "ratingCount": 119,
+    "priceCents": 1250,
+    "keywords": ["bathmat", "bathroom", "home"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "12.50"
+  },
+  {
+    "id": "REDFR",
+    "image": "/images/products/double-elongated-twist-french-wire-earrings.webp",
+    "name": "Double Oval Twist French Wire Earrings - Gold",
+    "ratingCount": 117,
+    "priceCents": 2400,
+    "keywords": ["accessories", "womens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "24.00"
+  },
+  {
+    "id": "nliib",
+    "image": "/images/products/cotton-bath-towels-teal.webp",
+    "name": "100% Cotton Bath Towels - 2 Pack, Light Teal",
+    "ratingCount": 93,
+    "priceCents": 2110,
+    "keywords": ["bathroom", "home", "towels"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "21.10"
+  },
+  {
+    "id": "HYNZb",
+    "image": "/images/products/athletic-cotton-socks-6-pairs.webp",
+    "name": "Black and Gray Athletic Cotton Socks - 6 Pairs",
+    "ratingCount": 87,
+    "priceCents": 1090,
+    "keywords": ["socks", "sports", "apparel"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "10.90"
+  },
+  {
+    "id": "_7u2l",
+    "image": "/images/products/adults-plain-cotton-tshirt-2-pack-teal.webp",
+    "name": "Adults Plain Cotton T-Shirt - 2 Pack",
+    "ratingCount": 56,
+    "priceCents": 799,
+    "keywords": ["tshirts", "apparel", "mens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "7.99"
+  },
+  {
+    "id": "eZufd",
+    "image": "/images/products/sky-flower-stud-earrings.webp",
+    "name": "Sterling Silver Sky Flower Stud Earrings",
+    "ratingCount": 52,
+    "priceCents": 1799,
+    "keywords": ["jewelry", "accessories", "womens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "17.99"
+  },
+  {
+    "id": "z_MJt",
+    "image": "/images/products/round-sunglasses-black.webp",
+    "name": "Round Sunglasses",
+    "ratingCount": 30,
+    "priceCents": 1560,
+    "keywords": ["accessories", "shades"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-45.png",
+    "price": "15.60"
+  },
+  {
+    "id": "ISs-Z",
+    "image": "/images/products/duvet-cover-set-blue-twin.webp",
+    "name": "Duvet Cover Set with Zipper Closure",
+    "ratingCount": 456,
+    "priceCents": 2399,
+    "keywords": ["bedroom", "bed sheets", "sheets", "covers", "home"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "23.99"
+  },
+  {
+    "id": "Iea2L",
+    "image": "/images/products/women-knit-ballet-flat-black.webp",
+    "name": "Women's Knit Ballet Flat",
+    "ratingCount": 326,
+    "priceCents": 2640,
+    "keywords": ["shoes", "flats", "womens", "footwear"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "26.40"
+  },
+  {
+    "id": "RhYrl",
+    "image": "/images/products/men-athletic-shoes-green.webp",
+    "name": "Men's Athletic Sneaker",
+    "ratingCount": 229,
+    "priceCents": 3890,
+    "keywords": ["shoes", "running shoes", "footwear", "mens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "38.90"
+  },
+  {
+    "id": "Q5VYy",
+    "image": "/images/products/straw-sunhat.webp",
+    "name": "Straw Lifeguard Sun Hat",
+    "ratingCount": 215,
+    "priceCents": 2200,
+    "keywords": ["hats", "straw hats", "summer", "apparel"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "22.00"
+  },
+  {
+    "id": "JN1O0",
+    "image": "/images/products/men-slim-fit-summer-shorts-gray.webp",
+    "name": "Men's Slim-Fit Summer Shorts",
+    "ratingCount": 160,
+    "priceCents": 1699,
+    "keywords": ["shorts", "apparel", "mens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "16.99"
+  },
+  {
+    "id": "VXszx",
+    "image": "/images/products/intermediate-composite-basketball.webp",
+    "name": "Intermediate Size Basketball",
+    "ratingCount": 127,
+    "priceCents": 2095,
+    "keywords": ["sports", "basketballs"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "20.95"
+  },
+  {
+    "id": "5GFcb",
+    "image": "/images/products/round-airtight-food-storage-containers.webp",
+    "name": "Round Airtight Food Storage Containers - 5 Piece",
+    "ratingCount": 126,
+    "priceCents": 2899,
+    "keywords": ["boxes", "food containers", "kitchen"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "28.99"
+  },
+  {
+    "id": "sMmsZ",
+    "image": "/images/products/facial-tissue-2-ply-18-boxes.webp",
+    "name": "Ultra Soft Tissue 2-Ply - 18 Box",
+    "ratingCount": 99,
+    "priceCents": 2374,
+    "keywords": ["kleenex", "tissues", "kitchen", "tissues box", "napkins"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "23.74"
+  },
+  {
+    "id": "Hwme8",
+    "image": "/images/products/knit-athletic-sneakers-gray.webp",
+    "name": "Waterproof Knit Athletic Sneakers - Gray",
+    "ratingCount": 89,
+    "priceCents": 3390,
+    "keywords": ["shoes", "running shoes", "footwear"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "33.90"
+  },
+  {
+    "id": "qQhL5",
+    "image": "/images/products/knit-athletic-sneakers-pink.webp",
+    "name": "Waterproof Knit Athletic Sneakers - Pink",
+    "ratingCount": 89,
+    "priceCents": 3390,
+    "keywords": ["shoes", "running shoes", "footwear", "womens"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "33.90"
+  },
+  {
+    "id": "hhdQQ",
+    "image": "/images/products/6-piece-white-dinner-plate-set.webp",
+    "name": "6 Piece White Dinner Plate Set",
+    "ratingCount": 37,
+    "priceCents": 2067,
+    "keywords": ["plates", "kitchen", "dining"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "20.67"
+  },
+  {
+    "id": "Wix4Z",
+    "image": "/images/products/countertop-blender-64-oz.webp",
+    "name": "Countertop Blender - 64oz, 1400 Watts",
+    "ratingCount": 3,
+    "priceCents": 10747,
+    "keywords": ["food blenders", "kitchen", "appliances"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "107.47"
+  },
+  {
+    "id": "VlaSe",
+    "image": "/images/products/men-navigator-sunglasses-brown.webp",
+    "name": "Men's Navigator Sunglasses Pilot",
+    "ratingCount": 42,
+    "priceCents": 1690,
+    "keywords": ["sunglasses", "glasses", "accessories", "shades"],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-35.png",
+    "price": "16.90"
   }
 ]

@@ -9,6 +9,7 @@ import {
 } from "../../../src/data/products";
 import { external } from "../../../src/data/axios";
 import { Cart } from "../../../src/data/cart";
+import correctRawProducts from "../../../src/api/products.json";
 
 const correctRawProduct: RawProduct = {
   id: "sMmsZ",
@@ -58,18 +59,7 @@ describe("Get matching item", async () => {
 describe("fetch products", () => {
   test.concurrent("fetch correct products", async ({ expect }) => {
     const products = await fetchProducts();
-    const correctRawProducts: RawProduct[] = (await external.get("/products"))
-      .data;
-    const clothingList: string[] = (await external.get("/clothingList")).data;
-    correctRawProducts.forEach((correctRawProduct) => {
-      const isClothing = clothingList.includes(correctRawProduct.id);
-      const correctProduct = new Product(correctRawProduct, isClothing);
-      const matchingProduct = getMatchingProduct(
-        products,
-        correctRawProduct.id,
-      );
-      expect(matchingProduct).toEqual(correctProduct);
-    });
+    expect(products).toEqual(correctRawProducts);
   });
 
   test.concurrent("Generate product object", ({ expect }) => {

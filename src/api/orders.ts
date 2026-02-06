@@ -1,12 +1,12 @@
 import { Elysia } from "elysia";
-import { Product, RawProduct, transformProducts } from "../data/products.ts";
+import { RawProduct, transformProducts } from "../data/products.ts";
 import { Cart } from "../data/cart.ts";
 import { Temporal } from "temporal-polyfill";
 import { calculatePrices } from "../data/payment.ts";
 import { nanoid } from "nanoid";
 
 const rawProducts: RawProduct[] = await Bun.file(
-  "./src/api/products.json",
+  "./src/api/rawProducts.json",
 ).json();
 const clothings: string[] = await Bun.file("./src/api/clothing.json").json();
 const products = transformProducts(rawProducts, clothings);
@@ -30,7 +30,7 @@ export const orderPlugin = new Elysia().post(
   ({ body, request, server }) => {
     const clientIP = server?.requestIP(request)?.address;
     console.log(
-      `new orders request from ${clientIP} at ${new Date().toLocaleTimeString()}`,
+      `new orders request from ${clientIP} at ${Temporal.PlainTime.toString()}`,
     );
     const order = new Order(body as Cart[]);
     return new Response(JSON.stringify(order), {

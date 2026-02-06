@@ -1,6 +1,6 @@
 import { bench } from "vitest";
 import { filterFromCart, removeFromCart, addToCart } from "../data/cart.ts";
-import products from "../backend/products.json" with {type: "json"}
+import products from "../backend/rawProducts.json" with { type: "json" };
 
 const productsId = [];
 products.forEach((product) => {

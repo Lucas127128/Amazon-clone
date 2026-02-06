@@ -6,7 +6,7 @@ import {
 } from "../../../src/data/cart.ts";
 import { getProducts, getMatchingProduct } from "../../../src/data/products.ts";
 import { formatCurrency } from "../../../src/Scripts/Utils/Money.ts";
-import { renderOrderSummary } from "../../../src/Scripts/checkout/orderSummary.ts";
+import { renderOrderSummary } from "../../../src/Scripts/checkout/cartSummary.ts";
 import { renderPaymentSummary } from "../../../src/Scripts/checkout/paymentSummary.ts";
 import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
 import sleep from "../../../src/Scripts/Utils/sleep.ts";
