@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import htmlMinifier from "vite-plugin-html-minifier";
+import removeConsole from "vite-plugin-remove-console";
 
 export default defineConfig({
   build: {
@@ -10,6 +11,7 @@ export default defineConfig({
         orders: "orders.html",
         tracking: "tracking.html",
       },
+      plugins: [removeConsole()],
     },
   },
   plugins: [htmlMinifier({ minify: true })],

@@ -37,7 +37,7 @@ function deliveryDateHTML(cartItem: Cart) {
   return html;
 }
 
-export function generateOrderHTML(
+export function generateCartSummary(
   matchingProduct: Product,
   cartItem: Cart,
 ): string {

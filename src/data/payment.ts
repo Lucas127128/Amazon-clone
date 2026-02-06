@@ -3,7 +3,7 @@ import { checkTruthy } from "../Scripts/Utils/typeChecker";
 import { getMatchingProduct, Product } from "./products";
 import { getDeliveryPriceCents } from "./deliveryOption";
 
-interface Prices {
+export interface Prices {
   totalProductPrice: number;
   totalDeliveryFee: number;
   cartQuantity: number;

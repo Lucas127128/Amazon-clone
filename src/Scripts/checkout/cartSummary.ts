@@ -7,8 +7,8 @@ import {
 } from "../../data/cart.ts";
 import { getMatchingProduct, getProducts } from "../../data/products.ts";
 import { renderPaymentSummary } from "./paymentSummary.ts";
-import { checkTruthy, checkInstanceOf } from "../Utils/typeChecker.ts";
-import { generateOrderHTML } from "../htmlGenerators/orderSummaryHTML.ts";
+import { checkTruthy } from "../Utils/typeChecker.ts";
+import { generateCartSummary } from "../htmlGenerators/cartSummaryHTML.ts";
 
 export async function renderOrderSummary() {
   const checkoutCart = getCart();
@@ -20,7 +20,7 @@ export async function renderOrderSummary() {
   checkoutCart.forEach((cartItem) => {
     const matchingProduct = getMatchingProduct(products, cartItem.productId);
     checkTruthy(matchingProduct);
-    const cartSummaryHTML = generateOrderHTML(matchingProduct, cartItem);
+    const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
     orderSummary.insertAdjacentHTML("beforeend", cartSummaryHTML);
   });
 
@@ -70,11 +70,6 @@ export async function renderOrderSummary() {
       const target = <HTMLInputElement>event.target;
       checkTruthy(target, "Fail to get the event target");
       if (target.classList.contains("quantity_Input")) {
-        checkInstanceOf(
-          target,
-          HTMLInputElement,
-          "Fail to get the event target",
-        );
         quantityToAdd = Number(target.value);
       } else if (target.classList.contains("delivery-option-input")) {
         const deliveryChoiceId = target.dataset.deliveryChoiceId;
