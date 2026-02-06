@@ -36,6 +36,8 @@
     "build": "vite build",
     "inspect": "node-modules-inspector",
     "api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --watch ./src/api/index.ts",
-    "check:watch": "tsgo --noEmit --watch"
+    "check:watch": "tsgo --noEmit --watch",
+    "caddy": "caddy run",
+    "preview": "vite"
   }
 }
