@@ -51,12 +51,12 @@ describe("test suite: addToOrders", () => {
     },
   );
 
-  test.concurrent("get time string from ISO time", ({ expect }) => {
+  test.concurrent("get time string from ISO time", async ({ expect }) => {
     const ISOOrderTime = Temporal.Now.instant().toJSON();
     const orderTime = Temporal.Instant.from(ISOOrderTime).toLocaleString(
       "en-US",
       dateFormatOption,
     );
-    expect(getTimeString(ISOOrderTime)).toBe(orderTime);
+    expect(await getTimeString(ISOOrderTime)).toBe(orderTime);
   });
 });

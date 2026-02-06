@@ -9,7 +9,7 @@ import {
 } from "../../../src/data/products";
 import { external } from "../../../src/data/axios";
 import { Cart } from "../../../src/data/cart";
-import correctRawProducts from "../../../src/api/products.json";
+import correctRawProducts from "../../products.json";
 
 const correctRawProduct: RawProduct = {
   id: "sMmsZ",

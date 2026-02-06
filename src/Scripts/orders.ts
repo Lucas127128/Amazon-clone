@@ -5,6 +5,7 @@ import { getTimeString, Order } from "../data/orders.ts";
 import { checkTruthy } from "./Utils/typeChecker.ts";
 import { getDeliveryDate } from "../data/deliveryOption.ts";
 function renderPlacedOrder() {
+  localStorage.setItem("cart", JSON.stringify([]));
   const savedOrders = localStorage.getItem("orders");
   const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
   const ordersHTML = document.querySelector(".orders-grid");
@@ -53,7 +54,7 @@ function renderPlacedOrder() {
         </div>
       `;
     });
-    const orderTime = getTimeString(order.orderTime);
+    const orderTime = await getTimeString(order.orderTime);
     const placedOrderContainerHTML = html`
       <div class="order-container order-container-${order.id}">
         <div class="order-header">

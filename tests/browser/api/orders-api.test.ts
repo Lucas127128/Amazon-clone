@@ -1,5 +1,5 @@
 import { test, describe, expect } from "vitest";
-import cart from "../../../src/api/cart.json";
+import cart from "../../cart.json";
 import { getTimeString } from "../../../src/data/orders.ts";
 import { getProducts } from "../../../src/data/products.ts";
 import { Order } from "../../../src/data/orders.ts";
@@ -15,10 +15,12 @@ describe("order api test", () => {
     expect(typeof order.id).toBe("string");
   });
 
-  test.concurrent("order time test", ({ expect }) => {
+  test.concurrent("order time test", async ({ expect }) => {
     expect(typeof order.orderTime).toBe("string");
     const date = Temporal.Now.instant().toJSON();
-    expect(getTimeString(order.orderTime)).toBe(getTimeString(date));
+    expect(await getTimeString(order.orderTime)).toBe(
+      await getTimeString(date),
+    );
   });
 
   test("order products test", () => {

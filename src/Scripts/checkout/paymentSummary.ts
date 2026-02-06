@@ -22,7 +22,6 @@ export async function renderPaymentSummary() {
     try {
       const order = (await external.post("/orders", checkoutCart)).data;
       addToOrders(order);
-      localStorage.setItem("cart", JSON.stringify([]));
       location.href = "/orders.html";
     } catch (error) {
       console.error(`Unexpected network issue: ${error}`);

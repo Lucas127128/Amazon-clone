@@ -1,7 +1,7 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
-import cart from "../../src/api/cart.json";
-const order = JSON.parse(open("../../backend/api/order.json"));
+import cart from "../cart.json";
+const order = JSON.parse(open("../order.json"));
 
 export const options = {
   vus: 4400,
