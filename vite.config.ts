@@ -13,6 +13,7 @@ export default defineConfig({
       },
       plugins: [removeConsole()],
     },
+    target: "es2022",
   },
   plugins: [htmlMinifier({ minify: true })],
   server: {

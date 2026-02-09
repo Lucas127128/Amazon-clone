@@ -18,7 +18,7 @@ export const deliveryOptions = [
     deliveryDays: 1,
     priceCents: 999,
   },
-];
+] as const;
 
 export function addWeekDays(
   businessDaysToAdd: number,
@@ -41,9 +41,11 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
   weekday: "long",
   month: "long",
   day: "numeric",
-};
+} as const;
 
-export function getDeliveryDate(deliveryOptionId: string): string {
+export type deliveryOptionId = "1" | "2" | "3";
+
+export function getDeliveryDate(deliveryOptionId: deliveryOptionId): string {
   const localNow = Temporal.Now.plainDateISO();
   const deliveryDate = match(deliveryOptionId)
     .with("1", () => addWeekDays(7, localNow))
@@ -67,7 +69,9 @@ export function getPriceString(priceCents: number): string {
   return priceString;
 }
 
-export function getDeliveryPriceCents(deliveryOptionId: string): number {
+export function getDeliveryPriceCents(
+  deliveryOptionId: deliveryOptionId,
+): number {
   const deliveryFee = match(deliveryOptionId)
     .returnType<number>()
     .with("1", () => 0)

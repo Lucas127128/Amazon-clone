@@ -1,5 +1,6 @@
 import { dateFormatOption } from "./deliveryOption";
 import { Cart } from "./cart";
+import { Temporal } from "temporal-polyfill";
 
 export interface Order {
   id: string;
@@ -18,7 +19,6 @@ export function addToOrders(order: Order) {
 }
 
 export async function getTimeString(ISOOrderTime: string): Promise<string> {
-  const Temporal = (await import("temporal-polyfill")).Temporal;
   const orderTime = Temporal.Instant.from(ISOOrderTime)
     .toZonedDateTimeISO(Temporal.Now.timeZoneId())
     .toLocaleString("en-US", dateFormatOption);

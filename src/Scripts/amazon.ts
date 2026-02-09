@@ -1,4 +1,4 @@
-import { incrementAddToCart, displayCartQuantity } from "../data/cart";
+import { addToCart, displayCartQuantity } from "../data/cart";
 import { getProducts } from "../data/products";
 import { checkTruthy } from "./Utils/typeChecker";
 import { generateAmazonHTML } from "./htmlGenerators/amazonHTML";
@@ -43,7 +43,7 @@ async function renderAmazonHomePage() {
       "Fail to get the HTML element or the product id dataset is incorrect",
     );
     const quantityToAdd = parseInt(quantitySelectorHTML.value);
-    incrementAddToCart(productId, quantityToAdd);
+    addToCart(true, productId, quantityToAdd);
     displayCartQuantity("cart-quantity");
     displayAdded(productId);
   });

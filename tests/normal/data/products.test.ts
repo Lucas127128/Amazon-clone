@@ -5,10 +5,9 @@ import {
   Product,
   getMatchingRawProduct,
   fetchProducts,
-  getMatchingCart,
 } from "../../../src/data/products";
 import { external } from "../../../src/data/axios";
-import { Cart } from "../../../src/data/cart";
+import { Cart, getMatchingCart } from "../../../src/data/cart";
 import correctRawProducts from "../../products.json";
 
 const correctRawProduct: RawProduct = {

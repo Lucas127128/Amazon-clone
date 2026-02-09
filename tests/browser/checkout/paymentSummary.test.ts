@@ -21,8 +21,8 @@ document.body.innerHTML = `
 describe("test suite: Render payment summary", () => {
   beforeAll(async () => {
     localStorage.clear();
-    addToCart("59LXo", 1);
-    addToCart("Hwme8", 2);
+    addToCart(false, "59LXo", 1);
+    addToCart(false, "Hwme8", 2);
     updateDeliveryOption("59LXo", "2");
     renderPaymentSummary();
     renderOrderSummary();

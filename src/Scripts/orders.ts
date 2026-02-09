@@ -1,5 +1,5 @@
 import { getMatchingProduct, getProducts } from "../data/products.ts";
-import { incrementAddToCart, displayCartQuantity } from "../data/cart.ts";
+import { addToCart, displayCartQuantity } from "../data/cart.ts";
 import { getTimeString, Order } from "../data/orders.ts";
 import { checkTruthy } from "./Utils/typeChecker.ts";
 import {
@@ -10,7 +10,7 @@ import {
 function renderPlacedOrder() {
   localStorage.setItem("cart", JSON.stringify([]));
   const savedOrders = localStorage.getItem("orders");
-  const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
+  const orders: readonly Order[] = savedOrders ? JSON.parse(savedOrders) : [];
   const ordersHTML = document.querySelector(".orders-grid");
   checkTruthy(ordersHTML);
   orders.forEach(async (order) => {
@@ -77,7 +77,7 @@ function renderPlacedOrder() {
     );
 
     checkTruthy(productId, "Fail to get productId");
-    incrementAddToCart(productId, 1);
+    addToCart(true, productId, 1);
 
     checkTruthy(buyAgainMessageHTML);
     checkTruthy(buyAgainSuccessHTML);

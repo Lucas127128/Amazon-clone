@@ -6,7 +6,7 @@ describe.concurrent("test suite: addToCart", () => {
   });
   test("add a new product to cart", async ({ expect }) => {
     localStorage.setItem("cart", JSON.stringify([]));
-    addToCart("B8WQz", 4);
+    addToCart(false, "B8WQz", 4);
     const cart = getCart();
     expect(cart.length).toBe(1);
     expect(cart[0].productId).toBe("B8WQz");
@@ -24,7 +24,7 @@ describe.concurrent("test suite: addToCart", () => {
         },
       ]),
     );
-    addToCart("B8WQz", 4);
+    addToCart(false, "B8WQz", 4);
     const cart = getCart();
     expect(cart.length).toBe(1);
     expect(cart[0].productId).toBe("B8WQz");

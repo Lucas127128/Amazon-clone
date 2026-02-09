@@ -1,34 +1,17 @@
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
-import { Cart } from "./cart.ts";
 import { external } from "./axios.ts";
 import { AxiosInstance } from "axios";
 import { get, set } from "idb-keyval";
 
-export function getMatchingCart(
-  cart: Cart[],
+export const getMatchingProduct = (
+  products: readonly Product[],
   productId: string,
-): Cart | undefined {
-  const matchingItem = cart.find(
-    (cartItem) => cartItem.productId === productId,
-  );
-  return matchingItem;
-}
+) => products.find((product) => product.id === productId);
 
-export function getMatchingProduct(
-  products: Product[],
-  productId: string,
-): Product | undefined {
-  const matchingItem = products.find((product) => product.id === productId);
-  return matchingItem;
-}
-
-export function getMatchingRawProduct(
+export const getMatchingRawProduct = (
   products: RawProduct[],
   productId: string,
-): RawProduct | undefined {
-  const matchingItem = products.find((product) => product.id === productId);
-  return matchingItem;
-}
+) => products.find((product) => product.id === productId);
 
 interface Rating {
   stars: number;
@@ -75,7 +58,7 @@ export class Product {
 
 export async function fetchProducts(
   axiosInstance: AxiosInstance = external,
-): Promise<Product[]> {
+): Promise<readonly Product[]> {
   const clothings: string[] = (await axiosInstance.get("/clothingList")).data;
   const rawProducts: RawProduct[] = (await axiosInstance.get("/products")).data;
   const products = transformProducts(rawProducts, clothings);
@@ -85,8 +68,8 @@ export async function fetchProducts(
 export function transformProducts(
   rawProducts: RawProduct[],
   clothings: string[],
-): Product[] {
-  const products = rawProducts
+): readonly Product[] {
+  const products: readonly Product[] = rawProducts
     .sort((a, b) => {
       if (a.rating.stars === b.rating.stars) {
         return b.rating.count - a.rating.count;
@@ -100,7 +83,7 @@ export function transformProducts(
   return products;
 }
 
-export async function getProducts(): Promise<Product[]> {
+export async function getProducts(): Promise<readonly Product[]> {
   new Promise(() => {
     fetchProducts().then(async (products) => {
       set("products", products);

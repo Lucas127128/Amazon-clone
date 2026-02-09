@@ -1,41 +1,35 @@
-import { getMatchingCart } from "./products.ts";
 import { checkTruthy } from "../Scripts/Utils/typeChecker.ts";
+import { deliveryOptionId } from "./deliveryOption.ts";
 
-export function addToCart(productId: string, quantityToAdd: number) {
-  const cart = getCart();
-  const matchingItem = getMatchingCart(cart, productId);
-  if (matchingItem) {
-    matchingItem.quantity = quantityToAdd;
-  } else {
-    cart.push({
-      productId: productId,
-      quantity: quantityToAdd,
-      deliveryOptionId: "1",
-    });
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
+export const getMatchingCart = (cart: Cart[], productId: string) =>
+  cart.find((cartItem) => cartItem.productId === productId);
 
-export function incrementAddToCart(productId: string, quantityToAdd: number) {
+export function addToCart(
+  increment: boolean = false,
+  productId: string,
+  quantityToAdd: number,
+  deliveryOptionId: deliveryOptionId = "1",
+) {
   const cart = getCart();
-  const matchingItem = getMatchingCart(cart, productId);
-  if (matchingItem) {
-    matchingItem.quantity += quantityToAdd;
-  } else {
-    cart.push({
-      productId: productId,
-      quantity: quantityToAdd,
-      deliveryOptionId: "1",
-    });
-  }
+  const matchingCart = getMatchingCart(cart, productId);
+  matchingCart
+    ? increment
+      ? (matchingCart.quantity += quantityToAdd)
+      : (matchingCart.quantity = quantityToAdd)
+    : cart.push({
+        productId: productId,
+        quantity: quantityToAdd,
+        deliveryOptionId: deliveryOptionId,
+      });
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 export interface Cart {
   productId: string;
   quantity: number;
-  deliveryOptionId: string;
+  deliveryOptionId: deliveryOptionId;
 }
+
 export function removeFromCart(productId: string) {
   const cart: Cart[] = getCart().filter(
     (cartItem: Cart) => cartItem.productId !== productId,
@@ -45,7 +39,7 @@ export function removeFromCart(productId: string) {
 
 export function updateDeliveryOption(
   productId: string,
-  deliveryOptionId: string,
+  deliveryOptionId: deliveryOptionId,
 ) {
   const cart = getCart();
   const matchingItem = getMatchingCart(cart, productId);

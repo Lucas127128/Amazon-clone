@@ -7,7 +7,7 @@ import {
 } from "../../data/cart.ts";
 import { getMatchingProduct, getProducts } from "../../data/products.ts";
 import { renderPaymentSummary } from "./paymentSummary.ts";
-import { checkTruthy } from "../Utils/typeChecker.ts";
+import { checkTruthy, isDeliveryOptionId } from "../Utils/typeChecker.ts";
 import { generateCartSummary } from "../htmlGenerators/cartSummaryHTML.ts";
 
 export async function renderOrderSummary() {
@@ -59,7 +59,7 @@ export async function renderOrderSummary() {
       if (target.classList.contains("update-quantity-link")) {
         handleUpdateQuantity(target, productId);
       } else if (target.classList.contains("save-quantity-link")) {
-        addToCart(productId, quantityToAdd);
+        addToCart(false, productId, quantityToAdd);
         renderCart();
       } else if (target.classList.contains("delete-quantity-link")) {
         removeFromCart(productId);
@@ -73,7 +73,7 @@ export async function renderOrderSummary() {
         quantityToAdd = Number(target.value);
       } else if (target.classList.contains("delivery-option-input")) {
         const deliveryChoiceId = target.dataset.deliveryChoiceId;
-        checkTruthy(
+        isDeliveryOptionId(
           deliveryChoiceId,
           "Fail to get productId from HTML dataset",
         );

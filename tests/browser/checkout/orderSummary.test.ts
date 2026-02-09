@@ -8,7 +8,10 @@ import {
 import { getDeliveryDate } from "../../../src/data/deliveryOption.ts";
 import { renderOrderSummary } from "../../../src/Scripts/checkout/cartSummary.ts";
 import sleep from "../../../src/Scripts/Utils/sleep.ts";
-import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
+import {
+  checkTruthy,
+  isDeliveryOptionId,
+} from "../../../src/Scripts/Utils/typeChecker.ts";
 
 document.body.innerHTML = `
 <div class="test-container">
@@ -20,8 +23,8 @@ document.body.innerHTML = `
 describe("test suite: Render order summary", () => {
   beforeEach(async () => {
     localStorage.clear();
-    addToCart("59LXo", 1);
-    addToCart("Hwme8", 2);
+    addToCart(false, "59LXo", 1);
+    addToCart(false, "Hwme8", 2);
 
     await renderOrderSummary();
   });
@@ -48,7 +51,9 @@ describe("test suite: Render order summary", () => {
       });
 
       test.concurrent("delivery date", ({ expect }) => {
-        updateDeliveryOption(productId, String(cartOrder + 1));
+        const deliveryOptionId = String(cartOrder + 1);
+        isDeliveryOptionId(deliveryOptionId);
+        updateDeliveryOption(productId, deliveryOptionId);
         renderOrderSummary();
         const updatedCheckoutCart = getCart();
         const deliveryDate = getDeliveryDate(
@@ -58,7 +63,7 @@ describe("test suite: Render order summary", () => {
           `.delivery-date-${productId}`,
         );
         checkTruthy(deliveryDateHTML);
-        expect(deliveryDateHTML.innerHTML).toContain(deliveryDate);
+        expect(deliveryDateHTML.textContent).toContain(deliveryDate);
       });
 
       test.concurrent("products price", async ({ expect }) => {
