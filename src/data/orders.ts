@@ -1,6 +1,6 @@
 import { dateFormatOption } from "./deliveryOption";
 import { Cart } from "./cart";
-import { Temporal } from "temporal-polyfill";
+import { Temporal } from "temporal-polyfill-lite";
 
 export interface Order {
   id: string;

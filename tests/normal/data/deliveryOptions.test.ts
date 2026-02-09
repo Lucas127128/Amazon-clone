@@ -5,6 +5,7 @@ import {
   deliveryOptions,
   getPriceString,
   getDeliveryPriceCents,
+  deliveryOptionId,
 } from "../../../src/data/deliveryOption";
 import { Temporal } from "temporal-polyfill";
 import { match } from "ts-pattern";
@@ -49,7 +50,7 @@ describe("Delivery time test", () => {
         .otherwise(() => {
           throw new Error(`deliveryOptionId ${deliveryOption.id} is not valid`);
         });
-      const deliveryDate = getDeliveryDate(`${index + 1}`);
+      const deliveryDate = getDeliveryDate(`${index + 1}` as deliveryOptionId);
       expect(deliveryDate).toBe(correctDeliveryDate);
     }
   });

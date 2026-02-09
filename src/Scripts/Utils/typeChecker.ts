@@ -1,5 +1,7 @@
 import { match, P } from "ts-pattern";
-import { deliveryOptionId } from "../../data/cart";
+import { deliveryOptionId } from "../../data/deliveryOption";
+import { Order } from "../../data/orders";
+
 export function checkInstanceOf(
   variable: unknown,
   expectInstance: any,
@@ -55,5 +57,25 @@ export function isDeliveryOptionId(
     ${customMessage}:
     variable ${variable} is not deliveryOptionId
     `);
+  }
+}
+
+export function isOrder(
+  variable: any | unknown,
+  customMessage: string = "Error",
+): asserts variable is Order {
+  const error = new Error(`
+  ${customMessage}:
+  variable ${variable} is not deliveryOptionId
+  `);
+
+  if (typeof variable.id !== "string") {
+    throw error;
+  } else if (typeof variable.orderTime !== "string") {
+    throw error;
+  } else if (typeof variable.totalCostCents !== "number") {
+    throw error;
+  } else if (!Array.isArray(variable.products)) {
+    throw error;
   }
 }

@@ -6,7 +6,7 @@ import {
   getMatchingRawProduct,
   fetchProducts,
 } from "../../../src/data/products";
-import { external } from "../../../src/data/axios";
+import { kyExternal } from "../../../src/data/ky";
 import { Cart, getMatchingCart } from "../../../src/data/cart";
 import correctRawProducts from "../../products.json";
 
@@ -20,14 +20,14 @@ const correctRawProduct: RawProduct = {
 };
 describe("Get matching item", async () => {
   test.concurrent("get matching products", async ({ expect }) => {
-    const products = await fetchProducts(external);
+    const products = await fetchProducts(kyExternal);
     const matchingProduct = getMatchingProduct(products, "sMmsZ");
     const correctProduct = new Product(correctRawProduct, false);
     expect(matchingProduct).toEqual(correctProduct);
   });
 
   test.concurrent("get matching raw product", async ({ expect }) => {
-    const products = (await external.get("/products")).data;
+    const products: RawProduct[] = await kyExternal.get("products").json();
     const matchingProduct = getMatchingRawProduct(products, "sMmsZ");
     expect(matchingProduct).toEqual(correctRawProduct);
   });

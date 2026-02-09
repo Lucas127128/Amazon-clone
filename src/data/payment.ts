@@ -12,7 +12,10 @@ export interface Prices {
   totalOrderPrice: number;
 }
 
-export function calculatePrices(cart: Cart[], products: Product[]): Prices {
+export function calculatePrices(
+  cart: Cart[],
+  products: readonly Product[],
+): Prices {
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;

@@ -1,14 +1,17 @@
 import { test, describe, expect } from "vitest";
-import cart from "../../cart.json";
+import cartJSON from "../../cart.json";
 import { getTimeString } from "../../../src/data/orders.ts";
 import { getProducts } from "../../../src/data/products.ts";
 import { Order } from "../../../src/data/orders.ts";
-import { external } from "../../../src/data/axios.ts";
+import { kyExternal } from "../../../src/data/ky.ts";
 import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
 import { Temporal } from "temporal-polyfill";
 import { calculatePrices } from "../../../src/data/payment.ts";
+import { Cart } from "../../../src/data/cart.ts";
 
-const order: Order = (await external.post("/orders", cart)).data;
+const cart = cartJSON as Cart[];
+
+const order: Order = await kyExternal.post("orders", { json: cartJSON }).json();
 
 describe("order api test", () => {
   test.concurrent("order id test", ({ expect }) => {

@@ -1,6 +1,6 @@
+import { KyInstance } from "ky";
 import { formatCurrency } from "../Scripts/Utils/Money.ts";
-import { external } from "./axios.ts";
-import { AxiosInstance } from "axios";
+import { kyExternal } from "./ky.ts";
 import { get, set } from "idb-keyval";
 
 export const getMatchingProduct = (
@@ -57,10 +57,10 @@ export class Product {
 }
 
 export async function fetchProducts(
-  axiosInstance: AxiosInstance = external,
+  kyInstance: KyInstance = kyExternal,
 ): Promise<readonly Product[]> {
-  const clothings: string[] = (await axiosInstance.get("/clothingList")).data;
-  const rawProducts: RawProduct[] = (await axiosInstance.get("/products")).data;
+  const clothings: string[] = await kyInstance("clothingList").json();
+  const rawProducts: RawProduct[] = await kyInstance("products").json();
   const products = transformProducts(rawProducts, clothings);
   return products;
 }

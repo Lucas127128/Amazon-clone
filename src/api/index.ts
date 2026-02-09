@@ -3,12 +3,12 @@ import { cors } from "@elysiajs/cors";
 import { fetchProducts } from "../data/products.ts";
 import { productsPlugin } from "./products.ts";
 import { orderPlugin } from "./orders.ts";
-import { internal } from "../data/axios.ts";
+import { kyInternal } from "../data/ky.ts";
 import { Temporal } from "temporal-polyfill";
 
 export async function loadProducts() {
   try {
-    await fetchProducts(internal);
+    await fetchProducts(kyInternal);
   } catch (error) {
     console.log(error);
   }

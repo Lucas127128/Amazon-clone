@@ -1,4 +1,4 @@
-import { Temporal } from "temporal-polyfill";
+import { Temporal } from "temporal-polyfill-lite";
 import { match } from "ts-pattern";
 import { formatCurrency } from "../Scripts/Utils/Money";
 
