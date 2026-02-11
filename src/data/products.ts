@@ -85,9 +85,15 @@ export function transformProducts(
 
 export async function getProducts(): Promise<readonly Product[]> {
   new Promise(() => {
-    fetchProducts().then(async (products) => {
-      set("products", products);
-    });
+    fetchProducts()
+      .then(async (products) => {
+        await set("products", products);
+      })
+      .catch((error) => {
+        console.error(`Unexpected promise error: ${error}`);
+      });
+  }).catch((error) => {
+    console.error(`Unexpected promise error: ${error}`);
   });
   const products = (await get("products")) || (await fetchProducts());
   return products;

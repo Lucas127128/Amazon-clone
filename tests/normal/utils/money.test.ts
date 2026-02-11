@@ -1,4 +1,4 @@
-import { test, describe, vi, expect, bench, expectTypeOf } from "vitest";
+import { test, describe, expectTypeOf } from "vitest";
 import { formatCurrency } from "../../../src/Scripts/Utils/Money.ts";
 
 describe.concurrent("test suite: FormatCurrency", () => {
@@ -26,7 +26,7 @@ describe.concurrent("test suite: FormatCurrency", () => {
     expect(formatCurrency("money" as any)).toBe("NaN");
   });
 
-  test("return string", async ({ expect }) => {
+  test("return string", async () => {
     expectTypeOf(formatCurrency("2095" as any)).toBeString();
   });
 });

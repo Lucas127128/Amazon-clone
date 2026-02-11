@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "vitest";
+import { beforeEach, describe, test } from "vitest";
 import { addToCart, getCart } from "../../../src/data/cart.ts";
 describe.concurrent("test suite: addToCart", () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { expect, test, describe, beforeEach } from "vitest";
+import { test, describe, beforeEach } from "vitest";
 import { getMatchingProduct, getProducts } from "../../../src/data/products.ts";
 import {
   addToCart,
@@ -50,11 +50,11 @@ describe("test suite: Render order summary", () => {
         );
       });
 
-      test.concurrent("delivery date", ({ expect }) => {
+      test.concurrent("delivery date", async ({ expect }) => {
         const deliveryOptionId = String(cartOrder + 1);
         isDeliveryOptionId(deliveryOptionId);
         updateDeliveryOption(productId, deliveryOptionId);
-        renderOrderSummary();
+        await renderOrderSummary();
         const updatedCheckoutCart = getCart();
         const deliveryDate = getDeliveryDate(
           updatedCheckoutCart[cartOrder].deliveryOptionId,

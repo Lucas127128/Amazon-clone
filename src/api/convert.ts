@@ -7,4 +7,4 @@ newProducts.map((newProduct) => {
 });
 
 // console.log(newProducts);
-Bun.write("./rawProducts.json", JSON.stringify(newProducts));
+await Bun.write("./rawProducts.json", JSON.stringify(newProducts));

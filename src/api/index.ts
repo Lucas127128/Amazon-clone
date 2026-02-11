@@ -1,4 +1,4 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { fetchProducts } from "../data/products.ts";
 import { productsPlugin } from "./products.ts";
@@ -14,13 +14,8 @@ export async function loadProducts() {
   }
 }
 
-class Time {
-  get(value: string) {
-    return Temporal.PlainTime.toString();
-  }
-}
 const app = new Elysia()
-  .onAfterResponse(({ request, response, set }) => {
+  .onAfterResponse(({ set }) => {
     console.log(set.status);
   })
   .use(
@@ -37,7 +32,7 @@ const app = new Elysia()
   )
   .use(productsPlugin)
   .use(orderPlugin)
-  .decorate("getTime", new Time())
+  .decorate("getTime", Temporal.PlainTime.toString())
   .get("/", () => "Hello Elysia")
   .listen(3000);
 

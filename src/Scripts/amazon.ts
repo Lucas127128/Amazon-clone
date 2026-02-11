@@ -50,11 +50,11 @@ async function renderAmazonHomePage() {
   displayCartQuantity("cart-quantity");
 }
 
-async function loadPage() {
-  try {
-    renderAmazonHomePage();
-  } catch (error) {
-    console.error(`unexpected network error: ${error}`);
-  }
+function loadPage() {
+  Promise.try(() => {
+    return renderAmazonHomePage();
+  }).catch((error) => {
+    console.error(`unexpected error: ${error}`);
+  });
 }
 loadPage();

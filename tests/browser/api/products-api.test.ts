@@ -3,7 +3,6 @@ import productsJSON from "../../../src/api/rawProducts.json";
 import clothingList from "../../../src/api/clothing.json";
 import {
   fetchProducts,
-  Product,
   transformProducts,
 } from "../../../src/data/products.ts";
 

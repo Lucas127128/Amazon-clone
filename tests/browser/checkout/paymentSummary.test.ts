@@ -24,8 +24,8 @@ describe("test suite: Render payment summary", () => {
     addToCart(false, "59LXo", 1);
     addToCart(false, "Hwme8", 2);
     updateDeliveryOption("59LXo", "2");
-    renderPaymentSummary();
-    renderOrderSummary();
+    await renderPaymentSummary();
+    await renderOrderSummary();
   });
 
   afterAll(() => {

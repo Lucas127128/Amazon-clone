@@ -6,9 +6,9 @@ import {
   displayCartQuantity,
 } from "../../data/cart.ts";
 import { getMatchingProduct, getProducts } from "../../data/products.ts";
-import { renderPaymentSummary } from "./paymentSummary.ts";
 import { checkTruthy, isDeliveryOptionId } from "../Utils/typeChecker.ts";
 import { generateCartSummary } from "../htmlGenerators/cartSummaryHTML.ts";
+import { loadPage } from "../checkout.ts";
 
 export async function renderOrderSummary() {
   const checkoutCart = getCart();
@@ -25,11 +25,6 @@ export async function renderOrderSummary() {
   });
 
   displayCartQuantity("return-to-home-link", " items");
-
-  function renderCart() {
-    renderOrderSummary();
-    renderPaymentSummary();
-  }
 
   function handleUpdateQuantity(target: HTMLElement, productId: string) {
     const quantityInputHTML = target?.parentElement?.querySelector(
@@ -60,10 +55,10 @@ export async function renderOrderSummary() {
         handleUpdateQuantity(target, productId);
       } else if (target.classList.contains("save-quantity-link")) {
         addToCart(false, productId, quantityToAdd);
-        renderCart();
+        loadPage();
       } else if (target.classList.contains("delete-quantity-link")) {
         removeFromCart(productId);
-        renderCart();
+        loadPage();
       }
     });
     cartItemContainer.addEventListener("change", (event) => {
@@ -78,7 +73,7 @@ export async function renderOrderSummary() {
           "Fail to get productId from HTML dataset",
         );
         updateDeliveryOption(productId, deliveryChoiceId);
-        renderCart();
+        loadPage();
       }
     });
   });

@@ -1,13 +1,12 @@
 import { renderOrderSummary } from "./checkout/cartSummary.ts";
 import { renderPaymentSummary } from "./checkout/paymentSummary.ts";
 
-async function loadPage() {
-  try {
-    renderOrderSummary();
-    renderPaymentSummary();
-  } catch (error) {
+export function loadPage() {
+  Promise.try(() => {
+    return Promise.all([renderOrderSummary(), renderPaymentSummary()]);
+  }).catch((error) => {
     console.error(`unexpected network error: ${error}`);
-  }
+  });
 }
 loadPage();
 // Promise.all([

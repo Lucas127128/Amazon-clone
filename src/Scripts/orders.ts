@@ -86,11 +86,11 @@ function renderPlacedOrder() {
   displayCartQuantity("cart-quantity");
 }
 
-async function loadPage() {
-  try {
+function loadPage() {
+  Promise.try(() => {
     renderPlacedOrder();
-  } catch (error) {
+  }).catch((error) => {
     console.error(`unexpected network error: ${error}`);
-  }
+  });
 }
 loadPage();

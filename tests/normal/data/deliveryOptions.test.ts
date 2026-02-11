@@ -1,4 +1,4 @@
-import { describe, test, vi, beforeAll, expect } from "vitest";
+import { describe, test, vi, beforeAll } from "vitest";
 import {
   addWeekDays,
   getDeliveryDate,

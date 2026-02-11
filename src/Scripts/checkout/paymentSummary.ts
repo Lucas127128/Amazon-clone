@@ -1,6 +1,6 @@
-import { addToOrders } from "../../data/orders.ts";
+import { addToOrders, Order } from "../../data/orders.ts";
 import { getCart } from "../../data/cart.ts";
-import { checkTruthy, isOrder } from "../Utils/typeChecker.ts";
+import { checkTruthy } from "../Utils/typeChecker.ts";
 import { kyExternal } from "../../data/ky.ts";
 import { calculatePrices } from "../../data/payment.ts";
 import { getProducts } from "../../data/products.ts";
@@ -19,16 +19,15 @@ export async function renderPaymentSummary() {
   const placeOrderHTML = document.querySelector(".place-order-button");
   checkTruthy(placeOrderHTML, "Fail to get the HTML element");
   placeOrderHTML.addEventListener("click", async () => {
-    try {
-      const order = await kyExternal
+    Promise.try(async () => {
+      const order: Order = await kyExternal
         .post("orders", { json: checkoutCart })
         .json();
       checkTruthy(order);
-      isOrder(order);
       addToOrders(order);
       location.href = "/orders.html";
-    } catch (error) {
-      console.error(`Unexpected network issue: ${error}`);
-    }
+    }).catch((error) => {
+      console.error(`Unexpected promise error: ${error}`);
+    });
   });
 }
