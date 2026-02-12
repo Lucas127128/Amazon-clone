@@ -68,7 +68,7 @@ function renderPlacedOrder() {
       buyAgainButton = <HTMLButtonElement>buyAgainButton.parentElement;
     }
 
-    const productId = buyAgainButton.dataset.productId;
+    const { productId } = buyAgainButton.dataset;
     const buyAgainSuccessHTML = buyAgainButton.querySelector(
       `span.buy-again-success-${productId}`,
     );

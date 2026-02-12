@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import htmlMinifier from "vite-plugin-html-minifier";
 import removeConsole from "vite-plugin-remove-console";
+import TurboConsole from "unplugin-turbo-console/vite";
 // import { DevTools } from "@vitejs/devtools";
 
 export default defineConfig({
@@ -17,8 +18,16 @@ export default defineConfig({
     },
     target: "es2022",
   },
-  plugins: [htmlMinifier({ minify: true }) /* DevTools()*/],
-  server: {
+  plugins: [
+    htmlMinifier({ minify: true }),
+    TurboConsole({
+      highlight: {
+        extendedPathFileNames: ["index", "checkout", "order", "tracking"],
+        themeDetect: true,
+      },
+    }),
+  ],
+  /* DevTools()*/ server: {
     port: 5174,
   },
 });

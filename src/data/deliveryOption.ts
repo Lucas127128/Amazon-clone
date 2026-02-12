@@ -29,7 +29,7 @@ export function addWeekDays(
   const duration = Temporal.Duration.from({ hours: 24 });
   while (daysAdded < businessDaysToAdd) {
     currentTime = currentTime.add(duration);
-    const dayOfWeek = currentTime.dayOfWeek;
+    const { dayOfWeek } = currentTime;
     if (dayOfWeek !== 6 && dayOfWeek !== 7) {
       daysAdded++;
     }

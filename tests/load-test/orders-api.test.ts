@@ -16,7 +16,7 @@ export default function () {
       "Content-Type": "application/json",
     },
   };
-  let res = http.post(url, payload, params);
+  const res = http.post(url, payload, params);
   if (cart && order) {
     check(res, {
       "status is 200": (res) => res.body === JSON.stringify(order),

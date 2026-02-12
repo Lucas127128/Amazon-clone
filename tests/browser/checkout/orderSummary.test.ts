@@ -38,7 +38,7 @@ describe("test suite: Render order summary", () => {
 
     const checkoutCart = getCart();
     checkoutCart.forEach(async (cartItem, cartOrder) => {
-      const productId = cartItem.productId;
+      const { productId } = cartItem;
 
       test.concurrent("display cart quantity", ({ expect }) => {
         const quantityHTML = document.querySelector(

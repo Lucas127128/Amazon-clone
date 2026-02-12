@@ -95,6 +95,9 @@ export async function getProducts(): Promise<readonly Product[]> {
   }).catch((error) => {
     console.error(`Unexpected promise error: ${error}`);
   });
-  const products = (await get("products")) || (await fetchProducts());
+  const products: readonly Product[] =
+    (await get("products")) || (await fetchProducts());
   return products;
 }
+
+console.log("123");

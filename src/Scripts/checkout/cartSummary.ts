@@ -43,7 +43,7 @@ export async function renderOrderSummary() {
     ".cart-item-container",
   );
   cartItemContainers.forEach((cartItemContainer) => {
-    const productId = cartItemContainer.dataset.productId;
+    const { productId } = cartItemContainer.dataset;
     checkTruthy(productId, "Fail to get productId from dataset");
     let quantityToAdd = 0;
 
@@ -67,7 +67,7 @@ export async function renderOrderSummary() {
       if (target.classList.contains("quantity_Input")) {
         quantityToAdd = Number(target.value);
       } else if (target.classList.contains("delivery-option-input")) {
-        const deliveryChoiceId = target.dataset.deliveryChoiceId;
+        const { deliveryChoiceId } = target.dataset;
         isDeliveryOptionId(
           deliveryChoiceId,
           "Fail to get productId from HTML dataset",

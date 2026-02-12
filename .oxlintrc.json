@@ -3,8 +3,20 @@
   "plugins": null,
   "categories": {},
   "rules": {
-    "no-unused-expressions": ["error", { "allowTernary": true }],
-    "no-param-reassign": "warn"
+    "no-unused-expressions": ["warn", { "allowTernary": true }],
+    "no-param-reassign": "error",
+    "prefer-const": "warn",
+    "no-var": "error",
+    "no-object-constructor": "warn",
+    "no-prototype-builtins": "warn",
+    "prefer-object-spread": "error",
+    "no-array-constructor": "warn",
+    "array-callback-return": "error",
+    "prefer-destructuring": "warn",
+    "prefer-template": "warn",
+    "no-eval": "error",
+    "import/no-cycle": ["error", { "maxDepth": 3 }],
+    "no-useless-escape": "warn"
   },
   "settings": {
     "vitest": {
@@ -14,6 +26,10 @@
   "env": {
     "builtin": true
   },
-  "globals": {},
-  "ignorePatterns": []
+  "ignorePatterns": [
+    "src/data/cart-class.js",
+    "src/data/cart-oop.js",
+    "vitest-example/HelloWorld.js",
+    "vitest-example/HelloWorld.test.js"
+  ]
 }

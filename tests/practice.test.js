@@ -1,7 +1,7 @@
 import { expect, test, vi } from "vitest";
 import { Window } from "happy-dom";
 const window = new Window();
-const document = window.document;
+const { document } = window;
 test("mocking practice", async ({ expect }) => {
   let apples = 0;
   const cart = {

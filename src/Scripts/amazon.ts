@@ -28,7 +28,7 @@ async function renderAmazonHomePage() {
       return;
     }
 
-    const productId = button.dataset.productId;
+    const { productId } = button.dataset;
     const productContainer = button.parentElement;
     const quantitySelectorHTML =
       productContainer?.querySelector<HTMLInputElement>(

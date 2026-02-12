@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 const newProducts = [...products];
 newProducts.map((newProduct) => {
   newProduct.id = nanoid(5);
+  return newProduct;
 });
 
 // console.log(newProducts);
