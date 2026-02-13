@@ -1,15 +1,15 @@
-import { Cart } from "../../data/cart";
-import { Product } from "../../data/products";
+import { Cart } from '../../data/cart';
+import { Product } from '../../data/products';
 import {
   deliveryOptions,
   getDeliveryDate,
   getPriceString,
-} from "../../data/deliveryOption";
+} from '../../data/deliveryOption';
 
 const html = String.raw;
 
 function deliveryOptionsHTML(matchingProductId: string): string {
-  let deliveryOptionsHTML = "";
+  let deliveryOptionsHTML = '';
   deliveryOptions.forEach((deliveryOptions) => {
     const deliveryDate = getDeliveryDate(deliveryOptions.id);
     const priceString = getPriceString(deliveryOptions.priceCents);

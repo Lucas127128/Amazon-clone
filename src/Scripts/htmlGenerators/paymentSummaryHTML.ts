@@ -1,5 +1,5 @@
-import { Prices } from "../../data/payment";
-import { formatCurrency } from "../Utils/Money";
+import { Prices } from '../../data/payment';
+import { formatCurrency } from '../Utils/Money';
 
 export function generatePaymentSummary(prices: Prices): string {
   const html = String.raw;

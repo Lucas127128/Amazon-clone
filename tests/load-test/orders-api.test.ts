@@ -1,25 +1,25 @@
-import http from "k6/http";
-import { sleep, check } from "k6";
-import cart from "../cart.json";
-const order = JSON.parse(open("../order.json"));
+import http from 'k6/http';
+import { sleep, check } from 'k6';
+import cart from '../cart.json';
+const order = JSON.parse(open('../order.json'));
 
 export const options = {
   vus: 4400,
-  duration: "30s",
+  duration: '30s',
 };
 
 export default function () {
-  const url = "https://localhost:3001/orders";
+  const url = 'https://localhost:3001/orders';
   const payload = JSON.stringify(cart);
   const params = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   const res = http.post(url, payload, params);
   if (cart && order) {
     check(res, {
-      "status is 200": (res) => res.body === JSON.stringify(order),
+      'status is 200': (res) => res.body === JSON.stringify(order),
     });
   }
   sleep(1);

@@ -1,4 +1,4 @@
-import { Product } from "../../data/products";
+import { Product } from '../../data/products';
 export function generateAmazonHTML(product: Product): string {
   const html = String.raw;
   const productHTML = html`

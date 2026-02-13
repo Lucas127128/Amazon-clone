@@ -1,4 +1,4 @@
-import { describe, test, vi, beforeAll } from "vitest";
+import { describe, test, vi, beforeAll } from 'vitest';
 import {
   addWeekDays,
   getDeliveryDate,
@@ -6,23 +6,23 @@ import {
   getPriceString,
   getDeliveryPriceCents,
   deliveryOptionId,
-} from "../../../src/data/deliveryOption";
-import { Temporal } from "temporal-polyfill";
-import { match } from "ts-pattern";
+} from '../../../src/data/deliveryOption';
+import { Temporal } from 'temporal-polyfill';
+import { match } from 'ts-pattern';
 
-describe("Delivery time test", () => {
+describe('Delivery time test', () => {
   beforeAll(() => {
-    const fakeTime = new Date("2026-02-09T16:00:00.000");
+    const fakeTime = new Date('2026-02-09T16:00:00.000');
     vi.useFakeTimers();
     vi.setSystemTime(fakeTime);
   });
-  test.concurrent("addWeekDays", ({ expect }) => {
+  test.concurrent('addWeekDays', ({ expect }) => {
     for (const [index, deliveryOption] of deliveryOptions.entries()) {
       const correctAddedDate = match(deliveryOption.id)
         .returnType<string>()
-        .with("1", () => "2026-02-18")
-        .with("2", () => "2026-02-12")
-        .with("3", () => "2026-02-10")
+        .with('1', () => '2026-02-18')
+        .with('2', () => '2026-02-12')
+        .with('3', () => '2026-02-10')
         .otherwise(() => {
           throw new Error(
             `deliveryOptionId ${deliveryOption.id} is not valid`,
@@ -42,13 +42,13 @@ describe("Delivery time test", () => {
     }
   });
 
-  test.concurrent("getDeliveryDate", ({ expect }) => {
+  test.concurrent('getDeliveryDate', ({ expect }) => {
     for (const [index, deliveryOption] of deliveryOptions.entries()) {
       const correctDeliveryDate = match(deliveryOption.id)
         .returnType<string>()
-        .with("1", () => "Wednesday, February 18")
-        .with("2", () => "Thursday, February 12")
-        .with("3", () => "Tuesday, February 10")
+        .with('1', () => 'Wednesday, February 18')
+        .with('2', () => 'Thursday, February 12')
+        .with('3', () => 'Tuesday, February 10')
         .otherwise(() => {
           throw new Error(
             `deliveryOptionId ${deliveryOption.id} is not valid`,
@@ -62,16 +62,16 @@ describe("Delivery time test", () => {
   });
 });
 
-describe("Delivery price test", () => {
-  test.concurrent("getPriceString", ({ expect }) => {
-    expect(getPriceString(0)).toBe("FREE - ");
-    expect(getPriceString(499)).toBe("$4.99 - ");
-    expect(getPriceString(999)).toBe("$9.99 - ");
+describe('Delivery price test', () => {
+  test.concurrent('getPriceString', ({ expect }) => {
+    expect(getPriceString(0)).toBe('FREE - ');
+    expect(getPriceString(499)).toBe('$4.99 - ');
+    expect(getPriceString(999)).toBe('$9.99 - ');
   });
 
-  test.concurrent("getDeliveryPriceCents", ({ expect }) => {
-    expect(getDeliveryPriceCents("1")).toBe(0);
-    expect(getDeliveryPriceCents("2")).toBe(499);
-    expect(getDeliveryPriceCents("3")).toBe(999);
+  test.concurrent('getDeliveryPriceCents', ({ expect }) => {
+    expect(getDeliveryPriceCents('1')).toBe(0);
+    expect(getDeliveryPriceCents('2')).toBe(499);
+    expect(getDeliveryPriceCents('3')).toBe(999);
   });
 });

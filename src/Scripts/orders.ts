@@ -1,22 +1,22 @@
-import { getMatchingProduct, getProducts } from "../data/products.ts";
-import { addToCart, displayCartQuantity } from "../data/cart.ts";
-import { getTimeString, Order } from "../data/orders.ts";
-import { checkTruthy } from "./Utils/typeChecker.ts";
+import { getMatchingProduct, getProducts } from '../data/products.ts';
+import { addToCart, displayCartQuantity } from '../data/cart.ts';
+import { getTimeString, Order } from '../data/orders.ts';
+import { checkTruthy } from './Utils/typeChecker.ts';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
-} from "./htmlGenerators/ordersHTML.ts";
+} from './htmlGenerators/ordersHTML.ts';
 
 function renderPlacedOrder() {
-  localStorage.setItem("cart", JSON.stringify([]));
-  const savedOrders = localStorage.getItem("orders");
+  localStorage.setItem('cart', JSON.stringify([]));
+  const savedOrders = localStorage.getItem('orders');
   const orders: readonly Order[] = savedOrders
     ? JSON.parse(savedOrders)
     : [];
-  const ordersHTML = document.querySelector(".orders-grid");
+  const ordersHTML = document.querySelector('.orders-grid');
   checkTruthy(ordersHTML);
   orders.forEach(async (order) => {
-    let placedOrderHTML = "";
+    let placedOrderHTML = '';
     const products = await getProducts();
     order.products.forEach((product) => {
       const matchingProduct = getMatchingProduct(
@@ -36,7 +36,7 @@ function renderPlacedOrder() {
       orderTime,
       placedOrderHTML,
     );
-    ordersHTML.insertAdjacentHTML("beforeend", placedOrderContainerHTML);
+    ordersHTML.insertAdjacentHTML('beforeend', placedOrderContainerHTML);
   });
 
   function displayBuyAgainMessage(
@@ -45,15 +45,15 @@ function renderPlacedOrder() {
   ): void {
     checkTruthy(buyAgainSuccessHTML);
     checkTruthy(buyAgainMessageHTML);
-    buyAgainSuccessHTML.classList.add("display-buy-again-success");
-    buyAgainMessageHTML.classList.add("hide-buy-again-message");
-    displayCartQuantity("cart-quantity");
+    buyAgainSuccessHTML.classList.add('display-buy-again-success');
+    buyAgainMessageHTML.classList.add('hide-buy-again-message');
+    displayCartQuantity('cart-quantity');
     setTimeout(() => {
-      buyAgainSuccessHTML.classList.remove("display-buy-again-success");
-      buyAgainMessageHTML.classList.remove("hide-buy-again-message");
+      buyAgainSuccessHTML.classList.remove('display-buy-again-success');
+      buyAgainMessageHTML.classList.remove('hide-buy-again-message');
     }, 1500);
   }
-  ordersHTML.addEventListener("click", (event) => {
+  ordersHTML.addEventListener('click', (event) => {
     let buyAgainButton = <HTMLButtonElement>event.target;
     /*
     The event target may be the child element inside the buy again button and
@@ -62,13 +62,13 @@ function renderPlacedOrder() {
     actual buy again button element, not the child element of it.
     */
     if (
-      !buyAgainButton.classList.contains("buy-again-button") &&
-      !buyAgainButton.parentElement?.classList.contains("buy-again-button")
+      !buyAgainButton.classList.contains('buy-again-button') &&
+      !buyAgainButton.parentElement?.classList.contains('buy-again-button')
     ) {
       return;
     } else if (
-      !buyAgainButton.classList.contains("buy-again-button") &&
-      buyAgainButton.parentElement?.classList.contains("buy-again-button")
+      !buyAgainButton.classList.contains('buy-again-button') &&
+      buyAgainButton.parentElement?.classList.contains('buy-again-button')
     ) {
       buyAgainButton = <HTMLButtonElement>buyAgainButton.parentElement;
     }
@@ -81,14 +81,14 @@ function renderPlacedOrder() {
       `span.buy-again-message-${productId}`,
     );
 
-    checkTruthy(productId, "Fail to get productId");
+    checkTruthy(productId, 'Fail to get productId');
     addToCart(true, productId, 1);
 
     checkTruthy(buyAgainMessageHTML);
     checkTruthy(buyAgainSuccessHTML);
     displayBuyAgainMessage(buyAgainMessageHTML, buyAgainSuccessHTML);
   });
-  displayCartQuantity("cart-quantity");
+  displayCartQuantity('cart-quantity');
 }
 
 function loadPage() {

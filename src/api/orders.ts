@@ -1,15 +1,15 @@
-import { Elysia } from "elysia";
-import { RawProduct, transformProducts } from "../data/products.ts";
-import { Cart } from "../data/cart.ts";
-import { Temporal } from "temporal-polyfill";
-import { calculatePrices } from "../data/payment.ts";
-import { nanoid } from "nanoid";
+import { Elysia } from 'elysia';
+import { RawProduct, transformProducts } from '../data/products.ts';
+import { Cart } from '../data/cart.ts';
+import { Temporal } from 'temporal-polyfill';
+import { calculatePrices } from '../data/payment.ts';
+import { nanoid } from 'nanoid';
 
 const rawProducts: RawProduct[] = await Bun.file(
-  "./src/api/rawProducts.json",
+  './src/api/rawProducts.json',
 ).json();
 const clothings: string[] = await Bun.file(
-  "./src/api/clothing.json",
+  './src/api/clothing.json',
 ).json();
 const products = transformProducts(rawProducts, clothings);
 
@@ -28,7 +28,7 @@ class Order {
 }
 
 export const orderPlugin = new Elysia().post(
-  "/orders",
+  '/orders',
   ({ body, request, server }) => {
     const clientIP = server?.requestIP(request)?.address;
     console.log(
@@ -37,10 +37,10 @@ export const orderPlugin = new Elysia().post(
     const order = new Order(body as Cart[]);
     return new Response(JSON.stringify(order), {
       headers: {
-        "Content-Type": "application/json; charset=utf-8",
+        'Content-Type': 'application/json; charset=utf-8',
       },
     });
   },
 );
 console.log(`🦊 Elysia is running`);
-console.log("Orders api service starts");
+console.log('Orders api service starts');

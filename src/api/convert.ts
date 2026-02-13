@@ -1,5 +1,5 @@
-import products from "./rawProducts.json";
-import { nanoid } from "nanoid";
+import products from './rawProducts.json';
+import { nanoid } from 'nanoid';
 
 const newProducts = [...products];
 newProducts.map((newProduct) => {
@@ -8,4 +8,4 @@ newProducts.map((newProduct) => {
 });
 
 // console.log(newProducts);
-await Bun.write("./rawProducts.json", JSON.stringify(newProducts));
+await Bun.write('./rawProducts.json', JSON.stringify(newProducts));

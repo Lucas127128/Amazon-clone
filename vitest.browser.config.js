@@ -1,5 +1,5 @@
-import { defineConfig } from "vitest/config";
-import { preview } from "@vitest/browser-preview";
+import { defineConfig } from 'vitest/config';
+import { preview } from '@vitest/browser-preview';
 
 export default defineConfig({
   test: {
@@ -8,8 +8,8 @@ export default defineConfig({
       provider: preview(),
       instances: [
         {
-          browser: "safari",
-          name: "my-safari-instance",
+          browser: 'safari',
+          name: 'my-safari-instance',
         },
       ],
     },

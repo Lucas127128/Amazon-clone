@@ -1,8 +1,8 @@
-import { Cart } from "../../data/cart";
-import { getDeliveryDate } from "../../data/deliveryOption";
-import { Order } from "../../data/orders";
-import { Product } from "../../data/products";
-import { formatCurrency } from "../Utils/Money";
+import { Cart } from '../../data/cart';
+import { getDeliveryDate } from '../../data/deliveryOption';
+import { Order } from '../../data/orders';
+import { Product } from '../../data/products';
+import { formatCurrency } from '../Utils/Money';
 
 const html = String.raw;
 

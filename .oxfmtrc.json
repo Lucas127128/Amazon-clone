@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "printWidth": 75,
+  "singleQuote": true,
   "ignorePatterns": []
 }

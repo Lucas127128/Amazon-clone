@@ -1,34 +1,34 @@
-import { test, describe, expect } from "vitest";
-import cartJSON from "../../cart.json";
-import { getTimeString } from "../../../src/data/orders.ts";
-import { getProducts } from "../../../src/data/products.ts";
-import { Order } from "../../../src/data/orders.ts";
-import { kyExternal } from "../../../src/data/ky.ts";
-import { checkTruthy } from "../../../src/Scripts/Utils/typeChecker.ts";
-import { Temporal } from "temporal-polyfill";
-import { calculatePrices } from "../../../src/data/payment.ts";
-import { Cart } from "../../../src/data/cart.ts";
+import { test, describe, expect } from 'vitest';
+import cartJSON from '../../cart.json';
+import { getTimeString } from '../../../src/data/orders.ts';
+import { getProducts } from '../../../src/data/products.ts';
+import { Order } from '../../../src/data/orders.ts';
+import { kyExternal } from '../../../src/data/ky.ts';
+import { checkTruthy } from '../../../src/Scripts/Utils/typeChecker.ts';
+import { Temporal } from 'temporal-polyfill';
+import { calculatePrices } from '../../../src/data/payment.ts';
+import { Cart } from '../../../src/data/cart.ts';
 
 const cart = cartJSON as Cart[];
 
 const order: Order = await kyExternal
-  .post("orders", { json: cartJSON })
+  .post('orders', { json: cartJSON })
   .json();
 
-describe("order api test", () => {
-  test.concurrent("order id test", ({ expect }) => {
-    expect(typeof order.id).toBe("string");
+describe('order api test', () => {
+  test.concurrent('order id test', ({ expect }) => {
+    expect(typeof order.id).toBe('string');
   });
 
-  test.concurrent("order time test", async ({ expect }) => {
-    expect(typeof order.orderTime).toBe("string");
+  test.concurrent('order time test', async ({ expect }) => {
+    expect(typeof order.orderTime).toBe('string');
     const date = Temporal.Now.instant().toJSON();
     expect(await getTimeString(order.orderTime)).toBe(
       await getTimeString(date),
     );
   });
 
-  test("order products test", () => {
+  test('order products test', () => {
     //test products length
     expect(cart.length).toBe(order.products.length);
 
@@ -46,11 +46,11 @@ describe("order api test", () => {
     });
 
     //test products id
-    expect(typeof matchingProduct).toBe("object");
+    expect(typeof matchingProduct).toBe('object');
   });
 
-  test.concurrent("order cost test", async ({ expect }) => {
-    expect(typeof order.totalCostCents).toBe("number");
+  test.concurrent('order cost test', async ({ expect }) => {
+    expect(typeof order.totalCostCents).toBe('number');
 
     const products = await getProducts();
     const { totalOrderPrice } = calculatePrices(cart, products);

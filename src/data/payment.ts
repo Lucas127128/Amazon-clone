@@ -1,7 +1,7 @@
-import { Cart } from "./cart";
-import { checkTruthy } from "../Scripts/Utils/typeChecker";
-import { getMatchingProduct, Product } from "./products";
-import { getDeliveryPriceCents } from "./deliveryOption";
+import { Cart } from './cart';
+import { checkTruthy } from '../Scripts/Utils/typeChecker';
+import { getMatchingProduct, Product } from './products';
+import { getDeliveryPriceCents } from './deliveryOption';
 
 export interface Prices {
   totalProductPrice: number;
@@ -21,7 +21,7 @@ export function calculatePrices(
   let cartQuantity = 0;
   cart.forEach((cartItem) => {
     const product = getMatchingProduct(products, cartItem.productId);
-    checkTruthy(product, "Fail to get matching product");
+    checkTruthy(product, 'Fail to get matching product');
     const totalPrice = product.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.quantity;

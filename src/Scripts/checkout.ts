@@ -1,5 +1,5 @@
-import { renderOrderSummary } from "./checkout/cartSummary.ts";
-import { renderPaymentSummary } from "./checkout/paymentSummary.ts";
+import { renderOrderSummary } from './checkout/cartSummary.ts';
+import { renderPaymentSummary } from './checkout/paymentSummary.ts';
 
 export function loadPage() {
   Promise.try(() => {

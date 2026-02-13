@@ -29,7 +29,7 @@ class cart {
       this.cartItems.push({
         ProductId: productId,
         Quantity: quantityToAdd,
-        deliveryOptionId: "1",
+        deliveryOptionId: '1',
       });
     }
     localStorage.setItem(
@@ -67,8 +67,8 @@ class cart {
   }
 }
 
-const Cart = new cart("local_Storage_Cart");
-const businessCart = new cart("local_Storage_business_Cart");
+const Cart = new cart('local_Storage_Cart');
+const businessCart = new cart('local_Storage_business_Cart');
 
 console.log(JSON.stringify(businessCart));
 console.log(JSON.stringify(Cart));

@@ -1,7 +1,7 @@
-import { KyInstance } from "ky";
-import { formatCurrency } from "../Scripts/Utils/Money.ts";
-import { kyExternal } from "./ky.ts";
-import { get, set } from "idb-keyval";
+import { KyInstance } from 'ky';
+import { formatCurrency } from '../Scripts/Utils/Money.ts';
+import { kyExternal } from './ky.ts';
+import { get, set } from 'idb-keyval';
 
 export const getMatchingProduct = (
   products: readonly Product[],
@@ -51,7 +51,7 @@ export class Product {
   ratingCount: number;
   priceCents: number;
   keywords: string[];
-  extraInfoHTML: string = "";
+  extraInfoHTML: string = '';
   starsUrl: string;
   price: string;
 }
@@ -59,8 +59,8 @@ export class Product {
 export async function fetchProducts(
   kyInstance: KyInstance = kyExternal,
 ): Promise<readonly Product[]> {
-  const clothings: string[] = await kyInstance("clothingList").json();
-  const rawProducts: RawProduct[] = await kyInstance("products").json();
+  const clothings: string[] = await kyInstance('clothingList').json();
+  const rawProducts: RawProduct[] = await kyInstance('products').json();
   const products = transformProducts(rawProducts, clothings);
   return products;
 }
@@ -87,7 +87,7 @@ export async function getProducts(): Promise<readonly Product[]> {
   new Promise(() => {
     fetchProducts()
       .then(async (products) => {
-        await set("products", products);
+        await set('products', products);
       })
       .catch((error) => {
         console.error(`Unexpected promise error: ${error}`);
@@ -96,7 +96,7 @@ export async function getProducts(): Promise<readonly Product[]> {
     console.error(`Unexpected promise error: ${error}`);
   });
   const products: Promise<readonly Product[]> = Promise.any([
-    get("products"),
+    get('products'),
     fetchProducts(),
   ]);
   return products;
