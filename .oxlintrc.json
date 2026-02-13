@@ -30,6 +30,7 @@
     "src/data/cart-class.js",
     "src/data/cart-oop.js",
     "vitest-example/HelloWorld.js",
-    "vitest-example/HelloWorld.test.js"
+    "vitest-example/HelloWorld.test.js",
+    "tests/practice.bench.ts"
   ]
 }

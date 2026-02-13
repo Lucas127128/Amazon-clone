@@ -18,7 +18,9 @@ export function addToOrders(order: Order) {
   localStorage.setItem("orders", JSON.stringify(orders));
 }
 
-export async function getTimeString(ISOOrderTime: string): Promise<string> {
+export async function getTimeString(
+  ISOOrderTime: string,
+): Promise<string> {
   const orderTime = Temporal.Instant.from(ISOOrderTime)
     .toZonedDateTimeISO(Temporal.Now.timeZoneId())
     .toLocaleString("en-US", dateFormatOption);

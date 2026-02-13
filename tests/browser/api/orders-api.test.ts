@@ -11,7 +11,9 @@ import { Cart } from "../../../src/data/cart.ts";
 
 const cart = cartJSON as Cart[];
 
-const order: Order = await kyExternal.post("orders", { json: cartJSON }).json();
+const order: Order = await kyExternal
+  .post("orders", { json: cartJSON })
+  .json();
 
 describe("order api test", () => {
   test.concurrent("order id test", ({ expect }) => {

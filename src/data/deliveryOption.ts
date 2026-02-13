@@ -45,7 +45,9 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
 
 export type deliveryOptionId = "1" | "2" | "3";
 
-export function getDeliveryDate(deliveryOptionId: deliveryOptionId): string {
+export function getDeliveryDate(
+  deliveryOptionId: deliveryOptionId,
+): string {
   const localNow = Temporal.Now.plainDateISO();
   const deliveryDate = match(deliveryOptionId)
     .with("1", () => addWeekDays(7, localNow))

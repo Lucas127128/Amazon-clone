@@ -61,7 +61,13 @@
     "name": "Luxury Towel Set - Graphite Gray",
     "rating": { "stars": 4.5, "count": 144 },
     "priceCents": 3599,
-    "keywords": ["bathroom", "washroom", "restroom", "towels", "bath towels"]
+    "keywords": [
+      "bathroom",
+      "washroom",
+      "restroom",
+      "towels",
+      "bath towels"
+    ]
   },
   {
     "id": "59LXo",

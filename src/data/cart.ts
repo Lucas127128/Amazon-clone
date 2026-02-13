@@ -59,7 +59,9 @@ export function displayCartQuantity(
   extraString: string = "",
 ) {
   let cartQuantity = 0;
-  const cartQuantityHTML = document.querySelector(`.${cartQuantityHTMLClass}`);
+  const cartQuantityHTML = document.querySelector(
+    `.${cartQuantityHTMLClass}`,
+  );
   const cart = getCart();
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.quantity;

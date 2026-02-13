@@ -14,7 +14,9 @@ async function renderAmazonHomePage() {
   });
 
   function displayAdded(productId: string) {
-    const addedToCart = document.querySelector(`.added-to-cart-${productId}`);
+    const addedToCart = document.querySelector(
+      `.added-to-cart-${productId}`,
+    );
     checkTruthy(addedToCart, "Fail to select HTML element");
     addedToCart.classList.add("display-added-to-cart");
     setTimeout(() => {
@@ -23,7 +25,7 @@ async function renderAmazonHomePage() {
   }
 
   productsGrid.addEventListener("click", (event) => {
-    const button = <HTMLButtonElement>event.target;
+    const button = <HTMLElement>event.target;
     if (!button.classList.contains("add-to-cart-button")) {
       return;
     }

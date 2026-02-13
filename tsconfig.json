@@ -1,16 +1,16 @@
 {
-    "compilerOptions": {
-        "noEmit": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "allowImportingTsExtensions": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "bundler",
-        "module": "esnext",
-        "target": "esnext",
-        "strict": true,
-        "skipLibCheck": true
-    }
+  "compilerOptions": {
+    "noEmit": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "esnext",
+    "strict": true,
+    "skipLibCheck": true
+  }
 }

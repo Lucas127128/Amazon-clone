@@ -10,14 +10,19 @@ import {
 function renderPlacedOrder() {
   localStorage.setItem("cart", JSON.stringify([]));
   const savedOrders = localStorage.getItem("orders");
-  const orders: readonly Order[] = savedOrders ? JSON.parse(savedOrders) : [];
+  const orders: readonly Order[] = savedOrders
+    ? JSON.parse(savedOrders)
+    : [];
   const ordersHTML = document.querySelector(".orders-grid");
   checkTruthy(ordersHTML);
   orders.forEach(async (order) => {
     let placedOrderHTML = "";
     const products = await getProducts();
     order.products.forEach((product) => {
-      const matchingProduct = getMatchingProduct(products, product.productId);
+      const matchingProduct = getMatchingProduct(
+        products,
+        product.productId,
+      );
       checkTruthy(matchingProduct);
       placedOrderHTML += generateOrdersProductHTML(
         product,

@@ -6,7 +6,11 @@ import {
   displayCartQuantity,
 } from "../../data/cart.ts";
 import { getMatchingProduct, getProducts } from "../../data/products.ts";
-import { checkTruthy, isDeliveryOptionId } from "../Utils/typeChecker.ts";
+import {
+  checkTruthy,
+  isDeliveryOptionId,
+  isHTMLInputElement,
+} from "../Utils/typeChecker.ts";
 import { generateCartSummary } from "../htmlGenerators/cartSummaryHTML.ts";
 import { loadPage } from "../checkout.ts";
 
@@ -18,7 +22,10 @@ export async function renderOrderSummary() {
   checkTruthy(orderSummary, "Fail to select HTML element");
   orderSummary.innerHTML = "";
   checkoutCart.forEach((cartItem) => {
-    const matchingProduct = getMatchingProduct(products, cartItem.productId);
+    const matchingProduct = getMatchingProduct(
+      products,
+      cartItem.productId,
+    );
     checkTruthy(matchingProduct);
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
     orderSummary.insertAdjacentHTML("beforeend", cartSummaryHTML);
@@ -49,24 +56,26 @@ export async function renderOrderSummary() {
 
     cartItemContainer.addEventListener("click", (event) => {
       const target = <HTMLElement>event.target;
-      checkTruthy(target);
+      const targetClassList = Array.from(target.classList);
 
-      if (target.classList.contains("update-quantity-link")) {
+      if (targetClassList.includes("update-quantity-link")) {
         handleUpdateQuantity(target, productId);
-      } else if (target.classList.contains("save-quantity-link")) {
+      } else if (targetClassList.includes("save-quantity-link")) {
         addToCart(false, productId, quantityToAdd);
         loadPage();
-      } else if (target.classList.contains("delete-quantity-link")) {
+      } else if (targetClassList.includes("delete-quantity-link")) {
         removeFromCart(productId);
         loadPage();
       }
     });
     cartItemContainer.addEventListener("change", (event) => {
-      const target = <HTMLInputElement>event.target;
-      checkTruthy(target, "Fail to get the event target");
-      if (target.classList.contains("quantity_Input")) {
+      const { target } = event;
+      isHTMLInputElement(target);
+      const targetClassList = Array.from(target.classList);
+
+      if (targetClassList.includes("quantity_Input")) {
         quantityToAdd = Number(target.value);
-      } else if (target.classList.contains("delivery-option-input")) {
+      } else if (targetClassList.includes("delivery-option-input")) {
         const { deliveryChoiceId } = target.dataset;
         isDeliveryOptionId(
           deliveryChoiceId,
@@ -82,10 +91,10 @@ export async function renderOrderSummary() {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
     );
-    if (!(deliveryOptionButtonHTML instanceof HTMLInputElement)) {
-      console.error("Fail to get the HTML element");
-      return;
-    }
+    isHTMLInputElement(
+      deliveryOptionButtonHTML,
+      "Fail to get the HTML element",
+    );
     deliveryOptionButtonHTML.checked = true;
   });
 }

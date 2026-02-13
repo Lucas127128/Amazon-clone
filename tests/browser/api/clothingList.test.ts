@@ -4,6 +4,8 @@ import { kyExternal } from "../../../src/data/ky";
 
 describe("clothing list api test", () => {
   test.concurrent("return right clothing list", async ({ expect }) => {
-    expect(await kyExternal.get("clothingList").json()).toEqual(clothingList);
+    expect(await kyExternal.get("clothingList").json()).toEqual(
+      clothingList,
+    );
   });
 });

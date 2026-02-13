@@ -24,7 +24,9 @@ describe("Delivery time test", () => {
         .with("2", () => "2026-02-12")
         .with("3", () => "2026-02-10")
         .otherwise(() => {
-          throw new Error(`deliveryOptionId ${deliveryOption.id} is not valid`);
+          throw new Error(
+            `deliveryOptionId ${deliveryOption.id} is not valid`,
+          );
         });
       const localNow = Temporal.Now.plainDateISO();
       const daysToAdd = match(index)
@@ -48,9 +50,13 @@ describe("Delivery time test", () => {
         .with("2", () => "Thursday, February 12")
         .with("3", () => "Tuesday, February 10")
         .otherwise(() => {
-          throw new Error(`deliveryOptionId ${deliveryOption.id} is not valid`);
+          throw new Error(
+            `deliveryOptionId ${deliveryOption.id} is not valid`,
+          );
         });
-      const deliveryDate = getDeliveryDate(`${index + 1}` as deliveryOptionId);
+      const deliveryDate = getDeliveryDate(
+        `${index + 1}` as deliveryOptionId,
+      );
       expect(deliveryDate).toBe(correctDeliveryDate);
     }
   });

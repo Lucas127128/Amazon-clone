@@ -71,9 +71,7 @@ export function generateOrderContainerHTML(
           <div>${order.id}</div>
         </div>
       </div>
-      <div class="order-details-grid order-details-grid-${
-        order.id
-      } data-order-id="${order.id}">
+      <div class="order-details-grid order-details-grid-${order.id} data-order-id="${order.id}">
       ${ordersProductHTML}
       </div>
     </div>

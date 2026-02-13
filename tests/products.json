@@ -232,7 +232,13 @@
     "name": "Luxury Towel Set - Graphite Gray",
     "ratingCount": 144,
     "priceCents": 3599,
-    "keywords": ["bathroom", "washroom", "restroom", "towels", "bath towels"],
+    "keywords": [
+      "bathroom",
+      "washroom",
+      "restroom",
+      "towels",
+      "bath towels"
+    ],
     "extraInfoHTML": "",
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "35.99"
@@ -408,7 +414,13 @@
     "name": "Ultra Soft Tissue 2-Ply - 18 Box",
     "ratingCount": 99,
     "priceCents": 2374,
-    "keywords": ["kleenex", "tissues", "kitchen", "tissues box", "napkins"],
+    "keywords": [
+      "kleenex",
+      "tissues",
+      "kitchen",
+      "tissues box",
+      "napkins"
+    ],
     "extraInfoHTML": "",
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "23.74"

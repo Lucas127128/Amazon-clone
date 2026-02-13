@@ -8,7 +8,9 @@ import { nanoid } from "nanoid";
 const rawProducts: RawProduct[] = await Bun.file(
   "./src/api/rawProducts.json",
 ).json();
-const clothings: string[] = await Bun.file("./src/api/clothing.json").json();
+const clothings: string[] = await Bun.file(
+  "./src/api/clothing.json",
+).json();
 const products = transformProducts(rawProducts, clothings);
 
 class Order {

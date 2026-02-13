@@ -4,7 +4,10 @@ import {
   updateDeliveryOption,
   getCart,
 } from "../../../src/data/cart.ts";
-import { getProducts, getMatchingProduct } from "../../../src/data/products.ts";
+import {
+  getProducts,
+  getMatchingProduct,
+} from "../../../src/data/products.ts";
 import { formatCurrency } from "../../../src/Scripts/Utils/Money.ts";
 import { renderOrderSummary } from "../../../src/Scripts/checkout/cartSummary.ts";
 import { renderPaymentSummary } from "../../../src/Scripts/checkout/paymentSummary.ts";
@@ -45,7 +48,10 @@ describe("test suite: Render payment summary", () => {
     let totalProductPrice = 0;
     const products = await getProducts();
     cart.forEach((cartItem) => {
-      const matchingProduct = getMatchingProduct(products, cartItem.productId);
+      const matchingProduct = getMatchingProduct(
+        products,
+        cartItem.productId,
+      );
       checkTruthy(matchingProduct, "Fail to get the cart");
       totalProductPrice += matchingProduct.priceCents * cartItem.quantity;
     });
@@ -62,7 +68,9 @@ describe("test suite: Render payment summary", () => {
 
   test("display delivery fee", async () => {
     await sleep(20);
-    const totalDeliveryFeeHTML = document.querySelector(".total-delivery-fee");
+    const totalDeliveryFeeHTML = document.querySelector(
+      ".total-delivery-fee",
+    );
     checkTruthy(totalDeliveryFeeHTML, "Fail to select HTML element");
     expect(totalDeliveryFeeHTML.textContent).toContain(
       `$${formatCurrency(499)}`,
@@ -70,7 +78,9 @@ describe("test suite: Render payment summary", () => {
   });
 
   test("display total price before tax", async () => {
-    const totalProductPrice = Number(localStorage.getItem("totalProductPrice"));
+    const totalProductPrice = Number(
+      localStorage.getItem("totalProductPrice"),
+    );
     const totalDeliveryFee = 499;
     const totalPriceBeforeTax = totalProductPrice + totalDeliveryFee;
     await sleep(100);
@@ -81,7 +91,10 @@ describe("test suite: Render payment summary", () => {
     expect(totalPriceBeforeTaxHTML.textContent).toContain(
       `$${formatCurrency(totalPriceBeforeTax)}`,
     );
-    localStorage.setItem("totalPriceBeforeTax", String(totalPriceBeforeTax));
+    localStorage.setItem(
+      "totalPriceBeforeTax",
+      String(totalPriceBeforeTax),
+    );
   });
 
   test.concurrent("display tax", async ({ expect }) => {

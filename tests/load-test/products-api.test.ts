@@ -9,6 +9,8 @@ export const options = {
 
 export default function () {
   const res = http.get("https://localhost:3001/products");
-  check(res, { "Response is the right JSON": (res) => res?.body === products });
+  check(res, {
+    "Response is the right JSON": (res) => res?.body === products,
+  });
   sleep(1);
 }

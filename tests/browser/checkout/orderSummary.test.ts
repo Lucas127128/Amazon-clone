@@ -1,5 +1,8 @@
 import { test, describe, beforeEach } from "vitest";
-import { getMatchingProduct, getProducts } from "../../../src/data/products.ts";
+import {
+  getMatchingProduct,
+  getProducts,
+} from "../../../src/data/products.ts";
 import {
   addToCart,
   updateDeliveryOption,
@@ -74,7 +77,9 @@ describe("test suite: Render order summary", () => {
         );
         checkTruthy(productPrice);
         checkTruthy(matchingProduct, "Fail to get the cart");
-        expect(productPrice.textContent).toContain(`$${matchingProduct.price}`);
+        expect(productPrice.textContent).toContain(
+          `$${matchingProduct.price}`,
+        );
       });
     });
     checkTruthy(cartItemContainers, "Fail to select HTML element");
@@ -96,7 +101,9 @@ describe("test suite: Render order summary", () => {
     expect(checkoutCart.length).toBe(1);
     expect(checkoutCart[0].productId).toBe(productId2);
 
-    const cartItemContainer = document.querySelectorAll(".cart-item-container");
+    const cartItemContainer = document.querySelectorAll(
+      ".cart-item-container",
+    );
     expect(cartItemContainer.length).toBe(1);
 
     const cartItemContainer1 = document.querySelector(
