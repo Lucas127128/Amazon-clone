@@ -3,6 +3,7 @@ import htmlMinifier from "vite-plugin-html-minifier";
 import removeConsole from "vite-plugin-remove-console";
 import TurboConsole from "unplugin-turbo-console/vite";
 // import { DevTools } from "@vitejs/devtools";
+// import Macro from "unplugin-macros/vite"
 
 export default defineConfig({
   build: {
@@ -26,8 +27,10 @@ export default defineConfig({
         themeDetect: true,
       },
     }),
+    // Macro()
+    // DevTools(),
   ],
-  /* DevTools()*/ server: {
+  server: {
     port: 5174,
   },
 });

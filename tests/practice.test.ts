@@ -1,5 +1,6 @@
 import { expect, test, vi } from "vitest";
 import { Window } from "happy-dom";
+import { checkTruthy } from "../src/Scripts/Utils/typeChecker";
 const window = new Window();
 const { document } = window;
 test("mocking practice", async ({ expect }) => {
@@ -18,5 +19,6 @@ test("happy-dom practice", () => {
   document.body.innerHTML = "<h1 class='test'>hello world!</h1>";
   console.log(window.localStorage);
   const testHTML = document.querySelector(".test");
+  checkTruthy(testHTML);
   expect(testHTML.textContent).toBe("hello world!");
 });
