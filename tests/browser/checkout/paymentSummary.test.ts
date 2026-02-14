@@ -8,11 +8,11 @@ import {
   getProducts,
   getMatchingProduct,
 } from '../../../src/data/products.ts';
-import { formatCurrency } from '../../../src/Scripts/Utils/Money.ts';
-import { renderOrderSummary } from '../../../src/Scripts/checkout/cartSummary.ts';
-import { renderPaymentSummary } from '../../../src/Scripts/checkout/paymentSummary.ts';
-import { checkTruthy } from '../../../src/Scripts/Utils/typeChecker.ts';
-import sleep from '../../../src/Scripts/Utils/sleep.ts';
+import { formatCurrency } from '../../../src/scripts/Utils/Money.ts';
+import { renderOrderSummary } from '../../../src/scripts/checkout/cartSummary.ts';
+import { renderPaymentSummary } from '../../../src/scripts/checkout/paymentSummary.ts';
+import { checkTruthy } from '../../../src/scripts/Utils/typeChecker.ts';
+import sleep from '../../../src/scripts/Utils/sleep.ts';
 
 document.body.innerHTML = `
 <div class="test-container">
@@ -39,7 +39,7 @@ describe('test suite: Render payment summary', () => {
     await sleep(20);
     const cartQuantity = document.querySelector('.cart-item-quantity');
     checkTruthy(cartQuantity, 'Fail to select HTML element');
-    await sleep(200);
+    await sleep(100);
     expect(cartQuantity.innerHTML).toContain(3);
   });
 

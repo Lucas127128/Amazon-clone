@@ -1,18 +1,21 @@
-import { Elysia, file } from 'elysia';
+import { Elysia } from 'elysia';
 import { Temporal } from 'temporal-polyfill';
 
+const products = await Bun.file('./src/api/rawProducts.json').text();
+const clothings = await Bun.file('./src/api/clothing.json').text();
+
 export const productsPlugin = new Elysia()
-  .get('/products', ({ request, server }) => {
+  .get('/products', async ({ request, server }) => {
     const clientIP = server?.requestIP(request)?.address;
     const now = Temporal.Now.plainTimeISO().toString();
     console.log(`new products request from ${clientIP} at ${now}`);
-    return file('./src/api/rawProducts.json');
+    return products;
   })
   .get('/clothingList', ({ request, server }) => {
     const clientIP = server?.requestIP(request)?.address;
     const now = Temporal.Now.plainTimeISO().toString();
     console.log(`new clothing request from ${clientIP} at ${now}`);
-    return file('./src/api/clothing.json');
+    return clothings;
   });
 
 console.log(`🦊 Elysia is running`);

@@ -9,12 +9,12 @@ import {
   getCart,
 } from '../../../src/data/cart.ts';
 import { getDeliveryDate } from '../../../src/data/deliveryOption.ts';
-import { renderOrderSummary } from '../../../src/Scripts/checkout/cartSummary.ts';
-import sleep from '../../../src/Scripts/Utils/sleep.ts';
+import { renderOrderSummary } from '../../../src/scripts/checkout/cartSummary.ts';
+import sleep from '../../../src/scripts/Utils/sleep.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,
-} from '../../../src/Scripts/Utils/typeChecker.ts';
+} from '../../../src/scripts/Utils/typeChecker.ts';
 
 document.body.innerHTML = `
 <div class="test-container">

@@ -1,4 +1,4 @@
-import { checkTruthy } from '../Scripts/Utils/typeChecker.ts';
+import { checkTruthy } from '../scripts/Utils/typeChecker.ts';
 import { deliveryOptionId } from './deliveryOption.ts';
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>

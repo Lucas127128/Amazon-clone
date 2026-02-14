@@ -1,5 +1,5 @@
 import { Cart } from './cart';
-import { checkTruthy } from '../Scripts/Utils/typeChecker';
+import { checkTruthy } from '../scripts/Utils/typeChecker';
 import { getMatchingProduct, Product } from './products';
 import { getDeliveryPriceCents } from './deliveryOption';
 

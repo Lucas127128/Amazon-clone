@@ -1,10 +1,10 @@
 import { test, describe, expect } from 'vitest';
 import cartJSON from '../../cart.json';
 import { getTimeString } from '../../../src/data/orders.ts';
-import { getProducts } from '../../../src/data/products.ts';
+import { fetchProducts } from '../../../src/data/products.ts';
 import { Order } from '../../../src/data/orders.ts';
 import { kyExternal } from '../../../src/data/ky.ts';
-import { checkTruthy } from '../../../src/Scripts/Utils/typeChecker.ts';
+import { checkTruthy } from '../../../src/scripts/Utils/typeChecker.ts';
 import { Temporal } from 'temporal-polyfill';
 import { calculatePrices } from '../../../src/data/payment.ts';
 import { Cart } from '../../../src/data/cart.ts';
@@ -52,7 +52,7 @@ describe('order api test', () => {
   test.concurrent('order cost test', async ({ expect }) => {
     expect(typeof order.totalCostCents).toBe('number');
 
-    const products = await getProducts();
+    const products = await fetchProducts();
     const { totalOrderPrice } = calculatePrices(cart, products);
     expect(order.totalCostCents).toBe(totalOrderPrice);
   });

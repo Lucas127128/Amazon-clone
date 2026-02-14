@@ -1,5 +1,5 @@
 import { KyInstance } from 'ky';
-import { formatCurrency } from '../Scripts/Utils/Money.ts';
+import { formatCurrency } from '../scripts/Utils/Money.ts';
 import { kyExternal } from './ky.ts';
 import { get, set } from 'idb-keyval';
 

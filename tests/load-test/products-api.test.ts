@@ -1,6 +1,6 @@
 import http from 'k6/http';
-import { sleep, check } from 'k6';
-const products = JSON.parse(open('../../../backend/rawProducts.json'));
+import { check } from 'k6';
+const productsJSON = open('../../src/api/rawProducts.json');
 
 export const options = {
   vus: 4200,
@@ -10,7 +10,6 @@ export const options = {
 export default function () {
   const res = http.get('https://localhost:3001/products');
   check(res, {
-    'Response is the right JSON': (res) => res?.body === products,
+    'Response is the right JSON': (res) => res?.body === productsJSON,
   });
-  sleep(1);
 }

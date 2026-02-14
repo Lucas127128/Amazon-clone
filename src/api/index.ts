@@ -1,20 +1,13 @@
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
-import { fetchProducts } from '../data/products.ts';
 import { productsPlugin } from './products.ts';
 import { orderPlugin } from './orders.ts';
-import { kyInternal } from '../data/ky.ts';
 import { Temporal } from 'temporal-polyfill';
 
-export async function loadProducts() {
-  try {
-    await fetchProducts(kyInternal);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-const app = new Elysia()
+const app = new Elysia({ precompile: true })
+  .onAfterHandle(({ set }) => {
+    set.headers['content-type'] = 'application/json';
+  })
   .onAfterResponse(({ set }) => {
     console.log(set.status);
   })

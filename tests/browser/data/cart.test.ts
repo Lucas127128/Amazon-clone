@@ -4,7 +4,7 @@ describe.concurrent('test suite: addToCart', () => {
   beforeEach(() => {
     localStorage.clear();
   });
-  test('add a new product to cart', async ({ expect }) => {
+  test.concurrent('add a new product to cart', async ({ expect }) => {
     localStorage.setItem('cart', JSON.stringify([]));
     addToCart(false, 'B8WQz', 4);
     const cart = getCart();
@@ -13,7 +13,9 @@ describe.concurrent('test suite: addToCart', () => {
     expect(cart[0].quantity).toBe(4);
     localStorage.setItem('cart', JSON.stringify([]));
   });
-  test('add an existing product to cart', async ({ expect }) => {
+  test.concurrent('add an existing product to cart', async ({
+    expect,
+  }) => {
     localStorage.setItem(
       'cart',
       JSON.stringify([

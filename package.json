@@ -1,20 +1,19 @@
 {
   "scripts": {
-    "test:data": "vitest --config=vitest.browser.config.js --browser=safari tests/browser/data",
-    "test:checkout": "vitest --config=vitest.browser.config.js --browser=safari tests/browser/checkout",
-    "test:api": "vitest --config=vitest.browser.config.js --browser=safari tests/browser/api",
-    "test:money": "vitest tests/normal/utils/money.test.ts",
-    "test:browser": "vitest --config=vitest.browser.config.js --browser=safari tests/browser",
+    "test:data": "vitest tests/browser/data tests/normal/data",
+    "test:api": "vitest tests/normal/api",
     "test:normal": "vitest tests/normal",
-    "test": "bun run test:browser && bun run test:normal",
+    "test": "vitest",
     "build": "vite build",
     "inspect": "node-modules-inspector",
-    "api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --watch ./src/api/index.ts",
+    "build:backend": "bun build --compile --minify --sourcemap ./src/api/index.ts ",
+    "api": "bun run build:backend && find . -name '*.bun-build' -type f -delete && NODE_TLS_REJECT_UNAUTHORIZED=0 ./api",
     "check:watch": "tsgo --noEmit --watch",
     "lint": "oxlint --type-aware",
     "lint:fix": "oxlint --fix --type-aware",
     "fmt": "oxfmt",
-    "fmt:watch": "onchange '**' --exclude-path .gitignore -- bun run fmt"
+    "fmt:watch": "onchange '**' --exclude-path .gitignore -- bun run fmt",
+    "request:orders": "cat ./tests/cart.json | xh post --https :3001/orders"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
@@ -28,6 +27,7 @@
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/bun": "^1.3.9",
     "@types/k6": "^1.6.0",
     "@typescript/native-preview": "^7.0.0-dev.20260212.1",
@@ -41,6 +41,8 @@
     "oxfmt": "^0.32.0",
     "oxlint": "^1.47.0",
     "oxlint-tsgolint": "^0.12.1",
+    "playwright": "^1.58.2",
+    "sharp": "^0.34.5",
     "unplugin-macros": "^0.18.7",
     "unplugin-turbo-console": "^2.3.0",
     "vite": "^8.0.0-beta.14",
