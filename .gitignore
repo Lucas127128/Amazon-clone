@@ -7,6 +7,6 @@ node_modules
 *node_modules
 *.pem
 *dist
-api
+/api
 *.bun-build
 playwright-report

@@ -1,11 +1,21 @@
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
+import { localHttps } from 'elysia-local-https';
 import { productsPlugin } from './products.ts';
 import { orderPlugin } from './orders.ts';
-import { Temporal } from 'temporal-polyfill';
+import { staticPlugin } from './static.ts';
 
 const app = new Elysia({ precompile: true })
-  .onAfterHandle(({ set }) => {
+  .mapResponse(async ({ responseValue }) => {
+    const body = <string>await responseValue;
+    const compressed = Bun.deflateSync(body);
+    return new Response(compressed, {
+      headers: {
+        'Content-Encoding': 'deflate',
+      },
+    });
+  })
+  .onBeforeHandle(({ set }) => {
     set.headers['content-type'] = 'application/json';
   })
   .onAfterResponse(({ set }) => {
@@ -23,11 +33,10 @@ const app = new Elysia({ precompile: true })
       allowedHeaders: ['Content-Type', 'Authorization'],
     }),
   )
+  .use(staticPlugin)
   .use(productsPlugin)
   .use(orderPlugin)
-  .decorate('getTime', Temporal.PlainTime.toString())
-  .get('/', () => 'Hello Elysia')
-  .listen(3000);
+  .listen(localHttps({ port: 8080 }));
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,

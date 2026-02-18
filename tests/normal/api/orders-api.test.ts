@@ -3,17 +3,22 @@ import cartJSON from '../../cart.json';
 import { getTimeString } from '../../../src/data/orders.ts';
 import { fetchProducts } from '../../../src/data/products.ts';
 import { Order } from '../../../src/data/orders.ts';
-import { kyExternal } from '../../../src/data/ky.ts';
 import { checkTruthy } from '../../../src/scripts/Utils/typeChecker.ts';
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from 'temporal-polyfill-lite';
 import { calculatePrices } from '../../../src/data/payment.ts';
 import { Cart } from '../../../src/data/cart.ts';
 
 const cart = cartJSON as Cart[];
 
-const order: Order = await kyExternal
-  .post('orders', { json: cartJSON })
-  .json();
+const order: Order = await (
+  await fetch('https://localhost:8080/api/orders', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(cart),
+  })
+).json();
 
 describe('order api test', () => {
   test.concurrent('order id test', ({ expect }) => {

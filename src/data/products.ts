@@ -1,7 +1,6 @@
-import { KyInstance } from 'ky';
 import { formatCurrency } from '../scripts/Utils/Money.ts';
-import { kyExternal } from './ky.ts';
 import { get, set } from 'idb-keyval';
+import { Temporal } from 'temporal-polyfill-lite';
 
 export const getMatchingProduct = (
   products: readonly Product[],
@@ -56,11 +55,13 @@ export class Product {
   price: string;
 }
 
-export async function fetchProducts(
-  kyInstance: KyInstance = kyExternal,
-): Promise<readonly Product[]> {
-  const clothings: string[] = await kyInstance('clothingList').json();
-  const rawProducts: RawProduct[] = await kyInstance('products').json();
+export async function fetchProducts(): Promise<readonly Product[]> {
+  const clothings: string[] = await (
+    await fetch('https://localhost:8080/api/clothingList')
+  ).json();
+  const rawProducts: RawProduct[] = await (
+    await fetch('https://localhost:8080/api/products')
+  ).json();
   const products = transformProducts(rawProducts, clothings);
   return products;
 }
@@ -83,21 +84,29 @@ export function transformProducts(
   return products;
 }
 
-export async function getProducts(): Promise<readonly Product[]> {
-  new Promise(() => {
-    fetchProducts()
-      .then(async (products) => {
-        await set('products', products);
-      })
-      .catch((error) => {
-        console.error(`Unexpected promise error: ${error}`);
-      });
-  }).catch((error) => {
-    console.error(`Unexpected promise error: ${error}`);
-  });
-  const products: Promise<readonly Product[]> = Promise.any([
-    get('products'),
-    fetchProducts(),
-  ]);
+export async function getProducts() {
+  async function setProducts() {
+    await set('products', {
+      data: await fetchProducts(),
+      time: Temporal.Now.plainDateISO().toJSON(),
+    });
+  }
+
+  const savedProducts = await get('products');
+  const today = Temporal.Now.plainDateISO().toJSON();
+  const isFreshData = savedProducts
+    ? savedProducts.time === today
+      ? true
+      : false
+    : false;
+  if (!isFreshData) {
+    setProducts().catch((error) => {
+      console.error(`Unexpected promise error: ${error}`);
+    });
+  }
+
+  const products: readonly Product[] = savedProducts
+    ? savedProducts.data
+    : await fetchProducts();
   return products;
 }

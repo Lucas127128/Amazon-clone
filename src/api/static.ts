@@ -1,0 +1,54 @@
+import { Elysia } from 'elysia';
+import { match, P } from 'ts-pattern';
+
+const filesName = (await Bun.$`find ./dist -type f`.text())
+  .split('\n')
+  .filter(
+    (fileName) => fileName.length > 7 && !fileName.includes('.DS_Store'),
+  );
+
+export const staticPlugin = new Elysia({ precompile: true }).get(
+  '/',
+  async ({ set }) => {
+    set.headers['content-type'] = 'text/html';
+    set.headers['cache-control'] = 'plublic, max-age=15552000';
+    return await Bun.file('./dist/index.html').text();
+  },
+);
+
+for (const fileName of filesName) {
+  const fileExtention = fileName.split('.')[2].toLowerCase();
+  const contentType = match(fileExtention)
+    .with('html', () => 'text/html')
+    .with('css', () => 'text/css')
+    .with('js', () => 'text/javascript')
+    .with('webp', () => 'image/webp')
+    .with('png', () => 'image/png')
+    .with('jpg', 'jpeg', () => 'image/jpeg')
+    .with(P._, P.nullish, () => undefined)
+    .exhaustive();
+
+  const fileObj = Bun.file(fileName);
+  const file = match(fileExtention)
+    .with('html', 'css', 'js', async () => await fileObj.text())
+    .with('webp', 'png', 'jpg', 'jpeg', async () => await fileObj.bytes())
+    .with(P._, P.nullish, async () => await fileObj.bytes())
+    .exhaustive();
+
+  const cacheControl = match(fileExtention)
+    .with('html', () => 'plublic,no-cache')
+    .with('css', 'js', () => 'plublic, max-age=15552000')
+    .with('webp', 'png', 'jpg', 'jpeg', () => 'plublic, max-age=15552000')
+    .with(P._, P.nullish, () => undefined)
+    .exhaustive();
+
+  const route = fileName.replace('./dist', '');
+
+  staticPlugin.get(route, ({ set }) => {
+    if (contentType) {
+      set.headers['content-type'] = contentType;
+    }
+    set.headers['cache-control'] = cacheControl;
+    return file;
+  });
+}

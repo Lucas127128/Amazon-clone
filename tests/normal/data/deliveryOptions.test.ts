@@ -7,7 +7,7 @@ import {
   getDeliveryPriceCents,
   deliveryOptionId,
 } from '../../../src/data/deliveryOption';
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from 'temporal-polyfill-lite';
 import { match } from 'ts-pattern';
 
 describe('Delivery time test', () => {

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Amazon Project</title>
-    <script type="module" src="/src/Scripts/amazon.ts" defer></script>
+    <script type="module" src="./src/Scripts/amazon.ts" defer></script>
 
     <!-- This code is needed for responsive design to work.
       (Responsive design = make the website look good on
@@ -12,12 +12,12 @@
     <link rel="preconnect" href="https://localhost:3001" crossorigin />
 
     <!-- Here are the CSS files for this page. -->
-    <link rel="stylesheet" href="src/styles/shared/general.css" />
-    <link rel="stylesheet" href="src/styles/shared/amazon-header.css" />
+    <link rel="stylesheet" href="./src/styles/shared/general.css" />
+    <link rel="stylesheet" href="./src/styles/shared/amazon-header.css" />
     <link
       rel="stylesheet"
       rel="preload"
-      href="src/styles/pages/amazon.css"
+      href="./src/styles/pages/amazon.css"
     />
     <link
       rel="icon"
@@ -29,10 +29,10 @@
     <div class="amazon-header">
       <div class="amazon-header-left-section">
         <a href="./index.html" class="header-link amazon-link">
-          <img class="amazon-logo" src="/images/amazon-logo-white.webp" />
+          <img class="amazon-logo" src="./images/amazon-logo-white.webp" />
           <img
             class="amazon-mobile-logo"
-            src="/images/amazon-mobile-logo-white.webp"
+            src="./images/amazon-mobile-logo-white.webp"
           />
         </a>
       </div>
@@ -41,18 +41,18 @@
         <input class="search-bar" type="text" placeholder="Search" />
 
         <button class="search-button">
-          <img class="search-icon" src="/images/icons/search-icon.png" />
+          <img class="search-icon" src="./images/icons/search-icon.png" />
         </button>
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="/orders.html">
+        <a class="orders-link header-link" href="./orders.html">
           <span class="returns-text">Returns</span>
           <span class="orders-text">& Orders</span>
         </a>
 
-        <a class="cart-link header-link" href="/checkout.html">
-          <img class="cart-icon" src="/images/icons/cart-icon.png" />
+        <a class="cart-link header-link" href="./checkout.html">
+          <img class="cart-icon" src="./images/icons/cart-icon.png" />
           <div class="cart-quantity">0</div>
           <div class="cart-text">Cart</div>
         </a>

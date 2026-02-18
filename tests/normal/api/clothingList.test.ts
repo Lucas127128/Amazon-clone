@@ -1,11 +1,11 @@
 import { describe, test } from 'vitest';
-import clothingList from '../../../src/api/clothing.json' with { type: 'json' };
-import { kyExternal } from '../../../src/data/ky';
+import clothingListJSON from '../../../src/api/clothing.json' with { type: 'json' };
 
 describe('clothing list api test', () => {
   test.concurrent('return right clothing list', async ({ expect }) => {
-    expect(await kyExternal.get('clothingList').json()).toEqual(
-      clothingList,
-    );
+    const clothingList = await (
+      await fetch('https://localhost:8080/api/clothingList')
+    ).json();
+    expect(clothingList).toEqual(clothingListJSON);
   });
 });

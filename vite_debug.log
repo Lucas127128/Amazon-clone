@@ -1,0 +1,1650 @@
+2026-02-15T09:20:35.978Z vite:config config file loaded in 83.70ms
+2026-02-15T09:20:35.980Z vite:env loading env files: [
+  '/Users/georgeleung/Desktop/Web_code/Amazon-clone/.env',
+  '/Users/georgeleung/Desktop/Web_code/Amazon-clone/.env.local',
+  '/Users/georgeleung/Desktop/Web_code/Amazon-clone/.env.development',
+  '/Users/georgeleung/Desktop/Web_code/Amazon-clone/.env.development.local'
+]
+2026-02-15T09:20:35.980Z vite:env env files loaded in 0.60ms
+2026-02-15T09:20:35.981Z vite:env using resolved env: {}
+2026-02-15T09:20:35.990Z vite:config using resolved config: {
+  build: {
+    target: 'es2022',
+    polyfillModulePreload: true,
+    modulePreload: { polyfill: true },
+    outDir: 'dist',
+    assetsDir: 'assets',
+    assetsInlineLimit: 4096,
+    sourcemap: false,
+    terserOptions: {},
+    rolldownOptions: {
+      platform: 'browser',
+      input: {
+        main: 'index.html',
+        checkout: 'checkout.html',
+        orders: 'orders.html',
+        tracking: 'tracking.html'
+      }
+    },
+    commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+    dynamicImportVarsOptions: { exclude: [ /node_modules/ ] },
+    write: true,
+    emptyOutDir: null,
+    copyPublicDir: true,
+    license: false,
+    manifest: false,
+    lib: false,
+    ssrManifest: false,
+    ssrEmitAssets: false,
+    reportCompressedSize: true,
+    chunkSizeWarningLimit: 500,
+    watch: null,
+    cssCodeSplit: true,
+    minify: 'oxc',
+    rollupOptions: {
+      platform: 'browser',
+      input: {
+        main: 'index.html',
+        checkout: 'checkout.html',
+        orders: 'orders.html',
+        tracking: 'tracking.html'
+      }
+    },
+    ssr: false,
+    emitAssets: false,
+    createEnvironment: [Function: createEnvironment],
+    cssTarget: 'es2022',
+    cssMinify: true
+  },
+  plugins: [
+    'vite:optimized-deps',
+    'vite:watch-package-data',
+    'vite:pre-alias',
+    'alias',
+    'unplugin-turbo-console',
+    'vite:modulepreload-polyfill',
+    'vite:resolve-dev',
+    'vite:resolve-builtin:get-environment',
+    'vite:resolve-builtin',
+    'vite:html-inline-proxy',
+    'vite:css',
+    'vite:oxc',
+    'builtin:vite-json',
+    'vite:wasm-helper',
+    'vite:worker',
+    'vite:asset',
+    'builtin:vite-wasm-fallback',
+    'vite:define',
+    'vite:css-post',
+    'vite:worker-import-meta-url',
+    'vite:asset-import-meta-url',
+    'vite:dynamic-import-vars',
+    'vite:import-glob',
+    'vite:client-inject',
+    'vite:css-analysis',
+    'vite:import-analysis'
+  ],
+  server: {
+    port: 5174,
+    strictPort: false,
+    host: undefined,
+    allowedHosts: [],
+    https: undefined,
+    open: false,
+    proxy: undefined,
+    cors: {
+      origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/
+    },
+    headers: {},
+    warmup: { clientFiles: [], ssrFiles: [] },
+    middlewareMode: false,
+    fs: {
+      strict: true,
+      deny: [ '.env', '.env.*', '*.{crt,pem}', '**/.git/**' ],
+      allow: [ '/Users/georgeleung/Desktop/Web_code/Amazon-clone' ]
+    },
+    preTransformRequests: true,
+    perEnvironmentStartEndDuringDev: false,
+    perEnvironmentWatchChangeDuringDev: false,
+    sourcemapIgnoreList: [Function: isInNodeModules]
+  },
+  experimental: {
+    importGlobRestoreExtension: false,
+    renderBuiltUrl: undefined,
+    hmrPartialAccept: false,
+    enableNativePlugin: 'v2',
+    bundledDev: false
+  },
+  worker: {
+    format: 'iife',
+    plugins: '() => plugins',
+    rollupOptions: {},
+    rolldownOptions: {}
+  },
+  optimizeDeps: {
+    include: [],
+    exclude: [],
+    needsInterop: [],
+    rolldownOptions: { resolve: { symlinks: true }, output: { topLevelVar: true } },
+    extensions: [],
+    disabled: undefined,
+    holdUntilCrawlEnd: true,
+    force: false,
+    ignoreOutdatedRequests: false,
+    noDiscovery: false,
+    rollupOptions: [Getter/Setter],
+    esbuildOptions: { preserveSymlinks: false }
+  },
+  environments: {
+    client: {
+      define: undefined,
+      resolve: {
+        externalConditions: [ 'node', 'module-sync' ],
+        extensions: [
+          '.mjs',  '.js',
+          '.mts',  '.ts',
+          '.jsx',  '.tsx',
+          '.json'
+        ],
+        dedupe: [],
+        noExternal: [],
+        external: [],
+        preserveSymlinks: false,
+        tsconfigPaths: false,
+        alias: [
+          {
+            find: /^\/?@vite\/env/,
+            replacement: '/@fs/Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/env.mjs'
+          },
+          {
+            find: /^\/?@vite\/client/,
+            replacement: '/@fs/Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/client.mjs'
+          }
+        ],
+        mainFields: [ 'browser', 'module', 'jsnext:main', 'jsnext' ],
+        conditions: [ 'module', 'browser', 'development|production' ],
+        builtins: []
+      },
+      keepProcessEnv: false,
+      consumer: 'client',
+      optimizeDeps: {
+        include: [],
+        exclude: [],
+        needsInterop: [],
+        rolldownOptions: { resolve: { symlinks: true }, output: { topLevelVar: true } },
+        extensions: [],
+        disabled: undefined,
+        holdUntilCrawlEnd: true,
+        force: false,
+        ignoreOutdatedRequests: false,
+        noDiscovery: false,
+        rollupOptions: [Getter/Setter],
+        esbuildOptions: { preserveSymlinks: false }
+      },
+      dev: {
+        warmup: [],
+        sourcemap: { js: true },
+        sourcemapIgnoreList: [Function: isInNodeModules],
+        preTransformRequests: true,
+        createEnvironment: [Function: defaultCreateClientDevEnvironment],
+        recoverable: true,
+        moduleRunnerTransform: false
+      },
+      build: {
+        target: 'es2022',
+        polyfillModulePreload: true,
+        modulePreload: { polyfill: true },
+        outDir: 'dist',
+        assetsDir: 'assets',
+        assetsInlineLimit: 4096,
+        sourcemap: false,
+        terserOptions: {},
+        rolldownOptions: {
+          platform: 'browser',
+          input: {
+            main: 'index.html',
+            checkout: 'checkout.html',
+            orders: 'orders.html',
+            tracking: 'tracking.html'
+          }
+        },
+        commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+        dynamicImportVarsOptions: { exclude: [ /node_modules/ ] },
+        write: true,
+        emptyOutDir: null,
+        copyPublicDir: true,
+        license: false,
+        manifest: false,
+        lib: false,
+        ssrManifest: false,
+        ssrEmitAssets: false,
+        reportCompressedSize: true,
+        chunkSizeWarningLimit: 500,
+        watch: null,
+        cssCodeSplit: true,
+        minify: 'oxc',
+        rollupOptions: {
+          platform: 'browser',
+          input: {
+            main: 'index.html',
+            checkout: 'checkout.html',
+            orders: 'orders.html',
+            tracking: 'tracking.html'
+          }
+        },
+        ssr: false,
+        emitAssets: true,
+        createEnvironment: [Function: createEnvironment],
+        cssTarget: 'es2022',
+        cssMinify: true
+      },
+      plugins: [
+        {
+          name: 'vite:optimized-deps',
+          applyToEnvironment: [Function: applyToEnvironment],
+          resolveId: [Function: resolveId],
+          load: [AsyncFunction: load]
+        },
+        {
+          name: 'vite:watch-package-data',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'vite:pre-alias',
+          applyToEnvironment: [Function: applyToEnvironment],
+          resolveId: [AsyncFunction: resolveId]
+        },
+        {
+          name: 'alias',
+          buildStart: [AsyncFunction: buildStart],
+          resolveId: [Function: resolveId]
+        },
+        {
+          name: 'unplugin-turbo-console',
+          enforce: 'pre',
+          resolveId: [Function: resolveId],
+          loadInclude: [Function: loadInclude],
+          load: [Function (anonymous)],
+          transform: {
+            filter: {
+              id: {
+                include: [
+                  /\.vue$/,
+                  /\.vue(\.[tj]sx?)?\?vue/,
+                  /\.vue\?v=/,
+                  /\.ts$/,
+                  /\.tsx$/,
+                  /\.js$/,
+                  /\.jsx$/,
+                  /\.svelte$/,
+                  /\.astro$/
+                ],
+                exclude: [
+                  /[\\/]node_modules[\\/]/,
+                  /[\\/]\.git[\\/]/,
+                  /[\\/]\.nuxt[\\/]/
+                ]
+              }
+            },
+            handler: [Function (anonymous)]
+          },
+          vite: { configureServer: [AsyncFunction: configureServer] },
+          farm: { configureDevServer: [Function: configureDevServer] },
+          webpack: [Function: webpack],
+          rspack: [Function: rspack],
+          watchChange: [Function: watchChange],
+          configureServer: [AsyncFunction: configureServer]
+        },
+        {
+          name: 'vite:modulepreload-polyfill',
+          resolveId: {
+            filter: { id: /^vite\/modulepreload\-polyfill$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/modulepreload\-polyfill\.js$/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:resolve-dev',
+          applyToEnvironment: [Function: applyToEnvironment],
+          resolveId: {
+            filter: {
+              id: {
+                exclude: [ /^\0/, /^virtual:/, /^\/virtual:/, /^__vite-/ ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:resolve-builtin:get-environment',
+          buildStart: [Function: buildStart],
+          perEnvironmentStartEndDuringDev: true
+        },
+        BuiltinPlugin {
+          enforce: undefined,
+          name: 'builtin:vite-resolve',
+          _options: {
+            resolveOptions: {
+              isBuild: false,
+              isProduction: false,
+              asSrc: true,
+              preferRelative: false,
+              isRequire: undefined,
+              root: '/Users/georgeleung/Desktop/Web_code/Amazon-clone',
+              scan: false,
+              mainFields: [ 'browser', 'module', 'jsnext:main', 'jsnext', 'main' ],
+              conditions: [ 'module', 'browser', 'development|production' ],
+              externalConditions: [ 'node', 'module-sync' ],
+              extensions: [
+                '.mjs',  '.js',
+                '.mts',  '.ts',
+                '.jsx',  '.tsx',
+                '.json'
+              ],
+              tryIndex: true,
+              tryPrefix: undefined,
+              preserveSymlinks: false,
+              tsconfigPaths: false
+            },
+            environmentConsumer: 'client',
+            environmentName: 'client',
+            builtins: [],
+            external: [],
+            noExternal: [],
+            dedupe: [],
+            disableCache: false,
+            legacyInconsistentCjsInterop: undefined,
+            finalizeBareSpecifier: [Function (anonymous)],
+            finalizeOtherSpecifiers: [Function (anonymous)],
+            resolveSubpathImports: [Function: resolveSubpathImports],
+            onWarn: [AsyncFunction: onWarn],
+            yarnPnp: false
+          },
+          load: [AsyncFunction (anonymous)],
+          resolveId: [AsyncFunction (anonymous)],
+          transform: [AsyncFunction (anonymous)],
+          watchChange: [AsyncFunction (anonymous)],
+          perEnvironmentWatchChangeDuringDev: true
+        },
+        {
+          name: 'vite:html-inline-proxy',
+          resolveId: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:css',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          load: {
+            filter: {
+              id: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/
+            },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:oxc',
+          configureServer: [Function: configureServer],
+          resolveId: {
+            filter: { id: /^@oxc\-project\/runtime\// },
+            handler: [AsyncFunction: handler],
+            order: 'pre'
+          },
+          transform: [AsyncFunction: transform]
+        },
+        BuiltinPlugin {
+          enforce: undefined,
+          name: 'builtin:vite-json',
+          _options: { namedExports: true, stringify: 'auto', minify: false },
+          load: [AsyncFunction (anonymous)],
+          resolveId: [AsyncFunction (anonymous)],
+          transform: [AsyncFunction (anonymous)],
+          watchChange: [AsyncFunction (anonymous)]
+        },
+        {
+          name: 'vite:wasm-helper',
+          resolveId: {
+            filter: { id: /^ vite\/wasm\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: {
+              id: [
+                /^ vite\/wasm\-helper\.js$/,
+                /(?<![?#].*)\.wasm\?init/
+              ]
+            },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: undefined
+        },
+        {
+          name: 'vite:worker',
+          buildStart: [Function: buildStart],
+          load: {
+            filter: { id: /(?:\?|&)(worker|sharedworker)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: { id: /(?:\?|&)worker_file&type=(\w+)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          generateBundle: [Function: generateBundle],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'vite:asset',
+          perEnvironmentStartEndDuringDev: true,
+          buildStart: [Function: buildStart],
+          resolveId: {
+            filter: {
+              id: [
+                /(\?|&)url(?:&|$)/,
+                /\.(apng|bmp|png|jpe?g|jfif|pjpeg|pjp|gif|svg|ico|webp|avif|cur|jxl|mp4|webm|ogg|mp3|wav|flac|aac|opus|mov|m4a|vtt|woff2?|eot|ttf|otf|webmanifest|pdf|txt)(\?.*)?$/i
+              ]
+            },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: {
+              id: {
+                include: [
+                  /(\?|&)raw(?:&|$)/,
+                  /(\?|&)url(?:&|$)/,
+                  /\.(apng|bmp|png|jpe?g|jfif|pjpeg|pjp|gif|svg|ico|webp|avif|cur|jxl|mp4|webm|ogg|mp3|wav|flac|aac|opus|mov|m4a|vtt|woff2?|eot|ttf|otf|webmanifest|pdf|txt)(\?.*)?$/i
+                ],
+                exclude: /^\0/
+              }
+            },
+            handler: [AsyncFunction: handler]
+          },
+          generateBundle: [Function: generateBundle],
+          watchChange: [Function: watchChange]
+        },
+        BuiltinPlugin {
+          enforce: undefined,
+          name: 'builtin:vite-wasm-fallback',
+          _options: undefined,
+          load: [AsyncFunction (anonymous)],
+          resolveId: [AsyncFunction (anonymous)],
+          transform: [AsyncFunction (anonymous)],
+          watchChange: [AsyncFunction (anonymous)]
+        },
+        {
+          name: 'vite:define',
+          transform: { handler: [AsyncFunction: handler] }
+        },
+        {
+          name: 'vite:css-post',
+          renderStart: [Function: renderStart],
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          },
+          generateBundle: [AsyncFunction: generateBundle]
+        },
+        {
+          name: 'vite:worker-import-meta-url',
+          applyToEnvironment: [Function: applyToEnvironment],
+          transform: {
+            filter: {
+              code: /new\s+(?:Worker|SharedWorker)\s*\(\s*new\s+URL.+?import\.meta\.url/s
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:asset-import-meta-url',
+          applyToEnvironment: [Function: applyToEnvironment],
+          transform: {
+            filter: {
+              id: {
+                exclude: [
+                  /^ vite\/preload\-helper\.js$/,
+                  /^\/Users\/georgeleung\/Desktop\/Web_code\/Amazon\-clone\/node_modules\/vite\/dist\/client\/client\.mjs$/
+                ]
+              },
+              code: /new\s+URL.+import\.meta\.url/s
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:dynamic-import-vars',
+          resolveId: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                exclude: /^\/Users\/georgeleung\/Desktop\/Web_code\/Amazon\-clone\/node_modules\/vite\/dist\/client\/client\.mjs$/
+              },
+              code: /\bimport\s*[(/]/
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-glob',
+          buildStart: [Function: buildStart],
+          transform: {
+            filter: { code: 'import.meta.glob' },
+            handler: [AsyncFunction: handler]
+          },
+          hotUpdate: [Function: hotUpdate]
+        },
+        {
+          name: 'vite:client-inject',
+          buildStart: [AsyncFunction: buildStart],
+          transform: [AsyncFunction: transform]
+        },
+        {
+          name: 'vite:css-analysis',
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-analysis',
+          transform: [AsyncFunction: transform]
+        }
+      ],
+      optimizeDepsPluginNames: []
+    },
+    ssr: {
+      define: undefined,
+      resolve: {
+        externalConditions: [ 'node', 'module-sync' ],
+        extensions: [
+          '.mjs',  '.js',
+          '.mts',  '.ts',
+          '.jsx',  '.tsx',
+          '.json'
+        ],
+        dedupe: [],
+        noExternal: [],
+        external: [],
+        preserveSymlinks: false,
+        tsconfigPaths: false,
+        alias: [
+          {
+            find: /^\/?@vite\/env/,
+            replacement: '/@fs/Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/env.mjs'
+          },
+          {
+            find: /^\/?@vite\/client/,
+            replacement: '/@fs/Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/client.mjs'
+          }
+        ],
+        mainFields: [ 'module', 'jsnext:main', 'jsnext' ],
+        conditions: [ 'module', 'node', 'development|production' ],
+        builtins: [
+          '_http_agent',         '_http_client',        '_http_common',
+          '_http_incoming',      '_http_outgoing',      '_http_server',
+          '_stream_duplex',      '_stream_passthrough', '_stream_readable',
+          '_stream_transform',   '_stream_wrap',        '_stream_writable',
+          '_tls_common',         '_tls_wrap',           'assert',
+          'assert/strict',       'async_hooks',         'buffer',
+          'child_process',       'cluster',             'console',
+          'constants',           'crypto',              'dgram',
+          'diagnostics_channel', 'dns',                 'dns/promises',
+          'domain',              'events',              'fs',
+          'fs/promises',         'http',                'http2',
+          'https',               'inspector',           'inspector/promises',
+          'module',              'net',                 'os',
+          'path',                'path/posix',          'path/win32',
+          'perf_hooks',          'process',             'punycode',
+          'querystring',         'readline',            'readline/promises',
+          'repl',                'stream',              'stream/consumers',
+          'stream/promises',     'stream/web',          'string_decoder',
+          'sys',                 'timers',              'timers/promises',
+          'tls',                 'trace_events',        'tty',
+          'url',                 'util',                'util/types',
+          'v8',                  'vm',                  'wasi',
+          'worker_threads',      'zlib',                /^node:/,
+          /^bun:/
+        ]
+      },
+      keepProcessEnv: true,
+      consumer: 'server',
+      optimizeDeps: {
+        include: [],
+        exclude: [],
+        needsInterop: [],
+        rolldownOptions: { resolve: { symlinks: true }, output: { topLevelVar: true } },
+        extensions: [],
+        disabled: undefined,
+        holdUntilCrawlEnd: true,
+        force: false,
+        ignoreOutdatedRequests: false,
+        noDiscovery: true,
+        rollupOptions: [Getter/Setter],
+        esbuildOptions: { preserveSymlinks: false }
+      },
+      dev: {
+        warmup: [],
+        sourcemap: { js: true },
+        sourcemapIgnoreList: [Function: isInNodeModules],
+        preTransformRequests: false,
+        createEnvironment: [Function: defaultCreateDevEnvironment],
+        recoverable: false,
+        moduleRunnerTransform: true
+      },
+      build: {
+        target: 'es2022',
+        polyfillModulePreload: true,
+        modulePreload: { polyfill: true },
+        outDir: 'dist',
+        assetsDir: 'assets',
+        assetsInlineLimit: 4096,
+        sourcemap: false,
+        terserOptions: {},
+        rolldownOptions: {
+          platform: 'node',
+          input: {
+            main: 'index.html',
+            checkout: 'checkout.html',
+            orders: 'orders.html',
+            tracking: 'tracking.html'
+          }
+        },
+        commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+        dynamicImportVarsOptions: { exclude: [ /node_modules/ ] },
+        write: true,
+        emptyOutDir: null,
+        copyPublicDir: true,
+        license: false,
+        manifest: false,
+        lib: false,
+        ssrManifest: false,
+        ssrEmitAssets: false,
+        reportCompressedSize: true,
+        chunkSizeWarningLimit: 500,
+        watch: null,
+        cssCodeSplit: true,
+        minify: false,
+        rollupOptions: {
+          platform: 'node',
+          input: {
+            main: 'index.html',
+            checkout: 'checkout.html',
+            orders: 'orders.html',
+            tracking: 'tracking.html'
+          }
+        },
+        ssr: true,
+        emitAssets: false,
+        createEnvironment: [Function: createEnvironment],
+        cssTarget: 'es2022',
+        cssMinify: 'lightningcss'
+      },
+      plugins: [
+        {
+          name: 'vite:watch-package-data',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'alias',
+          buildStart: [AsyncFunction: buildStart],
+          resolveId: [Function: resolveId]
+        },
+        {
+          name: 'unplugin-turbo-console',
+          enforce: 'pre',
+          resolveId: [Function: resolveId],
+          loadInclude: [Function: loadInclude],
+          load: [Function (anonymous)],
+          transform: {
+            filter: {
+              id: {
+                include: [
+                  /\.vue$/,
+                  /\.vue(\.[tj]sx?)?\?vue/,
+                  /\.vue\?v=/,
+                  /\.ts$/,
+                  /\.tsx$/,
+                  /\.js$/,
+                  /\.jsx$/,
+                  /\.svelte$/,
+                  /\.astro$/
+                ],
+                exclude: [
+                  /[\\/]node_modules[\\/]/,
+                  /[\\/]\.git[\\/]/,
+                  /[\\/]\.nuxt[\\/]/
+                ]
+              }
+            },
+            handler: [Function (anonymous)]
+          },
+          vite: { configureServer: [AsyncFunction: configureServer] },
+          farm: { configureDevServer: [Function: configureDevServer] },
+          webpack: [Function: webpack],
+          rspack: [Function: rspack],
+          watchChange: [Function: watchChange],
+          configureServer: [AsyncFunction: configureServer]
+        },
+        {
+          name: 'vite:modulepreload-polyfill',
+          resolveId: {
+            filter: { id: /^vite\/modulepreload\-polyfill$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/modulepreload\-polyfill\.js$/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:resolve-builtin:get-environment',
+          buildStart: [Function: buildStart],
+          perEnvironmentStartEndDuringDev: true
+        },
+        BuiltinPlugin {
+          enforce: undefined,
+          name: 'builtin:vite-resolve',
+          _options: {
+            resolveOptions: {
+              isBuild: false,
+              isProduction: false,
+              asSrc: true,
+              preferRelative: false,
+              isRequire: undefined,
+              root: '/Users/georgeleung/Desktop/Web_code/Amazon-clone',
+              scan: false,
+              mainFields: [ 'module', 'jsnext:main', 'jsnext', 'main' ],
+              conditions: [ 'module', 'node', 'development|production' ],
+              externalConditions: [ 'node', 'module-sync' ],
+              extensions: [
+                '.mjs',  '.js',
+                '.mts',  '.ts',
+                '.jsx',  '.tsx',
+                '.json'
+              ],
+              tryIndex: true,
+              tryPrefix: undefined,
+              preserveSymlinks: false,
+              tsconfigPaths: false
+            },
+            environmentConsumer: 'server',
+            environmentName: 'ssr',
+            builtins: [
+              '_http_agent',
+              '_http_client',
+              '_http_common',
+              '_http_incoming',
+              '_http_outgoing',
+              '_http_server',
+              '_stream_duplex',
+              '_stream_passthrough',
+              '_stream_readable',
+              '_stream_transform',
+              '_stream_wrap',
+              '_stream_writable',
+              '_tls_common',
+              '_tls_wrap',
+              'assert',
+              'assert/strict',
+              'async_hooks',
+              'buffer',
+              'child_process',
+              'cluster',
+              'console',
+              'constants',
+              'crypto',
+              'dgram',
+              'diagnostics_channel',
+              'dns',
+              'dns/promises',
+              'domain',
+              'events',
+              'fs',
+              'fs/promises',
+              'http',
+              'http2',
+              'https',
+              'inspector',
+              'inspector/promises',
+              'module',
+              'net',
+              'os',
+              'path',
+              'path/posix',
+              'path/win32',
+              'perf_hooks',
+              'process',
+              'punycode',
+              'querystring',
+              'readline',
+              'readline/promises',
+              'repl',
+              'stream',
+              'stream/consumers',
+              'stream/promises',
+              'stream/web',
+              'string_decoder',
+              'sys',
+              'timers',
+              'timers/promises',
+              'tls',
+              'trace_events',
+              'tty',
+              'url',
+              'util',
+              'util/types',
+              'v8',
+              'vm',
+              'wasi',
+              'worker_threads',
+              'zlib',
+              /^node:/,
+              /^bun:/
+            ],
+            external: [],
+            noExternal: [],
+            dedupe: [],
+            disableCache: false,
+            legacyInconsistentCjsInterop: undefined,
+            finalizeBareSpecifier: undefined,
+            finalizeOtherSpecifiers: undefined,
+            resolveSubpathImports: [Function: resolveSubpathImports],
+            onWarn: [AsyncFunction: onWarn],
+            yarnPnp: false
+          },
+          load: [AsyncFunction (anonymous)],
+          resolveId: [AsyncFunction (anonymous)],
+          transform: [AsyncFunction (anonymous)],
+          watchChange: [AsyncFunction (anonymous)],
+          perEnvironmentWatchChangeDuringDev: true
+        },
+        {
+          name: 'vite:html-inline-proxy',
+          resolveId: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:css',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          load: {
+            filter: {
+              id: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/
+            },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:oxc',
+          configureServer: [Function: configureServer],
+          resolveId: {
+            filter: { id: /^@oxc\-project\/runtime\// },
+            handler: [AsyncFunction: handler],
+            order: 'pre'
+          },
+          transform: [AsyncFunction: transform]
+        },
+        BuiltinPlugin {
+          enforce: undefined,
+          name: 'builtin:vite-json',
+          _options: { namedExports: true, stringify: 'auto', minify: false },
+          load: [AsyncFunction (anonymous)],
+          resolveId: [AsyncFunction (anonymous)],
+          transform: [AsyncFunction (anonymous)],
+          watchChange: [AsyncFunction (anonymous)]
+        },
+        {
+          name: 'vite:wasm-helper',
+          resolveId: {
+            filter: { id: /^ vite\/wasm\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: {
+              id: [
+                /^ vite\/wasm\-helper\.js$/,
+                /(?<![?#].*)\.wasm\?init/
+              ]
+            },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: {
+            filter: { code: /__VITE_WASM_INIT__([\w$]+)__/g },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:worker',
+          buildStart: [Function: buildStart],
+          load: {
+            filter: { id: /(?:\?|&)(worker|sharedworker)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: { id: /(?:\?|&)worker_file&type=(\w+)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          generateBundle: [Function: generateBundle],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'vite:asset',
+          perEnvironmentStartEndDuringDev: true,
+          buildStart: [Function: buildStart],
+          resolveId: {
+            filter: {
+              id: [
+                /(\?|&)url(?:&|$)/,
+                /\.(apng|bmp|png|jpe?g|jfif|pjpeg|pjp|gif|svg|ico|webp|avif|cur|jxl|mp4|webm|ogg|mp3|wav|flac|aac|opus|mov|m4a|vtt|woff2?|eot|ttf|otf|webmanifest|pdf|txt)(\?.*)?$/i
+              ]
+            },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: {
+              id: {
+                include: [
+                  /(\?|&)raw(?:&|$)/,
+                  /(\?|&)url(?:&|$)/,
+                  /\.(apng|bmp|png|jpe?g|jfif|pjpeg|pjp|gif|svg|ico|webp|avif|cur|jxl|mp4|webm|ogg|mp3|wav|flac|aac|opus|mov|m4a|vtt|woff2?|eot|ttf|otf|webmanifest|pdf|txt)(\?.*)?$/i
+                ],
+                exclude: /^\0/
+              }
+            },
+            handler: [AsyncFunction: handler]
+          },
+          generateBundle: [Function: generateBundle],
+          watchChange: [Function: watchChange]
+        },
+        BuiltinPlugin {
+          enforce: undefined,
+          name: 'builtin:vite-wasm-fallback',
+          _options: undefined,
+          load: [AsyncFunction (anonymous)],
+          resolveId: [AsyncFunction (anonymous)],
+          transform: [AsyncFunction (anonymous)],
+          watchChange: [AsyncFunction (anonymous)]
+        },
+        {
+          name: 'vite:define',
+          transform: { handler: [AsyncFunction: handler] }
+        },
+        {
+          name: 'vite:css-post',
+          renderStart: [Function: renderStart],
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          },
+          generateBundle: [AsyncFunction: generateBundle]
+        },
+        {
+          name: 'vite:dynamic-import-vars',
+          resolveId: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                exclude: /^\/Users\/georgeleung\/Desktop\/Web_code\/Amazon\-clone\/node_modules\/vite\/dist\/client\/client\.mjs$/
+              },
+              code: /\bimport\s*[(/]/
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-glob',
+          buildStart: [Function: buildStart],
+          transform: {
+            filter: { code: 'import.meta.glob' },
+            handler: [AsyncFunction: handler]
+          },
+          hotUpdate: [Function: hotUpdate]
+        },
+        {
+          name: 'vite:client-inject',
+          buildStart: [AsyncFunction: buildStart],
+          transform: [AsyncFunction: transform]
+        },
+        {
+          name: 'vite:css-analysis',
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-analysis',
+          transform: [AsyncFunction: transform]
+        }
+      ],
+      optimizeDepsPluginNames: []
+    }
+  },
+  resolve: {
+    externalConditions: [ 'node', 'module-sync' ],
+    extensions: [
+      '.mjs',  '.js',
+      '.mts',  '.ts',
+      '.jsx',  '.tsx',
+      '.json'
+    ],
+    dedupe: [],
+    noExternal: [],
+    external: [],
+    preserveSymlinks: false,
+    tsconfigPaths: false,
+    alias: [
+      {
+        find: /^\/?@vite\/env/,
+        replacement: '/@fs/Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/env.mjs'
+      },
+      {
+        find: /^\/?@vite\/client/,
+        replacement: '/@fs/Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/client.mjs'
+      }
+    ],
+    mainFields: [ 'browser', 'module', 'jsnext:main', 'jsnext' ],
+    conditions: [ 'module', 'browser', 'development|production' ],
+    builtins: []
+  },
+  configFile: '/Users/georgeleung/Desktop/Web_code/Amazon-clone/vite.config.ts',
+  configFileDependencies: [ '/Users/georgeleung/Desktop/Web_code/Amazon-clone/vite.config.ts' ],
+  inlineConfig: {
+    root: undefined,
+    base: undefined,
+    mode: undefined,
+    configFile: undefined,
+    configLoader: undefined,
+    logLevel: undefined,
+    clearScreen: undefined,
+    server: {},
+    forceOptimizeDeps: undefined,
+    experimental: { bundledDev: undefined },
+    build: { rolldownOptions: undefined, rollupOptions: [Getter/Setter] },
+    worker: { rolldownOptions: undefined, rollupOptions: [Getter/Setter] },
+    optimizeDeps: { rolldownOptions: undefined, rollupOptions: [Getter/Setter] }
+  },
+  root: '/Users/georgeleung/Desktop/Web_code/Amazon-clone',
+  base: '/',
+  decodedBase: '/',
+  rawBase: '/',
+  publicDir: '/Users/georgeleung/Desktop/Web_code/Amazon-clone/public',
+  cacheDir: '/Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/.vite',
+  command: 'serve',
+  mode: 'development',
+  isBundled: false,
+  isWorker: false,
+  mainConfig: null,
+  bundleChain: [],
+  isProduction: false,
+  css: {
+    transformer: 'postcss',
+    preprocessorMaxWorkers: true,
+    devSourcemap: false
+  },
+  json: { namedExports: true, stringify: 'auto' },
+  esbuild: { jsxDev: true, charset: 'utf8', legalComments: 'none' },
+  oxc: { jsx: { development: true } },
+  builder: undefined,
+  preview: {
+    port: 4173,
+    strictPort: false,
+    host: undefined,
+    allowedHosts: [],
+    https: undefined,
+    open: false,
+    proxy: undefined,
+    cors: {
+      origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/
+    },
+    headers: {}
+  },
+  envDir: '/Users/georgeleung/Desktop/Web_code/Amazon-clone',
+  env: { BASE_URL: '/', MODE: 'development', DEV: true, PROD: false },
+  assetsInclude: [Function: assetsInclude],
+  rawAssetsInclude: [],
+  logger: {
+    hasWarned: false,
+    info: [Function: info],
+    warn: [Function: warn],
+    warnOnce: [Function: warnOnce],
+    error: [Function: error],
+    clearScreen: [Function: clearScreen],
+    hasErrorLogged: [Function: hasErrorLogged]
+  },
+  packageCache: Map(1) {
+    'fnpd_/Users/georgeleung/Desktop/Web_code/Amazon-clone' => {
+      dir: '/Users/georgeleung/Desktop/Web_code/Amazon-clone',
+      data: {
+        scripts: {
+          'test:data': 'vitest tests/browser/data tests/normal/data',
+          'test:api': 'vitest tests/normal/api',
+          'test:normal': 'vitest tests/normal',
+          test: 'vitest',
+          build: 'vite build',
+          inspect: 'node-modules-inspector',
+          'build:backend': 'bun build --compile --minify --sourcemap ./src/api/index.ts ',
+          api: "bun run build:backend && find . -name '*.bun-build' -type f -delete && NODE_TLS_REJECT_UNAUTHORIZED=0 ./api",
+          'check:watch': 'tsgo --noEmit --watch',
+          lint: 'oxlint --type-aware',
+          'lint:fix': 'oxlint --fix --type-aware',
+          fmt: 'oxfmt',
+          'fmt:watch': "onchange '**' --exclude-path .gitignore -- bun run fmt",
+          'request:orders': 'cat ./tests/cart.json | xh post --https :3001/orders'
+        },
+        dependencies: {
+          '@elysiajs/cors': '^1.4.1',
+          axios: '^1.13.5',
+          elysia: '^1.4.25',
+          'idb-keyval': '^6.2.2',
+          ky: '^1.14.3',
+          nanoid: '^5.1.6',
+          'temporal-polyfill': '^0.3.0',
+          'temporal-polyfill-lite': '^0.2.2',
+          'ts-pattern': '^5.9.0'
+        },
+        devDependencies: {
+          '@playwright/test': '^1.58.2',
+          '@types/bun': '^1.3.9',
+          '@types/k6': '^1.6.0',
+          '@typescript/native-preview': '^7.0.0-dev.20260212.1',
+          '@vitejs/devtools': '^0.0.0-alpha.31',
+          '@vitest/browser-preview': '^4.0.18',
+          'bun-types': '1.3.5',
+          'happy-dom': '^20.6.1',
+          k6: '^0.0.0',
+          'node-modules-inspector': '^1.3.2',
+          onchange: '^7.1.0',
+          oxfmt: '^0.32.0',
+          oxlint: '^1.47.0',
+          'oxlint-tsgolint': '^0.12.1',
+          playwright: '^1.58.2',
+          sharp: '^0.34.5',
+          'unplugin-macros': '^0.18.7',
+          'unplugin-turbo-console': '^2.3.0',
+          vite: '^8.0.0-beta.14',
+          'vite-plugin-html-minifier': '^1.0.5',
+          'vite-plugin-remove-console': '^2.2.0',
+          vitest: '^4.0.18'
+        }
+      },
+      hasSideEffects: [Function: hasSideEffects],
+      setResolvedCache: [Function: setResolvedCache],
+      getResolvedCache: [Function: getResolvedCache]
+    },
+    set: [Function (anonymous)]
+  },
+  appType: 'spa',
+  future: undefined,
+  ssr: {
+    target: 'node',
+    optimizeDeps: {
+      esbuildOptions: { preserveSymlinks: false },
+      include: [],
+      exclude: [],
+      needsInterop: [],
+      rolldownOptions: { resolve: { symlinks: true }, output: { topLevelVar: true } },
+      extensions: [],
+      holdUntilCrawlEnd: true,
+      force: false,
+      ignoreOutdatedRequests: false,
+      noDiscovery: true,
+      rollupOptions: { resolve: { symlinks: true }, output: { topLevelVar: true } }
+    },
+    external: [],
+    noExternal: [],
+    resolve: {
+      conditions: [ 'module', 'node', 'development|production' ],
+      externalConditions: [ 'node', 'module-sync' ]
+    }
+  },
+  dev: {
+    warmup: [],
+    sourcemap: { js: true },
+    sourcemapIgnoreList: [Function: isInNodeModules],
+    preTransformRequests: false,
+    createEnvironment: [Function: defaultCreateDevEnvironment],
+    recoverable: false,
+    moduleRunnerTransform: false
+  },
+  devtools: { config: { host: 'localhost' }, enabled: false },
+  webSocketToken: 'hOVhlky6LZMj',
+  getSortedPlugins: [Function: getSortedPlugins],
+  getSortedPluginHooks: [Function: getSortedPluginHooks],
+  createResolver: [Function: createResolver],
+  fsDenyGlob: [Function: arrayMatcher],
+  safeModulePaths: Set(0) {},
+  nativePluginEnabledLevel: 2,
+  Symbol(vite:resolved-config): true
+}
+2026-02-15T09:20:36.003Z vite:deps (client) Hash is consistent. Skipping. Use --force to override.
+
+  VITE v8.0.0-beta.14  ready in 185 ms
+
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: use --host to expose
+  [32m➜[39m  [1mConsole Inspector[22m: [36m[4mhttp://127.0.0.1:3070/inspector[24m[39m
+  ➜  press h + enter to show help
+2026-02-15T09:20:36.039Z vite:html-fallback Rewriting GET /index.html to /index.html
+2026-02-15T09:20:36.047Z vite:time 9.69ms /index.html
+2026-02-15T09:20:36.049Z vite:resolve 2.60ms /src/Scripts/amazon.ts -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/Scripts/amazon.ts
+2026-02-15T09:20:36.050Z vite:load 0.77ms [fs] /src/Scripts/amazon.ts
+2026-02-15T09:20:36.059Z vite:html-fallback Rewriting GET /.well-known/appspecific/com.chrome.devtools.json to /index.html
+2026-02-15T09:20:36.060Z vite:resolve 0.81ms /@vite/client -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/client.mjs
+2026-02-15T09:20:36.063Z vite:time 4.35ms /index.html
+2026-02-15T09:20:36.065Z vite:resolve 4.84ms /src/styles/shared/general.css?direct -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/styles/shared/general.css?direct
+2026-02-15T09:20:36.065Z vite:resolve 3.89ms /src/styles/shared/amazon-header.css?direct -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/styles/shared/amazon-header.css?direct
+2026-02-15T09:20:36.066Z vite:resolve 4.75ms ../data/cart -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/data/cart.ts
+2026-02-15T09:20:36.066Z vite:resolve 5.08ms ../data/products -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/data/products.ts
+2026-02-15T09:20:36.067Z vite:resolve 5.21ms ./Utils/typeChecker -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.067Z vite:resolve 5.32ms ./htmlGenerators/amazonHTML -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:20:36.067Z vite:import-analysis 6.33ms [4 imports rewritten] src/Scripts/amazon.ts
+2026-02-15T09:20:36.069Z vite:transform 17.40ms /src/Scripts/amazon.ts
+2026-02-15T09:20:36.069Z vite:time 3.08ms /src/Scripts/amazon.ts
+2026-02-15T09:20:36.069Z vite:resolve 3.04ms /src/styles/pages/amazon.css?direct -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/styles/pages/amazon.css?direct
+2026-02-15T09:20:36.073Z vite:time 3.37ms /images/amazon-logo-white.webp
+2026-02-15T09:20:36.074Z vite:time 2.73ms /images/icons/cart-icon.png
+2026-02-15T09:20:36.074Z vite:load 9.88ms [fs] /@vite/client
+2026-02-15T09:20:36.074Z vite:load 7.86ms [fs] /src/data/products.ts
+2026-02-15T09:20:36.075Z vite:load 9.03ms [fs] /src/data/cart.ts
+2026-02-15T09:20:36.076Z vite:load 9.20ms [fs] /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.076Z vite:load 9.24ms [fs] /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:20:36.076Z vite:load 7.31ms [fs] /src/styles/shared/general.css?direct
+2026-02-15T09:20:36.078Z vite:load 8.73ms [fs] /src/styles/shared/amazon-header.css?direct
+2026-02-15T09:20:36.078Z vite:time 4.10ms /images/icons/search-icon.png
+2026-02-15T09:20:36.085Z vite:load 13.96ms [fs] /src/styles/pages/amazon.css?direct
+2026-02-15T09:20:36.085Z vite:resolve 0.41ms /src/styles/shared/Roboto-2/Roboto-VariableFont_wdth,wght.ttf -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/styles/shared/Roboto-2/Roboto-VariableFont_wdth,wght.ttf
+2026-02-15T09:20:36.087Z vite:resolve 0.09ms idb-keyval -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:20:36.087Z vite:optimize-deps load /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/.vite/deps/idb-keyval.js
+2026-02-15T09:20:36.087Z vite:resolve 0.01ms ts-pattern -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:20:36.087Z vite:optimize-deps load /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/.vite/deps/ts-pattern.js
+2026-02-15T09:20:36.087Z vite:import-analysis 0.14ms [1 imports rewritten] src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.087Z vite:transform 11.55ms /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.087Z vite:import-analysis 0.01ms [no imports] src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:20:36.088Z vite:transform 11.71ms /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:20:36.088Z vite:import-analysis [skipped] src/styles/shared/amazon-header.css?direct
+2026-02-15T09:20:36.088Z vite:transform 10.53ms [skipped] /src/styles/shared/amazon-header.css?direct
+2026-02-15T09:20:36.088Z vite:time 26.90ms /src/styles/shared/amazon-header.css
+2026-02-15T09:20:36.089Z vite:resolve 2.21ms @vite/env -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/vite/dist/client/env.mjs
+2026-02-15T09:20:36.089Z vite:import-analysis 3.17ms [1 imports rewritten] node_modules/vite/dist/client/client.mjs
+2026-02-15T09:20:36.089Z vite:transform 14.80ms /@vite/client
+2026-02-15T09:20:36.092Z vite:time 33.17ms /@vite/client
+2026-02-15T09:20:36.092Z vite:resolve 5.75ms ../scripts/Utils/Money.ts -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/scripts/Utils/Money.ts
+2026-02-15T09:20:36.092Z vite:resolve 5.96ms ./ky.ts -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/data/ky.ts
+2026-02-15T09:20:36.093Z vite:import-analysis 6.25ms [3 imports rewritten] src/data/products.ts
+2026-02-15T09:20:36.093Z vite:transform 18.86ms /src/data/products.ts
+2026-02-15T09:20:36.093Z vite:time 8.71ms /src/data/products.ts
+2026-02-15T09:20:36.094Z vite:resolve 6.80ms ../scripts/Utils/typeChecker.ts -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/src/scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.094Z vite:import-analysis 7.33ms [1 imports rewritten] src/data/cart.ts
+2026-02-15T09:20:36.095Z vite:transform 19.39ms /src/data/cart.ts
+2026-02-15T09:20:36.095Z vite:time 20.87ms /src/data/cart.ts
+2026-02-15T09:20:36.095Z vite:import-analysis [skipped] src/styles/shared/general.css?direct
+2026-02-15T09:20:36.096Z vite:transform 19.20ms /src/styles/shared/general.css?direct
+2026-02-15T09:20:36.096Z vite:time 35.91ms /src/styles/shared/general.css
+2026-02-15T09:20:36.096Z vite:import-analysis [skipped] src/styles/pages/amazon.css?direct
+2026-02-15T09:20:36.096Z vite:transform 11.21ms [skipped] /src/styles/pages/amazon.css?direct
+2026-02-15T09:20:36.096Z vite:time 30.25ms /src/styles/pages/amazon.css
+2026-02-15T09:20:36.097Z vite:cache [memory] /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.097Z vite:time 0.48ms /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.097Z vite:cache [memory] /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:20:36.097Z vite:time 0.20ms /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:20:36.099Z vite:load 11.85ms [plugin] /node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:20:36.099Z vite:load 11.64ms [plugin] /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:20:36.099Z vite:time 1.28ms /images/amazon-mobile-logo-white.webp
+2026-02-15T09:20:36.100Z vite:import-analysis 0.06ms [no imports] node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:20:36.100Z vite:transform 1.53ms [skipped] /node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:20:36.100Z vite:time 2.36ms /node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:20:36.101Z vite:import-analysis 0.19ms [no imports] node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:20:36.101Z vite:transform 2.33ms [skipped] /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:20:36.101Z vite:cache [memory] /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:20:36.101Z vite:time 0.15ms /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:20:36.102Z vite:load 8.90ms [fs] /src/data/ky.ts
+2026-02-15T09:20:36.103Z vite:load 8.51ms [fs] /src/scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.103Z vite:load 14.56ms [fs] /node_modules/vite/dist/client/env.mjs
+2026-02-15T09:20:36.103Z vite:load 11.12ms [fs] /src/scripts/Utils/Money.ts
+2026-02-15T09:20:36.105Z vite:resolve 0.07ms ky -> /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:20:36.105Z vite:optimize-deps load /Users/georgeleung/Desktop/Web_code/Amazon-clone/node_modules/.vite/deps/ky.js
+2026-02-15T09:20:36.105Z vite:import-analysis 0.64ms [1 imports rewritten] src/data/ky.ts
+2026-02-15T09:20:36.105Z vite:transform 3.65ms /src/data/ky.ts
+2026-02-15T09:20:36.106Z vite:time 7.04ms /src/data/ky.ts
+2026-02-15T09:20:36.106Z vite:cache [memory] /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:20:36.107Z vite:import-analysis 0.63ms [1 imports rewritten] src/scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.107Z vite:transform 4.16ms /src/scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.107Z vite:time 8.70ms /src/scripts/Utils/typeChecker.ts
+2026-02-15T09:20:36.107Z vite:import-analysis 0.09ms [no imports] node_modules/vite/dist/client/env.mjs
+2026-02-15T09:20:36.107Z vite:transform 4.06ms /node_modules/vite/dist/client/env.mjs
+2026-02-15T09:20:36.108Z vite:time 9.75ms /node_modules/vite/dist/client/env.mjs
+2026-02-15T09:20:36.108Z vite:import-analysis 0.35ms [no imports] src/scripts/Utils/Money.ts
+2026-02-15T09:20:36.109Z vite:transform 5.07ms /src/scripts/Utils/Money.ts
+2026-02-15T09:20:36.109Z vite:time 10.19ms /src/scripts/Utils/Money.ts
+2026-02-15T09:20:36.109Z vite:load 4.48ms [plugin] /node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:20:36.110Z vite:import-analysis 0.18ms [no imports] node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:20:36.110Z vite:transform 0.44ms [skipped] /node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:20:36.110Z vite:time 0.81ms /node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:20:36.119Z vite:time 2.82ms /images/favicon/favicon.ico
+2026-02-15T09:20:36.120Z vite:time 4.09ms /node_modules/.vite/deps/ts-pattern.js.map
+2026-02-15T09:20:36.126Z vite:time 9.11ms /node_modules/.vite/deps/idb-keyval.js.map
+2026-02-15T09:20:36.127Z vite:time 10.58ms /node_modules/.vite/deps/ky.js.map
+2026-02-15T09:20:36.138Z vite:time 10.07ms /images/ratings/rating-50.png
+2026-02-15T09:20:36.141Z vite:time 12.95ms /images/products/black-2-slot-toaster.webp
+2026-02-15T09:20:36.142Z vite:time 13.36ms /images/icons/checkmark.png
+2026-02-15T09:20:36.143Z vite:time 13.55ms /images/products/electric-glass-and-steel-hot-water-kettle.webp
+2026-02-15T09:20:36.143Z vite:time 13.76ms /images/products/floral-mixing-bowl-set.webp
+2026-02-15T09:20:36.143Z vite:time 13.71ms /images/products/women-chunky-beanie-gray.webp
+2026-02-15T09:20:36.147Z vite:time 7.57ms /images/products/men-cozy-fleece-zip-up-hoodie-red.webp
+2026-02-15T09:20:36.149Z vite:time 4.79ms /images/ratings/rating-45.png
+2026-02-15T09:20:36.151Z vite:time 10.41ms /images/products/men-chino-pants-beige.webp
+2026-02-15T09:20:36.152Z vite:time 6.52ms /images/products/women-stretch-popover-hoodie-black.webp
+2026-02-15T09:20:36.152Z vite:time 5.83ms /images/products/trash-can-with-foot-pedal-50-liter.webp
+2026-02-15T09:20:36.152Z vite:time 6.88ms /images/products/men-golf-polo-t-shirt-blue.webp
+2026-02-15T09:20:36.152Z vite:time 0.96ms /images/products/coffeemaker-with-glass-carafe-black.webp
+2026-02-15T09:20:36.152Z vite:time 0.87ms /images/products/kitchen-paper-towels-30-pack.webp
+2026-02-15T09:20:36.153Z vite:time 1.32ms /images/products/women-beach-sandals.webp
+2026-02-15T09:20:36.153Z vite:time 1.64ms /images/products/blackout-curtains-black.webp
+2026-02-15T09:20:36.154Z vite:time 1.69ms /images/products/non-stick-cooking-set-15-pieces.webp
+2026-02-15T09:20:36.155Z vite:time 2.60ms /images/products/plain-hooded-fleece-sweatshirt-yellow.webp
+2026-02-15T09:20:36.155Z vite:time 0.31ms /images/products/women-chiffon-beachwear-coverup-black.webp
+2026-02-15T09:20:36.155Z vite:time 1.58ms /images/products/liquid-laundry-detergent-plain.webp
+2026-02-15T09:20:36.156Z vite:time 1.21ms /images/products/women-french-terry-fleece-jogger-camo.webp
+2026-02-15T09:20:36.157Z vite:time 1.92ms /images/products/blackout-curtain-set-beige.webp
+2026-02-15T09:20:36.157Z vite:time 2.19ms /images/products/6-piece-non-stick-baking-set.webp
+2026-02-15T09:20:36.159Z vite:time 3.54ms /images/products/luxury-tower-set-6-piece.webp
+2026-02-15T09:20:36.159Z vite:time 0.48ms /images/products/cotton-bath-towels-teal.webp
+2026-02-15T09:20:36.159Z vite:time 1.99ms /images/products/vanity-mirror-silver.webp
+2026-02-15T09:20:36.160Z vite:time 1.73ms /images/products/bathroom-rug.webp
+2026-02-15T09:20:36.161Z vite:time 2.29ms /images/products/double-elongated-twist-french-wire-earrings.webp
+2026-02-15T09:20:36.161Z vite:time 2.16ms /images/products/athletic-cotton-socks-6-pairs.webp
+2026-02-15T09:20:36.162Z vite:time 3.12ms /images/products/adults-plain-cotton-tshirt-2-pack-teal.webp
+2026-02-15T09:20:36.163Z vite:time 1.09ms /images/products/round-sunglasses-black.webp
+2026-02-15T09:20:36.163Z vite:time 1.75ms /images/products/sky-flower-stud-earrings.webp
+2026-02-15T09:20:36.164Z vite:time 1.72ms /images/ratings/rating-40.png
+2026-02-15T09:20:36.164Z vite:time 2.25ms /images/products/duvet-cover-set-blue-twin.webp
+2026-02-15T09:20:36.164Z vite:time 2.13ms /images/products/women-knit-ballet-flat-black.webp
+2026-02-15T09:20:36.165Z vite:time 2.66ms /images/products/men-athletic-shoes-green.webp
+2026-02-15T09:20:36.166Z vite:time 0.42ms /images/products/men-slim-fit-summer-shorts-gray.webp
+2026-02-15T09:20:36.166Z vite:time 0.69ms /images/products/round-airtight-food-storage-containers.webp
+2026-02-15T09:20:36.168Z vite:time 2.37ms /images/products/facial-tissue-2-ply-18-boxes.webp
+2026-02-15T09:20:36.168Z vite:time 2.76ms /images/products/straw-sunhat.webp
+2026-02-15T09:20:36.168Z vite:time 2.38ms /images/products/knit-athletic-sneakers-gray.webp
+2026-02-15T09:20:36.169Z vite:time 3.25ms /images/products/intermediate-composite-basketball.webp
+2026-02-15T09:20:36.169Z vite:time 1.46ms /images/products/knit-athletic-sneakers-pink.webp
+2026-02-15T09:20:36.169Z vite:time 0.90ms /images/products/countertop-blender-64-oz.webp
+2026-02-15T09:20:36.169Z vite:time 1.44ms /images/products/6-piece-white-dinner-plate-set.webp
+2026-02-15T09:20:36.169Z vite:time 1.06ms /images/ratings/rating-35.png
+2026-02-15T09:20:36.170Z vite:time 1.52ms /images/products/men-navigator-sunglasses-brown.webp
+2026-02-15T09:20:58.817Z vite:hmr [file change] src/scripts/amazon.ts
+2026-02-15T09:20:58.818Z vite:hmr (client) [no modules matched] src/scripts/amazon.ts
+2026-02-15T09:20:58.818Z vite:hmr (ssr) [no modules matched] src/scripts/amazon.ts
+2026-02-15T09:23:15.992Z vite:html-fallback Rewriting GET /index.html to /index.html
+2026-02-15T09:23:15.994Z vite:cache [memory] /src/Scripts/amazon.ts
+2026-02-15T09:23:15.994Z vite:time 2.99ms /index.html
+2026-02-15T09:23:16.003Z vite:html-fallback Rewriting GET /.well-known/appspecific/com.chrome.devtools.json to /index.html
+2026-02-15T09:23:16.004Z vite:cache [memory] /@vite/client
+2026-02-15T09:23:16.015Z vite:time 11.18ms /@vite/client
+2026-02-15T09:23:16.017Z vite:cache [memory] /src/styles/shared/general.css?direct
+2026-02-15T09:23:16.017Z vite:time 0.18ms /src/styles/shared/general.css
+2026-02-15T09:23:16.018Z vite:cache [memory] /src/styles/pages/amazon.css?direct
+2026-02-15T09:23:16.018Z vite:time 0.41ms /src/styles/pages/amazon.css
+2026-02-15T09:23:16.018Z vite:cache [memory] /src/Scripts/amazon.ts
+2026-02-15T09:23:16.019Z vite:time 0.32ms /src/Scripts/amazon.ts
+2026-02-15T09:23:16.020Z vite:cache [memory] /src/styles/shared/amazon-header.css?direct
+2026-02-15T09:23:16.020Z vite:time 0.10ms /src/styles/shared/amazon-header.css
+2026-02-15T09:23:16.020Z vite:cache [memory] /node_modules/vite/dist/client/env.mjs
+2026-02-15T09:23:16.021Z vite:time 0.84ms /node_modules/vite/dist/client/env.mjs
+2026-02-15T09:23:16.023Z vite:cache [memory] /src/Scripts/amazon.ts
+2026-02-15T09:23:16.023Z vite:time 20.13ms /index.html
+2026-02-15T09:23:16.025Z vite:cache [memory] /src/data/products.ts
+2026-02-15T09:23:16.025Z vite:time 0.18ms /src/data/products.ts
+2026-02-15T09:23:16.025Z vite:cache [memory] /src/data/cart.ts
+2026-02-15T09:23:16.025Z vite:time 0.27ms /src/data/cart.ts
+2026-02-15T09:23:16.026Z vite:cache [memory] /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:23:16.027Z vite:time 0.59ms /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:23:16.030Z vite:cache [memory] /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:23:16.030Z vite:time 0.24ms /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:23:16.031Z vite:cache [memory] /src/scripts/Utils/Money.ts
+2026-02-15T09:23:16.031Z vite:time 0.22ms /src/scripts/Utils/Money.ts
+2026-02-15T09:23:16.031Z vite:time 12.33ms /images/icons/cart-icon.png
+2026-02-15T09:23:16.031Z vite:time 11.50ms /images/icons/search-icon.png
+2026-02-15T09:23:16.031Z vite:cache [memory] /src/data/ky.ts
+2026-02-15T09:23:16.032Z vite:time 0.19ms /src/data/ky.ts
+2026-02-15T09:23:16.032Z vite:cache [memory] /src/scripts/Utils/typeChecker.ts
+2026-02-15T09:23:16.032Z vite:time 0.12ms /src/scripts/Utils/typeChecker.ts
+2026-02-15T09:23:16.032Z vite:cache [memory] /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:23:16.033Z vite:time 0.38ms /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:23:16.033Z vite:cache [memory] /node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:23:16.033Z vite:time 0.12ms /node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:23:16.033Z vite:time 8.88ms /images/amazon-logo-white.webp
+2026-02-15T09:23:16.034Z vite:cache [memory] /node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:23:16.034Z vite:time 0.18ms /node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:23:16.035Z vite:time 4.19ms /images/amazon-mobile-logo-white.webp
+2026-02-15T09:23:16.042Z vite:time 4.46ms /node_modules/.vite/deps/ts-pattern.js.map
+2026-02-15T09:23:16.043Z vite:time 1.60ms /node_modules/.vite/deps/idb-keyval.js.map
+2026-02-15T09:23:16.044Z vite:time 2.91ms /node_modules/.vite/deps/ky.js.map
+2026-02-15T09:23:16.050Z vite:time 8.35ms /images/favicon/favicon.ico
+2026-02-15T09:23:16.051Z vite:time 3.17ms /images/products/black-2-slot-toaster.webp
+2026-02-15T09:23:16.052Z vite:time 2.35ms /images/ratings/rating-50.png
+2026-02-15T09:23:16.052Z vite:time 2.42ms /images/icons/checkmark.png
+2026-02-15T09:23:16.052Z vite:time 2.44ms /images/products/electric-glass-and-steel-hot-water-kettle.webp
+2026-02-15T09:23:16.052Z vite:time 2.38ms /images/products/floral-mixing-bowl-set.webp
+2026-02-15T09:23:16.053Z vite:time 2.01ms /images/products/women-chunky-beanie-gray.webp
+2026-02-15T09:23:16.056Z vite:time 2.60ms /images/products/men-chino-pants-beige.webp
+2026-02-15T09:23:16.062Z vite:time 8.11ms /images/ratings/rating-45.png
+2026-02-15T09:23:16.062Z vite:time 7.82ms /images/products/men-cozy-fleece-zip-up-hoodie-red.webp
+2026-02-15T09:23:16.062Z vite:time 7.38ms /images/products/men-golf-polo-t-shirt-blue.webp
+2026-02-15T09:23:16.062Z vite:time 6.70ms /images/products/women-stretch-popover-hoodie-black.webp
+2026-02-15T09:23:16.062Z vite:time 6.38ms /images/products/trash-can-with-foot-pedal-50-liter.webp
+2026-02-15T09:23:16.063Z vite:time 1.06ms /images/products/coffeemaker-with-glass-carafe-black.webp
+2026-02-15T09:23:16.063Z vite:time 0.91ms /images/products/kitchen-paper-towels-30-pack.webp
+2026-02-15T09:23:16.063Z vite:time 0.87ms /images/products/women-beach-sandals.webp
+2026-02-15T09:23:16.063Z vite:time 0.68ms /images/products/non-stick-cooking-set-15-pieces.webp
+2026-02-15T09:23:16.064Z vite:time 0.86ms /images/products/blackout-curtains-black.webp
+2026-02-15T09:23:16.071Z vite:time 2.71ms /images/products/plain-hooded-fleece-sweatshirt-yellow.webp
+2026-02-15T09:23:16.071Z vite:time 2.85ms /images/products/liquid-laundry-detergent-plain.webp
+2026-02-15T09:23:16.071Z vite:time 2.87ms /images/products/women-french-terry-fleece-jogger-camo.webp
+2026-02-15T09:23:16.071Z vite:time 2.89ms /images/products/women-chiffon-beachwear-coverup-black.webp
+2026-02-15T09:23:16.071Z vite:time 2.92ms /images/products/blackout-curtain-set-beige.webp
+2026-02-15T09:23:16.071Z vite:time 2.96ms /images/products/6-piece-non-stick-baking-set.webp
+2026-02-15T09:23:16.077Z vite:time 2.42ms /images/products/vanity-mirror-silver.webp
+2026-02-15T09:23:16.078Z vite:time 3.04ms /images/products/double-elongated-twist-french-wire-earrings.webp
+2026-02-15T09:23:16.078Z vite:time 3.57ms /images/products/bathroom-rug.webp
+2026-02-15T09:23:16.078Z vite:time 3.44ms /images/products/cotton-bath-towels-teal.webp
+2026-02-15T09:23:16.079Z vite:time 3.68ms /images/products/athletic-cotton-socks-6-pairs.webp
+2026-02-15T09:23:16.094Z vite:time 19.69ms /images/products/luxury-tower-set-6-piece.webp
+2026-02-15T09:23:16.095Z vite:time 1.14ms /images/products/round-sunglasses-black.webp
+2026-02-15T09:23:16.095Z vite:time 6.45ms /images/products/adults-plain-cotton-tshirt-2-pack-teal.webp
+2026-02-15T09:23:16.095Z vite:time 2.05ms /images/products/sky-flower-stud-earrings.webp
+2026-02-15T09:23:16.096Z vite:time 1.39ms /images/products/duvet-cover-set-blue-twin.webp
+2026-02-15T09:23:16.096Z vite:time 1.39ms /images/ratings/rating-40.png
+2026-02-15T09:23:16.100Z vite:time 2.04ms /images/products/straw-sunhat.webp
+2026-02-15T09:23:16.101Z vite:time 4.12ms /images/products/women-knit-ballet-flat-black.webp
+2026-02-15T09:23:16.101Z vite:time 3.18ms /images/products/men-slim-fit-summer-shorts-gray.webp
+2026-02-15T09:23:16.102Z vite:time 4.06ms /images/products/men-athletic-shoes-green.webp
+2026-02-15T09:23:16.102Z vite:time 3.41ms /images/products/round-airtight-food-storage-containers.webp
+2026-02-15T09:23:16.104Z vite:time 5.50ms /images/products/intermediate-composite-basketball.webp
+2026-02-15T09:23:16.104Z vite:time 1.33ms /images/products/facial-tissue-2-ply-18-boxes.webp
+2026-02-15T09:23:16.104Z vite:time 1.50ms /images/products/knit-athletic-sneakers-gray.webp
+2026-02-15T09:23:16.105Z vite:time 1.24ms /images/products/6-piece-white-dinner-plate-set.webp
+2026-02-15T09:23:16.105Z vite:time 1.76ms /images/products/knit-athletic-sneakers-pink.webp
+2026-02-15T09:23:16.105Z vite:time 1.46ms /images/products/countertop-blender-64-oz.webp
+2026-02-15T09:23:16.105Z vite:time 1.47ms /images/products/men-navigator-sunglasses-brown.webp
+2026-02-15T09:23:16.109Z vite:time 0.47ms /images/ratings/rating-35.png
+2026-02-15T09:52:17.129Z vite:html-fallback Rewriting GET /index.html to /index.html
+2026-02-15T09:52:17.132Z vite:cache [memory] /src/Scripts/amazon.ts
+2026-02-15T09:52:17.132Z vite:time 3.24ms /index.html
+2026-02-15T09:52:17.141Z vite:html-fallback Rewriting GET /.well-known/appspecific/com.chrome.devtools.json to /index.html
+2026-02-15T09:52:17.141Z vite:cache [memory] /@vite/client
+2026-02-15T09:52:17.153Z vite:time 11.91ms /@vite/client
+2026-02-15T09:52:17.155Z vite:cache [memory] /src/styles/shared/general.css?direct
+2026-02-15T09:52:17.155Z vite:time 0.16ms /src/styles/shared/general.css
+2026-02-15T09:52:17.156Z vite:cache [memory] /src/styles/pages/amazon.css?direct
+2026-02-15T09:52:17.156Z vite:time 0.23ms /src/styles/pages/amazon.css
+2026-02-15T09:52:17.156Z vite:cache [memory] /src/styles/shared/amazon-header.css?direct
+2026-02-15T09:52:17.156Z vite:time 0.38ms /src/styles/shared/amazon-header.css
+2026-02-15T09:52:17.158Z vite:cache [memory] /src/Scripts/amazon.ts
+2026-02-15T09:52:17.158Z vite:time 0.11ms /src/Scripts/amazon.ts
+2026-02-15T09:52:17.160Z vite:cache [memory] /src/Scripts/amazon.ts
+2026-02-15T09:52:17.160Z vite:time 19.36ms /index.html
+2026-02-15T09:52:17.165Z vite:cache [memory] /node_modules/vite/dist/client/env.mjs
+2026-02-15T09:52:17.166Z vite:time 1.36ms /node_modules/vite/dist/client/env.mjs
+2026-02-15T09:52:17.166Z vite:time 8.56ms /images/icons/cart-icon.png
+2026-02-15T09:52:17.166Z vite:time 9.38ms /images/icons/search-icon.png
+2026-02-15T09:52:17.167Z vite:cache [memory] /src/data/cart.ts
+2026-02-15T09:52:17.167Z vite:time 0.16ms /src/data/cart.ts
+2026-02-15T09:52:17.167Z vite:cache [memory] /src/data/products.ts
+2026-02-15T09:52:17.167Z vite:time 0.43ms /src/data/products.ts
+2026-02-15T09:52:17.168Z vite:cache [memory] /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:52:17.168Z vite:time 0.26ms /src/Scripts/Utils/typeChecker.ts
+2026-02-15T09:52:17.168Z vite:time 10.48ms /images/amazon-mobile-logo-white.webp
+2026-02-15T09:52:17.169Z vite:cache [memory] /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:52:17.169Z vite:time 0.21ms /src/Scripts/htmlGenerators/amazonHTML.ts
+2026-02-15T09:52:17.169Z vite:time 7.88ms /images/amazon-logo-white.webp
+2026-02-15T09:52:17.172Z vite:cache [memory] /src/scripts/Utils/typeChecker.ts
+2026-02-15T09:52:17.172Z vite:time 0.37ms /src/scripts/Utils/typeChecker.ts
+2026-02-15T09:52:17.172Z vite:cache [memory] /src/scripts/Utils/Money.ts
+2026-02-15T09:52:17.172Z vite:time 0.38ms /src/scripts/Utils/Money.ts
+2026-02-15T09:52:17.173Z vite:cache [memory] /src/data/ky.ts
+2026-02-15T09:52:17.173Z vite:time 0.06ms /src/data/ky.ts
+2026-02-15T09:52:17.174Z vite:cache [memory] /node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:52:17.174Z vite:time 0.13ms /node_modules/.vite/deps/idb-keyval.js?v=ce88a882
+2026-02-15T09:52:17.175Z vite:cache [memory] /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:52:17.175Z vite:time 0.15ms /node_modules/.vite/deps/ts-pattern.js?v=ce88a882
+2026-02-15T09:52:17.175Z vite:cache [memory] /node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:52:17.175Z vite:time 0.37ms /node_modules/.vite/deps/ky.js?v=ce88a882
+2026-02-15T09:52:17.188Z vite:time 1.63ms /node_modules/.vite/deps/ts-pattern.js.map
+2026-02-15T09:52:17.190Z vite:time 2.81ms /node_modules/.vite/deps/idb-keyval.js.map
+2026-02-15T09:52:17.191Z vite:time 3.39ms /images/favicon/favicon.ico
+2026-02-15T09:52:17.192Z vite:time 5.23ms /node_modules/.vite/deps/ky.js.map
+2026-02-15T09:52:17.199Z vite:time 4.78ms /images/icons/checkmark.png
+2026-02-15T09:52:17.199Z vite:time 5.54ms /images/ratings/rating-50.png
+2026-02-15T09:52:17.204Z vite:time 6.63ms /images/products/black-2-slot-toaster.webp
+2026-02-15T09:52:17.204Z vite:time 8.84ms /images/products/electric-glass-and-steel-hot-water-kettle.webp
+2026-02-15T09:52:17.204Z vite:time 8.71ms /images/products/floral-mixing-bowl-set.webp
+2026-02-15T09:52:17.204Z vite:time 8.11ms /images/products/women-chunky-beanie-gray.webp
+2026-02-15T09:52:17.206Z vite:time 2.18ms /images/ratings/rating-45.png
+2026-02-15T09:52:17.210Z vite:time 5.18ms /images/products/women-stretch-popover-hoodie-black.webp
+2026-02-15T09:52:17.210Z vite:time 5.46ms /images/products/men-golf-polo-t-shirt-blue.webp
+2026-02-15T09:52:17.210Z vite:time 6.06ms /images/products/men-chino-pants-beige.webp
+2026-02-15T09:52:17.215Z vite:time 10.51ms /images/products/men-cozy-fleece-zip-up-hoodie-red.webp
+2026-02-15T09:52:17.215Z vite:time 10.55ms /images/products/trash-can-with-foot-pedal-50-liter.webp
+2026-02-15T09:52:17.216Z vite:time 5.81ms /images/products/coffeemaker-with-glass-carafe-black.webp
+2026-02-15T09:52:17.216Z vite:time 1.21ms /images/products/non-stick-cooking-set-15-pieces.webp
+2026-02-15T09:52:17.216Z vite:time 1.81ms /images/products/women-beach-sandals.webp
+2026-02-15T09:52:17.217Z vite:time 5.69ms /images/products/kitchen-paper-towels-30-pack.webp
+2026-02-15T09:52:17.217Z vite:time 1.18ms /images/products/blackout-curtains-black.webp
+2026-02-15T09:52:17.217Z vite:time 1.22ms /images/products/plain-hooded-fleece-sweatshirt-yellow.webp
+2026-02-15T09:52:17.224Z vite:time 3.59ms /images/products/women-chiffon-beachwear-coverup-black.webp
+2026-02-15T09:52:17.225Z vite:time 4.17ms /images/products/women-french-terry-fleece-jogger-camo.webp
+2026-02-15T09:52:17.225Z vite:time 7.08ms /images/products/liquid-laundry-detergent-plain.webp
+2026-02-15T09:52:17.225Z vite:time 4.19ms /images/products/blackout-curtain-set-beige.webp
+2026-02-15T09:52:17.226Z vite:time 4.15ms /images/products/6-piece-non-stick-baking-set.webp
+2026-02-15T09:52:17.227Z vite:time 0.70ms /images/products/double-elongated-twist-french-wire-earrings.webp
+2026-02-15T09:52:17.229Z vite:time 1.34ms /images/products/vanity-mirror-silver.webp
+2026-02-15T09:52:17.232Z vite:time 6.31ms /images/products/cotton-bath-towels-teal.webp
+2026-02-15T09:52:17.235Z vite:time 8.17ms /images/products/bathroom-rug.webp
+2026-02-15T09:52:17.235Z vite:time 8.13ms /images/products/athletic-cotton-socks-6-pairs.webp
+2026-02-15T09:52:17.235Z vite:time 8.85ms /images/products/luxury-tower-set-6-piece.webp
+2026-02-15T09:52:17.235Z vite:time 1.52ms /images/products/adults-plain-cotton-tshirt-2-pack-teal.webp
+2026-02-15T09:52:17.236Z vite:time 1.44ms /images/products/sky-flower-stud-earrings.webp
+2026-02-15T09:52:17.237Z vite:time 2.15ms /images/products/round-sunglasses-black.webp
+2026-02-15T09:52:17.237Z vite:time 1.99ms /images/ratings/rating-40.png
+2026-02-15T09:52:17.237Z vite:time 1.99ms /images/products/women-knit-ballet-flat-black.webp
+2026-02-15T09:52:17.238Z vite:time 3.47ms /images/products/duvet-cover-set-blue-twin.webp
+2026-02-15T09:52:17.239Z vite:time 0.92ms /images/products/straw-sunhat.webp
+2026-02-15T09:52:17.240Z vite:time 2.84ms /images/products/men-athletic-shoes-green.webp
+2026-02-15T09:52:17.240Z vite:time 2.07ms /images/products/men-slim-fit-summer-shorts-gray.webp
+2026-02-15T09:52:17.240Z vite:time 1.85ms /images/products/round-airtight-food-storage-containers.webp
+2026-02-15T09:52:17.244Z vite:time 5.54ms /images/products/facial-tissue-2-ply-18-boxes.webp
+2026-02-15T09:52:17.252Z vite:time 13.91ms /images/products/intermediate-composite-basketball.webp
+2026-02-15T09:52:17.253Z vite:time 10.74ms /images/products/knit-athletic-sneakers-pink.webp
+2026-02-15T09:52:17.256Z vite:time 13.99ms /images/products/6-piece-white-dinner-plate-set.webp
+2026-02-15T09:52:17.256Z vite:time 15.58ms /images/products/knit-athletic-sneakers-gray.webp
+2026-02-15T09:52:17.256Z vite:time 12.22ms /images/products/countertop-blender-64-oz.webp
+2026-02-15T09:52:17.256Z vite:time 11.82ms /images/products/men-navigator-sunglasses-brown.webp
+2026-02-15T09:52:17.259Z vite:time 3.46ms /images/ratings/rating-35.png

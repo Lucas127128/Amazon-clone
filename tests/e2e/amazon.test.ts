@@ -67,5 +67,15 @@ test.describe('ui', () => {
     });
   });
 
-  //   test.describe('products-grid', () => {});
+  test.describe('products-grid', () => {
+    test('product container is visible', async ({ page }) => {
+      const productsLocator = page.locator('.product-container');
+      await expect(productsLocator).toHaveCount(42);
+
+      const containers = await page.locator('.product-container').all();
+      for (const container of containers) {
+        await expect(container).toBeVisible();
+      }
+    });
+  });
 });

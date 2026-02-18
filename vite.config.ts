@@ -3,16 +3,15 @@ import htmlMinifier from 'vite-plugin-html-minifier';
 import removeConsole from 'vite-plugin-remove-console';
 import TurboConsole from 'unplugin-turbo-console/vite';
 // import { DevTools } from "@vitejs/devtools";
-// import Macro from "unplugin-macros/vite"
 
 export default defineConfig({
   build: {
     rolldownOptions: {
       input: {
-        main: 'index.html',
-        checkout: 'checkout.html',
-        orders: 'orders.html',
-        tracking: 'tracking.html',
+        main: './index.html',
+        checkout: './checkout.html',
+        orders: './orders.html',
+        tracking: './tracking.html',
       },
       plugins: [removeConsole()],
       // devtools: {},
@@ -27,7 +26,6 @@ export default defineConfig({
         themeDetect: true,
       },
     }),
-    // Macro()
     // DevTools(),
   ],
   server: {

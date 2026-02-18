@@ -1,10 +1,10 @@
 import { Elysia } from 'elysia';
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from 'temporal-polyfill-lite';
 
 const products = await Bun.file('./src/api/rawProducts.json').text();
 const clothings = await Bun.file('./src/api/clothing.json').text();
 
-export const productsPlugin = new Elysia()
+export const productsPlugin = new Elysia({ prefix: '/api' })
   .get('/products', async ({ request, server }) => {
     const clientIP = server?.requestIP(request)?.address;
     const now = Temporal.Now.plainTimeISO().toString();

@@ -5,7 +5,7 @@ import {
   Order,
 } from '../../../src/data/orders.ts';
 import { dateFormatOption } from '../../../src/data/deliveryOption.ts';
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from 'temporal-polyfill-lite';
 
 const order: Order = {
   id: 'B8WQz',

@@ -9,14 +9,6 @@ bench('fetch', async () => {
   //   console.log(await productsJSON);
 });
 
-bench('ky', async () => {
-  const ky = (await import('ky')).default;
-  const products: Product[] = await ky
-    .get('http://localhost:3000/products')
-    .json();
-  //   console.log(products);
-});
-
 bench('axios', async () => {
   const axios = (await import('axios')).default;
   const products: Product[] = (

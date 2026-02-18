@@ -9,14 +9,3 @@ export function loadPage() {
   });
 }
 loadPage();
-// Promise.all([
-//   new Promise((resolve) => {
-//     getProducts(() => {
-//       resolve();
-//     });
-//   }), new Promise((resolve) => {
-//     renderOrderSummary();
-//     renderPaymentSummary();
-//     resolve();
-//   })
-// ])

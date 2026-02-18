@@ -1,8 +1,7 @@
 import { addToOrders, Order } from '../../data/orders.ts';
 import { getCart } from '../../data/cart.ts';
 import { checkTruthy } from '../Utils/typeChecker.ts';
-import { kyExternal } from '../../data/ky.ts';
-import { calculatePrices } from '../../data/payment.ts';
+import { calculatePrices, fetchOrders } from '../../data/payment.ts';
 import { getProducts } from '../../data/products.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
@@ -20,9 +19,7 @@ export async function renderPaymentSummary() {
   checkTruthy(placeOrderHTML, 'Fail to get the HTML element');
   placeOrderHTML.addEventListener('click', async () => {
     Promise.try(async () => {
-      const order: Order = await kyExternal
-        .post('orders', { json: checkoutCart })
-        .json();
+      const order: Order = await fetchOrders(checkoutCart);
       checkTruthy(order);
       addToOrders(order);
       location.href = '/orders.html';

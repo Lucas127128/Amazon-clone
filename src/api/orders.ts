@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { RawProduct, transformProducts } from '../data/products.ts';
 import { Cart } from '../data/cart.ts';
-import { Temporal } from 'temporal-polyfill';
+import { Temporal } from 'temporal-polyfill-lite';
 import { calculatePrices } from '../data/payment.ts';
 import { nanoid } from 'nanoid';
 
@@ -27,7 +27,7 @@ class Order {
   products: Cart[] = [];
 }
 
-export const orderPlugin = new Elysia().post(
+export const orderPlugin = new Elysia({ prefix: '/api' }).post(
   '/orders',
   ({ body, request, server }) => {
     const clientIP = server?.requestIP(request)?.address;
