@@ -26,3 +26,6 @@ export async function getTimeString(
     .toLocaleString('en-US', dateFormatOption);
   return orderTime;
 }
+
+export const getMatchingOrder = (orders: Order[], orderId: string) =>
+  orders.find((order) => order.id === orderId);

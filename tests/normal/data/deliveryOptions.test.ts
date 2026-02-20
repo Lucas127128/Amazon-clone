@@ -1,4 +1,5 @@
-import { describe, test, vi, beforeAll } from 'vitest';
+import { describe, test, vi, beforeAll, expect } from 'vitest';
+// import { setSystemTime } from 'bun:test';
 import {
   addWeekDays,
   getDeliveryDate,
@@ -15,8 +16,9 @@ describe('Delivery time test', () => {
     const fakeTime = new Date('2026-02-09T16:00:00.000');
     vi.useFakeTimers();
     vi.setSystemTime(fakeTime);
+    // setSystemTime(fakeTime);
   });
-  test.concurrent('addWeekDays', ({ expect }) => {
+  test.concurrent('addWeekDays', () => {
     for (const [index, deliveryOption] of deliveryOptions.entries()) {
       const correctAddedDate = match(deliveryOption.id)
         .returnType<string>()
@@ -42,7 +44,7 @@ describe('Delivery time test', () => {
     }
   });
 
-  test.concurrent('getDeliveryDate', ({ expect }) => {
+  test.concurrent('getDeliveryDate', () => {
     for (const [index, deliveryOption] of deliveryOptions.entries()) {
       const correctDeliveryDate = match(deliveryOption.id)
         .returnType<string>()
@@ -63,13 +65,13 @@ describe('Delivery time test', () => {
 });
 
 describe('Delivery price test', () => {
-  test.concurrent('getPriceString', ({ expect }) => {
+  test.concurrent('getPriceString', () => {
     expect(getPriceString(0)).toBe('FREE - ');
     expect(getPriceString(499)).toBe('$4.99 - ');
     expect(getPriceString(999)).toBe('$9.99 - ');
   });
 
-  test.concurrent('getDeliveryPriceCents', ({ expect }) => {
+  test.concurrent('getDeliveryPriceCents', () => {
     expect(getDeliveryPriceCents('1')).toBe(0);
     expect(getDeliveryPriceCents('2')).toBe(499);
     expect(getDeliveryPriceCents('3')).toBe(999);

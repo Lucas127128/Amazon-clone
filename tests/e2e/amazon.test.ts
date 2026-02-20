@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
+import {
+  getMatchingProduct,
+  transformProducts,
+} from '../../src/data/products';
+import { checkTruthy } from '../../src/scripts/Utils/typeChecker';
 
 test.describe('ui', () => {
   test.beforeEach(async ({ page }) => {
@@ -75,6 +80,39 @@ test.describe('ui', () => {
       const containers = await page.locator('.product-container').all();
       for (const container of containers) {
         await expect(container).toBeVisible();
+      }
+    });
+
+    test('products image is correct', async ({ page }) => {
+      const containers = await page.locator('.product-container').all();
+      const rawProducts = (
+        await import('../../src/api/rawProducts.json', {
+          with: { type: 'json' },
+        })
+      ).default;
+      const clothings = (
+        await import('../../src/api/clothing.json', {
+          with: { type: 'json' },
+        })
+      ).default;
+      const products = transformProducts(rawProducts, clothings);
+      for (const container of containers) {
+        const productImage = container.locator('.product-image');
+        const productImageScreenshot = await sharp(
+          await productImage.screenshot(),
+        )
+          .webp()
+          .toBuffer();
+
+        const productId = await container.evaluate(
+          (element) => element.dataset.productId,
+        );
+        checkTruthy(productId);
+        const product = getMatchingProduct(products, productId);
+        checkTruthy(product);
+        const realProductImage = product.image;
+        checkTruthy(realProductImage);
+        expect(productImageScreenshot).toMatchSnapshot(realProductImage);
       }
     });
   });

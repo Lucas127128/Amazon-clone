@@ -1,4 +1,4 @@
-import { test, describe, beforeEach } from 'vitest';
+import { test, describe, beforeEach, expect } from 'vitest';
 import {
   getMatchingProduct,
   getProducts,
@@ -35,7 +35,7 @@ describe('test suite: Render order summary', () => {
   describe('display the cart', async () => {
     const cartItemContainers = document.querySelector('.order-summary');
     console.log(cartItemContainers);
-    test.concurrent('number of cart items rendered', ({ expect }) => {
+    test.concurrent('number of cart items rendered', () => {
       expect(cartItemContainers?.childElementCount).toBe(2);
     });
 

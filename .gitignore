@@ -10,3 +10,5 @@ node_modules
 /api
 *.bun-build
 playwright-report
+test-results
+**.ts-snapshots

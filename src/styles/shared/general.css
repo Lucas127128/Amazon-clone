@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Roboto', Arial;
-  src: url(/src/styles/shared/Roboto-2/Roboto-VariableFont_wdth\,wght.ttf);
+  src: url(./Roboto-2/Roboto-VariableFont_wdth\,wght.ttf);
 }
 
 body {

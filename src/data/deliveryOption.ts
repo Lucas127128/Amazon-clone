@@ -59,6 +59,20 @@ export function getDeliveryDate(
   return deliveryDate.toLocaleString('en-US', dateFormatOption);
 }
 
+export function getDeliveryDateISO(
+  deliveryOptionId: deliveryOptionId,
+): Temporal.PlainDate {
+  const localNow = Temporal.Now.plainDateISO();
+  const deliveryDate = match(deliveryOptionId)
+    .with('1', () => addWeekDays(7, localNow))
+    .with('2', () => addWeekDays(3, localNow))
+    .with('3', () => addWeekDays(1, localNow))
+    .otherwise(() => {
+      throw new Error(`deliveryOptionId ${deliveryOptionId} is not valid`);
+    });
+  return deliveryDate;
+}
+
 export function getPriceString(priceCents: number): string {
   const priceString = match(priceCents)
     .returnType<string>()

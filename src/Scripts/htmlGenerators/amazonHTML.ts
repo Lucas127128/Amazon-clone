@@ -2,7 +2,7 @@ import { Product } from '../../data/products';
 export function generateAmazonHTML(product: Product): string {
   const html = String.raw;
   const productHTML = html`
-      <div class="product-container">
+      <div class="product-container" data-product-id='${product.id}'>
           <div class="product-image-container">
               <img class="product-image"
               src="${product.image}">

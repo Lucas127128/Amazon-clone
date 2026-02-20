@@ -21,11 +21,11 @@ const order: Order = await (
 ).json();
 
 describe('order api test', () => {
-  test.concurrent('order id test', ({ expect }) => {
+  test.concurrent('order id test', () => {
     expect(typeof order.id).toBe('string');
   });
 
-  test.concurrent('order time test', async ({ expect }) => {
+  test.concurrent('order time test', async () => {
     expect(typeof order.orderTime).toBe('string');
     const date = Temporal.Now.instant().toJSON();
     expect(await getTimeString(order.orderTime)).toBe(
@@ -54,7 +54,7 @@ describe('order api test', () => {
     expect(typeof matchingProduct).toBe('object');
   });
 
-  test.concurrent('order cost test', async ({ expect }) => {
+  test.concurrent('order cost test', async () => {
     expect(typeof order.totalCostCents).toBe('number');
 
     const products = await fetchProducts();

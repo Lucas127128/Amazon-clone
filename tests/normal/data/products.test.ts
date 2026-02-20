@@ -1,4 +1,4 @@
-import { describe, test } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import {
   getMatchingProduct,
   RawProduct,
@@ -18,14 +18,14 @@ const correctRawProduct: RawProduct = {
   keywords: ['kleenex', 'tissues', 'kitchen', 'tissues box', 'napkins'],
 };
 describe('Get matching item', async () => {
-  test.concurrent('get matching products', async ({ expect }) => {
+  test.concurrent('get matching products', async () => {
     const products = await fetchProducts();
     const matchingProduct = getMatchingProduct(products, 'sMmsZ');
     const correctProduct = new Product(correctRawProduct, false);
     expect(matchingProduct).toEqual(correctProduct);
   });
 
-  test.concurrent('get matching raw product', async ({ expect }) => {
+  test.concurrent('get matching raw product', async () => {
     const products: RawProduct[] = await (
       await fetch('https://localhost:8080/api/products')
     ).json();
@@ -33,7 +33,7 @@ describe('Get matching item', async () => {
     expect(matchingProduct).toEqual(correctRawProduct);
   });
 
-  test.concurrent('get matching cart', ({ expect }) => {
+  test.concurrent('get matching cart', () => {
     const cart: Cart[] = [
       {
         productId: 'sMmsZ',
@@ -57,12 +57,12 @@ describe('Get matching item', async () => {
 });
 
 describe('fetch products', () => {
-  test.concurrent('fetch correct products', async ({ expect }) => {
+  test.concurrent('fetch correct products', async () => {
     const products = await fetchProducts();
     expect(products).toEqual(correctRawProducts);
   });
 
-  test.concurrent('Generate product object', ({ expect }) => {
+  test.concurrent('Generate product object', () => {
     const product = new Product(correctRawProduct, false);
     const correctProduct: Product = {
       id: 'sMmsZ',
