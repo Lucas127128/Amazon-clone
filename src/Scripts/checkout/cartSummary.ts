@@ -61,7 +61,14 @@ export async function renderOrderSummary() {
       if (targetClassList.includes('update-quantity-link')) {
         handleUpdateQuantity(target, productId);
       } else if (targetClassList.includes('save-quantity-link')) {
-        addToCart(false, productId, quantityToAdd);
+        addToCart(
+          {
+            productId: productId,
+            quantity: quantityToAdd,
+            deliveryOptionId: '1',
+          },
+          false,
+        );
         loadPage();
       } else if (targetClassList.includes('delete-quantity-link')) {
         removeFromCart(productId);

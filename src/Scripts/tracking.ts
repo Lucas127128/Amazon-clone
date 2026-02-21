@@ -4,6 +4,7 @@ import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
 import { checkTruthy } from './Utils/typeChecker';
 import { Order } from '../data/orders';
 import { getMatchingCart } from '../data/cart';
+import { handleSearch } from './header';
 
 async function renderTrackingSummary() {
   const url = new URL(location.href);
@@ -36,4 +37,4 @@ async function renderTrackingSummary() {
   backToOrderLink?.insertAdjacentHTML('afterend', trackingHTML);
 }
 
-await renderTrackingSummary();
+await Promise.all([renderTrackingSummary(), handleSearch()]);

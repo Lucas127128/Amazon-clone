@@ -6,6 +6,7 @@ import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
 } from './htmlGenerators/ordersHTML.ts';
+import { handleSearch } from './header.ts';
 
 function renderPlacedOrder() {
   localStorage.setItem('cart', JSON.stringify([]));
@@ -82,7 +83,10 @@ function renderPlacedOrder() {
     );
 
     checkTruthy(productId, 'Fail to get productId');
-    addToCart(true, productId, 1);
+    addToCart(
+      { productId: productId, quantity: 1, deliveryOptionId: '1' },
+      true,
+    );
 
     checkTruthy(buyAgainMessageHTML);
     checkTruthy(buyAgainSuccessHTML);
@@ -91,11 +95,8 @@ function renderPlacedOrder() {
   displayCartQuantity('cart-quantity');
 }
 
-function loadPage() {
-  Promise.try(() => {
-    renderPlacedOrder();
-  }).catch((error) => {
-    console.error(`unexpected network error: ${error}`);
-  });
-}
-loadPage();
+Promise.try(() => {
+  return Promise.all([renderPlacedOrder(), handleSearch()]);
+}).catch((error) => {
+  console.error(`unexpected network error: ${error}`);
+});

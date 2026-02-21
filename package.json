@@ -21,6 +21,7 @@
     "elysia": "^1.4.25",
     "elysia-local-https": "^1.0.2",
     "idb-keyval": "^6.2.2",
+    "minisearch": "^7.2.0",
     "nanoid": "^5.1.6",
     "temporal-polyfill-lite": "^0.2.2",
     "ts-pattern": "^5.9.0"

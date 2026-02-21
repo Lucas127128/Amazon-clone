@@ -6,7 +6,10 @@ describe.concurrent('test suite: addToCart', () => {
   });
   test.concurrent('add a new product to cart', async ({ expect }) => {
     localStorage.setItem('cart', JSON.stringify([]));
-    addToCart(false, 'B8WQz', 4);
+    addToCart(
+      { productId: 'B8WQz', quantity: 4, deliveryOptionId: '1' },
+      false,
+    );
     const cart = getCart();
     expect(cart.length).toBe(1);
     expect(cart[0].productId).toBe('B8WQz');
@@ -26,7 +29,10 @@ describe.concurrent('test suite: addToCart', () => {
         },
       ]),
     );
-    addToCart(false, 'B8WQz', 4);
+    addToCart(
+      { productId: 'B8WQz', quantity: 4, deliveryOptionId: '1' },
+      false,
+    );
     const cart = getCart();
     expect(cart.length).toBe(1);
     expect(cart[0].productId).toBe('B8WQz');

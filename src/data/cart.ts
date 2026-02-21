@@ -4,23 +4,14 @@ import { deliveryOptionId } from './deliveryOption.ts';
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
-export function addToCart(
-  increment: boolean = false,
-  productId: string,
-  quantityToAdd: number,
-  deliveryOptionId: deliveryOptionId = '1',
-) {
+export function addToCart(cartItem: Cart, increment: boolean = false) {
   const cart = getCart();
-  const matchingCart = getMatchingCart(cart, productId);
+  const matchingCart = getMatchingCart(cart, cartItem.productId);
   matchingCart
     ? increment
-      ? (matchingCart.quantity += quantityToAdd)
-      : (matchingCart.quantity = quantityToAdd)
-    : cart.push({
-        productId: productId,
-        quantity: quantityToAdd,
-        deliveryOptionId: deliveryOptionId,
-      });
+      ? (matchingCart.quantity += cartItem.quantity)
+      : (matchingCart.quantity = cartItem.quantity)
+    : cart.push(cartItem);
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 

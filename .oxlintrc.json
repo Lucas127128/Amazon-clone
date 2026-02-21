@@ -16,7 +16,12 @@
     "prefer-template": "warn",
     "no-eval": "error",
     "import/no-cycle": ["error", { "maxDepth": 3 }],
-    "no-useless-escape": "warn"
+    "no-useless-escape": "warn",
+    "no-loop-func": "warn",
+    "prefer-rest-params": "warn",
+    "default-param-last": "error",
+    "no-new-func": "error",
+    "prefer-spread": "warn"
   },
   "settings": {
     "vitest": {

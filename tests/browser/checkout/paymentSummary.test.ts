@@ -24,8 +24,14 @@ document.body.innerHTML = `
 describe('test suite: Render payment summary', () => {
   beforeAll(async () => {
     localStorage.clear();
-    addToCart(false, '59LXo', 1);
-    addToCart(false, 'Hwme8', 2);
+    addToCart(
+      { productId: '59LXo', quantity: 1, deliveryOptionId: '1' },
+      false,
+    );
+    addToCart(
+      { productId: 'Hwme8', quantity: 2, deliveryOptionId: '1' },
+      false,
+    );
     updateDeliveryOption('59LXo', '2');
     await renderPaymentSummary();
     await renderOrderSummary();
