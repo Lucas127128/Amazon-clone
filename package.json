@@ -8,13 +8,13 @@
     "test": "bun run allow-certs && vitest",
     "build": "vite build",
     "inspect": "node-modules-inspector",
-    "build:backend": "bun build --compile --minify --sourcemap ./src/api/index.ts ",
+    "build:backend": "bun build --compile --minify --sourcemap --bytecode --format='esm' ./src/api/index.ts ",
     "api": "bun run build:backend && find . -name '*.bun-build' -type f -delete && bun run allow-certs && ./api",
     "check": "tsgo --noEmit",
     "lint": "oxlint --type-aware",
     "lint:fix": "oxlint --fix --type-aware",
     "fmt": "oxfmt",
-    "request:orders": "cat ./tests/cart.json | xh post --https :3001/orders"
+    "request:orders": "cat ./tests/cart.json | xh post --https :8080/api/orders"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",

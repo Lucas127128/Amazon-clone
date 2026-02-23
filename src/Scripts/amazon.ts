@@ -10,8 +10,16 @@ async function renderAmazonHomePage() {
   const products: readonly Product[] =
     (await handleSearch()) || (await getProducts());
 
-  products.forEach((product) => {
-    const productsHTML = generateAmazonHTML(product);
+  products.forEach((product, index) => {
+    const highFetchPriority = index <= 10 ? true : false;
+    const lazyLoading = index > 22 ? true : false;
+    const asyncDecode = index > 22 ? true : false;
+    const productsHTML = generateAmazonHTML(
+      product,
+      highFetchPriority,
+      lazyLoading,
+      asyncDecode,
+    );
     productsGrid.insertAdjacentHTML('beforeend', productsHTML);
   });
 

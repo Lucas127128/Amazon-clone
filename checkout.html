@@ -4,17 +4,9 @@
     <title>Checkout</title>
     <script type="module" src="./src/Scripts/checkout.ts" defer></script>
 
-    <!-- This code is needed for responsive design to work.
-      (Responsive design = make the website look good on
-      smaller screen sizes like a phone or a tablet). -->
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Here are the CSS files for this page. -->
-    <link rel="stylesheet" href="/src/styles/shared/general.css" />
-    <link
-      rel="stylesheet"
-      href="/src/styles/pages/checkout/checkout-header.css"
-    />
     <link
       rel="stylesheet"
       href="/src/styles/pages/checkout/checkout.css"
@@ -54,7 +46,43 @@
       <div class="checkout-grid">
         <div class="order-summary"></div>
 
-        <div class="payment-summary"></div>
+        <div class="payment-summary">
+          <div class="payment-summary-title">Order Summary</div>
+          <div class="payment-summary-row">
+            <div class="cart-item-quantity">Items (0):</div>
+            <div class="payment-summary-money total-products-price">
+              $0.00
+            </div>
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Shipping &amp; handling:</div>
+            <div class="payment-summary-money total-delivery-fee">
+              $0.00
+            </div>
+          </div>
+
+          <div class="payment-summary-row subtotal-row">
+            <div>Total before tax:</div>
+            <div class="payment-summary-money total-price-before-tax">
+              $0.00
+            </div>
+          </div>
+
+          <div class="payment-summary-row">
+            <div>Estimated tax (10%):</div>
+            <div class="payment-summary-money total-tax">$0.00</div>
+          </div>
+
+          <div class="payment-summary-row total-row">
+            <div>Order total:</div>
+            <div class="payment-summary-money total-cost">$0.00</div>
+          </div>
+
+          <button class="place-order-button button-primary">
+            Place your order
+          </button>
+        </div>
       </div>
     </div>
   </body>

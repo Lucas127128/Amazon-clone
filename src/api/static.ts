@@ -36,7 +36,7 @@ for (const fileName of filesName) {
     .exhaustive();
 
   const cacheControl = match(fileExtention)
-    .with('html', () => 'plublic,no-cache')
+    .with('html', () => 'plublic, no-cache')
     .with('css', 'js', () => 'plublic, max-age=15552000')
     .with('webp', 'png', 'jpg', 'jpeg', () => 'plublic, max-age=15552000')
     .with(P._, P.nullish, () => undefined)
@@ -49,6 +49,11 @@ for (const fileName of filesName) {
       set.headers['content-type'] = contentType;
     }
     set.headers['cache-control'] = cacheControl;
+    set.headers['strict-transport-security'] =
+      'max-age=31536000; includeSubDomains; preload';
+    set.headers['cross-origin-opener-policy'] = 'same-origin-allow-popups';
+    set.headers['content-security-policy'] =
+      "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none';";
     return file;
   });
 }

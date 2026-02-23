@@ -7,11 +7,11 @@ import { staticPlugin } from './static.ts';
 
 const app = new Elysia({ precompile: true })
   .mapResponse(async ({ responseValue }) => {
-    const body = <string>await responseValue;
-    const compressed = Bun.deflateSync(body);
+    const body = <string | ArrayBuffer>await responseValue;
+    const compressed = Bun.gzipSync(body);
     return new Response(compressed, {
       headers: {
-        'Content-Encoding': 'deflate',
+        'Content-Encoding': 'gzip',
       },
     });
   })

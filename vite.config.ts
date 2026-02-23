@@ -17,6 +17,7 @@ export default defineConfig({
       // devtools: {},
     },
     target: 'es2022',
+    assetsInlineLimit: 0,
   },
   plugins: [
     htmlMinifier({ minify: true }),

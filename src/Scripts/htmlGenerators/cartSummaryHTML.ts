@@ -66,6 +66,10 @@ export function generateCartSummary(
               <span class="update-quantity-link link-primary"> Update </span>
             <input
               type="number"
+              placeholder='quantity'
+              min='1'
+              max='10'
+              value='${cartItem.quantity}'
               class="quantity_Input_${matchingProduct.id} quantity_Input"
               style="width: 40px;"
             />
