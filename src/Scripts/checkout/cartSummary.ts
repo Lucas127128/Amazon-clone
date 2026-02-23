@@ -12,7 +12,7 @@ import {
   isHTMLInputElement,
 } from '../Utils/typeChecker.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
-import { loadPage } from '../checkout.ts';
+import { renderPaymentSummary } from './paymentSummary.ts';
 
 export async function renderOrderSummary() {
   const checkoutCart = getCart();
@@ -52,45 +52,43 @@ export async function renderOrderSummary() {
   cartItemContainers.forEach((cartItemContainer) => {
     const { productId } = cartItemContainer.dataset;
     checkTruthy(productId, 'Fail to get productId from dataset');
-    let quantityToAdd = 0;
 
-    cartItemContainer.addEventListener('click', (event) => {
+    cartItemContainer.addEventListener('click', async (event) => {
       const target = <HTMLElement>event.target;
       const targetClassList = Array.from(target.classList);
 
       if (targetClassList.includes('update-quantity-link')) {
         handleUpdateQuantity(target, productId);
       } else if (targetClassList.includes('save-quantity-link')) {
+        const quantityInput =
+          cartItemContainer.querySelector('.quantity_Input');
+        isHTMLInputElement(quantityInput);
         addToCart(
           {
             productId: productId,
-            quantity: quantityToAdd,
+            quantity: Number(quantityInput.value),
             deliveryOptionId: '1',
           },
           false,
         );
-        loadPage();
+        await Promise.all([renderOrderSummary(), renderPaymentSummary()]);
       } else if (targetClassList.includes('delete-quantity-link')) {
         removeFromCart(productId);
-        loadPage();
+        await Promise.all([renderOrderSummary(), renderPaymentSummary()]);
       }
     });
-    cartItemContainer.addEventListener('change', (event) => {
-      const { target } = event;
-      isHTMLInputElement(target);
-      const targetClassList = Array.from(target.classList);
+    cartItemContainer.addEventListener('change', async (event) => {
+      isHTMLInputElement(event.target);
+      const targetClassList = Array.from(event.target.classList);
 
-      if (targetClassList.includes('quantity_Input')) {
-        quantityToAdd = Number(target.value);
-      } else if (targetClassList.includes('delivery-option-input')) {
-        const { deliveryChoiceId } = target.dataset;
-        isDeliveryOptionId(
-          deliveryChoiceId,
-          'Fail to get productId from HTML dataset',
-        );
-        updateDeliveryOption(productId, deliveryChoiceId);
-        loadPage();
-      }
+      if (!targetClassList.includes('delivery-option-input')) return;
+      const { deliveryChoiceId } = event.target.dataset;
+      isDeliveryOptionId(
+        deliveryChoiceId,
+        'Fail to get productId from HTML dataset',
+      );
+      updateDeliveryOption(productId, deliveryChoiceId);
+      await Promise.all([renderOrderSummary(), renderPaymentSummary()]);
     });
   });
 

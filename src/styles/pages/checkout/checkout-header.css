@@ -1,103 +1,58 @@
 .checkout-header {
-  height: 60px;
-  padding-left: 30px;
-  padding-right: 30px;
+  height: 3em;
+  padding: 1.5vw;
+  padding-top: 18px;
+  padding-bottom: 4px;
   background-color: white;
 
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-content: center;
+  place-items: top;
+  grid-template-columns: 6.2vw min(270px, 29vw) 2vw;
+  grid-template-rows: 48px;
+  gap: 21em;
 
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
-}
-
-.header-content {
-  width: 100%;
-  max-width: 1100px;
-
-  display: flex;
-  align-items: center;
-}
-
-.checkout-header-left-section {
-  width: 150px;
 }
 
 .amazon-logo {
-  width: 100px;
-  margin-top: 12px;
+  width: 6.2em;
 }
 
 .amazon-mobile-logo {
   display: none;
 }
 
-/* @media is used to create responsive design (making the
-   website look good on any screen size). This @media
-   means when the screen width is 575px or less, different
-   styles (inside the {...}) will be applied. */
-@media (max-width: 575px) {
-  .checkout-header-left-section {
-    width: auto;
+.checkout-header-middle-section {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: -0.15em;
+  margin-right: 2.5vw;
+}
+
+.return-to-home-link {
+  color: rgb(0, 113, 133);
+  font-size: 24px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (width<650px) {
+  .amazon-mobile-logo {
+    display: block;
+    width: 2em;
   }
 
   .amazon-logo {
     display: none;
   }
-
-  .amazon-mobile-logo {
-    display: inline-block;
-    height: 35px;
-    margin-top: 5px;
-  }
 }
 
-.checkout-header-middle-section {
-  flex: 1;
-  flex-shrink: 0;
-  text-align: center;
-
-  font-size: 25px;
-  font-weight: 500;
-
-  display: flex;
-  justify-content: center;
-}
-
-.return-to-home-link {
-  color: rgb(0, 113, 133);
-  font-size: 23px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (max-width: 1000px) {
-  .checkout-header-middle-section {
-    font-size: 20px;
-    margin-right: 60px;
-  }
-
-  .return-to-home-link {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 575px) {
-  .checkout-header-middle-section {
-    margin-right: 5px;
-  }
-}
-
-.checkout-header-right-section {
-  text-align: right;
-  width: 150px;
-}
-
-@media (max-width: 1000px) {
-  .checkout-header-right-section {
-    width: auto;
+@media (width<1100px) {
+  .checkout-header {
+    gap: 31vw;
   }
 }

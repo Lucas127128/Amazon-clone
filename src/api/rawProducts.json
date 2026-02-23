@@ -347,5 +347,13 @@
     "rating": { "stars": 4.5, "count": 3157 },
     "priceCents": 2400,
     "keywords": ["sweaters", "hoodies", "apparel", "mens"]
+  },
+  {
+    "id": "1lUjd",
+    "image": "/images/products/synergie-skin-algizome.webp",
+    "name": "Synergie Skin AlgiZome",
+    "rating": { "stars": 4, "count": 23 },
+    "priceCents": 10000,
+    "keywords": []
   }
 ]

@@ -1,3 +1,6 @@
+@import '../shared/general.css';
+@import '../shared/amazon-header.css';
+
 .main {
   max-width: 850px;
   margin-top: 90px;

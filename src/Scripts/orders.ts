@@ -6,7 +6,7 @@ import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
 } from './htmlGenerators/ordersHTML.ts';
-import { handleSearch } from './header.ts';
+import { handleSearchInput } from './header.ts';
 
 function renderPlacedOrder() {
   localStorage.setItem('cart', JSON.stringify([]));
@@ -95,8 +95,4 @@ function renderPlacedOrder() {
   displayCartQuantity('cart-quantity');
 }
 
-Promise.try(() => {
-  return Promise.all([renderPlacedOrder(), handleSearch()]);
-}).catch((error) => {
-  console.error(`unexpected network error: ${error}`);
-});
+await Promise.all([renderPlacedOrder(), handleSearchInput()]);

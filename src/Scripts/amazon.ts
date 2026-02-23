@@ -2,16 +2,13 @@ import { addToCart, displayCartQuantity } from '../data/cart';
 import { getProducts, Product } from '../data/products';
 import { checkTruthy } from './Utils/typeChecker';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
-import { handleSearch } from './header';
+import { handleSearch, handleSearchInput } from './header';
 
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector('.products-grid');
   checkTruthy(productsGrid, 'Fail to select HTML element');
-  const url = new URL(location.href);
-  const productsFromURL = url.searchParams.get('products');
-  const products: Product[] = productsFromURL
-    ? JSON.parse(productsFromURL)
-    : await getProducts();
+  const products: readonly Product[] =
+    (await handleSearch()) || (await getProducts());
 
   products.forEach((product) => {
     const productsHTML = generateAmazonHTML(product);
@@ -62,12 +59,10 @@ async function renderAmazonHomePage() {
     displayAdded(productId);
   });
   displayCartQuantity('cart-quantity');
-  url.searchParams.delete('products');
+
+  const url = new URL(location.href);
+  url.searchParams.delete('q');
   history.replaceState(null, '', url.toString());
 }
 
-Promise.try(() => {
-  return Promise.all([renderAmazonHomePage(), handleSearch()]);
-}).catch((error) => {
-  console.error(`unexpected error: ${error}`);
-});
+await Promise.all([renderAmazonHomePage(), handleSearchInput()]);
