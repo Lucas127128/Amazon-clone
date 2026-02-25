@@ -53,7 +53,7 @@ for (const fileName of filesName) {
       'max-age=31536000; includeSubDomains; preload';
     set.headers['cross-origin-opener-policy'] = 'same-origin-allow-popups';
     set.headers['content-security-policy'] =
-      "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none';";
+      "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script';";
     return file;
   });
 }

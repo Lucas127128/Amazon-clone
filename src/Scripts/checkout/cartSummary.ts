@@ -6,6 +6,7 @@ import {
   displayCartQuantity,
 } from '../../data/cart.ts';
 import { getMatchingProduct, getProducts } from '../../data/products.ts';
+import { policy } from '../Utils/trustedTypes.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,
@@ -20,7 +21,7 @@ export async function renderOrderSummary() {
 
   const orderSummary = document.querySelector('.order-summary');
   checkTruthy(orderSummary, 'Fail to select HTML element');
-  orderSummary.innerHTML = '';
+  orderSummary.innerHTML = policy?.createHTML('') as any;
   checkoutCart.forEach((cartItem) => {
     const matchingProduct = getMatchingProduct(
       products,
@@ -28,7 +29,12 @@ export async function renderOrderSummary() {
     );
     checkTruthy(matchingProduct);
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
-    orderSummary.insertAdjacentHTML('beforeend', cartSummaryHTML);
+    const trustedCartSummaryHTML = policy?.createHTML(cartSummaryHTML);
+    checkTruthy(trustedCartSummaryHTML);
+    orderSummary.insertAdjacentHTML(
+      'beforeend',
+      trustedCartSummaryHTML as any,
+    );
   });
 
   displayCartQuantity('return-to-home-link', ' items');

@@ -3,6 +3,7 @@ import { getProducts, Product } from '../data/products';
 import { checkTruthy } from './Utils/typeChecker';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';
+import { policy } from './Utils/trustedTypes';
 
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector('.products-grid');
@@ -20,7 +21,12 @@ async function renderAmazonHomePage() {
       lazyLoading,
       asyncDecode,
     );
-    productsGrid.insertAdjacentHTML('beforeend', productsHTML);
+    const trustedProductsHTML = policy?.createHTML(productsHTML);
+    checkTruthy(trustedProductsHTML);
+    productsGrid.insertAdjacentHTML(
+      'beforeend',
+      trustedProductsHTML as any,
+    );
   });
 
   function displayAdded(productId: string) {

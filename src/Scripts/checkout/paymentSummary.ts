@@ -4,6 +4,7 @@ import { checkTruthy } from '../Utils/typeChecker.ts';
 import { calculatePrices, fetchOrders } from '../../data/payment.ts';
 import { getProducts } from '../../data/products.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
+import { policy } from '../Utils/trustedTypes.ts';
 
 export async function renderPaymentSummary() {
   const checkoutCart = getCart();
@@ -13,7 +14,9 @@ export async function renderPaymentSummary() {
   const paymentSummary = document.querySelector('.payment-summary');
   const paymentSummaryHTML = generatePaymentSummary(prices);
   checkTruthy(paymentSummary, 'Fail to select HTML element');
-  paymentSummary.innerHTML = paymentSummaryHTML;
+  const trustedPaymentSummaryHTML = policy?.createHTML(paymentSummaryHTML);
+  checkTruthy(trustedPaymentSummaryHTML);
+  paymentSummary.innerHTML = trustedPaymentSummaryHTML as any;
 
   const placeOrderHTML = document.querySelector('.place-order-button');
   checkTruthy(placeOrderHTML, 'Fail to get the HTML element');

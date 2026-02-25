@@ -7,6 +7,7 @@ import {
   generateOrdersProductHTML,
 } from './htmlGenerators/ordersHTML.ts';
 import { handleSearchInput } from './header.ts';
+import { policy } from './Utils/trustedTypes.ts';
 
 function renderPlacedOrder() {
   localStorage.setItem('cart', JSON.stringify([]));
@@ -37,7 +38,14 @@ function renderPlacedOrder() {
       orderTime,
       placedOrderHTML,
     );
-    ordersHTML.insertAdjacentHTML('beforeend', placedOrderContainerHTML);
+    const trustedOrderContainerHTML = policy?.createHTML(
+      placedOrderContainerHTML,
+    );
+    checkTruthy(trustedOrderContainerHTML);
+    ordersHTML.insertAdjacentHTML(
+      'beforeend',
+      trustedOrderContainerHTML as any,
+    );
   });
 
   function displayBuyAgainMessage(

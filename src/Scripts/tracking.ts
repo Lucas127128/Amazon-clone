@@ -5,6 +5,7 @@ import { checkTruthy } from './Utils/typeChecker';
 import { Order } from '../data/orders';
 import { getMatchingCart } from '../data/cart';
 import { handleSearchInput } from './header';
+import { policy } from './Utils/trustedTypes';
 
 async function renderTrackingSummary() {
   const url = new URL(location.href);
@@ -34,7 +35,12 @@ async function renderTrackingSummary() {
     matchingCart,
   );
   const backToOrderLink = document.querySelector('.back-to-orders-link');
-  backToOrderLink?.insertAdjacentHTML('afterend', trackingHTML);
+  const trustedTrackingHTML = policy?.createHTML(trackingHTML);
+  checkTruthy(trustedTrackingHTML);
+  backToOrderLink?.insertAdjacentHTML(
+    'afterend',
+    trustedTrackingHTML as any,
+  );
 }
 
 await Promise.all([renderTrackingSummary(), handleSearchInput()]);

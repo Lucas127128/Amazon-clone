@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true,
     "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -11,6 +9,7 @@
     "module": "esnext",
     "target": "esnext",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["trusted-types"]
   }
 }
