@@ -3,6 +3,7 @@ import { checkTruthy } from '../scripts/Utils/typeChecker';
 import { getMatchingProduct, Product } from './products';
 import { getDeliveryPriceCents } from './deliveryOption';
 import { Order } from './orders';
+import { app } from './edenTreaty';
 
 export interface Prices {
   totalProductPrice: number;
@@ -45,14 +46,8 @@ export function calculatePrices(
 }
 
 export async function fetchOrders(cart: Cart[]): Promise<Order> {
-  const orders: Order = await (
-    await fetch('https://localhost:8080/api/orders', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(cart),
-    })
-  ).json();
-  return orders;
+  const { data, error } = await app.api.orders.post(cart);
+  if (error) throw error;
+  const order = data;
+  return order;
 }

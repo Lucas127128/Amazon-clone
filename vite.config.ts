@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import removeConsole from 'vite-plugin-remove-console';
 import TurboConsole from 'unplugin-turbo-console/vite';
-// import { DevTools } from "@vitejs/devtools";
+// import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
   build: {

@@ -1,6 +1,8 @@
 import { formatCurrency } from '../scripts/Utils/Money.ts';
 import { get, set } from 'idb-keyval';
 import { Temporal } from 'temporal-polyfill-lite';
+import { app } from './edenTreaty.ts';
+import { object, number, string, array, InferOutput } from 'valibot';
 
 export const getMatchingProduct = (
   products: readonly Product[],
@@ -12,19 +14,21 @@ export const getMatchingRawProduct = (
   productId: string,
 ) => products.find((product) => product.id === productId);
 
-interface Rating {
-  stars: number;
-  count: number;
-}
+const RatingSchema = object({
+  stars: number(),
+  count: number(),
+});
 
-export interface RawProduct {
-  id: string;
-  image: string;
-  name: string;
-  rating: Rating;
-  priceCents: number;
-  keywords: string[];
-}
+export const RawProductSchema = object({
+  id: string(),
+  image: string(),
+  name: string(),
+  rating: RatingSchema,
+  priceCents: number(),
+  keywords: array(string()),
+});
+
+export type RawProduct = InferOutput<typeof RawProductSchema>;
 
 export class Product {
   constructor(productDetails: RawProduct, isClothing: boolean) {
@@ -56,12 +60,17 @@ export class Product {
 }
 
 export async function fetchProducts(): Promise<readonly Product[]> {
-  const clothings: string[] = await (
-    await fetch('https://localhost:8080/api/clothingList')
-  ).json();
-  const rawProducts: RawProduct[] = await (
-    await fetch('https://localhost:8080/api/products')
-  ).json();
+  const [clothingsResponse, productsResponse] = await Promise.all([
+    app.api.clothingList.get(),
+    app.api.products.get(),
+  ]);
+  if (clothingsResponse.error) throw clothingsResponse.error;
+  if (productsResponse.error) throw productsResponse.error;
+  const [clothings, rawProducts] = [
+    clothingsResponse.data,
+    productsResponse.data,
+  ];
+
   const products = transformProducts(rawProducts, clothings);
   return products;
 }

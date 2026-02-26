@@ -7,14 +7,21 @@ const filesName = (await Bun.$`find ./dist -type f`.text())
     (fileName) => fileName.length > 7 && !fileName.includes('.DS_Store'),
   );
 
-export const staticPlugin = new Elysia({ precompile: true }).get(
-  '/',
-  async ({ set }) => {
+export const staticPlugin = new Elysia({ precompile: true })
+  .get('/', async ({ set }) => {
     set.headers['content-type'] = 'text/html';
-    set.headers['cache-control'] = 'plublic, max-age=15552000';
+    set.headers['cache-control'] = 'public, max-age=15552000';
     return await Bun.file('./dist/index.html').text();
-  },
-);
+  })
+  .mapResponse(async ({ responseValue }) => {
+    const body = <string | ArrayBuffer>await responseValue;
+    const compressed = Bun.gzipSync(body);
+    return new Response(compressed, {
+      headers: {
+        'Content-Encoding': 'gzip',
+      },
+    });
+  });
 
 for (const fileName of filesName) {
   const fileExtention = fileName.split('.')[2].toLowerCase();
@@ -36,9 +43,9 @@ for (const fileName of filesName) {
     .exhaustive();
 
   const cacheControl = match(fileExtention)
-    .with('html', () => 'plublic, no-cache')
-    .with('css', 'js', () => 'plublic, max-age=15552000')
-    .with('webp', 'png', 'jpg', 'jpeg', () => 'plublic, max-age=15552000')
+    .with('html', () => 'public, no-cache')
+    .with('css', 'js', () => 'public, max-age=15552000')
+    .with('webp', 'png', 'jpg', 'jpeg', () => 'public, max-age=15552000')
     .with(P._, P.nullish, () => undefined)
     .exhaustive();
 

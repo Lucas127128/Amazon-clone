@@ -5,9 +5,10 @@ import {
   Product,
   getMatchingRawProduct,
   fetchProducts,
+  transformProducts,
 } from '../../../src/data/products';
 import { Cart, getMatchingCart } from '../../../src/data/cart';
-import correctRawProducts from '../../products.json';
+import correctRawProducts from '../../../src/api/rawProducts.json';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',
@@ -59,7 +60,12 @@ describe('Get matching item', async () => {
 describe('fetch products', () => {
   test.concurrent('fetch correct products', async () => {
     const products = await fetchProducts();
-    expect(products).toEqual(correctRawProducts);
+    const clothings = await (
+      await fetch('https://localhost:8080/api/products')
+    ).json();
+    expect(products).toEqual(
+      transformProducts(correctRawProducts, clothings),
+    );
   });
 
   test.concurrent('Generate product object', () => {

@@ -1,13 +1,15 @@
 import { dateFormatOption } from './deliveryOption';
-import { Cart } from './cart';
+import { CartSchema } from './cart';
 import { Temporal } from 'temporal-polyfill-lite';
+import { object, number, string, array, InferOutput } from 'valibot';
 
-export interface Order {
-  id: string;
-  orderTime: string;
-  totalCostCents: number;
-  products: Cart[];
-}
+export const OrderSchema = object({
+  id: string(),
+  orderTime: string(),
+  totalCostCents: number(),
+  products: array(CartSchema),
+});
+export type Order = InferOutput<typeof OrderSchema>;
 
 export function addToOrders(order: Order) {
   const savedOrders = localStorage.getItem('orders');

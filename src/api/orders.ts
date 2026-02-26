@@ -1,9 +1,11 @@
 import { Elysia } from 'elysia';
 import { RawProduct, transformProducts } from '../data/products.ts';
-import { Cart } from '../data/cart.ts';
+import { Cart, CartSchema } from '../data/cart.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { calculatePrices } from '../data/payment.ts';
 import { nanoid } from 'nanoid';
+import { OrderSchema } from '../data/orders.ts';
+import { InferOutput, array } from 'valibot';
 
 const rawProducts: RawProduct[] = await Bun.file(
   './src/api/rawProducts.json',
@@ -13,7 +15,8 @@ const clothings: string[] = await Bun.file(
 ).json();
 const products = transformProducts(rawProducts, clothings);
 
-class Order {
+type OrderType = InferOutput<typeof OrderSchema>;
+class Order implements OrderType {
   constructor(cart: Cart[]) {
     const { totalOrderPrice } = calculatePrices(cart, products);
     this.totalCostCents = totalOrderPrice;
@@ -33,8 +36,12 @@ export const orderPlugin = new Elysia({ prefix: '/api' }).post(
     const clientIP = server?.requestIP(request)?.address;
     const now = Temporal.Now.plainTimeISO().toJSON();
     console.log(`new orders request from ${clientIP} at ${now}`);
-    const order = new Order(body as Cart[]);
-    return JSON.stringify(order);
+    const order = new Order(body);
+    return order;
+  },
+  {
+    response: OrderSchema,
+    body: array(CartSchema),
   },
 );
 console.log(`🦊 Elysia is running`);

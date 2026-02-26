@@ -6,15 +6,6 @@ import { orderPlugin } from './orders.ts';
 import { staticPlugin } from './static.ts';
 
 const app = new Elysia({ precompile: true })
-  .mapResponse(async ({ responseValue }) => {
-    const body = <string | ArrayBuffer>await responseValue;
-    const compressed = Bun.gzipSync(body);
-    return new Response(compressed, {
-      headers: {
-        'Content-Encoding': 'gzip',
-      },
-    });
-  })
   .onBeforeHandle(({ set }) => {
     set.headers['content-type'] = 'application/json';
   })
@@ -41,3 +32,5 @@ const app = new Elysia({ precompile: true })
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
 );
+
+export type App = typeof app;

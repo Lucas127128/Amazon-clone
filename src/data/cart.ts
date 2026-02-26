@@ -1,5 +1,13 @@
 import { checkTruthy } from '../scripts/Utils/typeChecker.ts';
 import { deliveryOptionId } from './deliveryOption.ts';
+import {
+  object,
+  number,
+  string,
+  union,
+  literal,
+  InferOutput,
+} from 'valibot';
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
@@ -15,11 +23,12 @@ export function addToCart(cartItem: Cart, increment: boolean = false) {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-export interface Cart {
-  productId: string;
-  quantity: number;
-  deliveryOptionId: deliveryOptionId;
-}
+export const CartSchema = object({
+  productId: string(),
+  quantity: number(),
+  deliveryOptionId: union([literal('1'), literal('2'), literal('3')]),
+});
+export type Cart = InferOutput<typeof CartSchema>;
 
 export function removeFromCart(productId: string) {
   const cart: Cart[] = getCart().filter(
