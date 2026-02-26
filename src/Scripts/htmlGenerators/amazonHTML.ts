@@ -1,4 +1,4 @@
-import { Product } from '../../data/products';
+import { Product } from '#data/products.ts';
 export function generateAmazonHTML(
   product: Product,
   highFetchPriority: boolean,
@@ -51,7 +51,7 @@ export function generateAmazonHTML(
           <div class="product-spacer"></div>
 
           <div class="added-to-cart added-to-cart-${product.id}">
-              <img src="/images/icons/checkmark.png">
+              <img src="/images/icons/checkmark.svg">
               Added
           </div>
 

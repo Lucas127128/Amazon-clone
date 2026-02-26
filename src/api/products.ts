@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { array, string } from 'valibot';
 import { Temporal } from 'temporal-polyfill-lite';
-import { RawProductSchema } from '../data/products';
+import { RawProductSchema } from '#data/products.ts';
 
 const products = await Bun.file('./src/api/rawProducts.json').json();
 const clothings = await Bun.file('./src/api/clothing.json').json();

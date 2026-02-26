@@ -1,10 +1,7 @@
 import { describe, test, expect } from 'vitest';
-import productsJSON from '../../../src/api/rawProducts.json';
-import clothingList from '../../../src/api/clothing.json';
-import {
-  fetchProducts,
-  transformProducts,
-} from '../../../src/data/products.ts';
+import productsJSON from '#root/src/api/rawProducts.json';
+import clothingList from '#root/src/api/clothing.json';
+import { fetchProducts, transformProducts } from '#data/products.ts';
 
 describe('products api test', () => {
   test('deliver correct products', async () => {

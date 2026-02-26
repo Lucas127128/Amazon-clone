@@ -1,5 +1,5 @@
-import { addToCart, displayCartQuantity } from '../data/cart';
-import { getProducts, Product } from '../data/products';
+import { addToCart, displayCartQuantity } from '#data/cart.ts';
+import { getProducts, Product } from '#data/products.ts';
 import { checkTruthy } from './Utils/typeChecker';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';

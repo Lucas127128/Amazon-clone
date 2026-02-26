@@ -1,10 +1,10 @@
-import { Cart } from '../../data/cart';
-import { Product } from '../../data/products';
+import { Cart } from '#data/cart.ts';
+import { Product } from '#data/products.ts';
 import {
   deliveryOptions,
   getDeliveryDate,
   getPriceString,
-} from '../../data/deliveryOption';
+} from '#data/deliveryOption.ts';
 
 const html = String.raw;
 

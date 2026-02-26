@@ -1,6 +1,6 @@
-import { getMatchingProduct, getProducts } from '../data/products.ts';
-import { addToCart, displayCartQuantity } from '../data/cart.ts';
-import { getTimeString, Order } from '../data/orders.ts';
+import { getMatchingProduct, getProducts } from '#data/products.ts';
+import { addToCart, displayCartQuantity } from '#data/cart.ts';
+import { getTimeString, Order } from '#data/orders.ts';
 import { checkTruthy } from './Utils/typeChecker.ts';
 import {
   generateOrderContainerHTML,

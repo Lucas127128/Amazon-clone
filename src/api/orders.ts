@@ -1,10 +1,10 @@
 import { Elysia } from 'elysia';
-import { RawProduct, transformProducts } from '../data/products.ts';
-import { Cart, CartSchema } from '../data/cart.ts';
+import { RawProduct, transformProducts } from '#data/products.ts';
+import { Cart, CartSchema } from '#data/cart.ts';
 import { Temporal } from 'temporal-polyfill-lite';
-import { calculatePrices } from '../data/payment.ts';
+import { calculatePrices } from '#data/payment.ts';
 import { nanoid } from 'nanoid';
-import { OrderSchema } from '../data/orders.ts';
+import { OrderSchema } from '#data/orders.ts';
 import { InferOutput, array } from 'valibot';
 
 const rawProducts: RawProduct[] = await Bun.file(

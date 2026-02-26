@@ -1,10 +1,6 @@
 import { beforeEach, describe, test } from 'vitest';
-import {
-  getTimeString,
-  addToOrders,
-  Order,
-} from '../../../src/data/orders.ts';
-import { dateFormatOption } from '../../../src/data/deliveryOption.ts';
+import { getTimeString, addToOrders, Order } from '#data/orders.ts';
+import { dateFormatOption } from '#data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 
 const order: Order = {

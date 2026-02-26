@@ -1,4 +1,4 @@
-import { Prices } from '../../data/payment';
+import { Prices } from '#data/payment.ts';
 import { formatCurrency } from '../Utils/Money';
 
 export function generatePaymentSummary(prices: Prices): string {

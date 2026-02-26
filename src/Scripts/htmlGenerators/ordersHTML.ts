@@ -1,7 +1,7 @@
-import { Cart } from '../../data/cart';
-import { getDeliveryDate } from '../../data/deliveryOption';
-import { Order } from '../../data/orders';
-import { Product } from '../../data/products';
+import { Cart } from '#data/cart.ts';
+import { getDeliveryDate } from '#data/deliveryOption.ts';
+import { Order } from '#data/orders.ts';
+import { Product } from '#data/products.ts';
 import { formatCurrency } from '../Utils/Money';
 
 const html = String.raw;

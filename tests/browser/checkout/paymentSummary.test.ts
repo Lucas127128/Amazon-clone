@@ -1,18 +1,11 @@
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
-import {
-  addToCart,
-  updateDeliveryOption,
-  getCart,
-} from '../../../src/data/cart.ts';
-import {
-  getProducts,
-  getMatchingProduct,
-} from '../../../src/data/products.ts';
-import { formatCurrency } from '../../../src/scripts/Utils/Money.ts';
-import { renderOrderSummary } from '../../../src/scripts/checkout/cartSummary.ts';
-import { renderPaymentSummary } from '../../../src/scripts/checkout/paymentSummary.ts';
-import { checkTruthy } from '../../../src/scripts/Utils/typeChecker.ts';
-import sleep from '../../../src/scripts/Utils/sleep.ts';
+import { addToCart, updateDeliveryOption, getCart } from '#data/cart.ts';
+import { getProducts, getMatchingProduct } from '#data/products.ts';
+import { formatCurrency } from '#root/src/scripts/Utils/Money.ts';
+import { renderOrderSummary } from '#root/src/scripts/checkout/cartSummary.ts';
+import { renderPaymentSummary } from '#root/src/scripts/checkout/paymentSummary.ts';
+import { checkTruthy } from '#root/src/scripts/Utils/typeChecker.ts';
+import sleep from '#root/src/scripts/Utils/sleep.ts';
 
 document.body.innerHTML = `
 <div class="test-container">

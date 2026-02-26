@@ -1,5 +1,5 @@
 import { match } from 'ts-pattern';
-import { deliveryOptionId } from '../../data/deliveryOption';
+import { deliveryOptionId } from '#data/deliveryOption.ts';
 
 export function checkTruthy(
   variable: any,

@@ -2,7 +2,7 @@ import {
   getMatchingProduct,
   getProducts,
   Product,
-} from '../data/products';
+} from '#data/products.ts';
 import { checkTruthy, isHTMLInputElement } from './Utils/typeChecker';
 import MiniSearch from 'minisearch';
 

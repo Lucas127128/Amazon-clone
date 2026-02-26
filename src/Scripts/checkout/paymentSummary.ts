@@ -1,8 +1,8 @@
-import { addToOrders, Order } from '../../data/orders.ts';
-import { getCart } from '../../data/cart.ts';
+import { addToOrders, Order } from '#data/orders.ts';
+import { getCart } from '#data/cart.ts';
 import { checkTruthy } from '../Utils/typeChecker.ts';
-import { calculatePrices, fetchOrders } from '../../data/payment.ts';
-import { getProducts } from '../../data/products.ts';
+import { calculatePrices, fetchOrders } from '#data/payment.ts';
+import { getProducts } from '#data/products.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 import { policy } from '../Utils/trustedTypes.ts';
 

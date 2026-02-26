@@ -6,9 +6,9 @@ import {
   getMatchingRawProduct,
   fetchProducts,
   transformProducts,
-} from '../../../src/data/products';
-import { Cart, getMatchingCart } from '../../../src/data/cart';
-import correctRawProducts from '../../../src/api/rawProducts.json';
+} from '#data/products.ts';
+import { Cart, getMatchingCart } from '#data/cart.ts';
+import correctRawProducts from '#root/src/api/rawProducts.json';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',

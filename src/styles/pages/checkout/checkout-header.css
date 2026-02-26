@@ -8,7 +8,7 @@
   display: grid;
   place-content: center;
   place-items: top;
-  grid-template-columns: 6.2vw min(270px, 29vw) 2vw;
+  grid-template-columns: 6.2vw min(270px, 28vw) 3.5vw;
   grid-template-rows: 48px;
   gap: 21em;
 
@@ -28,13 +28,14 @@
 
 .checkout-header-middle-section {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: -0.15em;
   margin-right: 2.5vw;
 }
 
 .return-to-home-link {
   color: rgb(0, 113, 133);
+  font-weight: 500;
   font-size: 24px;
   text-decoration: none;
   cursor: pointer;
@@ -49,10 +50,15 @@
   .amazon-logo {
     display: none;
   }
+
+  .checkout-header {
+    grid-template-columns: 6vw min(270px, 28vw) 8vw;
+    gap: 27vw !important;
+  }
 }
 
 @media (width<1100px) {
   .checkout-header {
-    gap: 31vw;
+    gap: 28vw;
   }
 }

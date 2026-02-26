@@ -31,6 +31,7 @@ for (const fileName of filesName) {
     .with('js', () => 'text/javascript')
     .with('webp', () => 'image/webp')
     .with('png', () => 'image/png')
+    .with('svg', () => 'image/svg+xml')
     .with('jpg', 'jpeg', () => 'image/jpeg')
     .with(P._, P.nullish, () => undefined)
     .exhaustive();

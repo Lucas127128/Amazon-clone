@@ -1,12 +1,12 @@
 import { test, describe, expect } from 'vitest';
 import cartJSON from '../../cart.json';
-import { getTimeString } from '../../../src/data/orders.ts';
-import { fetchProducts } from '../../../src/data/products.ts';
-import { Order } from '../../../src/data/orders.ts';
-import { checkTruthy } from '../../../src/scripts/Utils/typeChecker.ts';
+import { getTimeString } from '#data/orders.ts';
+import { fetchProducts } from '#data/products.ts';
+import { Order } from '#data/orders.ts';
+import { checkTruthy } from '#root/src/scripts/Utils/typeChecker.ts';
 import { Temporal } from 'temporal-polyfill-lite';
-import { calculatePrices } from '../../../src/data/payment.ts';
-import { Cart } from '../../../src/data/cart.ts';
+import { calculatePrices } from '#data/payment.ts';
+import { Cart } from '#data/cart.ts';
 
 const cart = cartJSON as Cart[];
 

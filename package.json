@@ -1,4 +1,9 @@
 {
+  "type": "module",
+  "imports": {
+    "#root/*": "./*",
+    "#data/*": "./src/data/*"
+  },
   "scripts": {
     "allow-certs": "export NODE_TLS_REJECT_UNAUTHORIZED=0",
     "test:data": "vitest tests/browser/data tests/normal/data",

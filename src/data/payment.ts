@@ -48,6 +48,5 @@ export function calculatePrices(
 export async function fetchOrders(cart: Cart[]): Promise<Order> {
   const { data, error } = await app.api.orders.post(cart);
   if (error) throw error;
-  const order = data;
-  return order;
+  return data;
 }

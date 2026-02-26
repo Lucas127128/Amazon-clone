@@ -4,8 +4,8 @@ import {
   getCart,
   updateDeliveryOption,
   displayCartQuantity,
-} from '../../data/cart.ts';
-import { getMatchingProduct, getProducts } from '../../data/products.ts';
+} from '#data/cart.ts';
+import { getMatchingProduct, getProducts } from '#data/products.ts';
 import { policy } from '../Utils/trustedTypes.ts';
 import {
   checkTruthy,

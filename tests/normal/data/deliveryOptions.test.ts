@@ -7,7 +7,7 @@ import {
   getPriceString,
   getDeliveryPriceCents,
   deliveryOptionId,
-} from '../../../src/data/deliveryOption';
+} from '#data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { match } from 'ts-pattern';
 
