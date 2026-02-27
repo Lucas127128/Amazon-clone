@@ -4,6 +4,7 @@ import { localHttps } from 'elysia-local-https';
 import { productsPlugin } from './products.ts';
 import { orderPlugin } from './orders.ts';
 import { staticPlugin } from './static.ts';
+import config from '#root/config.json';
 
 const app = new Elysia({ precompile: true })
   .onBeforeHandle(({ set }) => {
@@ -14,12 +15,7 @@ const app = new Elysia({ precompile: true })
   })
   .use(
     cors({
-      origin: [
-        'http://localhost:5174',
-        'http://localhost:63315',
-        'https://localhost:8080',
-        'https://localhost',
-      ],
+      origin: ['http://localhost:63315', config.apiURL, config.previewURL],
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
     }),

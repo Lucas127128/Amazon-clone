@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import removeConsole from 'vite-plugin-remove-console';
 import TurboConsole from 'unplugin-turbo-console/vite';
+import config from '#root/config.json';
 // import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
@@ -31,5 +32,6 @@ export default defineConfig({
   ],
   server: {
     port: 5174,
+    allowedHosts: [config.previewURL.replace('https://', '')],
   },
 });

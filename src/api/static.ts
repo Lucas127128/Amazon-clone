@@ -1,3 +1,4 @@
+import { gunzipSync, gzipSync } from 'bun';
 import { Elysia } from 'elysia';
 import { match, P } from 'ts-pattern';
 
@@ -7,21 +8,14 @@ const filesName = (await Bun.$`find ./dist -type f`.text())
     (fileName) => fileName.length > 7 && !fileName.includes('.DS_Store'),
   );
 
-export const staticPlugin = new Elysia({ precompile: true })
-  .get('/', async ({ set }) => {
+export const staticPlugin = new Elysia({ precompile: true }).get(
+  '/',
+  async ({ set }) => {
     set.headers['content-type'] = 'text/html';
     set.headers['cache-control'] = 'public, max-age=15552000';
     return await Bun.file('./dist/index.html').text();
-  })
-  .mapResponse(async ({ responseValue }) => {
-    const body = <string | ArrayBuffer>await responseValue;
-    const compressed = Bun.gzipSync(body);
-    return new Response(compressed, {
-      headers: {
-        'Content-Encoding': 'gzip',
-      },
-    });
-  });
+  },
+);
 
 for (const fileName of filesName) {
   const fileExtention = fileName.split('.')[2].toLowerCase();
@@ -37,11 +31,13 @@ for (const fileName of filesName) {
     .exhaustive();
 
   const fileObj = Bun.file(fileName);
-  const file = match(fileExtention)
+  const file = await match(fileExtention)
     .with('html', 'css', 'js', async () => await fileObj.text())
     .with('webp', 'png', 'jpg', 'jpeg', async () => await fileObj.bytes())
     .with(P._, P.nullish, async () => await fileObj.bytes())
     .exhaustive();
+
+  const compressedFile = gzipSync(file);
 
   const cacheControl = match(fileExtention)
     .with('html', () => 'public, no-cache')
@@ -57,11 +53,12 @@ for (const fileName of filesName) {
       set.headers['content-type'] = contentType;
     }
     set.headers['cache-control'] = cacheControl;
+    set.headers['content-encoding'] = 'gzip';
     set.headers['strict-transport-security'] =
       'max-age=31536000; includeSubDomains; preload';
     set.headers['cross-origin-opener-policy'] = 'same-origin-allow-popups';
     set.headers['content-security-policy'] =
       "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script';";
-    return file;
+    return compressedFile;
   });
 }
