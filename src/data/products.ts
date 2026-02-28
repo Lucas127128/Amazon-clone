@@ -60,16 +60,15 @@ export class Product {
 }
 
 export async function fetchProducts(): Promise<readonly Product[]> {
-  const [clothingsResponse, productsResponse] = await Promise.all([
+  const [
+    { data: clothings, error: clothingsError },
+    { data: rawProducts, error: productsError },
+  ] = await Promise.all([
     app.api.clothingList.get(),
     app.api.products.get(),
   ]);
-  if (clothingsResponse.error) throw clothingsResponse.error;
-  if (productsResponse.error) throw productsResponse.error;
-  const [clothings, rawProducts] = [
-    clothingsResponse.data,
-    productsResponse.data,
-  ];
+  if (clothingsError) throw clothingsError;
+  if (productsError) throw productsError;
 
   const products = transformProducts(rawProducts, clothings);
   return products;

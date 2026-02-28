@@ -1,10 +1,6 @@
-import {
-  getMatchingProduct,
-  getProducts,
-  Product,
-} from '#data/products.ts';
-import { checkTruthy, isHTMLInputElement } from './Utils/typeChecker';
-import MiniSearch from 'minisearch';
+import { Product, transformProducts } from '#data/products.ts';
+import { app } from '../data/edenTreaty';
+import { isHTMLInputElement } from './Utils/typeChecker';
 
 const searchBar = document.querySelector('.search-bar');
 isHTMLInputElement(searchBar);
@@ -29,30 +25,20 @@ export function handleSearchInput() {
 
 export const handleSearch =
   async function searchProductsFromQuery(): Promise<
-    Product[] | undefined
+    readonly Product[] | undefined
   > {
-    const products = await getProducts();
-    const productsSearch = new MiniSearch({
-      fields: ['name', 'keywords'],
-      storeFields: ['id'],
-    });
-    productsSearch.addAll(products);
     const url = new URL(location.href);
     const searchQuery = url.searchParams.get('q');
     if (!searchQuery) return;
     searchBar.value = searchQuery;
-
-    const results = productsSearch.search(searchQuery, {
-      boost: { name: 2 },
-      fuzzy: 0.1,
-      prefix: true,
-    });
-    const resultProducts = results
-      .sort((a, b) => b.score - a.score)
-      .map((result): Product => {
-        const product = getMatchingProduct(products, result.id);
-        checkTruthy(product);
-        return product;
-      });
-    return resultProducts;
+    const [
+      { data: rawProducts, error: productsError },
+      { data: clothings, error: clothingError },
+    ] = await Promise.all([
+      app.api.search.products({ q: searchQuery }).get(),
+      app.api.clothingList.get(),
+    ]);
+    if (productsError) throw productsError;
+    if (clothingError) throw clothingError;
+    return transformProducts(rawProducts, clothings);
   };

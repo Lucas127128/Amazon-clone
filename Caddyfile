@@ -1,0 +1,6 @@
+https://localhost:3000 {
+	# only for lighthouse performance testing
+	reverse_proxy https://localhost:8080 {
+		header_down content-security-policy ""
+	}
+}

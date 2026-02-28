@@ -11,23 +11,14 @@ async function renderAmazonHomePage() {
   const products: readonly Product[] =
     (await handleSearch()) || (await getProducts());
 
+  let productsHTML = '';
   products.forEach((product, index) => {
-    const highFetchPriority = index <= 10 ? true : false;
-    const lazyLoading = index > 22 ? true : false;
-    const asyncDecode = index > 22 ? true : false;
-    const productsHTML = generateAmazonHTML(
-      product,
-      highFetchPriority,
-      lazyLoading,
-      asyncDecode,
-    );
-    const trustedProductsHTML = policy?.createHTML(productsHTML);
-    checkTruthy(trustedProductsHTML);
-    productsGrid.insertAdjacentHTML(
-      'beforeend',
-      trustedProductsHTML as any,
-    );
+    const highFetchPriority = index <= 14 ? true : false;
+    productsHTML += generateAmazonHTML(product, highFetchPriority);
   });
+  const trustedProductsHTML = policy?.createHTML(productsHTML);
+  checkTruthy(trustedProductsHTML);
+  productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);
 
   function displayAdded(productId: string) {
     const addedToCart = document.querySelector(
@@ -73,14 +64,9 @@ async function renderAmazonHomePage() {
     displayAdded(productId);
   });
   displayCartQuantity('cart-quantity');
-
   const url = new URL(location.href);
   url.searchParams.delete('q');
   history.replaceState(null, '', url.toString());
 }
 
-try {
-  await Promise.all([renderAmazonHomePage(), handleSearchInput()]);
-} catch (error) {
-  alert(error);
-}
+await Promise.all([renderAmazonHomePage(), handleSearchInput()]);

@@ -1,4 +1,5 @@
 {
-  "previewURL": "https://linking-firms-finding-twelve.trycloudflare.com",
-  "apiURL": "https://develops-encountered-occasionally-grey.trycloudflare.com"
+  "previewURL": "http://localhost:5174",
+  "apiURL": "https://localhost:8080",
+  "caddyURL": "https://localhost:3000"
 }

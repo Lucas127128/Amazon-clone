@@ -1,4 +1,3 @@
-import { gunzipSync, gzipSync } from 'bun';
 import { Elysia } from 'elysia';
 import { match, P } from 'ts-pattern';
 
@@ -10,10 +9,8 @@ const filesName = (await Bun.$`find ./dist -type f`.text())
 
 export const staticPlugin = new Elysia({ precompile: true }).get(
   '/',
-  async ({ set }) => {
-    set.headers['content-type'] = 'text/html';
-    set.headers['cache-control'] = 'public, max-age=15552000';
-    return await Bun.file('./dist/index.html').text();
+  ({ redirect }) => {
+    return redirect('/index.html');
   },
 );
 
@@ -33,16 +30,30 @@ for (const fileName of filesName) {
   const fileObj = Bun.file(fileName);
   const file = await match(fileExtention)
     .with('html', 'css', 'js', async () => await fileObj.text())
-    .with('webp', 'png', 'jpg', 'jpeg', async () => await fileObj.bytes())
+    .with(
+      'webp',
+      'png',
+      'jpg',
+      'jpeg',
+      'svg',
+      async () => await fileObj.bytes(),
+    )
     .with(P._, P.nullish, async () => await fileObj.bytes())
     .exhaustive();
 
-  const compressedFile = gzipSync(file);
+  const compressedFile = Bun.gzipSync(file);
 
   const cacheControl = match(fileExtention)
     .with('html', () => 'public, no-cache')
     .with('css', 'js', () => 'public, max-age=15552000')
-    .with('webp', 'png', 'jpg', 'jpeg', () => 'public, max-age=15552000')
+    .with(
+      'webp',
+      'png',
+      'jpg',
+      'jpeg',
+      'svg',
+      () => 'public, max-age=15552000',
+    )
     .with(P._, P.nullish, () => undefined)
     .exhaustive();
 

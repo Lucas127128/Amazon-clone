@@ -2,8 +2,6 @@ import { Product } from '#data/products.ts';
 export function generateAmazonHTML(
   product: Product,
   highFetchPriority: boolean,
-  lazyLoading: boolean,
-  asyncDecode: boolean,
 ): string {
   const html = String.raw;
   const productHTML = html`
@@ -11,8 +9,8 @@ export function generateAmazonHTML(
           <div class="product-image-container">
               <img class="product-image"
               fetchpriority=${highFetchPriority ? 'high' : 'auto'}
-              load=${lazyLoading ? 'lazy' : 'eager'}
-              decode=${asyncDecode ? 'async' : 'sync'}
+              load=${highFetchPriority ? 'eager' : 'lazy'}
+              decode=${highFetchPriority ? 'sync' : 'async'}
               src="${product.image}">
           </div>
 
