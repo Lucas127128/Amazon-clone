@@ -103,4 +103,4 @@ function renderPlacedOrder() {
   displayCartQuantity('cart-quantity');
 }
 
-await Promise.all([renderPlacedOrder(), handleSearchInput()]);
+await Promise.allSettled([renderPlacedOrder(), handleSearchInput()]);

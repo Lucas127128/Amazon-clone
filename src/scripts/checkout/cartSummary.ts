@@ -77,10 +77,16 @@ export async function renderOrderSummary() {
           },
           false,
         );
-        await Promise.all([renderOrderSummary(), renderPaymentSummary()]);
+        await Promise.allSettled([
+          renderOrderSummary(),
+          renderPaymentSummary(),
+        ]);
       } else if (targetClassList.includes('delete-quantity-link')) {
         removeFromCart(productId);
-        await Promise.all([renderOrderSummary(), renderPaymentSummary()]);
+        await Promise.allSettled([
+          renderOrderSummary(),
+          renderPaymentSummary(),
+        ]);
       }
     });
     cartItemContainer.addEventListener('change', async (event) => {
@@ -94,7 +100,10 @@ export async function renderOrderSummary() {
         'Fail to get productId from HTML dataset',
       );
       updateDeliveryOption(productId, deliveryChoiceId);
-      await Promise.all([renderOrderSummary(), renderPaymentSummary()]);
+      await Promise.allSettled([
+        renderOrderSummary(),
+        renderPaymentSummary(),
+      ]);
     });
   });
 

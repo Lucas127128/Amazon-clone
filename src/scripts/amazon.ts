@@ -69,4 +69,4 @@ async function renderAmazonHomePage() {
   history.replaceState(null, '', url.toString());
 }
 
-await Promise.all([renderAmazonHomePage(), handleSearchInput()]);
+await Promise.allSettled([renderAmazonHomePage(), handleSearchInput()]);

@@ -43,4 +43,4 @@ async function renderTrackingSummary() {
   );
 }
 
-await Promise.all([renderTrackingSummary(), handleSearchInput()]);
+await Promise.allSettled([renderTrackingSummary(), handleSearchInput()]);
