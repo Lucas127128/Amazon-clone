@@ -7,12 +7,14 @@ const filesName = (await Bun.$`find ./dist -type f`.text())
     (fileName) => fileName.length > 7 && !fileName.includes('.DS_Store'),
   );
 
-export const staticPlugin = new Elysia({ precompile: true }).get(
-  '/',
-  ({ redirect }) => {
+export const staticPlugin = new Elysia({ precompile: true })
+  .get('/', ({ redirect }) => {
     return redirect('/index.html');
-  },
-);
+  })
+  .get('/speculationRules.json', async ({ set }) => {
+    set.headers['content-type'] = 'application/speculationrules+json';
+    return await Bun.file('./config/speculationRules.json').text();
+  });
 
 for (const fileName of filesName) {
   const fileExtention = fileName.split('.')[2].toLowerCase();
@@ -70,6 +72,7 @@ for (const fileName of filesName) {
     set.headers['cross-origin-opener-policy'] = 'same-origin-allow-popups';
     set.headers['content-security-policy'] =
       "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script';";
+    set.headers['Speculation-Rules'] = '"/speculationRules.json"';
     return compressedFile;
   });
 }

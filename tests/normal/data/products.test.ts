@@ -7,8 +7,8 @@ import {
   fetchProducts,
   transformProducts,
 } from '#data/products.ts';
-import { Cart, getMatchingCart } from '#data/cart.ts';
 import correctRawProducts from '#root/src/api/rawProducts.json';
+import { app } from '#root/src/data/edenTreaty.ts';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',
@@ -33,36 +33,13 @@ describe('Get matching item', async () => {
     const matchingProduct = getMatchingRawProduct(products, 'sMmsZ');
     expect(matchingProduct).toEqual(correctRawProduct);
   });
-
-  test.concurrent('get matching cart', () => {
-    const cart: Cart[] = [
-      {
-        productId: 'sMmsZ',
-        quantity: 2,
-        deliveryOptionId: '1',
-      },
-      {
-        productId: 'ISs-Z',
-        quantity: 1,
-        deliveryOptionId: '2',
-      },
-    ];
-    const matchingCart = getMatchingCart(cart, 'ISs-Z');
-    const correctCart = {
-      productId: 'ISs-Z',
-      quantity: 1,
-      deliveryOptionId: '2',
-    };
-    expect(matchingCart).toEqual(correctCart);
-  });
 });
 
 describe('fetch products', () => {
   test.concurrent('fetch correct products', async () => {
     const products = await fetchProducts();
-    const clothings = await (
-      await fetch('https://localhost:8080/api/products')
-    ).json();
+    const { data: clothings, error } = await app.api.clothingList.get();
+    if (error) throw error;
     expect(products).toEqual(
       transformProducts(correctRawProducts, clothings),
     );

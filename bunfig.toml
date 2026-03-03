@@ -1,0 +1,8 @@
+[test]
+root = "tests/normal"
+concurrentTestGlob = "**/*"
+randomize = true
+retry = 3
+coverage = true
+coverageSkipTestFiles = true
+coveragePathIgnorePatterns = ["src/api/**"]

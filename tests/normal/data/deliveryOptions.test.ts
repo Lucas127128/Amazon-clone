@@ -1,5 +1,11 @@
-import { describe, test, vi, beforeAll, expect } from 'vitest';
-// import { setSystemTime } from 'bun:test';
+import {
+  describe,
+  test,
+  setSystemTime,
+  beforeAll,
+  expect,
+  afterAll,
+} from 'bun:test';
 import {
   addWeekDays,
   getDeliveryDate,
@@ -14,9 +20,11 @@ import { match } from 'ts-pattern';
 describe('Delivery time test', () => {
   beforeAll(() => {
     const fakeTime = new Date('2026-02-09T16:00:00.000');
-    vi.useFakeTimers();
-    vi.setSystemTime(fakeTime);
-    // setSystemTime(fakeTime);
+    setSystemTime(fakeTime);
+  });
+
+  afterAll(() => {
+    setSystemTime();
   });
   test.concurrent('addWeekDays', () => {
     for (const [index, deliveryOption] of deliveryOptions.entries()) {

@@ -29,7 +29,8 @@ export async function renderOrderSummary() {
     );
     checkTruthy(matchingProduct);
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
-    const trustedCartSummaryHTML = policy?.createHTML(cartSummaryHTML);
+    const trustedCartSummaryHTML =
+      policy?.createHTML(cartSummaryHTML) ?? cartSummaryHTML;
     checkTruthy(trustedCartSummaryHTML);
     orderSummary.insertAdjacentHTML(
       'beforeend',
@@ -89,6 +90,7 @@ export async function renderOrderSummary() {
         ]);
       }
     });
+
     cartItemContainer.addEventListener('change', async (event) => {
       isHTMLInputElement(event.target);
       const targetClassList = Array.from(event.target.classList);

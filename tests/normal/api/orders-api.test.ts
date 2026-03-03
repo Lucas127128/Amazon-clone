@@ -1,4 +1,10 @@
-import { test, describe, expect } from 'vitest';
+import {
+  test,
+  describe,
+  expect,
+  setSystemTime,
+  beforeAll,
+} from 'bun:test';
 import cartJSON from '../../cart.json';
 import { getTimeString } from '#data/orders.ts';
 import { fetchProducts } from '#data/products.ts';
@@ -21,6 +27,9 @@ const order: Order = await (
 ).json();
 
 describe('order api test', () => {
+  beforeAll(() => {
+    setSystemTime();
+  });
   test.concurrent('order id test', () => {
     expect(typeof order.id).toBe('string');
   });
@@ -28,6 +37,7 @@ describe('order api test', () => {
   test.concurrent('order time test', async () => {
     expect(typeof order.orderTime).toBe('string');
     const date = Temporal.Now.instant().toJSON();
+    console.log('date: ', date);
     expect(await getTimeString(order.orderTime)).toBe(
       await getTimeString(date),
     );

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 import { getMatchingProduct, transformProducts } from '#data/products.ts';
-import { checkTruthy } from '../../src/scripts/Utils/typeChecker';
+import { checkTruthy } from '#root/src/scripts/Utils/typeChecker.ts';
 
 test.describe('ui', () => {
   test.beforeEach(async ({ page }) => {
@@ -72,7 +72,7 @@ test.describe('ui', () => {
   test.describe('products-grid', () => {
     test('product container is visible', async ({ page }) => {
       const productsLocator = page.locator('.product-container');
-      await expect(productsLocator).toHaveCount(42);
+      await expect(productsLocator).toHaveCount(43);
 
       const containers = await page.locator('.product-container').all();
       for (const container of containers) {

@@ -13,3 +13,7 @@ playwright-report
 test-results
 **.ts-snapshots
 *.js.map
+
+
+.nx/cache
+.nx/workspace-data

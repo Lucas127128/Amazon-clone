@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import DOMPurify from 'dompurify';
 
 export const policy = window.trustedTypes?.createPolicy('DOMPurify', {

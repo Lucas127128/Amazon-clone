@@ -5,15 +5,8 @@ export default defineConfig({
   test: {
     pool: 'threads',
     maxConcurrency: 40,
+    watch: true,
     projects: [
-      {
-        test: {
-          isolate: false,
-          include: ['tests/normal/**/*.test.ts'],
-          name: 'normal',
-          environment: 'node',
-        },
-      },
       {
         test: {
           isolate: false,

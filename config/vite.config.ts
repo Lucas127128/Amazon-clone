@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
-import removeConsole from 'vite-plugin-remove-console';
 import TurboConsole from 'unplugin-turbo-console/vite';
-import config from '#root/config.json';
+import config from '#root/config/config.json' with { type: 'json' };
 // import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
@@ -14,7 +13,6 @@ export default defineConfig({
         orders: './orders.html',
         tracking: './tracking.html',
       },
-      plugins: [removeConsole()],
       // devtools: {},
     },
     target: 'es2022',

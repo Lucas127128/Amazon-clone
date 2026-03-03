@@ -1,7 +1,8 @@
 import { dateFormatOption } from './deliveryOption';
-import { CartSchema } from './cart';
+import { CartSchema, Cart } from './cart';
 import { Temporal } from 'temporal-polyfill-lite';
-import { object, number, string, array, InferOutput } from 'valibot';
+import { object, number, string, InferOutput, array } from 'valibot';
+import { app } from './edenTreaty';
 
 export const OrderSchema = object({
   id: string(),
@@ -10,15 +11,6 @@ export const OrderSchema = object({
   products: array(CartSchema),
 });
 export type Order = InferOutput<typeof OrderSchema>;
-
-export function addToOrders(order: Order) {
-  const savedOrders = localStorage.getItem('orders');
-  const orders: Order[] = savedOrders
-    ? (JSON.parse(savedOrders) as Order[])
-    : [];
-  orders.unshift(order);
-  localStorage.setItem('orders', JSON.stringify(orders));
-}
 
 export async function getTimeString(
   ISOOrderTime: string,
@@ -31,3 +23,9 @@ export async function getTimeString(
 
 export const getMatchingOrder = (orders: Order[], orderId: string) =>
   orders.find((order) => order.id === orderId);
+
+export async function fetchOrders(cart: Cart[]): Promise<Order> {
+  const { data, error } = await app.api.orders.post(cart);
+  if (error) throw error;
+  return data;
+}

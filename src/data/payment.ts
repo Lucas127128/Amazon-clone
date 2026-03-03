@@ -2,8 +2,6 @@ import { Cart } from './cart';
 import { checkTruthy } from '../scripts/Utils/typeChecker';
 import { getMatchingProduct, Product } from './products';
 import { getDeliveryPriceCents } from './deliveryOption';
-import { Order } from './orders';
-import { app } from './edenTreaty';
 
 export interface Prices {
   totalProductPrice: number;
@@ -43,10 +41,4 @@ export function calculatePrices(
     totalTax,
     totalOrderPrice,
   };
-}
-
-export async function fetchOrders(cart: Cart[]): Promise<Order> {
-  const { data, error } = await app.api.orders.post(cart);
-  if (error) throw error;
-  return data;
 }
