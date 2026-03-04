@@ -1,12 +1,20 @@
 import { dateFormatOption } from './deliveryOption';
 import { CartSchema, Cart } from './cart';
 import { Temporal } from 'temporal-polyfill-lite';
-import { object, number, string, InferOutput, array } from 'valibot';
+import {
+  object,
+  number,
+  string,
+  InferOutput,
+  array,
+  isoTimestamp,
+  pipe,
+} from 'valibot';
 import { app } from './edenTreaty';
 
 export const OrderSchema = object({
   id: string(),
-  orderTime: string(),
+  orderTime: pipe(string(), isoTimestamp()),
   totalCostCents: number(),
   products: array(CartSchema),
 });

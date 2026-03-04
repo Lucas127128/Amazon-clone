@@ -5,5 +5,9 @@ randomize = true
 retry = 1
 coverage = true
 coverageSkipTestFiles = true
-coveragePathIgnorePatterns = ["src/api/**"]
+coveragePathIgnorePatterns = [
+  "src/api/**",
+  "src/scripts/Utils/trustedTypes.ts",
+]
+coverageThreshold = 0.95
 preload = ["./tests/preload.ts"]
