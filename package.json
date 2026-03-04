@@ -8,6 +8,7 @@
   "scripts": {
     "allow-certs": "export NODE_TLS_REJECT_UNAUTHORIZED=0",
     "test:bun": "NODE_TLS_REJECT_UNAUTHORIZED=0 FORCE_COLOR=1 bun test --watch --max-concurrency 100",
+    "test:ci": "NODE_TLS_REJECT_UNAUTHORIZED=0 FORCE_COLOR=1 bun test --max-concurrency 100",
     "test:e2e": "bun run allow-certs && playwright test --trace on -c ./config/playwright.config.ts",
     "test:vitest": "vitest -c ./config/vitest.config.ts",
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --parallel test:vitest test:bun",

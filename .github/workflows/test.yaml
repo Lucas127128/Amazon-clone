@@ -1,14 +1,27 @@
 on: [push]
 jobs:
   build:
-    name: 'build app'
+    name: 'test app'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install bun
         uses: oven-sh/setup-bun@v2
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
       - name: Install dependency
         run: bun install
+      - name: Build app
+        run: bun run build
+      - name: Install dependency for https
+        run: brew install nss mkcert
+      - name: Install certs
+        run: mkcert -install
+      - name: Run Bun Server
+        uses: JarvusInnovations/background-action@v1
+        with:
+          run: bun run api
+          wait-on: https://localhost:8080
       - name: Run tests
-        run: bun run test:bun
+        run: bun run test:ci

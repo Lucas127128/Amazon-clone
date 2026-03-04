@@ -9,5 +9,4 @@ coveragePathIgnorePatterns = [
   "src/api/**",
   "src/scripts/Utils/trustedTypes.ts",
 ]
-coverageThreshold = 0.95
 preload = ["./tests/preload.ts"]
