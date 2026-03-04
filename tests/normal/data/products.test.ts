@@ -18,15 +18,15 @@ const correctRawProduct: RawProduct = {
   priceCents: 2374,
   keywords: ['kleenex', 'tissues', 'kitchen', 'tissues box', 'napkins'],
 };
-describe('Get matching item', async () => {
-  test.concurrent('get matching products', async () => {
+describe.concurrent('Get matching item', async () => {
+  test('get matching products', async () => {
     const products = await fetchProducts();
     const matchingProduct = getMatchingProduct(products, 'sMmsZ');
     const correctProduct = new Product(correctRawProduct, false);
     expect(matchingProduct).toEqual(correctProduct);
   });
 
-  test.concurrent('get matching raw product', async () => {
+  test('get matching raw product', async () => {
     const products: RawProduct[] = await (
       await fetch('https://localhost:8080/api/products')
     ).json();
@@ -35,8 +35,8 @@ describe('Get matching item', async () => {
   });
 });
 
-describe('fetch products', () => {
-  test.concurrent('fetch correct products', async () => {
+describe.concurrent('fetch products', () => {
+  test('fetch correct products', async () => {
     const products = await fetchProducts();
     const { data: clothings, error } = await app.api.clothingList.get();
     if (error) throw error;
@@ -45,7 +45,7 @@ describe('fetch products', () => {
     );
   });
 
-  test.concurrent('Generate product object', () => {
+  test('Generate product object', () => {
     const product = new Product(correctRawProduct, false);
     const correctProduct: Product = {
       id: 'sMmsZ',

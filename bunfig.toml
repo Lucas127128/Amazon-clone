@@ -2,7 +2,8 @@
 root = "tests/normal"
 concurrentTestGlob = "**/*"
 randomize = true
-retry = 3
+retry = 1
 coverage = true
 coverageSkipTestFiles = true
 coveragePathIgnorePatterns = ["src/api/**"]
+preload = ["./tests/preload.ts"]

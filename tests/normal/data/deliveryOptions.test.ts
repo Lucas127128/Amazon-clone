@@ -13,11 +13,12 @@ import {
   getPriceString,
   getDeliveryPriceCents,
   deliveryOptionId,
+  getDeliveryDateISO,
 } from '#data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { match } from 'ts-pattern';
 
-describe('Delivery time test', () => {
+describe.concurrent('Delivery time test', () => {
   beforeAll(() => {
     const fakeTime = new Date('2026-02-09T16:00:00.000');
     setSystemTime(fakeTime);
@@ -26,7 +27,7 @@ describe('Delivery time test', () => {
   afterAll(() => {
     setSystemTime();
   });
-  test.concurrent('addWeekDays', () => {
+  test('addWeekDays', () => {
     for (const [index, deliveryOption] of deliveryOptions.entries()) {
       const correctAddedDate = match(deliveryOption.id)
         .returnType<string>()
@@ -52,7 +53,7 @@ describe('Delivery time test', () => {
     }
   });
 
-  test.concurrent('getDeliveryDate', () => {
+  test('getDeliveryDate', () => {
     for (const [index, deliveryOption] of deliveryOptions.entries()) {
       const correctDeliveryDate = match(deliveryOption.id)
         .returnType<string>()
@@ -70,16 +71,29 @@ describe('Delivery time test', () => {
       expect(deliveryDate).toBe(correctDeliveryDate);
     }
   });
+
+  test('getDeliveryDateISO', () => {
+    // const correctDeliveryDate = Temporal.PlainDate.from('2026-02-18');
+    expect(getDeliveryDateISO('1')).toEqual(
+      Temporal.PlainDate.from('2026-02-18'),
+    );
+    expect(getDeliveryDateISO('2')).toEqual(
+      Temporal.PlainDate.from('2026-02-12'),
+    );
+    expect(getDeliveryDateISO('3')).toEqual(
+      Temporal.PlainDate.from('2026-02-10'),
+    );
+  });
 });
 
-describe('Delivery price test', () => {
-  test.concurrent('getPriceString', () => {
+describe.concurrent('Delivery price test', () => {
+  test('getPriceString', () => {
     expect(getPriceString(0)).toBe('FREE - ');
     expect(getPriceString(499)).toBe('$4.99 - ');
     expect(getPriceString(999)).toBe('$9.99 - ');
   });
 
-  test.concurrent('getDeliveryPriceCents', () => {
+  test('getDeliveryPriceCents', () => {
     expect(getDeliveryPriceCents('1')).toBe(0);
     expect(getDeliveryPriceCents('2')).toBe(499);
     expect(getDeliveryPriceCents('3')).toBe(999);

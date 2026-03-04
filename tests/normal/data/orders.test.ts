@@ -10,8 +10,8 @@ import { Temporal } from 'temporal-polyfill-lite';
 import cartJSON from '../../cart.json';
 import { Cart } from '#root/src/data/cart.ts';
 
-describe('test suite: getTimeString', () => {
-  test.concurrent('get time string from ISO time', async () => {
+describe.concurrent('test suite: getTimeString', () => {
+  test('get time string from ISO time', async () => {
     const ISOOrderTime = Temporal.Now.instant().toJSON();
     const orderTime = Temporal.Instant.from(ISOOrderTime).toLocaleString(
       'en-US',
@@ -21,7 +21,7 @@ describe('test suite: getTimeString', () => {
   });
 });
 
-describe('test suite: fetchOrders', async () => {
+describe.concurrent('test suite: fetchOrders', async () => {
   const cart = <Cart[]>cartJSON;
   const orders = await fetchOrders(cart);
   const ordersJSON = <Order>(await import('../../order.json')).default;
@@ -35,7 +35,7 @@ describe('test suite: fetchOrders', async () => {
   });
 });
 
-describe('test suite: getMatchingOrder', () => {
+describe.concurrent('test suite: getMatchingOrder', () => {
   test('get correct order', () => {
     const orders: Order[] = [
       {

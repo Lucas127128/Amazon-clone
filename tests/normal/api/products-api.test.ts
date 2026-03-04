@@ -3,7 +3,7 @@ import productsJSON from '#root/src/api/rawProducts.json';
 import clothingList from '#root/src/api/clothing.json';
 import { fetchProducts, transformProducts } from '#data/products.ts';
 
-describe('products api test', () => {
+describe.concurrent('products api test', () => {
   test('deliver correct products', async () => {
     const products = transformProducts(productsJSON, clothingList);
     const Products = await fetchProducts();

@@ -5,7 +5,7 @@ import { Cart } from '#data/cart.ts';
 import { calculatePrices } from '#data/payment.ts';
 import { Product, transformProducts } from '#data/products.ts';
 
-describe('test suite: calculatePrices', () => {
+describe.concurrent('test suite: calculatePrices', () => {
   const cart: Cart[] = [
     { productId: '59LXo', quantity: 1, deliveryOptionId: '2' },
     { productId: 'Hwme8', quantity: 1, deliveryOptionId: '3' },

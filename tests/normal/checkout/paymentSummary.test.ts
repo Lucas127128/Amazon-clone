@@ -1,5 +1,4 @@
 /// <reference lib="dom" />
-import '../../preload.ts';
 import 'fake-indexeddb/auto';
 import { afterAll, beforeAll, describe, expect, test } from 'bun:test';
 import { Cart } from '#data/cart.ts';
