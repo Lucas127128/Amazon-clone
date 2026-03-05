@@ -4,7 +4,7 @@ import products from '../../products.json';
 import { Cart } from '#data/cart.ts';
 import { generatePaymentSummary } from '#root/src/scripts/htmlGenerators/paymentSummaryHTML.ts';
 
-describe('test suite: generatePaymentSummary', () => {
+describe.concurrent('test suite: generatePaymentSummary', () => {
   test('generate correct HTML', async () => {
     const cart = <Cart[]>(
       (await import('../../cart.json', { with: { type: 'json' } })).default

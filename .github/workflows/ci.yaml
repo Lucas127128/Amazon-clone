@@ -2,7 +2,7 @@ on: [push]
 jobs:
   test:
     name: test app
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         run: bun run test:ci
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     name: Lint app
     steps:
       - name: Checkout
@@ -40,7 +40,7 @@ jobs:
         run: bun run lint
 
   format:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     name: check fmt
     steps:
       - name: Checkout
@@ -53,7 +53,7 @@ jobs:
         run: bun run fmt --check
 
   audit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     name: Audit dependencies
     steps:
       - name: Checkout
