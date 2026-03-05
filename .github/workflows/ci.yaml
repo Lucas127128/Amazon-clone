@@ -37,3 +37,16 @@ jobs:
         run: bun install
       - name: Lint
         run: bun run lint
+
+  format:
+    runs-on: ubuntu-latest
+    name: 'check fmt'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependency
+        run: bun install
+      - name: check fmt
+        run: bun run fmt --check
