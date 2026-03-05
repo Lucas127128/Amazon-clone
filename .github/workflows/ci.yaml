@@ -8,14 +8,15 @@ jobs:
         uses: actions/checkout@v4
       - name: Install bun
         uses: oven-sh/setup-bun@v2
-      - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@main
       - name: Install dependency
         run: bun install
       - name: Build app
         run: bun run build
       - name: Install dependency for https
-        run: brew install nss mkcert
+        run: |
+          curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
+          chmod +x mkcert-v*-linux-amd64
+          sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
       - name: Install certs
         run: mkcert -install
       - name: Run Bun Server
