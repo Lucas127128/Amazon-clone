@@ -8,10 +8,24 @@ export default defineConfig({
   build: {
     rolldownOptions: {
       input: {
-        main: './index.html',
-        checkout: './checkout.html',
-        orders: './orders.html',
-        tracking: './tracking.html',
+        main: '/index.html',
+        checkout: '/checkout.html',
+        orders: '/orders.html',
+        tracking: '/tracking.html',
+      },
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              test: /node_modules\/temporal-polyfill-lite/,
+              name: 'temporal',
+            },
+            {
+              test: /node_modules\/dompurify/,
+              name: 'dompurify',
+            },
+          ],
+        },
       },
       // devtools: {},
     },

@@ -1,7 +1,7 @@
 on: [push]
 jobs:
   test:
-    name: 'test app'
+    name: test app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,7 +28,7 @@ jobs:
         run: bun run test:ci
   lint:
     runs-on: ubuntu-latest
-    name: 'Lint app'
+    name: Lint app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
-    name: 'check fmt'
+    name: check fmt
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,3 +51,14 @@ jobs:
         run: bun install
       - name: check fmt
         run: bun run fmt --check
+
+  audit:
+    runs-on: ubuntu-latest
+    name: Audit dependencies
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+      - name: Audit with bun
+        run: bun audit --prod --audit-level high
