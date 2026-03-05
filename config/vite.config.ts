@@ -42,6 +42,9 @@ export default defineConfig({
     }),
     // DevTools(),
   ],
+  css: {
+    transformer: 'lightningcss',
+  },
   server: {
     port: 5174,
     allowedHosts: [config.previewURL.replace('https://', '')],

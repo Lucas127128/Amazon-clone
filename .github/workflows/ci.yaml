@@ -21,10 +21,11 @@ jobs:
         run: mkcert -install
       - name: Install pm2
         run: bun add -g pm2
-      - name: Start api
-        run: |
-          pm2 start --interpreter ~/.bun/bin/bun ./src/api/server.ts
-          sleep 3s
+      - name: Run Bun Server
+        uses: JarvusInnovations/background-action@v1
+        with:
+          run: bun run api
+          wait-on: https://localhost:8080
       - name: Run tests
         run: bun run test:ci
   lint:

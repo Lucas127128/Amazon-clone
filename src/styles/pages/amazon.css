@@ -1,23 +1,16 @@
 @import '../shared/general.css';
 @import '../shared/amazon-header.css';
 
-.main {
-  margin-top: 60px;
-}
-
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
 }
 
 .product-container {
+  padding: 25px;
   padding-top: 40px;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
 
-  border-right: 1px solid rgb(231, 231, 231);
-  border-bottom: 1px solid rgb(231, 231, 231);
+  border: 0.4px solid #dedddd;
 
   display: flex;
   flex-direction: column;
@@ -26,40 +19,33 @@
 .product-image-container {
   display: flex;
   justify-content: center;
-  align-items: center;
 
   height: 180px;
   margin-bottom: 20px;
 }
 
 .product-image {
-  /* Images will overflow their container by default. To
-    prevent this, we set max-width and max-height to 100%
-    so they stay inside their container. */
   max-width: 100%;
   max-height: 100%;
 }
 
 .product-name {
-  height: 40px;
   margin-bottom: 5px;
 }
 
 .product-rating-container {
   display: flex;
-  align-items: center;
+  align-items: end;
   margin-bottom: 10px;
 }
 
 .product-rating-stars {
   width: 100px;
-  margin-right: 6px;
 }
 
 .product-rating-count {
   color: rgb(1, 124, 182);
   cursor: pointer;
-  margin-top: 3px;
 }
 
 .product-price {
@@ -71,22 +57,13 @@
   margin-bottom: 17px;
 }
 
-.product-spacer {
-  flex: 1;
-}
-
 .added-to-cart {
   color: rgb(6, 125, 98);
   font-size: 16px;
   font-weight: 600;
 
   display: flex;
-  align-items: center;
   margin-bottom: 8px;
-
-  /* At first, the "Added to cart" message will
-     be invisible. Use JavaScript to change the
-     opacity and make it visible. */
   opacity: 0;
 }
 
@@ -96,7 +73,6 @@
 }
 
 .add-to-cart-button {
-  width: 100%;
   padding: 8px;
   border-radius: 50px;
 }
