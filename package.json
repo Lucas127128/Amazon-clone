@@ -20,8 +20,8 @@
     "exec-api": "./api",
     "api": "bun run --parallel build:backend allow-certs && bun run --parallel exec-api remove-build-cache",
     "check": "tsgo --noEmit",
-    "lint": "oxlint --type-aware",
-    "lint:fix": "oxlint --fix --type-aware",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "request:orders": "cat ./tests/cart.json | xh post --https :8080/api/orders"
   },

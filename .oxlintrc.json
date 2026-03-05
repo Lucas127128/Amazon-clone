@@ -38,5 +38,6 @@
     "vitest-example/HelloWorld.test.js",
     "tests/practice.bench.ts",
     "playwright-report"
-  ]
+  ],
+  "options": { "typeCheck": true, "typeAware": true }
 }

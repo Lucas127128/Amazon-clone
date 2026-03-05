@@ -1,6 +1,6 @@
 on: [push]
 jobs:
-  build:
+  test:
     name: 'test app'
     runs-on: ubuntu-latest
     steps:
@@ -25,3 +25,15 @@ jobs:
           wait-on: https://localhost:8080
       - name: Run tests
         run: bun run test:ci
+  lint:
+    runs-on: ubuntu-latest
+    name: 'Lint app'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependency
+        run: bun install
+      - name: Lint
+        run: bun run lint
