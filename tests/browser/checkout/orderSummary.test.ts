@@ -3,11 +3,11 @@ import { getMatchingProduct, getProducts } from '#data/products.ts';
 import { addToCart, updateDeliveryOption, getCart } from '#data/cart.ts';
 import { getDeliveryDate } from '#data/deliveryOption.ts';
 import { renderOrderSummary } from '#root/src/scripts/checkout/cartSummary.ts';
-import sleep from '#root/src/scripts/Utils/sleep.ts';
+import sleep from '#root/src/scripts/utils/sleep.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,
-} from '#root/src/scripts/Utils/typeChecker.ts';
+} from '#root/src/scripts/utils/typeChecker.ts';
 
 describe('test suite: Render order summary', () => {
   beforeAll(() => {

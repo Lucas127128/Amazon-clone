@@ -1,11 +1,11 @@
 import { getMatchingOrder } from '#data/orders.ts';
 import { getMatchingProduct, getProducts } from '#data/products.ts';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
-import { checkTruthy } from './Utils/typeChecker';
+import { checkTruthy } from './utils/typeChecker';
 import { Order } from '#data/orders.ts';
 import { getMatchingCart } from '#data/cart.ts';
 import { handleSearchInput } from './header';
-import { policy } from './Utils/trustedTypes';
+import { policy } from './utils/trustedTypes';
 
 async function renderTrackingSummary() {
   const url = new URL(location.href);

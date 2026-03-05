@@ -17,7 +17,7 @@ import {
   displayCartQuantity,
 } from '#data/cart.ts';
 import { clear } from 'idb-keyval';
-import { checkTruthy } from '#root/src/scripts/Utils/typeChecker.ts';
+import { checkTruthy } from '#root/src/scripts/utils/typeChecker.ts';
 
 beforeEach(() => {
   localStorage.clear();

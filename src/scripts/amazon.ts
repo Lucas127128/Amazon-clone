@@ -1,9 +1,9 @@
 import { addToCart, displayCartQuantity } from '#data/cart.ts';
 import { getProducts, Product } from '#data/products.ts';
-import { checkTruthy } from './Utils/typeChecker';
+import { checkTruthy } from './utils/typeChecker';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';
-import { policy } from './Utils/trustedTypes';
+import { policy } from './utils/trustedTypes';
 
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector('.products-grid');

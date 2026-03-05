@@ -1,4 +1,4 @@
-import { checkTruthy } from '../scripts/Utils/typeChecker.ts';
+import { checkTruthy } from '../scripts/utils/typeChecker.ts';
 import { deliveryOptionId } from './deliveryOption.ts';
 import {
   object,

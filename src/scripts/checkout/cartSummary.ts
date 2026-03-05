@@ -6,12 +6,12 @@ import {
   displayCartQuantity,
 } from '#data/cart.ts';
 import { getMatchingProduct, getProducts } from '#data/products.ts';
-import { policy } from '../Utils/trustedTypes.ts';
+import { policy } from '../utils/trustedTypes.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,
   isHTMLInputElement,
-} from '../Utils/typeChecker.ts';
+} from '../utils/typeChecker.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 import { renderPaymentSummary } from './paymentSummary.ts';
 

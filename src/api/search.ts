@@ -5,7 +5,7 @@ import {
   RawProductSchema,
   getMatchingRawProduct,
 } from '../data/products';
-import { checkTruthy } from '../scripts/Utils/typeChecker';
+import { checkTruthy } from '../scripts/utils/typeChecker';
 import { array } from 'valibot';
 
 const products = await Bun.file('./src/api/rawProducts.json').json();

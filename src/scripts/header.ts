@@ -1,6 +1,6 @@
 import { Product, transformProducts } from '#data/products.ts';
 import { app } from '../data/edenTreaty';
-import { isHTMLInputElement } from './Utils/typeChecker';
+import { isHTMLInputElement } from './utils/typeChecker';
 
 const searchBar = document.querySelector('.search-bar');
 isHTMLInputElement(searchBar);

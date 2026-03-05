@@ -1,10 +1,10 @@
 import { Order, fetchOrders } from '#data/orders.ts';
 import { getCart } from '#data/cart.ts';
-import { checkTruthy } from '../Utils/typeChecker.ts';
+import { checkTruthy } from '../utils/typeChecker.ts';
 import { calculatePrices } from '#data/payment.ts';
 import { getProducts } from '#data/products.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
-import { policy } from '../Utils/trustedTypes.ts';
+import { policy } from '../utils/trustedTypes.ts';
 
 export async function renderPaymentSummary() {
   const checkoutCart = getCart();

@@ -2,7 +2,7 @@ import { Cart } from '#data/cart.ts';
 import { getDeliveryDate } from '#data/deliveryOption.ts';
 import { Order } from '#data/orders.ts';
 import { Product } from '#data/products.ts';
-import { formatCurrency } from '../Utils/Money';
+import { formatCurrency } from '../utils/money';
 
 const html = String.raw;
 

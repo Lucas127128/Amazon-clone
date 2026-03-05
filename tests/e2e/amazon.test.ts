@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 import { getMatchingProduct, transformProducts } from '#data/products.ts';
-import { checkTruthy } from '#root/src/scripts/Utils/typeChecker.ts';
+import { checkTruthy } from '#root/src/scripts/utils/typeChecker.ts';
 
 test.describe('ui', () => {
   test.beforeEach(async ({ page }) => {

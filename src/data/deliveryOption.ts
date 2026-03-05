@@ -1,6 +1,6 @@
 import { Temporal } from 'temporal-polyfill-lite';
 import { match } from 'ts-pattern';
-import { formatCurrency } from '../scripts/Utils/Money.ts';
+import { formatCurrency } from '../scripts/utils/money.ts';
 
 export const deliveryOptions = [
   {

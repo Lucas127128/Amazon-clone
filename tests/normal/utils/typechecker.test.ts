@@ -3,7 +3,7 @@ import {
   checkTruthy,
   isDeliveryOptionId,
   isHTMLInputElement,
-} from '#root/src/scripts/Utils/typeChecker.ts';
+} from '#root/src/scripts/utils/typeChecker.ts';
 import { describe, expect, test } from 'bun:test';
 
 describe.concurrent('checkTruthy', () => {

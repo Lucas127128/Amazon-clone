@@ -9,7 +9,7 @@ import cartJSON from '../../cart.json';
 import { getTimeString } from '#data/orders.ts';
 import { fetchProducts } from '#data/products.ts';
 import { Order } from '#data/orders.ts';
-import { checkTruthy } from '#root/src/scripts/Utils/typeChecker.ts';
+import { checkTruthy } from '#root/src/scripts/utils/typeChecker.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { calculatePrices } from '#data/payment.ts';
 import { Cart } from '#data/cart.ts';

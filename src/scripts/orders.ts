@@ -1,13 +1,13 @@
 import { getMatchingProduct, getProducts } from '#data/products.ts';
 import { addToCart, displayCartQuantity } from '#data/cart.ts';
 import { getTimeString, Order } from '#data/orders.ts';
-import { checkTruthy } from './Utils/typeChecker.ts';
+import { checkTruthy } from './utils/typeChecker.ts';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
 } from './htmlGenerators/ordersHTML.ts';
 import { handleSearchInput } from './header.ts';
-import { policy } from './Utils/trustedTypes.ts';
+import { policy } from './utils/trustedTypes.ts';
 
 function renderPlacedOrder() {
   localStorage.setItem('cart', JSON.stringify([]));

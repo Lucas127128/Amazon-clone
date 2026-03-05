@@ -1,4 +1,4 @@
-import { formatCurrency } from '../scripts/Utils/Money.ts';
+import { formatCurrency } from '../scripts/utils/money.ts';
 import { get, set } from 'idb-keyval';
 import { Temporal } from 'temporal-polyfill-lite';
 import { app } from './edenTreaty.ts';
