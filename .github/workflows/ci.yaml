@@ -24,7 +24,7 @@ jobs:
       - name: Start api
         run: |
           pm2 start --interpreter ~/.bun/bin/bun ./src/api/server.ts
-          sleep 0.5s
+          sleep 3s
       - name: Run tests
         run: bun run test:ci
   lint:
