@@ -6,13 +6,13 @@ import {
   beforeAll,
 } from 'bun:test';
 import cartJSON from '../../cart.json';
-import { getTimeString } from '#data/orders.ts';
-import { fetchProducts } from '#data/products.ts';
-import { Order } from '#data/orders.ts';
-import { checkTruthy } from '#root/src/scripts/utils/typeChecker.ts';
+import { getTimeString } from '#root/shared/src/data/orders.ts';
+import { fetchProducts } from '#root/shared/src/data/products.ts';
+import { Order } from '#root/shared/src/data/orders.ts';
+import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import { Temporal } from 'temporal-polyfill-lite';
-import { calculatePrices } from '#data/payment.ts';
-import { Cart } from '#data/cart.ts';
+import { calculatePrices } from '#root/shared/src/data/payment.ts';
+import { Cart } from '#root/shared/src/data/cart.ts';
 
 const cart = cartJSON as Cart[];
 

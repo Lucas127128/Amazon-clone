@@ -63,4 +63,4 @@ jobs:
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Audit with bun
-        run: bun audit --prod --audit-level high
+        run: bun audit --prod

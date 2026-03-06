@@ -6,9 +6,9 @@ import {
   getMatchingRawProduct,
   fetchProducts,
   transformProducts,
-} from '#data/products.ts';
-import correctRawProducts from '#root/src/api/rawProducts.json';
-import { app } from '#root/src/data/edenTreaty.ts';
+} from '#root/shared/src/data/products.ts';
+import correctRawProducts from '#root/server/src/api/rawProducts.json';
+import { app } from '#root/shared/src/data/edenTreaty.ts';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',

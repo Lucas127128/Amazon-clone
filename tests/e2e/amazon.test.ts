@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
-import { getMatchingProduct, transformProducts } from '#data/products.ts';
-import { checkTruthy } from '#root/src/scripts/utils/typeChecker.ts';
+import {
+  getMatchingProduct,
+  transformProducts,
+} from '#root/shared/src/data/products.ts';
+import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 
 test.describe('ui', () => {
   test.beforeEach(async ({ page }) => {
@@ -83,12 +86,12 @@ test.describe('ui', () => {
     test('products image is correct', async ({ page }) => {
       const containers = await page.locator('.product-container').all();
       const rawProducts = (
-        await import('../../src/api/rawProducts.json', {
+        await import('#root/server/src/api/rawProducts.json', {
           with: { type: 'json' },
         })
       ).default;
       const clothings = (
-        await import('../../src/api/clothing.json', {
+        await import('#root/server/src/api/clothing.json', {
           with: { type: 'json' },
         })
       ).default;

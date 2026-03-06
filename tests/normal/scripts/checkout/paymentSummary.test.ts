@@ -1,13 +1,13 @@
 /// <reference lib="dom" />
 import 'fake-indexeddb/auto';
 import { beforeAll, describe, expect, test } from 'bun:test';
-import { Cart } from '#data/cart.ts';
-import { getProducts } from '#data/products.ts';
-import { formatCurrency } from '#root/src/scripts/utils/money.ts';
-import { renderPaymentSummary } from '#root/src/scripts/checkout/paymentSummary.ts';
-import { checkTruthy } from '#root/src/scripts/utils/typeChecker.ts';
+import { Cart } from '#root/shared/src/data/cart.ts';
+import { getProducts } from '#root/shared/src/data/products.ts';
+import { formatCurrency } from '#root/shared/src/utils/money.ts';
+import { renderPaymentSummary } from '#root/web/src/scripts/checkout/paymentSummary.ts';
+import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import cart from '../../../cart.json';
-import { calculatePrices } from '#root/src/data/payment.ts';
+import { calculatePrices } from '#root/shared/src/data/payment.ts';
 import { clear } from 'idb-keyval';
 
 describe('test suite: Render payment summary', async () => {

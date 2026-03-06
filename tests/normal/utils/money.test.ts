@@ -1,5 +1,5 @@
 import { test, describe, expectTypeOf, expect } from 'vitest';
-import { formatCurrency } from '#root/src/scripts/utils/money.ts';
+import { formatCurrency } from '#root/shared/src/utils/money.ts';
 
 describe.concurrent('test suite: FormatCurrency', () => {
   test('converts cents into dollars', async () => {

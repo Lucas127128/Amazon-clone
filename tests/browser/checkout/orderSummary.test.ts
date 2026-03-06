@@ -1,13 +1,20 @@
 import { test, describe, beforeEach, expect, beforeAll } from 'vitest';
-import { getMatchingProduct, getProducts } from '#data/products.ts';
-import { addToCart, updateDeliveryOption, getCart } from '#data/cart.ts';
-import { getDeliveryDate } from '#data/deliveryOption.ts';
-import { renderOrderSummary } from '#root/src/scripts/checkout/cartSummary.ts';
-import sleep from '#root/src/scripts/utils/sleep.ts';
+import {
+  getMatchingProduct,
+  getProducts,
+} from '#root/shared/src/data/products.ts';
+import {
+  addToCart,
+  updateDeliveryOption,
+  getCart,
+} from '#root/shared/src/data/cart.ts';
+import { getDeliveryDate } from '#root/shared/src/data/deliveryOption.ts';
+import { renderOrderSummary } from '#root/web/src/scripts/checkout/cartSummary.ts';
+import sleep from '#root/shared/src/utils/sleep.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,
-} from '#root/src/scripts/utils/typeChecker.ts';
+} from '#root/shared/src/utils/typeChecker.ts';
 
 describe('test suite: Render order summary', () => {
   beforeAll(() => {

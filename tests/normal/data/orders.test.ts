@@ -4,11 +4,11 @@ import {
   getMatchingOrder,
   getTimeString,
   Order,
-} from '#data/orders.ts';
-import { dateFormatOption } from '#data/deliveryOption.ts';
+} from '#root/shared/src/data/orders.ts';
+import { dateFormatOption } from '#root/shared/src/data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import cartJSON from '../../cart.json';
-import { Cart } from '#root/src/data/cart.ts';
+import { Cart } from '#root/shared/src/data/cart.ts';
 
 describe.concurrent('test suite: getTimeString', () => {
   test('get time string from ISO time', async () => {

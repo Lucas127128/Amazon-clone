@@ -14,7 +14,7 @@ import {
   getDeliveryPriceCents,
   deliveryOptionId,
   getDeliveryDateISO,
-} from '#data/deliveryOption.ts';
+} from '#root/shared/src/data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { match } from 'ts-pattern';
 

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { generateAmazonHTML } from '#root/src/scripts/htmlGenerators/amazonHTML.ts';
+import { generateAmazonHTML } from '#root/web/src/scripts/htmlGenerators/amazonHTML.ts';
 import products from '../../../products.json';
 
 describe.concurrent('generateAmazonHTML', () => {

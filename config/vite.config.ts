@@ -8,10 +8,10 @@ export default defineConfig({
   build: {
     rolldownOptions: {
       input: {
-        main: '/index.html',
-        checkout: '/checkout.html',
-        orders: '/orders.html',
-        tracking: '/tracking.html',
+        main: './web/src/index.html',
+        checkout: './web/src/checkout.html',
+        orders: './web/src/orders.html',
+        tracking: './web/src/tracking.html',
       },
       output: {
         codeSplitting: {

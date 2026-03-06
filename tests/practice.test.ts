@@ -1,6 +1,6 @@
 import { expect, test, vi } from 'vitest';
 import { Window } from 'happy-dom';
-import { checkTruthy } from '../src/scripts/utils/typeChecker';
+import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 const window = new Window();
 const { document } = window;
 test('mocking practice', async ({ expect }) => {

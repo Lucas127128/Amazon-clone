@@ -1,9 +1,9 @@
-import { deliveryOptionId } from '#root/src/data/deliveryOption.ts';
+import { deliveryOptionId } from '#root/shared/src/data/deliveryOption.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,
   isHTMLInputElement,
-} from '#root/src/scripts/utils/typeChecker.ts';
+} from '#root/shared/src/utils/typeChecker.ts';
 import { describe, expect, test } from 'bun:test';
 
 describe.concurrent('checkTruthy', () => {

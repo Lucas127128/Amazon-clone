@@ -14,10 +14,10 @@ import {
   getMatchingCart,
   removeFromCart,
   updateDeliveryOption,
-  displayCartQuantity,
-} from '#data/cart.ts';
+  calculateCartQuantity,
+} from '#root/shared/src/data/cart.ts';
 import { clear } from 'idb-keyval';
-import { checkTruthy } from '#root/src/scripts/utils/typeChecker.ts';
+import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 
 beforeEach(() => {
   localStorage.clear();
@@ -107,18 +107,12 @@ describe.concurrent('test suite: updateDeliveryOption', () => {
   });
 });
 
-describe.concurrent('test suite: displayCartQuantity', () => {
+describe.concurrent('test suite: calculateCartQuantity', () => {
   test('display cart quantity', () => {
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.body.innerHTML = `
-    <div class='test-container'>
-      <div class='cart-quantity'></div>
-    </div>
-  `;
 
-    displayCartQuantity('cart-quantity');
-    const cartQuantity = document.querySelector('.cart-quantity');
-    checkTruthy(cartQuantity, 'Fail to select element');
-    expect(cartQuantity.textContent).toContain('3');
+    calculateCartQuantity();
+    const cartQuantity = calculateCartQuantity();
+    expect(cartQuantity).toBe(3);
   });
 });

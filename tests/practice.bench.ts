@@ -1,7 +1,7 @@
 import { bench } from 'vitest';
 // import ky from "ky";
 // import axios from "axios";
-import { Product } from '../src/data/products';
+import { Product } from '../shared/src/data/products';
 
 bench('fetch', async () => {
   const products = await fetch('http://localhost:3000/products');

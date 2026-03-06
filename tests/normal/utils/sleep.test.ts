@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import sleep from '#root/src/scripts/utils/sleep.ts';
+import sleep from '#root/shared/src/utils/sleep.ts';
 
 describe.concurrent('test suite: sleep', () => {
   test('sleep for correct time', async () => {

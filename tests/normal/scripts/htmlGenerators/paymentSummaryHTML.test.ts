@@ -1,8 +1,8 @@
-import { calculatePrices, Prices } from '#root/src/data/payment.ts';
+import { calculatePrices, Prices } from '#root/shared/src/data/payment.ts';
 import { describe, expect, test } from 'bun:test';
 import products from '../../../products.json';
-import { Cart } from '#data/cart.ts';
-import { generatePaymentSummary } from '#root/src/scripts/htmlGenerators/paymentSummaryHTML.ts';
+import { Cart } from '#root/shared/src/data/cart.ts';
+import { generatePaymentSummary } from '#root/web/src/scripts/htmlGenerators/paymentSummaryHTML.ts';
 
 describe.concurrent('test suite: generatePaymentSummary', () => {
   test('generate correct HTML', async () => {
