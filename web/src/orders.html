@@ -1,56 +1,64 @@
 <!doctype html>
 <html>
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8" />
+    <title>Orders</title>
+    <script src="./scripts/orders.ts" type="module" defer></script>
 
-  <title>Orders</title>
-  <script src="./scripts/orders.ts" type="module" defer></script>
-
-  <!-- This code is needed for responsive design to work.
+    <!-- This code is needed for responsive design to work.
       (Responsive design = make the website look good on
       smaller screen sizes like a phone or a tablet). -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link rel="stylesheet" href="./styles/pages/orders.css" />
-  <link rel="icon" href="../images/favicon/favicon.ico" type="image/x-icon" />
-</head>
+    <link rel="stylesheet" href="./styles/pages/orders.css" />
+    <link
+      rel="icon"
+      href="../images/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
 
-<body>
-  <div class="amazon-header">
-    <div class="amazon-header-left-section">
-      <a href="./index.html" class="header-link">
-        <img class="amazon-logo" src="../images/amazon-logo-white.webp" />
-        <img class="amazon-mobile-logo" src="../images/amazon-mobile-logo-white.webp" />
-      </a>
+  <body>
+    <div class="amazon-header">
+      <div class="amazon-header-left-section">
+        <a href="./index.html" class="header-link">
+          <img
+            class="amazon-logo"
+            src="../images/amazon-logo-white.webp"
+          />
+          <img
+            class="amazon-mobile-logo"
+            src="../images/amazon-mobile-logo-white.webp"
+          />
+        </a>
+      </div>
+
+      <div class="amazon-header-middle-section">
+        <input class="search-bar" type="text" placeholder="Search" />
+
+        <button class="search-button">
+          <img class="search-icon" src="../images/icons/search-icon.svg" />
+        </button>
+      </div>
+
+      <div class="amazon-header-right-section">
+        <a class="orders-link header-link" href="orders.html">
+          <span class="returns-text">Returns</span>
+          <span class="orders-text">& Orders</span>
+        </a>
+
+        <a class="cart-link header-link" href="./checkout.html">
+          <img class="cart-icon" src="../images/icons/cart-icon.png" />
+          <div class="cart-quantity">3</div>
+          <div class="cart-text">Cart</div>
+        </a>
+      </div>
     </div>
 
-    <div class="amazon-header-middle-section">
-      <input class="search-bar" type="text" placeholder="Search" />
-
-      <button class="search-button">
-        <img class="search-icon" src="../images/icons/search-icon.svg" />
-      </button>
+    <div class="main">
+      <div class="page-title">Your Orders</div>
+      <div class="orders-grid"></div>
     </div>
-
-    <div class="amazon-header-right-section">
-      <a class="orders-link header-link" href="orders.html">
-        <span class="returns-text">Returns</span>
-        <span class="orders-text">& Orders</span>
-      </a>
-
-      <a class="cart-link header-link" href="./checkout.html">
-        <img class="cart-icon" src="../images/icons/cart-icon.png" />
-        <div class="cart-quantity">3</div>
-        <div class="cart-text">Cart</div>
-      </a>
-    </div>
-  </div>
-
-  <div class="main">
-    <div class="page-title">Your Orders</div>
-    <div class="orders-grid"></div>
-  </div>
-</body>
-
+  </body>
 </html>
