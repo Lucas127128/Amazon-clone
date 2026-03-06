@@ -66,7 +66,7 @@ function renderPlacedOrder() {
     const cartQuantity = calculateCartQuantity();
     const returnToHomeLink = document.querySelector('.cart-quantity');
     checkTruthy(returnToHomeLink);
-    returnToHomeLink.textContent = `${cartQuantity} items`;
+    returnToHomeLink.textContent = `${cartQuantity}`;
 
     setTimeout(() => {
       buyAgainSuccessHTML.classList.remove('display-buy-again-success');
@@ -114,7 +114,7 @@ function renderPlacedOrder() {
   const cartQuantity = calculateCartQuantity();
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkTruthy(returnToHomeLink);
-  returnToHomeLink.textContent = `${cartQuantity} items`;
+  returnToHomeLink.textContent = `${cartQuantity}`;
 }
 
 await Promise.allSettled([renderPlacedOrder(), handleSearchInput()]);

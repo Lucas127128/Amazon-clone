@@ -66,14 +66,14 @@ async function renderAmazonHomePage() {
     const cartQuantity = calculateCartQuantity();
     const returnToHomeLink = document.querySelector('.cart-quantity');
     checkTruthy(returnToHomeLink);
-    returnToHomeLink.textContent = `${cartQuantity} items`;
+    returnToHomeLink.textContent = `${cartQuantity}`;
 
     displayAdded(productId);
   });
   const cartQuantity = calculateCartQuantity();
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkTruthy(returnToHomeLink);
-  returnToHomeLink.textContent = `${cartQuantity} items`;
+  returnToHomeLink.textContent = `${cartQuantity}`;
 
   const url = new URL(location.href);
   url.searchParams.delete('q');

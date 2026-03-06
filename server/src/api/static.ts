@@ -1,11 +1,12 @@
 import { Elysia } from 'elysia';
 import { match, P } from 'ts-pattern';
 
-const filesName = (await Bun.$`find ./web/dist -type f`.text())
+const filesName = (await Bun.$`find ./dist -type f`.text())
   .split('\n')
   .filter(
     (fileName) => fileName.length > 7 && !fileName.includes('.DS_Store'),
   );
+console.log(filesName);
 
 export const staticPlugin = new Elysia({ precompile: true })
   .get('/', ({ redirect }) => {

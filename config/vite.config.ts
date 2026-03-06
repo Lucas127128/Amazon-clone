@@ -2,16 +2,19 @@ import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import TurboConsole from 'unplugin-turbo-console/vite';
 import config from '#root/config/config.json' with { type: 'json' };
-// import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
+  root: 'web/src',
+  publicDir: '../public',
   build: {
+    outDir: '../../dist',
+    emptyOutDir: true,
     rolldownOptions: {
       input: {
-        main: './web/src/index.html',
-        checkout: './web/src/checkout.html',
-        orders: './web/src/orders.html',
-        tracking: './web/src/tracking.html',
+        main: 'index.html',
+        checkout: 'checkout.html',
+        orders: 'orders.html',
+        tracking: 'tracking.html',
       },
       output: {
         codeSplitting: {
@@ -27,7 +30,6 @@ export default defineConfig({
           ],
         },
       },
-      // devtools: {},
     },
     target: 'es2022',
     assetsInlineLimit: 0,
@@ -40,7 +42,6 @@ export default defineConfig({
         themeDetect: true,
       },
     }),
-    // DevTools(),
   ],
   css: {
     transformer: 'lightningcss',
