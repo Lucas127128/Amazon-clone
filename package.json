@@ -19,11 +19,9 @@
     "remove-build-cache": " find . -name '*.bun-build' -type f -delete ",
     "exec-api": "./api",
     "api": "bun run --parallel build:backend allow-certs && bun run --parallel exec-api remove-build-cache",
-    "check": "tsgo --noEmit",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "fmt": "oxfmt",
-    "request:orders": "cat ./tests/cart.json | xh post --https :8080/api/orders"
+    "fmt": "oxfmt"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
@@ -42,14 +40,13 @@
     "@happy-dom/global-registrator": "^20.8.3",
     "@playwright/test": "^1.58.2",
     "@types/bun": "^1.3.10",
-    "@types/k6": "^1.6.0",
     "@types/trusted-types": "^2.0.7",
     "@vitejs/devtools": "^0.0.0-alpha.33",
     "@vitest/browser-preview": "^4.0.18",
     "axios": "^1.13.6",
     "bun-types": "1.3.5",
     "fake-indexeddb": "^6.2.5",
-    "k6": "^0.0.0",
+    "knip": "^5.85.0",
     "node-modules-inspector": "^1.4.2",
     "oxfmt": "^0.32.0",
     "oxlint": "^1.51.0",
@@ -60,6 +57,5 @@
     "vite": "^8.0.0-beta.16",
     "vite-plugin-html-minifier": "^1.0.5",
     "vitest": "^4.0.18"
-  },
-  "nx": {}
+  }
 }

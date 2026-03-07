@@ -1,0 +1,5 @@
+{
+  "$schema": "../node_modules/knip/schema.json",
+  "entry": ["server/src/api/index.ts", "web/src/scripts/*.ts"],
+  "ignoreDependencies": ["@types/trusted-types", "bun-types"]
+}
