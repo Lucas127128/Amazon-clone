@@ -1,7 +1,7 @@
 /// <reference lib="dom" />
 import 'fake-indexeddb/auto';
 import { beforeAll, describe, expect, test } from 'bun:test';
-import { Cart } from '#root/shared/src/data/cart.ts';
+import { Cart } from '#root/shared/src/schema.ts';
 import { getProducts } from '#root/shared/src/data/products.ts';
 import { formatCurrency } from '#root/shared/src/utils/money.ts';
 import { renderPaymentSummary } from '#root/web/src/scripts/checkout/paymentSummary.ts';

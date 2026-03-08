@@ -8,11 +8,10 @@ import {
 import cartJSON from '../../../cart.json';
 import { getTimeString } from '#root/shared/src/data/orders.ts';
 import { fetchProducts } from '#root/shared/src/data/products.ts';
-import { Order } from '#root/shared/src/data/orders.ts';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
-import { Cart } from '#root/shared/src/data/cart.ts';
+import { Cart, Order } from '#root/shared/src/schema.ts';
 
 const cart = cartJSON as Cart[];
 

@@ -6,7 +6,7 @@ import {
   addToCart,
   calculateCartQuantity,
 } from '#root/shared/src/data/cart.ts';
-import { getTimeString, Order } from '#root/shared/src/data/orders.ts';
+import { getTimeString } from '#root/shared/src/data/orders.ts';
 import { checkTruthy } from '../../../shared/src/utils/typeChecker.ts';
 import {
   generateOrderContainerHTML,
@@ -19,6 +19,7 @@ import {
   STORAGE_KEYS,
   UI_TIMEOUTS,
 } from '#root/shared/src/constants.ts';
+import { Order } from '#root/shared/src/schema.ts';
 
 function renderPlacedOrder() {
   localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([]));

@@ -1,7 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import {
   getMatchingProduct,
-  RawProduct,
   Product,
   getMatchingRawProduct,
   fetchProducts,
@@ -9,6 +8,7 @@ import {
 } from '#root/shared/src/data/products.ts';
 import correctRawProducts from '#root/server/src/api/rawProducts.json';
 import { app } from '#root/shared/src/data/edenTreaty.ts';
+import type { RawProduct } from '#root/shared/src/schema.ts';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',

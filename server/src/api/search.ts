@@ -1,12 +1,11 @@
 import { Elysia } from 'elysia';
 import MiniSearch from 'minisearch';
+import { getMatchingRawProduct } from '#root/shared/src/data/products.ts';
+import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import {
   RawProduct,
-  RawProductSchema,
-  getMatchingRawProduct,
-} from '#root/shared/src/data/products.ts';
-import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
-import { array } from 'valibot';
+  RawProductSchemaArray,
+} from '#root/shared/src/schema.ts';
 
 const products = await Bun.file(
   './server/src/api/rawProducts.json',
@@ -48,7 +47,7 @@ export const searchPlugin = new Elysia({ prefix: '/api/search' }).get(
       fuzzy: 0.1,
       prefix: true,
     });
-    const resultProducts = results.map((result): RawProduct => {
+    const resultProducts = results.map((result) => {
       const product = getMatchingRawProduct(products, result.id);
       checkTruthy(product);
       return product;
@@ -57,6 +56,6 @@ export const searchPlugin = new Elysia({ prefix: '/api/search' }).get(
     return resultProducts;
   },
   {
-    response: array(RawProductSchema),
+    response: RawProductSchemaArray,
   },
 );

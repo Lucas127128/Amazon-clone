@@ -10,7 +10,6 @@ import {
 import {
   addToCart,
   getCart,
-  Cart,
   getMatchingCart,
   removeFromCart,
   updateDeliveryOption,
@@ -19,6 +18,7 @@ import {
 import { clear } from 'idb-keyval';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import { CART_CONFIG, STORAGE_KEYS } from '#root/shared/src/constants.ts';
+import { Cart } from '#root/shared/src/schema.ts';
 
 beforeEach(() => {
   localStorage.clear();

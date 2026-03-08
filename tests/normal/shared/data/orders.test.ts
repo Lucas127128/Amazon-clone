@@ -3,12 +3,11 @@ import {
   fetchOrders,
   getMatchingOrder,
   getTimeString,
-  Order,
 } from '#root/shared/src/data/orders.ts';
 import { dateFormatOption } from '#root/shared/src/data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import cartJSON from '../../../cart.json';
-import { Cart } from '#root/shared/src/data/cart.ts';
+import { Cart, Order } from '#root/shared/src/schema.ts';
 
 describe.concurrent('test suite: getTimeString', () => {
   test('get time string from ISO time', async () => {

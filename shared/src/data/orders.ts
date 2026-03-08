@@ -1,24 +1,7 @@
 import { dateFormatOption } from './deliveryOption';
-import { CartSchema, Cart } from './cart';
 import { Temporal } from 'temporal-polyfill-lite';
-import {
-  object,
-  number,
-  string,
-  InferOutput,
-  array,
-  isoTimestamp,
-  pipe,
-} from 'valibot';
 import { app } from './edenTreaty';
-
-export const OrderSchema = object({
-  id: string(),
-  orderTime: pipe(string(), isoTimestamp()),
-  totalCostCents: number(),
-  products: array(CartSchema),
-});
-export type Order = InferOutput<typeof OrderSchema>;
+import type { Order, Cart } from '../schema';
 
 export async function getTimeString(
   ISOOrderTime: string,

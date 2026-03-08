@@ -1,5 +1,5 @@
 import { match } from 'ts-pattern';
-import { deliveryOptionId } from '#root/shared/src/data/deliveryOption.ts';
+import { deliveryOptionId } from '#root/shared/src/schema.ts';
 
 export function checkTruthy(
   variable: any,
@@ -18,10 +18,9 @@ export function isDeliveryOptionId(
     .with('2', () => true)
     .with('3', () => true)
     .otherwise(() => {
-      throw new Error(`
-    ${customMessage}:
-    variable ${variable} is not deliveryOptionId
-    `);
+      throw new Error(
+        `${customMessage}: variable ${variable} is not deliveryOptionId`,
+      );
     });
 }
 

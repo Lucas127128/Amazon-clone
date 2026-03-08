@@ -5,10 +5,10 @@ import {
 } from '#root/shared/src/data/products.ts';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
 import { checkTruthy } from '../../../shared/src/utils/typeChecker';
-import { Order } from '#root/shared/src/data/orders.ts';
 import { getMatchingCart } from '#root/shared/src/data/cart.ts';
 import { handleSearchInput } from './header';
 import { policy } from '../../../shared/src/utils/trustedTypes';
+import { Order } from '#root/shared/src/schema.ts';
 
 async function renderTrackingSummary() {
   const url = new URL(location.href);

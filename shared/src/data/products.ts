@@ -2,8 +2,8 @@ import { formatCurrency } from '../utils/money.ts';
 import { get, set } from 'idb-keyval';
 import { Temporal } from 'temporal-polyfill-lite';
 import { app } from './edenTreaty.ts';
-import { object, number, string, array, InferOutput } from 'valibot';
 import { STORAGE_KEYS } from '../constants.ts';
+import type { RawProduct } from '../schema.ts';
 
 export const getMatchingProduct = (
   products: readonly Product[],
@@ -14,22 +14,6 @@ export const getMatchingRawProduct = (
   products: RawProduct[],
   productId: string,
 ) => products.find((product) => product.id === productId);
-
-const RatingSchema = object({
-  stars: number(),
-  count: number(),
-});
-
-export const RawProductSchema = object({
-  id: string(),
-  image: string(),
-  name: string(),
-  rating: RatingSchema,
-  priceCents: number(),
-  keywords: array(string()),
-});
-
-export type RawProduct = InferOutput<typeof RawProductSchema>;
 
 export class Product {
   constructor(productDetails: RawProduct, isClothing: boolean) {

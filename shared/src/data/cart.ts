@@ -1,28 +1,16 @@
 import { checkTruthy } from '../utils/typeChecker.ts';
-import { deliveryOptionId } from './deliveryOption.ts';
-import {
-  object,
-  number,
-  string,
-  union,
-  literal,
-  InferOutput,
-} from 'valibot';
+import { deliveryOptionId } from '../schema.ts';
 import { STORAGE_KEYS } from '../constants.ts';
+import { Cart } from '../schema.ts';
 
-export const CartSchema = object({
-  productId: string(),
-  quantity: number(),
-  deliveryOptionId: union([literal('1'), literal('2'), literal('3')]),
-});
-
-export type Cart = InferOutput<typeof CartSchema>;
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
 export function getCart(): Cart[] {
   const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
-  const cart: Cart[] = savedCart ? JSON.parse(savedCart) : [];
+  const cart = savedCart
+    ? (JSON.parse(savedCart) satisfies Cart[])
+    : ([] satisfies Cart[]);
   return cart;
 }
 

@@ -1,6 +1,7 @@
 import { Temporal } from 'temporal-polyfill-lite';
 import { match } from 'ts-pattern';
 import { formatCurrency } from '../utils/money.ts';
+import { type deliveryOptionId } from '../schema.ts';
 
 export const deliveryOptions = [
   {
@@ -43,8 +44,6 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
   day: 'numeric',
 } as const;
 
-export type deliveryOptionId = '1' | '2' | '3';
-
 export function getDeliveryDate(
   deliveryOptionId: deliveryOptionId,
 ): string {
@@ -53,9 +52,7 @@ export function getDeliveryDate(
     .with('1', () => addWeekDays(7, localNow))
     .with('2', () => addWeekDays(3, localNow))
     .with('3', () => addWeekDays(1, localNow))
-    .otherwise(() => {
-      throw new Error(`deliveryOptionId ${deliveryOptionId} is not valid`);
-    });
+    .exhaustive();
   return deliveryDate.toLocaleString('en-US', dateFormatOption);
 }
 
@@ -63,19 +60,15 @@ export function getDeliveryDateISO(
   deliveryOptionId: deliveryOptionId,
 ): Temporal.PlainDate {
   const localNow = Temporal.Now.plainDateISO();
-  const deliveryDate = match(deliveryOptionId)
+  return match(deliveryOptionId)
     .with('1', () => addWeekDays(7, localNow))
     .with('2', () => addWeekDays(3, localNow))
     .with('3', () => addWeekDays(1, localNow))
-    .otherwise(() => {
-      throw new Error(`deliveryOptionId ${deliveryOptionId} is not valid`);
-    });
-  return deliveryDate;
+    .exhaustive();
 }
 
 export function getPriceString(priceCents: number): string {
   const priceString = match(priceCents)
-    .returnType<string>()
     .with(0, () => 'FREE - ')
     .with(499, () => `$${formatCurrency(499)} - `)
     .with(999, () => `$${formatCurrency(999)} - `)
@@ -89,12 +82,9 @@ export function getDeliveryPriceCents(
   deliveryOptionId: deliveryOptionId,
 ): number {
   const deliveryFee = match(deliveryOptionId)
-    .returnType<number>()
     .with('1', () => 0)
     .with('2', () => 499)
     .with('3', () => 999)
-    .otherwise(() => {
-      throw new Error(`deliveryOptionId ${deliveryOptionId} is not valid`);
-    });
+    .exhaustive();
   return deliveryFee;
 }

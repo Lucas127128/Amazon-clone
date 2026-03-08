@@ -1,7 +1,9 @@
 import { Elysia } from 'elysia';
-import { array, string } from 'valibot';
 import { Temporal } from 'temporal-polyfill-lite';
-import { RawProductSchema } from '#root/shared/src/data/products.ts';
+import {
+  ClothingListSchema,
+  RawProductSchemaArray,
+} from '#root/shared/src/schema.ts';
 
 const products = await Bun.file(
   './server/src/api/rawProducts.json',
@@ -18,7 +20,7 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
       return products;
     },
     {
-      response: array(RawProductSchema),
+      response: RawProductSchemaArray,
     },
   )
   .get(
@@ -30,7 +32,7 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
       return clothings;
     },
     {
-      response: array(string()),
+      response: ClothingListSchema,
     },
   );
 

@@ -9,8 +9,7 @@ import {
 import order from '../../../order.json' with { type: 'json' };
 import cart from '../../../cart.json' with { type: 'json' };
 import { getDeliveryProgress } from '#root/shared/src/data/tracking.ts';
-import { Order } from '#root/shared/src/data/orders.ts';
-import { Cart } from '#root/shared/src/data/cart.ts';
+import { Cart, Order } from '#root/shared/src/schema.ts';
 
 describe('test suite: getDeliveryProgress', () => {
   beforeAll(() => {

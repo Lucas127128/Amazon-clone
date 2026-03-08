@@ -1,4 +1,4 @@
-import { deliveryOptionId } from '#root/shared/src/data/deliveryOption.ts';
+import { deliveryOptionId } from '#root/shared/src/schema.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,

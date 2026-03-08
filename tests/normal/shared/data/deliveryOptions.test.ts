@@ -12,11 +12,11 @@ import {
   deliveryOptions,
   getPriceString,
   getDeliveryPriceCents,
-  deliveryOptionId,
   getDeliveryDateISO,
 } from '#root/shared/src/data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { match } from 'ts-pattern';
+import type { deliveryOptionId } from '#root/shared/src/schema.ts';
 
 describe.concurrent('Delivery time test', () => {
   beforeAll(() => {

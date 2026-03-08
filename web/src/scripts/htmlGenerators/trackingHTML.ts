@@ -1,6 +1,6 @@
-import { Cart } from '#root/shared/src/data/cart.ts';
+import { Cart } from '#root/shared/src/schema.ts';
 import { getDeliveryDate } from '#root/shared/src/data/deliveryOption.ts';
-import { Order } from '#root/shared/src/data/orders.ts';
+import { Order } from '#root/shared/src/schema.ts';
 import { Product } from '#root/shared/src/data/products.ts';
 import { getDeliveryProgress } from '#root/shared/src/data/tracking.ts';
 

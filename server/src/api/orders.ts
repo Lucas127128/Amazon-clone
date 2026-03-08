@@ -1,14 +1,11 @@
 import { Elysia } from 'elysia';
-import {
-  RawProduct,
-  transformProducts,
-} from '#root/shared/src/data/products.ts';
-import { Cart, CartSchema } from '#root/shared/src/data/cart.ts';
+import { transformProducts } from '#root/shared/src/data/products.ts';
 import { Temporal } from 'temporal-polyfill-lite';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
 import { nanoid } from 'nanoid';
-import { OrderSchema } from '#root/shared/src/data/orders.ts';
-import { InferOutput, array } from 'valibot';
+import { OrderSchema, CartSchemaArray } from '#root/shared/src/schema.ts';
+import { Cart, RawProduct, OrderType } from '#root/shared/src/schema.ts';
+import { Exact } from 'type-fest';
 
 const rawProducts: RawProduct[] = await Bun.file(
   './server/src/api/rawProducts.json',
@@ -18,8 +15,7 @@ const clothings: string[] = await Bun.file(
 ).json();
 const products = transformProducts(rawProducts, clothings);
 
-type OrderType = InferOutput<typeof OrderSchema>;
-class Order implements OrderType {
+class Order implements Exact<OrderType, Order> {
   constructor(cart: Cart[]) {
     const { totalOrderPrice } = calculatePrices(cart, products);
     this.totalCostCents = totalOrderPrice;
@@ -44,7 +40,7 @@ export const orderPlugin = new Elysia({ prefix: '/api' }).post(
   },
   {
     response: OrderSchema,
-    body: array(CartSchema),
+    body: CartSchemaArray,
   },
 );
 console.log(`🦊 Elysia is running`);

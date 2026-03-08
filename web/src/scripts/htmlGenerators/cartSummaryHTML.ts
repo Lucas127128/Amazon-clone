@@ -1,4 +1,4 @@
-import { Cart } from '#root/shared/src/data/cart.ts';
+import { Cart } from '#root/shared/src/schema.ts';
 import { Product } from '#root/shared/src/data/products.ts';
 import {
   deliveryOptions,

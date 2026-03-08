@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import rawProducts from '#root/server/src/api/rawProducts.json';
 import clothings from '#root/server/src/api/clothing.json';
-import { Cart } from '#root/shared/src/data/cart.ts';
+import { Cart } from '#root/shared/src/schema.ts';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
 import {
   Product,

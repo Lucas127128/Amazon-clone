@@ -1,4 +1,4 @@
-import { Cart } from './cart';
+import { Cart } from '../schema';
 import { checkTruthy } from '../utils/typeChecker';
 import { getMatchingProduct, Product } from './products';
 import { getDeliveryPriceCents } from './deliveryOption';

@@ -6,7 +6,6 @@ const filesName = (await Bun.$`find ./dist -type f`.text())
   .filter(
     (fileName) => fileName.length > 7 && !fileName.includes('.DS_Store'),
   );
-console.log(filesName);
 
 export const staticPlugin = new Elysia({ precompile: true })
   .get('/', ({ redirect }) => {
