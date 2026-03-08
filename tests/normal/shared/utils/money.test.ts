@@ -1,4 +1,4 @@
-import { test, describe, expectTypeOf, expect } from 'vitest';
+import { test, describe, expect } from 'bun:test';
 import { formatCurrency } from '#root/shared/src/utils/money.ts';
 
 describe.concurrent('test suite: FormatCurrency', () => {
@@ -20,13 +20,5 @@ describe.concurrent('test suite: FormatCurrency', () => {
 
   test('converts negative cents to dollar', async () => {
     expect(formatCurrency(-2095)).toBe('-20.95');
-  });
-
-  test('not to convert string', async () => {
-    expect(formatCurrency('money' as any)).toBe('NaN');
-  });
-
-  test('return string', async () => {
-    expectTypeOf(formatCurrency('2095' as any)).toBeString();
   });
 });

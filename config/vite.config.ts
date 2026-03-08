@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import TurboConsole from 'unplugin-turbo-console/vite';
 import config from '#root/config/config.json' with { type: 'json' };
+// import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
   root: 'web/src',
@@ -30,6 +31,7 @@ export default defineConfig({
           ],
         },
       },
+      // devtools: {},
     },
     target: 'es2022',
     assetsInlineLimit: 0,
@@ -42,6 +44,7 @@ export default defineConfig({
         themeDetect: true,
       },
     }),
+    // DevTools(),
   ],
   css: {
     transformer: 'lightningcss',

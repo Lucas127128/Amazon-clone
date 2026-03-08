@@ -7,7 +7,9 @@ describe.concurrent('generateAmazonHTML', () => {
     const html = generateAmazonHTML(products[0], true)
       .replaceAll('\n', '')
       .replaceAll(' ', '');
-    const correctHTML = (await Bun.file('./tests/amazonHTML.html').text())
+    const correctHTML = (
+      await Bun.file('./tests/normal/amazonHTML.html').text()
+    )
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     expect(html).toBe(correctHTML);

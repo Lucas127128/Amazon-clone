@@ -15,7 +15,7 @@ describe.concurrent('test suite: generatePaymentSummary', () => {
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     const correctHTML = (
-      await Bun.file('./tests/paymentSummaryHTML.html').text()
+      await Bun.file('./tests/normal/paymentSummaryHTML.html').text()
     )
       .replaceAll('\n', '')
       .replaceAll(' ', '');

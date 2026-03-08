@@ -1,5 +1,8 @@
-import { match } from 'ts-pattern';
-import { deliveryOptionId } from '#root/shared/src/schema.ts';
+import {
+  deliveryOptionId,
+  DeliveryOptionIdSchema,
+} from '#root/shared/src/schema.ts';
+import { is } from 'valibot';
 
 export function checkTruthy(
   variable: any,
@@ -13,15 +16,10 @@ export function isDeliveryOptionId(
   variable: any,
   customMessage: string = 'Error',
 ): asserts variable is deliveryOptionId {
-  match(variable)
-    .with('1', () => true)
-    .with('2', () => true)
-    .with('3', () => true)
-    .otherwise(() => {
-      throw new Error(
-        `${customMessage}: variable ${variable} is not deliveryOptionId`,
-      );
-    });
+  if (!is(DeliveryOptionIdSchema, variable))
+    throw new Error(
+      `${customMessage}: variable ${variable} is not deliveryOptionId`,
+    );
 }
 
 export function isHTMLInputElement(

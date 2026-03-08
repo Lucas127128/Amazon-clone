@@ -1,7 +1,7 @@
 import { Temporal } from 'temporal-polyfill-lite';
-import { match } from 'ts-pattern';
 import { formatCurrency } from '../utils/money.ts';
 import { type deliveryOptionId } from '../schema.ts';
+import { checkTruthy } from '../utils/typeChecker.ts';
 
 export const deliveryOptions = [
   {
@@ -20,6 +20,11 @@ export const deliveryOptions = [
     priceCents: 999,
   },
 ] as const;
+
+const getMatchingDeliveryOption = (deliveryOptionId: deliveryOptionId) =>
+  deliveryOptions.find(
+    (deliveryOption) => deliveryOption.id === deliveryOptionId,
+  );
 
 export function addWeekDays(
   businessDaysToAdd: number,
@@ -48,11 +53,14 @@ export function getDeliveryDate(
   deliveryOptionId: deliveryOptionId,
 ): string {
   const localNow = Temporal.Now.plainDateISO();
-  const deliveryDate = match(deliveryOptionId)
-    .with('1', () => addWeekDays(7, localNow))
-    .with('2', () => addWeekDays(3, localNow))
-    .with('3', () => addWeekDays(1, localNow))
-    .exhaustive();
+  const matchingDeliveryOption =
+    getMatchingDeliveryOption(deliveryOptionId);
+  checkTruthy(matchingDeliveryOption);
+
+  const deliveryDate = addWeekDays(
+    matchingDeliveryOption.deliveryDays,
+    localNow,
+  );
   return deliveryDate.toLocaleString('en-US', dateFormatOption);
 }
 
@@ -60,31 +68,22 @@ export function getDeliveryDateISO(
   deliveryOptionId: deliveryOptionId,
 ): Temporal.PlainDate {
   const localNow = Temporal.Now.plainDateISO();
-  return match(deliveryOptionId)
-    .with('1', () => addWeekDays(7, localNow))
-    .with('2', () => addWeekDays(3, localNow))
-    .with('3', () => addWeekDays(1, localNow))
-    .exhaustive();
+  const matchingDeliveryOption =
+    getMatchingDeliveryOption(deliveryOptionId);
+  checkTruthy(matchingDeliveryOption);
+  return addWeekDays(matchingDeliveryOption.deliveryDays, localNow);
 }
 
 export function getPriceString(priceCents: number): string {
-  const priceString = match(priceCents)
-    .with(0, () => 'FREE - ')
-    .with(499, () => `$${formatCurrency(499)} - `)
-    .with(999, () => `$${formatCurrency(999)} - `)
-    .otherwise(() => {
-      throw new Error(`priceCents ${priceCents} is not valid`);
-    });
-  return priceString;
+  if (priceCents === 0) return 'FREE - ';
+  return `$${formatCurrency(priceCents)} - `;
 }
 
 export function getDeliveryPriceCents(
   deliveryOptionId: deliveryOptionId,
 ): number {
-  const deliveryFee = match(deliveryOptionId)
-    .with('1', () => 0)
-    .with('2', () => 499)
-    .with('3', () => 999)
-    .exhaustive();
-  return deliveryFee;
+  const matchingDeliveryOption =
+    getMatchingDeliveryOption(deliveryOptionId);
+  checkTruthy(matchingDeliveryOption);
+  return matchingDeliveryOption?.priceCents;
 }

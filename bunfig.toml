@@ -9,4 +9,4 @@ coveragePathIgnorePatterns = [
   "src/api/**",
   "src/scripts/Utils/trustedTypes.ts",
 ]
-preload = ["./tests/preload.ts"]
+preload = ["./tests/normal/preload.ts"]

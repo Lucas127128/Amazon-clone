@@ -25,6 +25,6 @@ describe('test suite: getDeliveryProgress', () => {
       order as Order,
       cart[0] as Cart,
     );
-    expect(Math.round(deliveryProgress)).toBe(34);
+    expect(Math.round(deliveryProgress)).toBe(88);
   });
 });

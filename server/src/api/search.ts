@@ -27,13 +27,15 @@ function cleanupCache() {
 }
 
 function setCache(q: string, resultProducts: RawProduct[]) {
-  new Promise(() => {
-    cachedSearches.size < 2000
-      ? cachedSearches.set(q, resultProducts)
-      : cleanupCache();
-  }).catch((error) => {
-    console.error(`Fail to set cache for products search: ${error}`);
-  });
+  Promise.resolve()
+    .then(() => {
+      cachedSearches.size < 2000
+        ? cachedSearches.set(q, resultProducts)
+        : cleanupCache();
+    })
+    .catch((error) => {
+      console.error(`Fail to set cache for products search: ${error}`);
+    });
 }
 
 export const searchPlugin = new Elysia({ prefix: '/api/search' }).get(

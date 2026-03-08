@@ -9,14 +9,11 @@ import {
 import {
   addWeekDays,
   getDeliveryDate,
-  deliveryOptions,
   getPriceString,
   getDeliveryPriceCents,
   getDeliveryDateISO,
 } from '#root/shared/src/data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
-import { match } from 'ts-pattern';
-import type { deliveryOptionId } from '#root/shared/src/schema.ts';
 
 describe.concurrent('Delivery time test', () => {
   beforeAll(() => {
@@ -28,52 +25,19 @@ describe.concurrent('Delivery time test', () => {
     setSystemTime();
   });
   test('addWeekDays', () => {
-    for (const [index, deliveryOption] of deliveryOptions.entries()) {
-      const correctAddedDate = match(deliveryOption.id)
-        .returnType<string>()
-        .with('1', () => '2026-02-18')
-        .with('2', () => '2026-02-12')
-        .with('3', () => '2026-02-10')
-        .otherwise(() => {
-          throw new Error(
-            `deliveryOptionId ${deliveryOption.id} is not valid`,
-          );
-        });
-      const localNow = Temporal.Now.plainDateISO();
-      const daysToAdd = match(index)
-        .returnType<number>()
-        .with(0, () => 7)
-        .with(1, () => 3)
-        .with(2, () => 1)
-        .otherwise(() => {
-          throw new Error(`Index ${index} is not valid`);
-        });
-      const addedDate = addWeekDays(daysToAdd, localNow).toJSON();
-      expect(addedDate).toBe(correctAddedDate);
-    }
+    const localNow = Temporal.Now.plainDateISO();
+    expect(addWeekDays(7, localNow).toJSON()).toBe('2026-02-18');
+    expect(addWeekDays(3, localNow).toJSON()).toBe('2026-02-12');
+    expect(addWeekDays(1, localNow).toJSON()).toBe('2026-02-10');
   });
 
   test('getDeliveryDate', () => {
-    for (const [index, deliveryOption] of deliveryOptions.entries()) {
-      const correctDeliveryDate = match(deliveryOption.id)
-        .returnType<string>()
-        .with('1', () => 'Wednesday, February 18')
-        .with('2', () => 'Thursday, February 12')
-        .with('3', () => 'Tuesday, February 10')
-        .otherwise(() => {
-          throw new Error(
-            `deliveryOptionId ${deliveryOption.id} is not valid`,
-          );
-        });
-      const deliveryDate = getDeliveryDate(
-        `${index + 1}` as deliveryOptionId,
-      );
-      expect(deliveryDate).toBe(correctDeliveryDate);
-    }
+    expect(getDeliveryDate('1')).toEqual('Wednesday, February 18');
+    expect(getDeliveryDate('2')).toEqual('Thursday, February 12');
+    expect(getDeliveryDate('3')).toEqual('Tuesday, February 10');
   });
 
   test('getDeliveryDateISO', () => {
-    // const correctDeliveryDate = Temporal.PlainDate.from('2026-02-18');
     expect(getDeliveryDateISO('1')).toEqual(
       Temporal.PlainDate.from('2026-02-18'),
     );
