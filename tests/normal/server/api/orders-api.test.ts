@@ -5,7 +5,7 @@ import {
   setSystemTime,
   beforeAll,
 } from 'bun:test';
-import cartJSON from '../../cart.json';
+import cartJSON from '../../../cart.json';
 import { getTimeString } from '#root/shared/src/data/orders.ts';
 import { fetchProducts } from '#root/shared/src/data/products.ts';
 import { Order } from '#root/shared/src/data/orders.ts';

@@ -3,10 +3,15 @@ import {
   calculateCartQuantity,
 } from '#root/shared/src/data/cart.ts';
 import { getProducts, Product } from '#root/shared/src/data/products.ts';
-import { checkTruthy } from '../../../shared/src/utils/typeChecker';
+import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';
-import { policy } from '../../../shared/src/utils/trustedTypes';
+import { policy } from '#root/shared/src/utils/trustedTypes.ts';
+import {
+  CART_CONFIG,
+  FETCH_CONFIG,
+  UI_TIMEOUTS,
+} from '#root/shared/src/constants.ts';
 
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector('.products-grid');
@@ -16,7 +21,8 @@ async function renderAmazonHomePage() {
 
   let productsHTML = '';
   products.forEach((product, index) => {
-    const highFetchPriority = index <= 14 ? true : false;
+    const highFetchPriority =
+      index <= FETCH_CONFIG.HIGH_PRIORITY_THRESHOLD ? true : false;
     productsHTML += generateAmazonHTML(product, highFetchPriority);
   });
   const trustedProductsHTML = policy?.createHTML(productsHTML);
@@ -31,7 +37,7 @@ async function renderAmazonHomePage() {
     addedToCart.classList.add('display-added-to-cart');
     setTimeout(() => {
       addedToCart.classList.remove('display-added-to-cart');
-    }, 1500);
+    }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
   }
 
   productsGrid.addEventListener('click', (event) => {
@@ -59,7 +65,7 @@ async function renderAmazonHomePage() {
       {
         productId: productId,
         quantity: quantityToAdd,
-        deliveryOptionId: '1',
+        deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
       },
       true,
     );

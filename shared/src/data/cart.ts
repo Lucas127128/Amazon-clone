@@ -8,6 +8,7 @@ import {
   literal,
   InferOutput,
 } from 'valibot';
+import { STORAGE_KEYS } from '../constants.ts';
 
 export const CartSchema = object({
   productId: string(),
@@ -20,7 +21,7 @@ export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
 export function getCart(): Cart[] {
-  const savedCart = localStorage.getItem('cart');
+  const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
   const cart: Cart[] = savedCart ? JSON.parse(savedCart) : [];
   return cart;
 }
@@ -33,14 +34,14 @@ export function addToCart(cartItem: Cart, increment: boolean = false) {
       ? (matchingCart.quantity += cartItem.quantity)
       : (matchingCart.quantity = cartItem.quantity)
     : cart.push(cartItem);
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
 }
 
 export function removeFromCart(productId: string) {
   const cart: Cart[] = getCart().filter(
     (cartItem: Cart) => cartItem.productId !== productId,
   );
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
 }
 
 export function updateDeliveryOption(
@@ -51,7 +52,7 @@ export function updateDeliveryOption(
   const matchingItem = getMatchingCart(cart, productId);
   checkTruthy(matchingItem, 'The product id is not valid.');
   matchingItem.deliveryOptionId = deliveryOptionId;
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
 }
 
 export function calculateCartQuantity(): number {

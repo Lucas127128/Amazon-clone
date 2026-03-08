@@ -18,6 +18,7 @@ import {
 } from '#root/shared/src/data/cart.ts';
 import { clear } from 'idb-keyval';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
+import { CART_CONFIG, STORAGE_KEYS } from '#root/shared/src/constants.ts';
 
 beforeEach(() => {
   localStorage.clear();
@@ -35,7 +36,7 @@ describe.concurrent('test suite: addToCart', () => {
   const cartItem = {
     productId: 'B8WQz',
     quantity: 4,
-    deliveryOptionId: '1',
+    deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
   } as const;
   test('add a new product to cart', async () => {
     addToCart(cartItem, false);
@@ -44,7 +45,7 @@ describe.concurrent('test suite: addToCart', () => {
     expect(cart[0]).toEqual(cartItem);
   });
   test('add an existing product to cart', async () => {
-    localStorage.setItem('cart', JSON.stringify([cartItem]));
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([cartItem]));
     addToCart(cartItem, true);
     const cart = getCart();
     expect(cart.length).toBe(1);
@@ -80,14 +81,14 @@ describe.concurrent('test suite: getMatchingCart', () => {
 
 describe.concurrent('test suite: removeFromCart', () => {
   test('remove cartItem', () => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
     removeFromCart('ISs-Z');
     const correctCart: Cart = {
       productId: 'sMmsZ',
       quantity: 2,
       deliveryOptionId: '1',
     };
-    const savedCart = localStorage.getItem('cart');
+    const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
     checkTruthy(savedCart, 'Fail to get cart from localStorage');
     expect(JSON.parse(savedCart)[0]).toEqual(correctCart);
   });
@@ -95,9 +96,9 @@ describe.concurrent('test suite: removeFromCart', () => {
 
 describe.concurrent('test suite: updateDeliveryOption', () => {
   test('update delivery option', () => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
     updateDeliveryOption('sMmsZ', '3');
-    const savedCart = localStorage.getItem('cart');
+    const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
     checkTruthy(savedCart, 'Fail to get cart from localStorage');
     const deliveryOptionId = getMatchingCart(
       JSON.parse(savedCart),
@@ -109,7 +110,7 @@ describe.concurrent('test suite: updateDeliveryOption', () => {
 
 describe.concurrent('test suite: calculateCartQuantity', () => {
   test('display cart quantity', () => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
 
     calculateCartQuantity();
     const cartQuantity = calculateCartQuantity();

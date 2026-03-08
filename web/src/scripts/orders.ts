@@ -14,9 +14,14 @@ import {
 } from './htmlGenerators/ordersHTML.ts';
 import { handleSearchInput } from './header.ts';
 import { policy } from '../../../shared/src/utils/trustedTypes.ts';
+import {
+  CART_CONFIG,
+  STORAGE_KEYS,
+  UI_TIMEOUTS,
+} from '#root/shared/src/constants.ts';
 
 function renderPlacedOrder() {
-  localStorage.setItem('cart', JSON.stringify([]));
+  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([]));
   const savedOrders = localStorage.getItem('orders');
   const orders: readonly Order[] = savedOrders
     ? JSON.parse(savedOrders)
@@ -71,7 +76,7 @@ function renderPlacedOrder() {
     setTimeout(() => {
       buyAgainSuccessHTML.classList.remove('display-buy-again-success');
       buyAgainMessageHTML.classList.remove('hide-buy-again-message');
-    }, 1500);
+    }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
   }
   ordersHTML.addEventListener('click', (event) => {
     let buyAgainButton = <HTMLButtonElement>event.target;
@@ -103,7 +108,11 @@ function renderPlacedOrder() {
 
     checkTruthy(productId, 'Fail to get productId');
     addToCart(
-      { productId: productId, quantity: 1, deliveryOptionId: '1' },
+      {
+        productId: productId,
+        quantity: 1,
+        deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+      },
       true,
     );
 

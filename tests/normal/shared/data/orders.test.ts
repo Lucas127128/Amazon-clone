@@ -7,7 +7,7 @@ import {
 } from '#root/shared/src/data/orders.ts';
 import { dateFormatOption } from '#root/shared/src/data/deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
-import cartJSON from '../../cart.json';
+import cartJSON from '../../../cart.json';
 import { Cart } from '#root/shared/src/data/cart.ts';
 
 describe.concurrent('test suite: getTimeString', () => {
@@ -24,7 +24,7 @@ describe.concurrent('test suite: getTimeString', () => {
 describe.concurrent('test suite: fetchOrders', async () => {
   const cart = <Cart[]>cartJSON;
   const orders = await fetchOrders(cart);
-  const ordersJSON = <Order>(await import('../../order.json')).default;
+  const ordersJSON = <Order>(await import('../../../order.json')).default;
 
   test('same totalCostCents', () => {
     expect(orders.totalCostCents).toBe(ordersJSON.totalCostCents);

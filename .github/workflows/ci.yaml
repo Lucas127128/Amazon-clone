@@ -19,8 +19,6 @@ jobs:
           sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
       - name: Install certs
         run: mkcert -install
-      - name: Install pm2
-        run: bun add -g pm2
       - name: Run Bun Server
         uses: JarvusInnovations/background-action@v1
         with:

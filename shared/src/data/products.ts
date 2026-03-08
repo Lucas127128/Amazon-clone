@@ -3,6 +3,7 @@ import { get, set } from 'idb-keyval';
 import { Temporal } from 'temporal-polyfill-lite';
 import { app } from './edenTreaty.ts';
 import { object, number, string, array, InferOutput } from 'valibot';
+import { STORAGE_KEYS } from '../constants.ts';
 
 export const getMatchingProduct = (
   products: readonly Product[],
@@ -94,13 +95,13 @@ export async function fetchProducts(): Promise<readonly Product[]> {
 
 export async function getProducts() {
   async function setProducts() {
-    await set('products', {
+    await set(STORAGE_KEYS.PRODUCTS_CACHE, {
       data: await fetchProducts(),
       time: Temporal.Now.plainDateISO().toJSON(),
     });
   }
 
-  const savedProducts = await get('products');
+  const savedProducts = await get(STORAGE_KEYS.PRODUCTS_CACHE);
   const today = Temporal.Now.plainDateISO().toJSON();
   const isFreshData = savedProducts
     ? savedProducts.time === today

@@ -15,6 +15,7 @@ import {
   checkTruthy,
   isDeliveryOptionId,
 } from '#root/shared/src/utils/typeChecker.ts';
+import { CART_CONFIG } from '#root/shared/src/constants.ts';
 
 describe('test suite: Render order summary', () => {
   beforeAll(() => {
@@ -31,11 +32,19 @@ describe('test suite: Render order summary', () => {
     orderSummary.innerHTML = '';
     localStorage.clear();
     addToCart(
-      { productId: '59LXo', quantity: 1, deliveryOptionId: '1' },
+      {
+        productId: '59LXo',
+        quantity: 1,
+        deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+      },
       false,
     );
     addToCart(
-      { productId: 'Hwme8', quantity: 2, deliveryOptionId: '1' },
+      {
+        productId: 'Hwme8',
+        quantity: 2,
+        deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+      },
       false,
     );
 

@@ -1,3 +1,4 @@
+import { CART_CONFIG } from '#root/shared/src/constants.ts';
 import {
   removeFromCart,
   addToCart,
@@ -80,7 +81,7 @@ export async function renderOrderSummary() {
           {
             productId: productId,
             quantity: Number(quantityInput.value),
-            deliveryOptionId: '1',
+            deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
           },
           false,
         );
