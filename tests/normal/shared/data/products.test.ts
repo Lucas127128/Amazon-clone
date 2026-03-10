@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect } from 'bun:test';
 import {
   getMatchingProduct,
   Product,
@@ -27,8 +27,8 @@ describe.concurrent('Get matching item', async () => {
   });
 
   test('get matching raw product', async () => {
-    const products: RawProduct[] = await (
-      await fetch('https://localhost:8080/api/products')
+    const products: RawProduct[] = await Bun.file(
+      './server/src/api/rawProducts.json',
     ).json();
     const matchingProduct = getMatchingRawProduct(products, 'sMmsZ');
     expect(matchingProduct).toEqual(correctRawProduct);

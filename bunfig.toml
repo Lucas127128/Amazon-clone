@@ -6,7 +6,7 @@ retry = 1
 coverage = true
 coverageSkipTestFiles = true
 coveragePathIgnorePatterns = [
-  "src/api/**",
+  "server/src/api/**/*.ts",
   "src/scripts/Utils/trustedTypes.ts",
 ]
 preload = ["./tests/normal/preload.ts"]

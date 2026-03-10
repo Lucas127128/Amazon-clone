@@ -9,6 +9,7 @@ import { getMatchingCart } from '#root/shared/src/data/cart.ts';
 import { handleSearchInput } from './header';
 import { policy } from '../../../shared/src/utils/trustedTypes';
 import { Order } from '#root/shared/src/schema.ts';
+import { STORAGE_KEYS } from '#root/shared/src/constants.ts';
 
 async function renderTrackingSummary() {
   const url = new URL(location.href);
@@ -21,10 +22,9 @@ async function renderTrackingSummary() {
   const matchingProducts = getMatchingProduct(products, productId);
   checkTruthy(matchingProducts);
 
-  const savedOrders = localStorage.getItem('orders');
+  const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   checkTruthy(savedOrders);
   const orders: Order[] = JSON.parse(savedOrders);
-  checkTruthy(orders);
   const matchingOrder = getMatchingOrder(orders, orderId);
   checkTruthy(matchingOrder);
 

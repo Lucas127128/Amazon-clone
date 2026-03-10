@@ -1,29 +1,32 @@
 /// <reference lib="dom" />
-import 'fake-indexeddb/auto';
 import { beforeAll, describe, expect, test } from 'bun:test';
 import { Cart } from '#root/shared/src/schema.ts';
-import { getProducts } from '#root/shared/src/data/products.ts';
+import { Product } from '#root/shared/src/data/products.ts';
 import { formatCurrency } from '#root/shared/src/utils/money.ts';
 import { renderPaymentSummary } from '#root/web/src/scripts/checkout/paymentSummary.ts';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
-import cart from '../../../../cart.json';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
 import { clear } from 'idb-keyval';
 import { STORAGE_KEYS } from '#root/shared/src/constants.ts';
 
-describe('test suite: Render payment summary', async () => {
-  beforeAll(async () => {
-    await clear();
-    localStorage.clear();
-    document.body.innerHTML = `
+const cart: Cart[] = await Bun.file('./tests/normal/cart.json').json();
+
+beforeAll(async () => {
+  await clear();
+  localStorage.clear();
+  document.body.innerHTML = `
       <div class="test-container">
         <div class="payment-summary"></div>
       </div>`;
-    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-    await renderPaymentSummary();
-  });
-  const products = await getProducts();
-  const prices = calculatePrices(cart as Cart[], products);
+  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+  await renderPaymentSummary();
+});
+
+describe.concurrent('test suite: render payment details', async () => {
+  const products: Product[] = await Bun.file(
+    './tests/normal/products.json',
+  ).json();
+  const prices = calculatePrices(cart, products);
 
   test('correct total product price', () => {
     const totalProductPrice = document.querySelector(

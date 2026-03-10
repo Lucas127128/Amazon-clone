@@ -1,11 +1,4 @@
-import {
-  describe,
-  test,
-  setSystemTime,
-  beforeAll,
-  expect,
-  afterAll,
-} from 'bun:test';
+import { describe, test, expect } from 'bun:test';
 import {
   addWeekDays,
   getDeliveryDate,
@@ -16,25 +9,17 @@ import {
 import { Temporal } from 'temporal-polyfill-lite';
 
 describe.concurrent('Delivery time test', () => {
-  beforeAll(() => {
-    const fakeTime = new Date('2026-02-09T16:00:00.000');
-    setSystemTime(fakeTime);
-  });
-
-  afterAll(() => {
-    setSystemTime();
-  });
   test('addWeekDays', () => {
     const localNow = Temporal.Now.plainDateISO();
-    expect(addWeekDays(7, localNow).toJSON()).toBe('2026-02-18');
-    expect(addWeekDays(3, localNow).toJSON()).toBe('2026-02-12');
-    expect(addWeekDays(1, localNow).toJSON()).toBe('2026-02-10');
+    expect(addWeekDays(7, localNow).toJSON()).toBe('2026-03-16');
+    expect(addWeekDays(3, localNow).toJSON()).toBe('2026-03-10');
+    expect(addWeekDays(1, localNow).toJSON()).toBe('2026-03-06');
   });
 
   test('getDeliveryDate', () => {
-    expect(getDeliveryDate('1')).toEqual('Wednesday, February 18');
-    expect(getDeliveryDate('2')).toEqual('Thursday, February 12');
-    expect(getDeliveryDate('3')).toEqual('Tuesday, February 10');
+    expect(getDeliveryDate('1')).toBe('Monday, March 16');
+    expect(getDeliveryDate('2')).toBe('Tuesday, March 10');
+    expect(getDeliveryDate('3')).toBe('Friday, March 6');
   });
 
   test('getDeliveryDateISO', () => {

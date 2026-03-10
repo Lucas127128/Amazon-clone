@@ -1,7 +1,4 @@
-import {
-  Product,
-  transformProducts,
-} from '#root/shared/src/data/products.ts';
+import { transformProducts } from '#root/shared/src/data/products.ts';
 import { app } from '#root/shared/src/data/edenTreaty.ts';
 import { isHTMLInputElement } from '#root/shared/src/utils/typeChecker.ts';
 
@@ -26,22 +23,19 @@ export function handleSearchInput() {
   });
 }
 
-export const handleSearch =
-  async function searchProductsFromQuery(): Promise<
-    readonly Product[] | undefined
-  > {
-    const url = new URL(location.href);
-    const searchQuery = url.searchParams.get('q');
-    if (!searchQuery) return;
-    searchBar.value = searchQuery;
-    const [
-      { data: rawProducts, error: productsError },
-      { data: clothings, error: clothingError },
-    ] = await Promise.all([
-      app.api.search.products({ q: searchQuery }).get(),
-      app.api.clothingList.get(),
-    ]);
-    if (productsError) throw productsError;
-    if (clothingError) throw clothingError;
-    return transformProducts(rawProducts, clothings);
-  };
+export const handleSearch = async function searchProductsFromQuery() {
+  const url = new URL(location.href);
+  const searchQuery = url.searchParams.get('q');
+  if (!searchQuery) return;
+  searchBar.value = searchQuery;
+  const [
+    { data: rawProducts, error: productsError },
+    { data: clothings, error: clothingError },
+  ] = await Promise.all([
+    app.api.search.products({ q: searchQuery }).get(),
+    app.api.clothingList.get(),
+  ]);
+  if (productsError) throw productsError;
+  if (clothingError) throw clothingError;
+  return transformProducts(rawProducts, clothings);
+};

@@ -17,5 +17,6 @@ export const CART_CONFIG = {
 
 export const STORAGE_KEYS = {
   CART: 'cart',
+  ORDER: 'orders',
   PRODUCTS_CACHE: 'products',
 } as const;

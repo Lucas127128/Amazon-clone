@@ -3,10 +3,12 @@ import { Cart, Order } from '#root/shared/src/schema.ts';
 import { fetchOrders } from '#root/shared/src/data/orders.ts';
 
 describe.concurrent('order api test', async () => {
-  const cart: Cart[] = await Bun.file('./tests/cart.json').json();
+  const cart: Cart[] = await Bun.file('./tests/normal/cart.json').json();
   const order = await fetchOrders(cart);
 
-  const correctOrder: Order = await Bun.file('./tests/order.json').json();
+  const correctOrder: Order = await Bun.file(
+    './tests/normal/order.json',
+  ).json();
 
   test('Return right totalCostCents ', async () => {
     expect(order.totalCostCents).toBe(correctOrder.totalCostCents);

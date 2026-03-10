@@ -10,7 +10,7 @@ export function generateOrdersProductHTML(
   product: Cart,
   matchingProduct: Product,
   orderId: string,
-): string {
+) {
   const deliveryDate = getDeliveryDate(product.deliveryOptionId);
   const placedOrderProductHTML = html`
     <div class="product-image-container">
@@ -50,7 +50,7 @@ export function generateOrderContainerHTML(
   order: Order,
   orderTime: string,
   ordersProductHTML: string,
-): string {
+) {
   const html = String.raw;
   const orderContainerHTML = html`
     <div class="order-container order-container-${order.id}">

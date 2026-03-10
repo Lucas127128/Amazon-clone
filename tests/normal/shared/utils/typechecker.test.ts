@@ -1,4 +1,4 @@
-import { deliveryOptionId } from '#root/shared/src/schema.ts';
+import { DeliveryOptionId } from '#root/shared/src/schema.ts';
 import {
   checkTruthy,
   isDeliveryOptionId,
@@ -57,7 +57,7 @@ describe.concurrent('isHTMLInputElement', () => {
 
 describe.concurrent('isDeliveryOptionId', () => {
   test('accept deliveryOptionId', () => {
-    const deliveryOptions: deliveryOptionId[] = ['1', '2', '3'];
+    const deliveryOptions: DeliveryOptionId[] = ['1', '2', '3'];
     for (const deliveryOption of deliveryOptions) {
       expect(() => isDeliveryOptionId(deliveryOption)).not.toThrow();
     }

@@ -47,7 +47,7 @@ export class Product {
 export function transformProducts(
   rawProducts: RawProduct[],
   clothings: string[],
-): readonly Product[] {
+) {
   const products: readonly Product[] = rawProducts
     .sort((a, b) => {
       if (a.rating.stars === b.rating.stars) {
@@ -62,7 +62,7 @@ export function transformProducts(
   return products;
 }
 
-export async function fetchProducts(): Promise<readonly Product[]> {
+export async function fetchProducts() {
   const [
     { data: clothings, error: clothingsError },
     { data: rawProducts, error: productsError },

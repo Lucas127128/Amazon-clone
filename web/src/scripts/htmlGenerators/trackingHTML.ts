@@ -8,7 +8,7 @@ export function generateTrackingHTML(
   matchingProduct: Product,
   matchingOrder: Order,
   matchingCart: Cart,
-): string {
+) {
   const deliveryProgressPercent = getDeliveryProgress(
     matchingOrder,
     matchingCart,

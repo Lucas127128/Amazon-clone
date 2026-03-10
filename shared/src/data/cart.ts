@@ -1,16 +1,16 @@
 import { checkTruthy } from '../utils/typeChecker.ts';
-import { deliveryOptionId } from '../schema.ts';
+import { CartSchemaArray, DeliveryOptionId } from '../schema.ts';
 import { STORAGE_KEYS } from '../constants.ts';
 import { Cart } from '../schema.ts';
+import { is } from 'valibot';
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
-export function getCart(): Cart[] {
-  const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
-  const cart = savedCart
-    ? (JSON.parse(savedCart) satisfies Cart[])
-    : ([] satisfies Cart[]);
+export function getCart() {
+  const cart: Cart[] = JSON.parse(
+    localStorage.getItem(STORAGE_KEYS.CART) ?? '[]',
+  );
   return cart;
 }
 
@@ -22,7 +22,11 @@ export function addToCart(cartItem: Cart, increment: boolean = false) {
       ? (matchingCart.quantity += cartItem.quantity)
       : (matchingCart.quantity = cartItem.quantity)
     : cart.push(cartItem);
-  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+  if (is(CartSchemaArray, cart)) {
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+  } else {
+    throw new Error('Cart is not valid');
+  }
 }
 
 export function removeFromCart(productId: string) {
@@ -34,7 +38,7 @@ export function removeFromCart(productId: string) {
 
 export function updateDeliveryOption(
   productId: string,
-  deliveryOptionId: deliveryOptionId,
+  deliveryOptionId: DeliveryOptionId,
 ) {
   const cart = getCart();
   const matchingItem = getMatchingCart(cart, productId);
@@ -43,7 +47,7 @@ export function updateDeliveryOption(
   localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
 }
 
-export function calculateCartQuantity(): number {
+export function calculateCartQuantity() {
   const cart = getCart();
   let cartQuantity = 0;
   for (const cartItem of cart) {

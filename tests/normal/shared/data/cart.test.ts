@@ -1,4 +1,3 @@
-import 'fake-indexeddb/auto';
 import { describe, test, expect } from 'bun:test';
 import {
   addToCart,

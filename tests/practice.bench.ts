@@ -1,18 +1,14 @@
 import { bench } from 'vitest';
-// import ky from "ky";
-// import axios from "axios";
-import { Product } from '../shared/src/data/products';
+import { app } from '#root/shared/src/data/edenTreaty.ts';
 
 bench('fetch', async () => {
-  const products = await fetch('http://localhost:3000/products');
+  const products = await fetch('https://localhost:8080/api/products');
   const productsJSON = await products.json();
-  //   console.log(await productsJSON);
+  // console.log(await productsJSON);
 });
 
-bench('axios', async () => {
-  const axios = (await import('axios')).default;
-  const products: Product[] = (
-    await axios.get('http://localhost:3000/products')
-  ).data;
-  //   console.log(products);
+bench('eden treaty', async () => {
+  const { data: products, error } = await app.api.products.get();
+  if (error) throw error;
+  // console.log(products);
 });

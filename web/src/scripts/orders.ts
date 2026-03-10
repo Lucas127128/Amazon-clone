@@ -23,7 +23,7 @@ import { Order } from '#root/shared/src/schema.ts';
 
 function renderPlacedOrder() {
   localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([]));
-  const savedOrders = localStorage.getItem('orders');
+  const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   const orders: readonly Order[] = savedOrders
     ? JSON.parse(savedOrders)
     : [];
@@ -63,7 +63,7 @@ function renderPlacedOrder() {
   function displayBuyAgainMessage(
     buyAgainMessageHTML: Element,
     buyAgainSuccessHTML: Element,
-  ): void {
+  ) {
     checkTruthy(buyAgainSuccessHTML);
     checkTruthy(buyAgainMessageHTML);
     buyAgainSuccessHTML.classList.add('display-buy-again-success');

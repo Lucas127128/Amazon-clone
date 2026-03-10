@@ -8,7 +8,7 @@ import {
 
 const html = String.raw;
 
-function deliveryOptionsHTML(matchingProductId: string): string {
+function deliveryOptionsHTML(matchingProductId: string) {
   let deliveryOptionsHTML = '';
   deliveryOptions.forEach((deliveryOptions) => {
     const deliveryDate = getDeliveryDate(deliveryOptions.id);
@@ -40,7 +40,7 @@ function deliveryDateHTML(cartItem: Cart) {
 export function generateCartSummary(
   matchingProduct: Product,
   cartItem: Cart,
-): string {
+) {
   const cartSummaryHTML = html`
     <div
       class="cart-item-container cart-item-container-${matchingProduct.id}"

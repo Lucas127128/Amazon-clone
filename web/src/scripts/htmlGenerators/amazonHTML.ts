@@ -2,7 +2,7 @@ import { Product } from '#root/shared/src/data/products.ts';
 export function generateAmazonHTML(
   product: Product,
   highFetchPriority: boolean,
-): string {
+) {
   const html = String.raw;
   const productHTML = html`
       <div class="product-container" data-product-id='${product.id}'>

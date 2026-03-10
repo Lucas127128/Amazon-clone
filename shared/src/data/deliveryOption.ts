@@ -1,6 +1,6 @@
 import { Temporal } from 'temporal-polyfill-lite';
 import { formatCurrency } from '../utils/money.ts';
-import { type deliveryOptionId } from '../schema.ts';
+import { type DeliveryOptionId } from '../schema.ts';
 import { checkTruthy } from '../utils/typeChecker.ts';
 
 export const deliveryOptions = [
@@ -21,7 +21,7 @@ export const deliveryOptions = [
   },
 ] as const;
 
-const getMatchingDeliveryOption = (deliveryOptionId: deliveryOptionId) =>
+const getMatchingDeliveryOption = (deliveryOptionId: DeliveryOptionId) =>
   deliveryOptions.find(
     (deliveryOption) => deliveryOption.id === deliveryOptionId,
   );
@@ -49,9 +49,7 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
   day: 'numeric',
 } as const;
 
-export function getDeliveryDate(
-  deliveryOptionId: deliveryOptionId,
-): string {
+export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.plainDateISO();
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
@@ -64,9 +62,7 @@ export function getDeliveryDate(
   return deliveryDate.toLocaleString('en-US', dateFormatOption);
 }
 
-export function getDeliveryDateISO(
-  deliveryOptionId: deliveryOptionId,
-): Temporal.PlainDate {
+export function getDeliveryDateISO(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.plainDateISO();
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
@@ -74,14 +70,12 @@ export function getDeliveryDateISO(
   return addWeekDays(matchingDeliveryOption.deliveryDays, localNow);
 }
 
-export function getPriceString(priceCents: number): string {
+export function getPriceString(priceCents: number) {
   if (priceCents === 0) return 'FREE - ';
   return `$${formatCurrency(priceCents)} - `;
 }
 
-export function getDeliveryPriceCents(
-  deliveryOptionId: deliveryOptionId,
-): number {
+export function getDeliveryPriceCents(deliveryOptionId: DeliveryOptionId) {
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
   checkTruthy(matchingDeliveryOption);

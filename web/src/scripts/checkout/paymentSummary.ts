@@ -6,6 +6,7 @@ import { getProducts } from '#root/shared/src/data/products.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 import { policy } from '../../../../shared/src/utils/trustedTypes.ts';
 import type { Order } from '#root/shared/src/schema.ts';
+import { STORAGE_KEYS } from '#root/shared/src/constants.ts';
 
 export async function renderPaymentSummary() {
   const checkoutCart = getCart();
@@ -23,13 +24,13 @@ export async function renderPaymentSummary() {
   const placeOrderHTML = document.querySelector('.place-order-button');
   checkTruthy(placeOrderHTML, 'Fail to get the HTML element');
   placeOrderHTML.addEventListener('click', async () => {
-    const order: Order = await fetchOrders(checkoutCart);
+    const order = await fetchOrders(checkoutCart);
     checkTruthy(order);
 
-    const savedOrders = localStorage.getItem('orders');
+    const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
     const orders: Order[] = savedOrders ? JSON.parse(savedOrders) : [];
     orders.unshift(order);
-    localStorage.setItem('orders', JSON.stringify(orders));
+    localStorage.setItem(STORAGE_KEYS.ORDER, JSON.stringify(orders));
     location.href = '/orders.html';
   });
 }

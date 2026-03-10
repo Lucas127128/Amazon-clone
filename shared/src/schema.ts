@@ -8,18 +8,25 @@ import {
   isoTimestamp,
   array,
   InferOutput,
+  minValue,
+  maxValue,
 } from 'valibot';
+import { CART_CONFIG } from './constants';
 
 export const DeliveryOptionIdSchema = union([
   literal('1'),
   literal('2'),
   literal('3'),
 ]);
-export type deliveryOptionId = InferOutput<typeof DeliveryOptionIdSchema>;
+export type DeliveryOptionId = InferOutput<typeof DeliveryOptionIdSchema>;
 
 export const CartSchema = object({
   productId: string(),
-  quantity: number(),
+  quantity: pipe(
+    number(),
+    minValue(1),
+    maxValue(CART_CONFIG.MAX_QUANTITY_PER_ITEM),
+  ),
   deliveryOptionId: DeliveryOptionIdSchema,
 });
 export const CartSchemaArray = array(CartSchema);

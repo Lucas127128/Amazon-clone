@@ -3,10 +3,7 @@ import { Cart } from '../schema';
 import { getDeliveryDateISO } from './deliveryOption';
 import { Order } from '../schema';
 
-export function getDeliveryProgress(
-  order: Order,
-  matchingCart: Cart,
-): number {
+export function getDeliveryProgress(order: Order, matchingCart: Cart) {
   const deliveryDate = getDeliveryDateISO(matchingCart.deliveryOptionId);
   const orderTime = Temporal.Instant.from(order.orderTime)
     .toZonedDateTimeISO(Temporal.Now.timeZoneId())
