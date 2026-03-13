@@ -21,6 +21,9 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
     },
     {
       response: RawProductSchemaArray,
+      detail: {
+        description: 'Return an array of products',
+      },
     },
   )
   .get(
@@ -33,6 +36,9 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
     },
     {
       response: ClothingListSchema,
+      detail: {
+        description: 'Return a list of product ids that are clothing',
+      },
     },
   );
 

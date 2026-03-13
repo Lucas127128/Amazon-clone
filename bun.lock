@@ -7,6 +7,8 @@
       "dependencies": {
         "@elysiajs/cors": "^1.4.1",
         "@elysiajs/eden": "^1.4.8",
+        "@elysiajs/openapi": "^1.4.14",
+        "@valibot/to-json-schema": "^1.5.0",
         "dompurify": "^3.3.3",
         "elysia": "^1.4.27",
         "elysia-local-https": "^1.0.2",
@@ -62,6 +64,8 @@
     "@elysiajs/cors": ["@elysiajs/cors@1.4.1", "", { "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-lQfad+F3r4mNwsxRKbXyJB8Jg43oAOXjRwn7sKUL6bcOW3KjUqUimTS+woNpO97efpzjtDE0tEjGk9DTw8lqTQ=="],
 
     "@elysiajs/eden": ["@elysiajs/eden@1.4.8", "", { "peerDependencies": { "elysia": ">=1.4.19" } }, "sha512-a7oct2kFa49tH+GawZtSUCZR2rQgucNYgGLz8alXUqb4IrU3PASA0T4zXJw4MhdV1Xb6vyiR7p7kkqJcVjgbkA=="],
+
+    "@elysiajs/openapi": ["@elysiajs/openapi@1.4.14", "", { "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-kWmJWdvP8/LwHwAJXSpz6xFfYUoyUyEPRimEYABuDU1rOnS27Da1u9T2jyU7frOopxKWV/wDfDxMP8z2xdCPJw=="],
 
     "@emnapi/core": ["@emnapi/core@1.8.1", "", { "dependencies": { "@emnapi/wasi-threads": "1.1.0", "tslib": "^2.4.0" } }, "sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg=="],
 
@@ -508,6 +512,8 @@
     "@types/whatwg-mimetype": ["@types/whatwg-mimetype@3.0.2", "", {}, "sha512-c2AKvDT8ToxLIOUlN51gTiHXflsfIFisS4pO7pDPoKouJCESkhZnEy623gwP9laCy5lnLDAw1vAzu2vM2YLOrA=="],
 
     "@types/ws": ["@types/ws@8.18.1", "", { "dependencies": { "@types/node": "*" } }, "sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg=="],
+
+    "@valibot/to-json-schema": ["@valibot/to-json-schema@1.5.0", "", { "peerDependencies": { "valibot": "^1.2.0" } }, "sha512-GE7DmSr1C2UCWPiV0upRH6mv0cCPsqYGs819fb6srCS1tWhyXrkGGe+zxUiwzn/L1BOfADH4sNjY/YHCuP8phQ=="],
 
     "@vitejs/devtools": ["@vitejs/devtools@0.1.0", "", { "dependencies": { "@vitejs/devtools-kit": "0.1.0", "@vitejs/devtools-rolldown": "0.1.0", "@vitejs/devtools-rpc": "0.1.0", "birpc": "^4.0.0", "cac": "^7.0.0", "h3": "^1.15.6", "immer": "^11.1.4", "launch-editor": "^2.13.1", "mlly": "^1.8.1", "obug": "^2.1.1", "open": "^11.0.0", "pathe": "^2.0.3", "perfect-debounce": "^2.1.0", "sirv": "^3.0.2", "tinyexec": "^1.0.2", "ws": "^8.19.0" }, "peerDependencies": { "vite": "*" }, "bin": { "vite-devtools": "bin.js" } }, "sha512-jU0g+5mLtXgyFME66rzsLCqXjyScQ5nYK8toI6LEO0gu+1QFK3t3pIRk/PR+RM05X/oeED1YFe+YY2uBunTYMQ=="],
 

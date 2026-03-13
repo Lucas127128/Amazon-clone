@@ -8,9 +8,13 @@ const filesName = (await Bun.$`find ./dist -type f`.text())
   );
 
 export const staticPlugin = new Elysia({ precompile: true })
-  .get('/', ({ redirect }) => {
-    return redirect('/index.html');
-  })
+  .get(
+    '/',
+    ({ redirect }) => {
+      return redirect('/index.html');
+    },
+    { detail: { description: 'Redirect to /index.html' } },
+  )
   .get('/speculationRules.json', async ({ set }) => {
     set.headers['content-type'] = 'application/speculationrules+json';
     return await Bun.file('./config/speculationRules.json').text();

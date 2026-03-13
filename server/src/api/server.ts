@@ -1,10 +1,12 @@
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
+import { fromTypes, openapi } from '@elysiajs/openapi';
 import { localHttps } from 'elysia-local-https';
 import { productsPlugin } from './products.ts';
 import { orderPlugin } from './orders.ts';
 import { staticPlugin } from './static.ts';
 import { searchPlugin } from './search.ts';
+import { toJsonSchema } from '@valibot/to-json-schema';
 import config from '#root/config/config.json' with { type: 'json' };
 
 export const app = new Elysia({ precompile: true })
@@ -24,6 +26,14 @@ export const app = new Elysia({ precompile: true })
       ],
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
+    }),
+  )
+  .use(
+    openapi({
+      references: fromTypes('/server/src/api/server.ts'),
+      mapJsonSchema: {
+        valibot: toJsonSchema,
+      },
     }),
   )
   .use(staticPlugin)

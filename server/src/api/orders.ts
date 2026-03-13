@@ -41,6 +41,10 @@ export const orderPlugin = new Elysia({ prefix: '/api' }).post(
   {
     response: OrderSchema,
     body: CartSchemaArray,
+    detail: {
+      description:
+        'generate order from a cart(No actual database involved, only for demo)',
+    },
   },
 );
 console.log(`🦊 Elysia is running`);
