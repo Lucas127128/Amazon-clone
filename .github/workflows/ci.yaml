@@ -8,7 +8,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Cache
         uses: actions/cache@v4
-        with: 
+        with:
           key: the-key
           path: |
             ~/.bun
@@ -25,8 +25,8 @@ jobs:
           curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
           chmod +x mkcert-v*-linux-amd64
           sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
-      - name: Install certs
-        run: mkcert -install
+        # run: mkcert -install
+      # - name: Install certs
       - name: Run Bun Server
         uses: JarvusInnovations/background-action@v1
         with:
