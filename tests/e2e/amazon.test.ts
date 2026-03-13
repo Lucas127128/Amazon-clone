@@ -25,7 +25,7 @@ test.describe('ui', () => {
         .webp()
         .toBuffer();
       expect(iconScreenShot).toMatchSnapshot(
-        '../../images/amazon-logo-white.webp',
+        '../../web/images/amazon-logo-white.webp',
       );
     });
 
@@ -78,9 +78,9 @@ test.describe('ui', () => {
       await expect(productsLocator).toHaveCount(43);
 
       const containers = await page.locator('.product-container').all();
-      for (const container of containers) {
-        await expect(container).toBeVisible();
-      }
+      await Promise.all(
+        containers.map((container) => expect(container).toBeVisible()),
+      );
     });
 
     test('products image is correct', async ({ page }) => {
@@ -96,17 +96,24 @@ test.describe('ui', () => {
         })
       ).default;
       const products = transformProducts(rawProducts, clothings);
-      for (const container of containers) {
-        const productImage = container.locator('.product-image');
-        const productImageScreenshot = await sharp(
-          await productImage.screenshot(),
-        )
-          .webp()
-          .toBuffer();
+      const productsId = await Promise.all(
+        containers.map((container) =>
+          container.evaluate((element) => element.dataset.productId),
+        ),
+      );
 
-        const productId = await container.evaluate(
-          (element) => element.dataset.productId,
-        );
+      const productImageScreenshots = await Promise.all(
+        containers.map(async (container) => {
+          const productImage = container.locator('.product-image');
+          return sharp(await productImage.screenshot())
+            .webp()
+            .toBuffer();
+        }),
+      );
+      for (const [index] of containers.entries()) {
+        const productImageScreenshot = productImageScreenshots[index];
+
+        const productId = productsId[index];
         checkTruthy(productId);
         const product = getMatchingProduct(products, productId);
         checkTruthy(product);

@@ -16,63 +16,66 @@ export const staticPlugin = new Elysia({ precompile: true })
     return await Bun.file('./config/speculationRules.json').text();
   });
 
-for (const fileName of filesName) {
-  const fileExtention = fileName.split('.')[2].toLowerCase();
-  const contentType = match(fileExtention)
-    .with('html', () => 'text/html')
-    .with('css', () => 'text/css')
-    .with('js', () => 'text/javascript')
-    .with('webp', () => 'image/webp')
-    .with('png', () => 'image/png')
-    .with('svg', () => 'image/svg+xml')
-    .with('jpg', 'jpeg', () => 'image/jpeg')
-    .with(P._, P.nullish, () => undefined)
-    .exhaustive();
+await Promise.all(
+  filesName.map(async (fileName) => {
+    const fileExtension = fileName.split('.')[2].toLowerCase();
+    const contentType = match(fileExtension)
+      .with('html', () => 'text/html')
+      .with('css', () => 'text/css')
+      .with('js', () => 'text/javascript')
+      .with('webp', () => 'image/webp')
+      .with('png', () => 'image/png')
+      .with('svg', () => 'image/svg+xml')
+      .with('jpg', 'jpeg', () => 'image/jpeg')
+      .with(P._, P.nullish, () => undefined)
+      .exhaustive();
 
-  const fileObj = Bun.file(fileName);
-  const file = await match(fileExtention)
-    .with('html', 'css', 'js', async () => await fileObj.text())
-    .with(
-      'webp',
-      'png',
-      'jpg',
-      'jpeg',
-      'svg',
-      async () => await fileObj.bytes(),
-    )
-    .with(P._, P.nullish, async () => await fileObj.bytes())
-    .exhaustive();
+    const fileObj = Bun.file(fileName);
+    const file = await match(fileExtension)
+      .with('html', 'css', 'js', async () => await fileObj.text())
+      .with(
+        'webp',
+        'png',
+        'jpg',
+        'jpeg',
+        'svg',
+        async () => await fileObj.bytes(),
+      )
+      .with(P._, P.nullish, async () => await fileObj.bytes())
+      .exhaustive();
 
-  const compressedFile = Bun.gzipSync(file);
+    const compressedFile = Bun.gzipSync(file);
 
-  const cacheControl = match(fileExtention)
-    .with('html', () => 'public, no-cache')
-    .with('css', 'js', () => 'public, max-age=15552000')
-    .with(
-      'webp',
-      'png',
-      'jpg',
-      'jpeg',
-      'svg',
-      () => 'public, max-age=15552000',
-    )
-    .with(P._, P.nullish, () => undefined)
-    .exhaustive();
+    const cacheControl = match(fileExtension)
+      .with('html', () => 'public, no-cache')
+      .with('css', 'js', () => 'public, max-age=15552000')
+      .with(
+        'webp',
+        'png',
+        'jpg',
+        'jpeg',
+        'svg',
+        () => 'public, max-age=15552000',
+      )
+      .with(P._, P.nullish, () => undefined)
+      .exhaustive();
 
-  const route = fileName.replace('./dist', '');
+    const route = fileName.replace('./dist', '');
 
-  staticPlugin.get(route, ({ set }) => {
-    if (contentType) {
-      set.headers['content-type'] = contentType;
-    }
-    set.headers['cache-control'] = cacheControl;
-    set.headers['content-encoding'] = 'gzip';
-    set.headers['strict-transport-security'] =
-      'max-age=31536000; includeSubDomains; preload';
-    set.headers['cross-origin-opener-policy'] = 'same-origin-allow-popups';
-    set.headers['content-security-policy'] =
-      "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script';";
-    set.headers['Speculation-Rules'] = '"/speculationRules.json"';
-    return compressedFile;
-  });
-}
+    staticPlugin.get(route, ({ set }) => {
+      if (contentType) {
+        set.headers['content-type'] = contentType;
+      }
+      set.headers['cache-control'] = cacheControl;
+      set.headers['content-encoding'] = 'gzip';
+      set.headers['strict-transport-security'] =
+        'max-age=31536000; includeSubDomains; preload';
+      set.headers['cross-origin-opener-policy'] =
+        'same-origin-allow-popups';
+      set.headers['content-security-policy'] =
+        "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script';";
+      set.headers['Speculation-Rules'] = '"/speculationRules.json"';
+      return compressedFile;
+    });
+  }),
+);

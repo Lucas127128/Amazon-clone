@@ -20,11 +20,11 @@ async function renderAmazonHomePage() {
     (await handleSearch()) || (await getProducts());
 
   let productsHTML = '';
-  products.forEach((product, index) => {
+  for (const [index, product] of products.entries()) {
     const highFetchPriority =
       index <= FETCH_CONFIG.HIGH_PRIORITY_THRESHOLD ? true : false;
     productsHTML += generateAmazonHTML(product, highFetchPriority);
-  });
+  }
   const trustedProductsHTML = policy?.createHTML(productsHTML);
   checkTruthy(trustedProductsHTML);
   productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);

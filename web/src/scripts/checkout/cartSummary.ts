@@ -26,7 +26,7 @@ export async function renderOrderSummary() {
   const orderSummary = document.querySelector('.order-summary');
   checkTruthy(orderSummary, 'Fail to select HTML element');
   orderSummary.innerHTML = policy?.createHTML('') as any;
-  checkoutCart.forEach((cartItem) => {
+  for (const cartItem of checkoutCart) {
     const matchingProduct = getMatchingProduct(
       products,
       cartItem.productId,
@@ -40,7 +40,7 @@ export async function renderOrderSummary() {
       'beforeend',
       trustedCartSummaryHTML as any,
     );
-  });
+  }
 
   const cartQuantity = calculateCartQuantity();
   const returnToHomeLink = document.querySelector('.return-to-home-link');
@@ -63,7 +63,7 @@ export async function renderOrderSummary() {
   const cartItemContainers = document.querySelectorAll<HTMLElement>(
     '.cart-item-container',
   );
-  cartItemContainers.forEach((cartItemContainer) => {
+  for (const cartItemContainer of cartItemContainers) {
     const { productId } = cartItemContainer.dataset;
     checkTruthy(productId, 'Fail to get productId from dataset');
 
@@ -114,9 +114,9 @@ export async function renderOrderSummary() {
         renderPaymentSummary(),
       ]);
     });
-  });
+  }
 
-  checkoutCart.forEach((cartItem) => {
+  for (const cartItem of checkoutCart) {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
     );
@@ -125,5 +125,5 @@ export async function renderOrderSummary() {
       'Fail to get the HTML element',
     );
     deliveryOptionButtonHTML.checked = true;
-  });
+  }
 }

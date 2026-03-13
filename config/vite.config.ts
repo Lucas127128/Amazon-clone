@@ -33,7 +33,7 @@ export default defineConfig({
       },
       // devtools: {},
     },
-    target: 'es2022',
+    target: 'baseline-widely-available',
     assetsInlineLimit: 0,
   },
   plugins: [
@@ -52,5 +52,6 @@ export default defineConfig({
   server: {
     port: 5174,
     allowedHosts: [config.previewURL.replace('https://', '')],
+    forwardConsole: true,
   },
 });

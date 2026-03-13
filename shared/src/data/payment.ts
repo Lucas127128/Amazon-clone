@@ -19,7 +19,7 @@ export function calculatePrices(
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
-  cart.forEach((cartItem) => {
+  for (const cartItem of cart) {
     const product = getMatchingProduct(products, cartItem.productId);
     checkTruthy(product, 'Fail to get matching product');
     const totalPrice = product.priceCents * cartItem.quantity;
@@ -28,7 +28,7 @@ export function calculatePrices(
 
     const deliveryFee = getDeliveryPriceCents(cartItem.deliveryOptionId);
     totalDeliveryFee += deliveryFee;
-  });
+  }
 
   const totalPriceBeforeTax = totalDeliveryFee + totalProductPrice;
   const totalTax = totalPriceBeforeTax / 10;

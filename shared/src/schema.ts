@@ -46,12 +46,14 @@ const RatingSchema = object({
   count: number(),
 });
 
+export const PriceCentsSchema = pipe(number(), minValue(0));
+
 export const RawProductSchema = object({
   id: string(),
   image: string(),
   name: string(),
   rating: RatingSchema,
-  priceCents: number(),
+  priceCents: PriceCentsSchema,
   keywords: array(string()),
 });
 export const RawProductSchemaArray = array(RawProductSchema);

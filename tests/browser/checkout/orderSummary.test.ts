@@ -58,7 +58,7 @@ describe('test suite: Render order summary', () => {
     });
 
     const checkoutCart = getCart();
-    checkoutCart.forEach(async (cartItem, cartOrder) => {
+    for (const [cartOrder, cartItem] of checkoutCart.entries()) {
       const { productId } = cartItem;
 
       test.concurrent('display cart quantity', () => {
@@ -101,7 +101,7 @@ describe('test suite: Render order summary', () => {
           `$${matchingProduct.price}`,
         );
       });
-    });
+    }
   });
 
   test.concurrent('removes the product', async () => {

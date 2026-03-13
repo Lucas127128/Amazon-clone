@@ -49,7 +49,7 @@ export function transformProducts(
   clothings: string[],
 ) {
   const products: readonly Product[] = rawProducts
-    .sort((a, b) => {
+    .toSorted((a, b) => {
       if (a.rating.stars === b.rating.stars) {
         return b.rating.count - a.rating.count;
       }

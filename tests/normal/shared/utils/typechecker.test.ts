@@ -1,5 +1,6 @@
 import { DeliveryOptionId } from '#root/shared/src/schema.ts';
 import {
+  checkNullish,
   checkTruthy,
   isDeliveryOptionId,
   isHTMLInputElement,
@@ -8,22 +9,16 @@ import { describe, expect, test } from 'bun:test';
 
 describe.concurrent('checkTruthy', () => {
   describe('accept truthy and reject falsy', () => {
-    test('accept truthy number', () => {
+    test('accept truthy', () => {
       expect(() => checkTruthy(1)).not.toThrow();
-    });
-    test('reject falsy number', () => {
-      expect(() => checkTruthy(0)).toThrow();
-    });
-    test('accept truthy string', () => {
       expect(() => checkTruthy('foo')).not.toThrow();
     });
-    test('reject falsy string', () => {
+    test('reject falsy', () => {
       expect(() => checkTruthy('')).toThrow();
+      expect(() => checkTruthy(0)).toThrow();
     });
-    test('reject null', () => {
+    test('reject nullish', () => {
       expect(() => checkTruthy(null)).toThrow();
-    });
-    test('reject undefined', () => {
       expect(() => checkTruthy(undefined)).toThrow();
     });
   });
@@ -36,6 +31,36 @@ describe.concurrent('checkTruthy', () => {
     });
     test('throw default error', () => {
       expect(() => checkTruthy(undefined)).toThrowError(
+        'Error: The value of undefined is falsy',
+      );
+    });
+  });
+});
+
+describe.concurrent('checkNullish', () => {
+  describe('accept truthy and reject falsy', () => {
+    test('accept truthy', () => {
+      expect(() => checkNullish(1)).not.toThrow();
+      expect(() => checkNullish('foo')).not.toThrow();
+    });
+    test('accept falsy', () => {
+      expect(() => checkNullish('')).not.toThrow();
+      expect(() => checkNullish(0)).not.toThrow();
+    });
+    test('reject nullish', () => {
+      expect(() => checkNullish(null)).toThrow();
+      expect(() => checkNullish(undefined)).toThrow();
+    });
+  });
+
+  describe('throw custom message', () => {
+    test('throw custom message when falsy', () => {
+      expect(() => checkNullish(undefined, 'success throw')).toThrow(
+        `success throw: The value of undefined is falsy`,
+      );
+    });
+    test('throw default error', () => {
+      expect(() => checkNullish(undefined)).toThrowError(
         'Error: The value of undefined is falsy',
       );
     });

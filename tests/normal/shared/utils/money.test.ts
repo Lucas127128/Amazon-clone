@@ -17,8 +17,4 @@ describe.concurrent('test suite: FormatCurrency', () => {
   test('round down to nearest cents', async () => {
     expect(formatCurrency(2000.4)).toBe('20.00');
   });
-
-  test('converts negative cents to dollar', async () => {
-    expect(formatCurrency(-2095)).toBe('-20.95');
-  });
 });

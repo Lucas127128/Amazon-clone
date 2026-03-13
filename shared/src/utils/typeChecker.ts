@@ -12,6 +12,14 @@ export function checkTruthy(
     throw new Error(`${customMessage}: The value of ${variable} is falsy`);
 }
 
+export function checkNullish(
+  variable: any,
+  customMessage: string = 'Error',
+): asserts variable {
+  if (variable === undefined || variable === null)
+    throw new Error(`${customMessage}: The value of ${variable} is falsy`);
+}
+
 export function isDeliveryOptionId(
   variable: any,
   customMessage: string = 'Error',

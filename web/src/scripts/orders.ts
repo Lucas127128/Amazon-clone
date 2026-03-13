@@ -21,7 +21,7 @@ import {
 } from '#root/shared/src/constants.ts';
 import { Order } from '#root/shared/src/schema.ts';
 
-function renderPlacedOrder() {
+async function renderPlacedOrder() {
   localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([]));
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   const orders: readonly Order[] = savedOrders
@@ -29,10 +29,13 @@ function renderPlacedOrder() {
     : [];
   const ordersHTML = document.querySelector('.orders-grid');
   checkTruthy(ordersHTML);
-  orders.forEach(async (order) => {
+  const ordersTime = await Promise.all(
+    orders.map((order) => getTimeString(order.orderTime)),
+  );
+  const products = await getProducts();
+  for (const [index, order] of orders.entries()) {
     let placedOrderHTML = '';
-    const products = await getProducts();
-    order.products.forEach((product) => {
+    for (const product of order.products) {
       const matchingProduct = getMatchingProduct(
         products,
         product.productId,
@@ -43,8 +46,8 @@ function renderPlacedOrder() {
         matchingProduct,
         order.id,
       );
-    });
-    const orderTime = await getTimeString(order.orderTime);
+    }
+    const orderTime = ordersTime[index];
     const placedOrderContainerHTML = generateOrderContainerHTML(
       order,
       orderTime,
@@ -58,7 +61,7 @@ function renderPlacedOrder() {
       'beforeend',
       trustedOrderContainerHTML as any,
     );
-  });
+  }
 
   function displayBuyAgainMessage(
     buyAgainMessageHTML: Element,

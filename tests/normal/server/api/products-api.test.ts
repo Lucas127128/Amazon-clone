@@ -10,8 +10,8 @@ describe.concurrent('products api test', () => {
   test('deliver correct products', async () => {
     const products = transformProducts(productsJSON, clothingList);
     const Products = await fetchProducts();
-    Products.forEach((product, productIndex) => {
+    for (const [productIndex, product] of Products.entries()) {
       expect(product).toEqual(products[productIndex]);
-    });
+    }
   });
 });

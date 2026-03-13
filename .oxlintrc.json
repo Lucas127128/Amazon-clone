@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": null,
   "categories": {},
   "rules": {
     "no-unused-expressions": ["warn", { "allowTernary": true }],
@@ -25,7 +24,14 @@
     "no-use-before-define": "error",
     "no-useless-constructor": "warn",
     "no-dupe-class-members": "warn",
-    "max-lines": ["error", { "max": 180 }]
+    "max-lines": ["error", { "max": 180 }],
+    "oxc/no-barrel-file": "error",
+    "unicorn/no-anonymous-default-export": "error",
+    "unicorn/no-array-callback-reference": "error",
+    "unicorn/no-array-for-each": "warn",
+    "unicorn/no-array-method-this-argument": "error",
+    "unicorn/no-array-sort": "error",
+    "no-await-in-loop": "warn"
   },
   "settings": {
     "vitest": {

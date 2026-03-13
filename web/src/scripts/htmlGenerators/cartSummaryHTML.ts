@@ -10,16 +10,16 @@ const html = String.raw;
 
 function deliveryOptionsHTML(matchingProductId: string) {
   let deliveryOptionsHTML = '';
-  deliveryOptions.forEach((deliveryOptions) => {
-    const deliveryDate = getDeliveryDate(deliveryOptions.id);
-    const priceString = getPriceString(deliveryOptions.priceCents);
+  for (const deliveryOption of deliveryOptions) {
+    const deliveryDate = getDeliveryDate(deliveryOption.id);
+    const priceString = getPriceString(deliveryOption.priceCents);
     deliveryOptionsHTML += html`
       <div>
         <input
           type="radio"
           class="delivery-option-input"
-          data-delivery-choice-id="${deliveryOptions.id}"
-          id="${deliveryOptions.id}-${matchingProductId}"
+          data-delivery-choice-id="${deliveryOption.id}"
+          id="${deliveryOption.id}-${matchingProductId}"
         />
         <div>
           <div class="delivery-option-date">${deliveryDate}</div>
@@ -27,7 +27,7 @@ function deliveryOptionsHTML(matchingProductId: string) {
         <div class="delivery-option-price">${priceString}Shipping</div>
       </div>
     `;
-  });
+  }
   return deliveryOptionsHTML;
 }
 
