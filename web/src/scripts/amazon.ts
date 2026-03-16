@@ -16,8 +16,12 @@ import {
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector('.products-grid');
   checkTruthy(productsGrid, 'Fail to select HTML element');
-  const products: readonly Product[] =
-    (await handleSearch()) || (await getProducts());
+
+  const url = new URL(location.href);
+  const searchQuery = url.searchParams.get('q');
+  const products: readonly Product[] = searchQuery
+    ? await handleSearch(searchQuery)
+    : await getProducts();
 
   let productsHTML = '';
   for (const [index, product] of products.entries()) {
@@ -81,7 +85,6 @@ async function renderAmazonHomePage() {
   checkTruthy(returnToHomeLink);
   returnToHomeLink.textContent = `${cartQuantity}`;
 
-  const url = new URL(location.href);
   url.searchParams.delete('q');
   history.replaceState(null, '', url.toString());
 }

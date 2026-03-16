@@ -1,36 +1,33 @@
 import { Elysia } from 'elysia';
-import MiniSearch from 'minisearch';
-import { getMatchingRawProduct } from '#root/shared/src/data/products.ts';
-import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
-import {
-  RawProduct,
-  RawProductSchemaArray,
-} from '#root/shared/src/schema.ts';
+import MiniSearch, { SearchResult } from 'minisearch';
+import { SearchResultSchema } from '#root/shared/src/schema.ts';
+import { array } from 'valibot';
 
 const products = await Bun.file(
   './server/src/api/rawProducts.json',
 ).json();
 const productsSearch = new MiniSearch({
-  fields: ['name', 'keywords'],
+  fields: ['name'],
   storeFields: ['id'],
 });
 productsSearch.addAll(products);
 
-const cachedSearches = new Map<string, RawProduct[]>();
+const cachedSearches = new Map<string, SearchResult[]>();
 
 function cleanupCache() {
   const keys = [...cachedSearches.keys()];
   for (const key in cachedSearches) {
     const index = keys.indexOf(key);
+    //remove the oldest 250 cache
     if (index < 250) cachedSearches.delete(key);
   }
 }
 
-function setCache(q: string, resultProducts: RawProduct[]) {
+function setCache(q: string, result: SearchResult[]) {
   Promise.resolve()
     .then(() => {
       cachedSearches.size < 2000
-        ? cachedSearches.set(q, resultProducts)
+        ? cachedSearches.set(q, result)
         : cleanupCache();
     })
     .catch((error) => {
@@ -45,20 +42,14 @@ export const searchPlugin = new Elysia({ prefix: '/api/search' }).get(
     if (cachedSearch) return cachedSearch;
 
     const results = productsSearch.search(q, {
-      boost: { name: 2 },
       fuzzy: 0.1,
       prefix: true,
     });
-    const resultProducts = results.map((result) => {
-      const product = getMatchingRawProduct(products, result.id);
-      checkTruthy(product);
-      return product;
-    });
-    setCache(q, resultProducts);
-    return resultProducts;
+    setCache(q, results);
+    return results;
   },
   {
-    response: RawProductSchemaArray,
+    response: array(SearchResultSchema),
     detail: {
       description:
         'Get the search query using path params and return the products matching the query inside a product array',

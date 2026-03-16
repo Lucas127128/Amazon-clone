@@ -30,7 +30,7 @@ export const app = new Elysia({ precompile: true })
   )
   .use(
     openapi({
-      references: fromTypes('/server/src/api/server.ts'),
+      references: fromTypes('server/src/api/server.ts'),
       mapJsonSchema: {
         valibot: toJsonSchema,
       },

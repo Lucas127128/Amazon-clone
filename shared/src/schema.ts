@@ -10,6 +10,9 @@ import {
   InferOutput,
   minValue,
   maxValue,
+  any,
+  record,
+  intersect,
 } from 'valibot';
 import { CART_CONFIG } from './constants';
 
@@ -60,3 +63,14 @@ export const RawProductSchemaArray = array(RawProductSchema);
 export type RawProduct = InferOutput<typeof RawProductSchema>;
 
 export const ClothingListSchema = array(string());
+
+export const SearchResultSchema = intersect([
+  object({
+    id: any(),
+    terms: array(string()),
+    queryTerms: array(string()),
+    score: number(),
+    match: record(string(), array(string())),
+  }),
+  record(string(), any()),
+]);

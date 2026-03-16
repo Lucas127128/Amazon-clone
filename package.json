@@ -6,10 +6,9 @@
     "#data/*": "./shared/src/data"
   },
   "scripts": {
-    "allow-certs": "export NODE_TLS_REJECT_UNAUTHORIZED=0",
     "test:bun": "NODE_TLS_REJECT_UNAUTHORIZED=0 FORCE_COLOR=1 bun test --watch --max-concurrency 100",
     "test:ci": "NODE_TLS_REJECT_UNAUTHORIZED=0 FORCE_COLOR=1 bun test --max-concurrency 100",
-    "test:e2e": "bun run allow-certs && playwright test --trace on -c ./config/playwright.config.ts",
+    "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on -c ./config/playwright.config.ts",
     "test:vitest": "vitest -c ./config/vitest.config.ts",
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --parallel test:vitest test:bun",
     "build": "vite build -c ./config/vite.config.ts",
@@ -34,7 +33,7 @@
     "elysia-local-https": "^1.0.2",
     "idb-keyval": "^6.2.2",
     "minisearch": "^7.2.0",
-    "nanoid": "^5.1.6",
+    "nanoid": "^5.1.7",
     "temporal-polyfill-lite": "^0.3.2",
     "try": "^1.0.3",
     "ts-pattern": "^5.9.0",

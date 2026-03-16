@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid';
 import { OrderSchema, CartSchemaArray } from '#root/shared/src/schema.ts';
 import { Cart, RawProduct, OrderType } from '#root/shared/src/schema.ts';
 import { Exact } from 'type-fest';
+import { minLength, pipe } from 'valibot';
 
 const rawProducts: RawProduct[] = await Bun.file(
   './server/src/api/rawProducts.json',
@@ -40,7 +41,7 @@ export const orderPlugin = new Elysia({ prefix: '/api' }).post(
   },
   {
     response: OrderSchema,
-    body: CartSchemaArray,
+    body: pipe(CartSchemaArray, minLength(1)),
     detail: {
       description:
         'generate order from a cart(No actual database involved, only for demo)',
