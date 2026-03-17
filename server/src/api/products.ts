@@ -13,9 +13,11 @@ const clothings = await Bun.file('./server/src/api/clothing.json').json();
 export const productsPlugin = new Elysia({ prefix: '/api' })
   .get(
     '/products',
-    async ({ request, server }) => {
+    async ({ request, server, set }) => {
       const clientIP = server?.requestIP(request)?.address;
       const now = Temporal.Now.plainTimeISO().toString();
+      set.headers['cache-control'] = 'public, max-age=86400';
+
       console.log(`new products request from ${clientIP} at ${now}`);
       return products;
     },

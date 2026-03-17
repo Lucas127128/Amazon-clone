@@ -8,10 +8,12 @@ import { staticPlugin } from './static.ts';
 import { searchPlugin } from './search.ts';
 import { toJsonSchema } from '@valibot/to-json-schema';
 import config from '#root/config/config.json' with { type: 'json' };
+import { treaty } from '@elysiajs/eden';
 
 export const app = new Elysia({ precompile: true })
   .onBeforeHandle(({ set }) => {
     set.headers['content-type'] = 'application/json';
+    set.headers['cache-control'] = 'public, max-age=86400';
   })
   .onAfterResponse(({ set }) => {
     console.log(set.status);
@@ -47,3 +49,5 @@ console.log(
 );
 
 export type App = typeof app;
+
+export const internalApiService = treaty(app);

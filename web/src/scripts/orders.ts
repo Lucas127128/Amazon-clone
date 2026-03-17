@@ -1,6 +1,6 @@
 import {
   getMatchingProduct,
-  getProducts,
+  fetchProducts,
 } from '#root/shared/src/data/products.ts';
 import {
   addToCart,
@@ -32,7 +32,7 @@ async function renderPlacedOrder() {
   const ordersTime = await Promise.all(
     orders.map((order) => getTimeString(order.orderTime)),
   );
-  const products = await getProducts();
+  const products = await fetchProducts();
   for (const [index, order] of orders.entries()) {
     let placedOrderHTML = '';
     for (const product of order.products) {

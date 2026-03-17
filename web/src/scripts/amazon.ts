@@ -2,7 +2,7 @@ import {
   addToCart,
   calculateCartQuantity,
 } from '#root/shared/src/data/cart.ts';
-import { getProducts, Product } from '#root/shared/src/data/products.ts';
+import { fetchProducts, Product } from '#root/shared/src/data/products.ts';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';
@@ -21,7 +21,7 @@ async function renderAmazonHomePage() {
   const searchQuery = url.searchParams.get('q');
   const products: readonly Product[] = searchQuery
     ? await handleSearch(searchQuery)
-    : await getProducts();
+    : await fetchProducts();
 
   let productsHTML = '';
   for (const [index, product] of products.entries()) {

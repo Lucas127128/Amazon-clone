@@ -1,6 +1,6 @@
 import {
   getMatchingProduct,
-  getProducts,
+  fetchProducts,
 } from '#root/shared/src/data/products.ts';
 import { app } from '#root/shared/src/data/edenTreaty.ts';
 import {
@@ -36,7 +36,7 @@ export async function handleSearch(searchQuery: string) {
     .products({ q: searchQuery })
     .get();
   if (error) throw error;
-  const fullProducts = await getProducts();
+  const fullProducts = await fetchProducts();
   return searchResults.map((searchResult) => {
     const matchingProduct = getMatchingProduct(
       fullProducts,

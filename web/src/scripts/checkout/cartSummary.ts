@@ -8,7 +8,7 @@ import {
 } from '#root/shared/src/data/cart.ts';
 import {
   getMatchingProduct,
-  getProducts,
+  fetchProducts,
 } from '#root/shared/src/data/products.ts';
 import { policy } from '../../../../shared/src/utils/trustedTypes.ts';
 import {
@@ -21,7 +21,7 @@ import { renderPaymentSummary } from './paymentSummary.ts';
 
 export async function renderOrderSummary() {
   const checkoutCart = getCart();
-  const products = await getProducts();
+  const products = await fetchProducts();
 
   const orderSummary = document.querySelector('.order-summary');
   checkTruthy(orderSummary, 'Fail to select HTML element');

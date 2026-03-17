@@ -1,7 +1,7 @@
 import { test, describe, beforeEach, expect, beforeAll } from 'vitest';
 import {
   getMatchingProduct,
-  getProducts,
+  fetchProducts,
 } from '#root/shared/src/data/products.ts';
 import {
   addToCart,
@@ -90,7 +90,7 @@ describe('test suite: Render order summary', () => {
       });
 
       test.concurrent('products price', async () => {
-        const products = await getProducts();
+        const products = await fetchProducts();
         const matchingProduct = getMatchingProduct(products, productId);
         const productPrice = document.querySelector(
           `.product-price-${productId}`,

@@ -1,8 +1,5 @@
 import { formatCurrency } from '../utils/money.ts';
-import { get, set } from 'idb-keyval';
-import { Temporal } from 'temporal-polyfill-lite';
 import { app } from './edenTreaty.ts';
-import { STORAGE_KEYS } from '../constants.ts';
 import type { RawProduct } from '../schema.ts';
 
 export const getMatchingProduct = (
@@ -33,15 +30,15 @@ export class Product {
       `;
     }
   }
-  id: string;
-  image: string;
-  name: string;
-  ratingCount: number;
-  priceCents: number;
-  keywords: string[];
-  extraInfoHTML: string = '';
-  starsUrl: string;
-  price: string;
+  id;
+  image;
+  name;
+  ratingCount;
+  priceCents;
+  keywords;
+  extraInfoHTML = '';
+  starsUrl;
+  price;
 }
 
 export function transformProducts(
@@ -73,33 +70,5 @@ export async function fetchProducts() {
   if (clothingsError) throw clothingsError;
   if (productsError) throw productsError;
 
-  const products = transformProducts(rawProducts, clothings);
-  return products;
-}
-
-export async function getProducts() {
-  async function setProducts() {
-    await set(STORAGE_KEYS.PRODUCTS_CACHE, {
-      data: await fetchProducts(),
-      time: Temporal.Now.plainDateISO().toJSON(),
-    });
-  }
-
-  const savedProducts = await get(STORAGE_KEYS.PRODUCTS_CACHE);
-  const today = Temporal.Now.plainDateISO().toJSON();
-  const isFreshData = savedProducts
-    ? savedProducts.time === today
-      ? true
-      : false
-    : false;
-  if (!isFreshData) {
-    setProducts().catch((error) => {
-      console.error(`Unexpected promise error: ${error}`);
-    });
-  }
-
-  const products: readonly Product[] = savedProducts
-    ? savedProducts.data
-    : await fetchProducts();
-  return products;
+  return transformProducts(rawProducts, clothings);
 }

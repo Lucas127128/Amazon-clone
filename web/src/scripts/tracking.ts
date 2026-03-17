@@ -1,7 +1,7 @@
 import { getMatchingOrder } from '#root/shared/src/data/orders.ts';
 import {
   getMatchingProduct,
-  getProducts,
+  fetchProducts,
 } from '#root/shared/src/data/products.ts';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
 import { checkTruthy } from '../../../shared/src/utils/typeChecker';
@@ -18,7 +18,7 @@ async function renderTrackingSummary() {
   checkTruthy(orderId);
   checkTruthy(productId);
 
-  const products = await getProducts();
+  const products = await fetchProducts();
   const matchingProducts = getMatchingProduct(products, productId);
   checkTruthy(matchingProducts);
 
