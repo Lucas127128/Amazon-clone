@@ -54,7 +54,7 @@
     "node-modules-inspector": "^1.4.2",
     "oxfmt": "^0.41.0",
     "oxlint": "^1.56.0",
-    "oxlint-tsgolint": "^0.17.0",
+    "oxlint-tsgolint": "^0.16.0",
     "playwright": "^1.58.2",
     "sharp": "^0.34.5",
     "unplugin-turbo-console": "^2.3.0",
