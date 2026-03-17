@@ -18,6 +18,7 @@ import {
 } from '../../../../shared/src/utils/typeChecker.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 import { renderPaymentSummary } from './paymentSummary.ts';
+import 'typed-query-selector';
 
 export async function renderOrderSummary() {
   const checkoutCart = getCart();
@@ -49,7 +50,7 @@ export async function renderOrderSummary() {
 
   function handleUpdateQuantity(target: HTMLElement, productId: string) {
     const quantityInputHTML = target?.parentElement?.querySelector(
-      `.quantity_Input_${productId}`,
+      `input.quantity_Input_${productId}`,
     );
     const saveQuantityHTML = target?.parentElement?.querySelector(
       `.save-quantity-link-${productId}`,
@@ -74,9 +75,10 @@ export async function renderOrderSummary() {
       if (targetClassList.includes('update-quantity-link')) {
         handleUpdateQuantity(target, productId);
       } else if (targetClassList.includes('save-quantity-link')) {
-        const quantityInput =
-          cartItemContainer.querySelector('.quantity_Input');
-        isHTMLInputElement(quantityInput);
+        const quantityInput = cartItemContainer.querySelector(
+          'input.quantity_Input',
+        );
+        checkTruthy(quantityInput);
         addToCart(
           {
             productId: productId,
@@ -117,6 +119,10 @@ export async function renderOrderSummary() {
   }
 
   for (const cartItem of checkoutCart) {
+    // const deliveryOptionButtonHTML = document?.querySelector(
+    //   `input#${cartItem.deliveryOptionId}-${cartItem.productId}`,
+    // );
+    // checkTruthy(deliveryOptionButtonHTML);
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
     );

@@ -5,13 +5,13 @@ import type { App } from '#root/server/src/api/server.ts';
 import config from '#root/config/config.json' with { type: 'json' };
 
 const myCache = {
-  get: async (key: string) => {
+  async get(key: string) {
     return await kvs.get(key);
   },
-  set: async (key: string, value: any) => {
-    await kvs.set(key, value);
+  async set(key: string, value: any) {
+    kvs.set(key, value).catch((err) => console.error(err));
   },
-  delete: async (key: string) => {
+  async delete(key: string) {
     await kvs.del(key);
   },
 };

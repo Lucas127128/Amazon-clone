@@ -1,3 +1,5 @@
+![CI Status](https://github.com/Lucas127128/Amazon-clone/workflows/ci/badge.svg)
+
 This is a very basic clone of Amazon(for my own learning).
 
 **Build:**
