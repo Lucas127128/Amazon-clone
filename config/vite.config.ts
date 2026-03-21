@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import TurboConsole from 'unplugin-turbo-console/vite';
+// import { unstableRolldownAdapter } from 'vite-bundle-analyzer';
+// import { analyzer } from 'vite-bundle-analyzer';
 import config from '#root/config/config.json' with { type: 'json' };
 // import { DevTools } from '@vitejs/devtools';
 
@@ -36,6 +38,7 @@ export default defineConfig({
     target: 'baseline-widely-available',
     assetsInlineLimit: 0,
   },
+  // experimental: { bundledDev: true },
   plugins: [
     htmlMinifier({ minify: true }),
     TurboConsole({
@@ -44,6 +47,7 @@ export default defineConfig({
         themeDetect: true,
       },
     }),
+    // unstableRolldownAdapter(analyzer({ openAnalyzer: true })),
     // DevTools(),
   ],
   css: {

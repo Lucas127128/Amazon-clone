@@ -2,15 +2,12 @@ import { calculatePrices, Prices } from '#root/shared/src/data/payment.ts';
 import { describe, expect, test } from 'bun:test';
 import products from '../../../products.json';
 import { generatePaymentSummary } from '#root/web/src/scripts/htmlGenerators/paymentSummaryHTML.ts';
-import { Cart } from '#root/shared/src/schema.ts';
+import type { Cart } from '#root/shared/src/schema.ts';
 
 describe.concurrent('test suite: generatePaymentSummary', () => {
   test('generate correct HTML', async () => {
-    const cart = <Cart[]>(
-      (await import('../../../cart.json', { with: { type: 'json' } }))
-        .default
-    );
-    const price: Prices = calculatePrices(cart, products);
+    const cart = await Bun.file('./tests/normal/cart.json').json();
+    const price: Prices = calculatePrices(cart as Cart[], products);
     const html = generatePaymentSummary(price)
       .replaceAll('\n', '')
       .replaceAll(' ', '');

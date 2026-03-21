@@ -14,7 +14,7 @@
   ],
   "prefetch": [
     {
-      "urls": ["next.html", "next2.html"],
+      "urls": ["/api/products", "/api/clothingList"],
       "requires": ["anonymous-client-ip-when-cross-origin"],
       "referrer_policy": "no-referrer"
     }

@@ -14,12 +14,10 @@ export const FETCH_CONFIG = {
 
 export const CART_CONFIG = {
   DEFAULT_DELIVERY_OPTION: '1',
-  //TODO: Implement max quantity in cart
   MAX_QUANTITY_PER_ITEM: 10,
 } as const;
 
 export const STORAGE_KEYS = {
-  CART: 'cart',
+  CART_STATE: 'cartState',
   ORDER: 'orders',
-  PRODUCTS_CACHE: 'products',
 } as const;

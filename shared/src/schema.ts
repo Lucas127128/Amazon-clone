@@ -74,3 +74,12 @@ export const SearchResultSchema = intersect([
   }),
   record(string(), any()),
 ]);
+
+export type HttpMethods =
+  | 'GET'
+  | 'DELETE'
+  | 'OPTIONS'
+  | 'POST'
+  | 'PUT'
+  | 'PATCH'
+  | 'QUERY';

@@ -1,27 +1,64 @@
 import { treaty } from '@elysiajs/eden';
-import { fetchFactory } from 'fetchache';
-import * as kvs from 'idb-keyval';
 import type { App } from '#root/server/src/api/server.ts';
 import config from '#root/config/config.json' with { type: 'json' };
+import { Temporal } from 'temporal-polyfill-lite';
+import { FETCH_CONFIG } from '../constants';
+import type { HttpMethods } from '../schema';
 
-const myCache = {
-  async get(key: string) {
-    return await kvs.get(key);
-  },
-  async set(key: string, value: any) {
-    kvs.set(key, value).catch((err) => console.error(err));
-  },
-  async delete(key: string) {
-    await kvs.del(key);
-  },
+type CacheData = {
+  body: string;
+  time: Temporal.InstantLike;
+  ttl: Temporal.DurationLike;
 };
 
-const fetchWithCache = fetchFactory({
-  fetch: globalThis.fetch,
-  Response: globalThis.Response,
-  Request: globalThis.Request,
-  cache: myCache,
-});
+async function _cachedFetch(
+  input: string | URL | Request,
+  init?: RequestInit,
+) {
+  const url =
+    typeof input === 'string'
+      ? input
+      : input instanceof URL
+        ? input.toString()
+        : input.url;
+  const method = (init?.method ??
+    (input instanceof Request ? input.method : 'GET')) as HttpMethods;
+  const body = JSON.stringify(init?.body);
+  type CacheKey =
+    | `${'GET' | 'DELETE' | 'OPTIONS'}:${string}`
+    | `${'POST' | 'PUT' | 'PATCH' | 'QUERY'}:${string}:${string}`;
+  const cacheKey: CacheKey =
+    method === 'GET' || method === 'DELETE' || method === 'OPTIONS'
+      ? `${method}:${url}`
+      : `${method}:${url}:${body}`;
+
+  const now = Temporal.Now.instant();
+
+  const cacheData: CacheData = JSON.parse(
+    localStorage?.getItem(cacheKey) || '{}',
+  );
+  if (
+    cacheData &&
+    now.since(cacheData?.time).subtract(cacheData.ttl).seconds < 0
+  )
+    return new Response(cacheData.body);
+
+  const response = await fetch(input, init);
+
+  Promise.resolve()
+    .then(async () => {
+      if (!response.ok) return;
+      const cacheData: CacheData = {
+        body: await response.clone().text(),
+        time: now.toJSON(),
+        ttl: FETCH_CONFIG.CACHE_TTL.toJSON(),
+      };
+      localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+    })
+    .catch((err) => console.error(err));
+  return response;
+}
+
 export const app = treaty<App>(config.apiURL, {
-  fetcher: fetchWithCache as typeof fetch,
+  // fetcher: cachedFetch as typeof fetch,
 });

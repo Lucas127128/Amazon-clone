@@ -459,6 +459,17 @@
     "price": "20.67"
   },
   {
+    "id": "1lUjd",
+    "image": "/images/products/synergie-skin-algizome.webp",
+    "name": "Synergie Skin AlgiZome",
+    "ratingCount": 23,
+    "priceCents": 10000,
+    "keywords": [],
+    "extraInfoHTML": "",
+    "starsUrl": "/images/ratings/rating-40.png",
+    "price": "100.00"
+  },
+  {
     "id": "Wix4Z",
     "image": "/images/products/countertop-blender-64-oz.webp",
     "name": "Countertop Blender - 64oz, 1400 Watts",

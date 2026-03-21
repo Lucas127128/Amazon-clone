@@ -2,10 +2,7 @@ import {
   getMatchingProduct,
   fetchProducts,
 } from '#root/shared/src/data/products.ts';
-import {
-  addToCart,
-  calculateCartQuantity,
-} from '#root/shared/src/data/cart.ts';
+import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
 import { getTimeString } from '#root/shared/src/data/orders.ts';
 import { checkTruthy } from '../../../shared/src/utils/typeChecker.ts';
 import {
@@ -20,9 +17,9 @@ import {
   UI_TIMEOUTS,
 } from '#root/shared/src/constants.ts';
 import { Order } from '#root/shared/src/schema.ts';
+import { effect } from '@preact/signals-core';
 
 async function renderPlacedOrder() {
-  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([]));
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   const orders: readonly Order[] = savedOrders
     ? JSON.parse(savedOrders)
@@ -63,6 +60,7 @@ async function renderPlacedOrder() {
     );
   }
 
+  let timer: NodeJS.Timeout;
   function displayBuyAgainMessage(
     buyAgainMessageHTML: Element,
     buyAgainSuccessHTML: Element,
@@ -72,12 +70,8 @@ async function renderPlacedOrder() {
     buyAgainSuccessHTML.classList.add('display-buy-again-success');
     buyAgainMessageHTML.classList.add('hide-buy-again-message');
 
-    const cartQuantity = calculateCartQuantity();
-    const returnToHomeLink = document.querySelector('.cart-quantity');
-    checkTruthy(returnToHomeLink);
-    returnToHomeLink.textContent = `${cartQuantity}`;
-
-    setTimeout(() => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
       buyAgainSuccessHTML.classList.remove('display-buy-again-success');
       buyAgainMessageHTML.classList.remove('hide-buy-again-message');
     }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
@@ -124,10 +118,11 @@ async function renderPlacedOrder() {
     checkTruthy(buyAgainSuccessHTML);
     displayBuyAgainMessage(buyAgainMessageHTML, buyAgainSuccessHTML);
   });
-  const cartQuantity = calculateCartQuantity();
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkTruthy(returnToHomeLink);
-  returnToHomeLink.textContent = `${cartQuantity}`;
+  effect(() => {
+    returnToHomeLink.textContent = `${cartQuantity.value}`;
+  });
 }
 
 await Promise.allSettled([renderPlacedOrder(), handleSearchInput()]);

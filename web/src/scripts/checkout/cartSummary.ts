@@ -2,14 +2,15 @@ import { CART_CONFIG } from '#root/shared/src/constants.ts';
 import {
   removeFromCart,
   addToCart,
-  getCart,
   updateDeliveryOption,
-  calculateCartQuantity,
+  cartQuantity,
 } from '#root/shared/src/data/cart.ts';
 import {
   getMatchingProduct,
   fetchProducts,
 } from '#root/shared/src/data/products.ts';
+import { Cart } from '#root/shared/src/schema.ts';
+import { effect } from '@preact/signals-core';
 import { policy } from '../../../../shared/src/utils/trustedTypes.ts';
 import {
   checkTruthy,
@@ -17,36 +18,41 @@ import {
   isHTMLInputElement,
 } from '../../../../shared/src/utils/typeChecker.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
-import { renderPaymentSummary } from './paymentSummary.ts';
 import 'typed-query-selector';
 
-export async function renderOrderSummary() {
-  const checkoutCart = getCart();
+let controller = new AbortController();
+
+export async function renderOrderSummary(cart: Cart[]) {
+  controller.abort();
+  controller = new AbortController();
+  const { signal } = controller;
+
   const products = await fetchProducts();
 
   const orderSummary = document.querySelector('.order-summary');
   checkTruthy(orderSummary, 'Fail to select HTML element');
   orderSummary.innerHTML = policy?.createHTML('') as any;
-  for (const cartItem of checkoutCart) {
+  let cartsSummaryHTML = '';
+  for (const cartItem of cart) {
     const matchingProduct = getMatchingProduct(
       products,
       cartItem.productId,
     );
     checkTruthy(matchingProduct);
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
-    const trustedCartSummaryHTML =
-      policy?.createHTML(cartSummaryHTML) ?? cartSummaryHTML;
-    checkTruthy(trustedCartSummaryHTML);
-    orderSummary.insertAdjacentHTML(
-      'beforeend',
-      trustedCartSummaryHTML as any,
-    );
+    cartsSummaryHTML += cartSummaryHTML;
   }
+  const trustedCartsSummaryHTML = policy?.createHTML(cartsSummaryHTML);
+  orderSummary.insertAdjacentHTML(
+    'beforeend',
+    trustedCartsSummaryHTML as any,
+  );
 
-  const cartQuantity = calculateCartQuantity();
   const returnToHomeLink = document.querySelector('.return-to-home-link');
   checkTruthy(returnToHomeLink);
-  returnToHomeLink.textContent = `${cartQuantity} items`;
+  effect(() => {
+    returnToHomeLink.textContent = `${cartQuantity.value} items`;
+  });
 
   function handleUpdateQuantity(target: HTMLElement, productId: string) {
     const quantityInputHTML = target?.parentElement?.querySelector(
@@ -61,6 +67,23 @@ export async function renderOrderSummary() {
     saveQuantityHTML.classList.add('Display_Update_Element');
   }
 
+  async function handleSaveQuantity(
+    cartItemContainer: Element,
+    productId: string,
+  ) {
+    const quantityInput = cartItemContainer.querySelector(
+      'input.quantity_Input',
+    );
+    checkTruthy(quantityInput);
+    addToCart(
+      {
+        productId: productId,
+        quantity: Number(quantityInput.value),
+        deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+      },
+      false,
+    );
+  }
   const cartItemContainers = document.querySelectorAll<HTMLElement>(
     '.cart-item-container',
   );
@@ -68,61 +91,56 @@ export async function renderOrderSummary() {
     const { productId } = cartItemContainer.dataset;
     checkTruthy(productId, 'Fail to get productId from dataset');
 
-    cartItemContainer.addEventListener('click', async (event) => {
-      const target = <HTMLElement>event.target;
-      const targetClassList = Array.from(target.classList);
+    cartItemContainer.addEventListener(
+      'click',
+      async (event) => {
+        const target = <HTMLElement>event.target;
+        const targetClassList = Array.from(target.classList);
 
-      if (targetClassList.includes('update-quantity-link')) {
-        handleUpdateQuantity(target, productId);
-      } else if (targetClassList.includes('save-quantity-link')) {
-        const quantityInput = cartItemContainer.querySelector(
-          'input.quantity_Input',
+        if (targetClassList.includes('update-quantity-link')) {
+          handleUpdateQuantity(target, productId);
+        } else if (targetClassList.includes('save-quantity-link')) {
+          await handleSaveQuantity(cartItemContainer, productId);
+        } else if (targetClassList.includes('delete-quantity-link')) {
+          removeFromCart(productId);
+        }
+      },
+      { signal },
+    );
+
+    cartItemContainer.addEventListener(
+      'keyup',
+      async (event: KeyboardEvent) => {
+        const target = <HTMLElement>event.target;
+        const targetClassList = Array.from(target.classList);
+        if (
+          targetClassList.includes('quantity_Input') &&
+          event.key === 'Enter'
+        ) {
+          await handleSaveQuantity(cartItemContainer, productId);
+        }
+      },
+    );
+
+    cartItemContainer.addEventListener(
+      'change',
+      async (event) => {
+        isHTMLInputElement(event.target);
+        const targetClassList = Array.from(event.target.classList);
+
+        if (!targetClassList.includes('delivery-option-input')) return;
+        const { deliveryChoiceId } = event.target.dataset;
+        isDeliveryOptionId(
+          deliveryChoiceId,
+          'Fail to get productId from HTML dataset',
         );
-        checkTruthy(quantityInput);
-        addToCart(
-          {
-            productId: productId,
-            quantity: Number(quantityInput.value),
-            deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
-          },
-          false,
-        );
-        await Promise.allSettled([
-          renderOrderSummary(),
-          renderPaymentSummary(),
-        ]);
-      } else if (targetClassList.includes('delete-quantity-link')) {
-        removeFromCart(productId);
-        await Promise.allSettled([
-          renderOrderSummary(),
-          renderPaymentSummary(),
-        ]);
-      }
-    });
-
-    cartItemContainer.addEventListener('change', async (event) => {
-      isHTMLInputElement(event.target);
-      const targetClassList = Array.from(event.target.classList);
-
-      if (!targetClassList.includes('delivery-option-input')) return;
-      const { deliveryChoiceId } = event.target.dataset;
-      isDeliveryOptionId(
-        deliveryChoiceId,
-        'Fail to get productId from HTML dataset',
-      );
-      updateDeliveryOption(productId, deliveryChoiceId);
-      await Promise.allSettled([
-        renderOrderSummary(),
-        renderPaymentSummary(),
-      ]);
-    });
+        updateDeliveryOption(productId, deliveryChoiceId);
+      },
+      { signal },
+    );
   }
 
-  for (const cartItem of checkoutCart) {
-    // const deliveryOptionButtonHTML = document?.querySelector(
-    //   `input#${cartItem.deliveryOptionId}-${cartItem.productId}`,
-    // );
-    // checkTruthy(deliveryOptionButtonHTML);
+  for (const cartItem of cart) {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
     );

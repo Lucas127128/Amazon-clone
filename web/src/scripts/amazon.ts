@@ -1,7 +1,4 @@
-import {
-  addToCart,
-  calculateCartQuantity,
-} from '#root/shared/src/data/cart.ts';
+import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
 import { fetchProducts, Product } from '#root/shared/src/data/products.ts';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
@@ -12,6 +9,7 @@ import {
   FETCH_CONFIG,
   UI_TIMEOUTS,
 } from '#root/shared/src/constants.ts';
+import { effect } from '@preact/signals-core';
 
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector('.products-grid');
@@ -33,13 +31,16 @@ async function renderAmazonHomePage() {
   checkTruthy(trustedProductsHTML);
   productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);
 
+  let timer: NodeJS.Timeout;
   function displayAdded(productId: string) {
     const addedToCart = document.querySelector(
       `.added-to-cart-${productId}`,
     );
     checkTruthy(addedToCart, 'Fail to select HTML element');
     addedToCart.classList.add('display-added-to-cart');
-    setTimeout(() => {
+
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
       addedToCart.classList.remove('display-added-to-cart');
     }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
   }
@@ -73,17 +74,13 @@ async function renderAmazonHomePage() {
       },
       true,
     );
-    const cartQuantity = calculateCartQuantity();
-    const returnToHomeLink = document.querySelector('.cart-quantity');
-    checkTruthy(returnToHomeLink);
-    returnToHomeLink.textContent = `${cartQuantity}`;
-
     displayAdded(productId);
   });
-  const cartQuantity = calculateCartQuantity();
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkTruthy(returnToHomeLink);
-  returnToHomeLink.textContent = `${cartQuantity}`;
+  effect(() => {
+    returnToHomeLink.textContent = `${cartQuantity.value}`;
+  });
 
   url.searchParams.delete('q');
   history.replaceState(null, '', url.toString());
