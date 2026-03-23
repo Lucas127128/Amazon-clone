@@ -16,7 +16,6 @@ const correctRawProduct: RawProduct = {
   name: 'Ultra Soft Tissue 2-Ply - 18 Box',
   rating: { stars: 4, count: 99 },
   priceCents: 2374,
-  keywords: ['kleenex', 'tissues', 'kitchen', 'tissues box', 'napkins'],
 };
 describe.concurrent('Get matching item', async () => {
   test('get matching products', async () => {
@@ -50,13 +49,6 @@ describe.concurrent('fetch products', () => {
     const correctProduct: Product = {
       id: 'sMmsZ',
       image: '/images/products/facial-tissue-2-ply-18-boxes.webp',
-      keywords: [
-        'kleenex',
-        'tissues',
-        'kitchen',
-        'tissues box',
-        'napkins',
-      ],
       name: 'Ultra Soft Tissue 2-Ply - 18 Box',
       priceCents: 2374,
       ratingCount: 99,

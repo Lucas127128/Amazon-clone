@@ -15,7 +15,7 @@ import {
   CART_CONFIG,
   STORAGE_KEYS,
   UI_TIMEOUTS,
-} from '#root/shared/src/constants.ts';
+} from '#root/config/constants.ts';
 import { Order } from '#root/shared/src/schema.ts';
 import { effect } from '@preact/signals-core';
 
@@ -62,18 +62,22 @@ async function renderPlacedOrder() {
 
   let timer: NodeJS.Timeout;
   function displayBuyAgainMessage(
-    buyAgainMessageHTML: Element,
-    buyAgainSuccessHTML: Element,
+    buyAgainMessageHTML: HTMLElement,
+    buyAgainSuccessHTML: HTMLElement,
   ) {
     checkTruthy(buyAgainSuccessHTML);
     checkTruthy(buyAgainMessageHTML);
-    buyAgainSuccessHTML.classList.add('display-buy-again-success');
-    buyAgainMessageHTML.classList.add('hide-buy-again-message');
+    buyAgainSuccessHTML.style.display = 'block';
+    buyAgainSuccessHTML.style.opacity = '1';
+    buyAgainMessageHTML.style.display = 'none';
+    buyAgainMessageHTML.style.opacity = '0';
 
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
-      buyAgainSuccessHTML.classList.remove('display-buy-again-success');
-      buyAgainMessageHTML.classList.remove('hide-buy-again-message');
+      buyAgainMessageHTML.style.display = 'block';
+      buyAgainMessageHTML.style.opacity = '1';
+      buyAgainSuccessHTML.style.display = 'none';
+      buyAgainSuccessHTML.style.opacity = '0';
     }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
   }
   ordersHTML.addEventListener('click', (event) => {

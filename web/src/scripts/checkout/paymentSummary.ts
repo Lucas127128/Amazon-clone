@@ -6,7 +6,7 @@ import { fetchProducts } from '#root/shared/src/data/products.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 import { policy } from '../../../../shared/src/utils/trustedTypes.ts';
 import type { Cart, Order } from '#root/shared/src/schema.ts';
-import { STORAGE_KEYS } from '#root/shared/src/constants.ts';
+import { STORAGE_KEYS } from '#root/config/constants.ts';
 
 let controller = new AbortController();
 export async function renderPaymentSummary(cart: Cart[]) {

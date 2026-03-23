@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import TurboConsole from 'unplugin-turbo-console/vite';
-// import { unstableRolldownAdapter } from 'vite-bundle-analyzer';
-// import { analyzer } from 'vite-bundle-analyzer';
-import config from '#root/config/config.json' with { type: 'json' };
+import { GLOBAL_CONFIG } from './constants';
+import htmlPurge from 'vite-plugin-purgecss';
+// import { analyzer, unstableRolldownAdapter } from 'vite-bundle-analyzer';
 // import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
@@ -47,6 +47,7 @@ export default defineConfig({
         themeDetect: true,
       },
     }),
+    htmlPurge({}),
     // unstableRolldownAdapter(analyzer({ openAnalyzer: true })),
     // DevTools(),
   ],
@@ -55,7 +56,7 @@ export default defineConfig({
   },
   server: {
     port: 5174,
-    allowedHosts: [config.previewURL.replace('https://', '')],
+    allowedHosts: [GLOBAL_CONFIG.PREVIEW_URL.replace('https://', '')],
     forwardConsole: true,
   },
 });

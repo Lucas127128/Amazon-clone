@@ -13,8 +13,27 @@ import {
   any,
   record,
   intersect,
+  minLength,
+  maxLength,
 } from 'valibot';
-import { CART_CONFIG } from './constants';
+import { CART_CONFIG } from '../../config/constants';
+
+const RatingSchema = object({
+  stars: number(),
+  count: number(),
+});
+
+export const PriceCentsSchema = pipe(number(), minValue(0));
+
+export const RawProductSchema = object({
+  id: pipe(string(), minLength(5), maxLength(5)),
+  image: string(),
+  name: string(),
+  rating: RatingSchema,
+  priceCents: PriceCentsSchema,
+});
+export const RawProductSchemaArray = array(RawProductSchema);
+export type RawProduct = InferOutput<typeof RawProductSchema>;
 
 export const DeliveryOptionIdSchema = union([
   literal('1'),
@@ -24,7 +43,7 @@ export const DeliveryOptionIdSchema = union([
 export type DeliveryOptionId = InferOutput<typeof DeliveryOptionIdSchema>;
 
 export const CartSchema = object({
-  productId: string(),
+  productId: RawProductSchema.entries.id,
   quantity: pipe(
     number(),
     minValue(1),
@@ -43,24 +62,6 @@ export const OrderSchema = object({
 });
 export type Order = InferOutput<typeof OrderSchema>;
 export type OrderType = Order;
-
-const RatingSchema = object({
-  stars: number(),
-  count: number(),
-});
-
-export const PriceCentsSchema = pipe(number(), minValue(0));
-
-export const RawProductSchema = object({
-  id: string(),
-  image: string(),
-  name: string(),
-  rating: RatingSchema,
-  priceCents: PriceCentsSchema,
-  keywords: array(string()),
-});
-export const RawProductSchemaArray = array(RawProductSchema);
-export type RawProduct = InferOutput<typeof RawProductSchema>;
 
 export const ClothingListSchema = array(string());
 

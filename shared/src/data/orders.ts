@@ -2,7 +2,7 @@ import { dateFormatOption } from './deliveryOption';
 import { Temporal } from 'temporal-polyfill-lite';
 import { app } from './edenTreaty';
 import type { Order, Cart } from '../schema';
-import { STORAGE_KEYS } from '../constants';
+import { STORAGE_KEYS } from '../../../config/constants';
 
 export async function getTimeString(ISOOrderTime: string) {
   return Temporal.Instant.from(ISOOrderTime)

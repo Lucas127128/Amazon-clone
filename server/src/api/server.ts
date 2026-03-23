@@ -7,7 +7,7 @@ import { orderPlugin } from './orders.ts';
 import { staticPlugin } from './static.ts';
 import { searchPlugin } from './search.ts';
 import { toJsonSchema } from '@valibot/to-json-schema';
-import config from '#root/config/config.json' with { type: 'json' };
+import { GLOBAL_CONFIG } from '#root/config/constants.ts';
 
 export const app = new Elysia({ precompile: true })
   .onBeforeHandle(({ set }) => {
@@ -21,9 +21,9 @@ export const app = new Elysia({ precompile: true })
     cors({
       origin: [
         'http://localhost:63315',
-        config.apiURL,
-        config.previewURL,
-        config.caddyURL,
+        GLOBAL_CONFIG.API_URL,
+        GLOBAL_CONFIG.PREVIEW_URL,
+        GLOBAL_CONFIG.CADDY_URL,
       ],
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],

@@ -3,7 +3,7 @@ import { CartSchemaArray, DeliveryOptionId } from '../schema.ts';
 import { Cart } from '../schema.ts';
 import { is } from 'valibot';
 import { Signal, signal, effect, computed } from '@preact/signals-core';
-import { STORAGE_KEYS } from '../constants.ts';
+import { STORAGE_KEYS } from '../../../config/constants.ts';
 
 export const cart: Signal<Cart[]> = signal(
   JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_STATE) ?? '[]'),

@@ -1,7 +1,7 @@
 /// <reference lib="dom" />
 import { beforeAll, describe, expect, test } from 'bun:test';
 import { Cart } from '#root/shared/src/schema.ts';
-import { Product } from '#root/shared/src/data/products.ts';
+import { type Product } from '#root/shared/src/data/products.ts';
 import { formatCurrency } from '#root/shared/src/utils/money.ts';
 import { renderPaymentSummary } from '#root/web/src/scripts/checkout/paymentSummary.ts';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';

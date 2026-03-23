@@ -1,8 +1,7 @@
 import { treaty } from '@elysiajs/eden';
 import type { App } from '#root/server/src/api/server.ts';
-import config from '#root/config/config.json' with { type: 'json' };
 import { Temporal } from 'temporal-polyfill-lite';
-import { FETCH_CONFIG } from '../constants';
+import { FETCH_CONFIG, GLOBAL_CONFIG } from '../../../config/constants';
 import type { HttpMethods } from '../schema';
 
 type CacheData = {
@@ -10,6 +9,12 @@ type CacheData = {
   time: Temporal.InstantLike;
   ttl: Temporal.DurationLike;
 };
+
+type CacheKey =
+  | `${'GET' | 'DELETE' | 'OPTIONS'}:${string}`
+  | `${'POST' | 'PUT' | 'PATCH' | 'QUERY'}:${string}:${string}`;
+
+const cacheMap = new Map<CacheKey, CacheData>();
 
 async function _cachedFetch(
   input: string | URL | Request,
@@ -24,9 +29,6 @@ async function _cachedFetch(
   const method = (init?.method ??
     (input instanceof Request ? input.method : 'GET')) as HttpMethods;
   const body = JSON.stringify(init?.body);
-  type CacheKey =
-    | `${'GET' | 'DELETE' | 'OPTIONS'}:${string}`
-    | `${'POST' | 'PUT' | 'PATCH' | 'QUERY'}:${string}:${string}`;
   const cacheKey: CacheKey =
     method === 'GET' || method === 'DELETE' || method === 'OPTIONS'
       ? `${method}:${url}`
@@ -34,9 +36,7 @@ async function _cachedFetch(
 
   const now = Temporal.Now.instant();
 
-  const cacheData: CacheData = JSON.parse(
-    localStorage?.getItem(cacheKey) || '{}',
-  );
+  const cacheData = cacheMap?.get(cacheKey);
   if (
     cacheData &&
     now.since(cacheData?.time).subtract(cacheData.ttl).seconds < 0
@@ -48,17 +48,17 @@ async function _cachedFetch(
   Promise.resolve()
     .then(async () => {
       if (!response.ok) return;
-      const cacheData: CacheData = {
+      const cacheData = {
         body: await response.clone().text(),
         time: now.toJSON(),
         ttl: FETCH_CONFIG.CACHE_TTL.toJSON(),
       };
-      localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+      cacheMap.set(cacheKey, cacheData);
     })
     .catch((err) => console.error(err));
   return response;
 }
 
-export const app = treaty<App>(config.apiURL, {
+export const app = treaty<App>(GLOBAL_CONFIG.API_URL, {
   // fetcher: cachedFetch as typeof fetch,
 });

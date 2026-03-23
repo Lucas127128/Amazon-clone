@@ -21,3 +21,9 @@ export const STORAGE_KEYS = {
   CART_STATE: 'cartState',
   ORDER: 'orders',
 } as const;
+
+export const GLOBAL_CONFIG = {
+  PREVIEW_URL: 'http://localhost:5174',
+  API_URL: 'https://localhost:8080',
+  CADDY_URL: 'https://localhost:3000',
+} as const;

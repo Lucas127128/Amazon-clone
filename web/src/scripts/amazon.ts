@@ -1,5 +1,8 @@
 import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
-import { fetchProducts, Product } from '#root/shared/src/data/products.ts';
+import {
+  fetchProducts,
+  type Product,
+} from '#root/shared/src/data/products.ts';
 import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';
@@ -8,7 +11,7 @@ import {
   CART_CONFIG,
   FETCH_CONFIG,
   UI_TIMEOUTS,
-} from '#root/shared/src/constants.ts';
+} from '#root/config/constants.ts';
 import { effect } from '@preact/signals-core';
 
 async function renderAmazonHomePage() {
@@ -34,14 +37,14 @@ async function renderAmazonHomePage() {
   let timer: NodeJS.Timeout;
   function displayAdded(productId: string) {
     const addedToCart = document.querySelector(
-      `.added-to-cart-${productId}`,
+      `div.added-to-cart-${productId}`,
     );
     checkTruthy(addedToCart, 'Fail to select HTML element');
-    addedToCart.classList.add('display-added-to-cart');
+    addedToCart.style.opacity = '1';
 
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
-      addedToCart.classList.remove('display-added-to-cart');
+      addedToCart.style.opacity = '0';
     }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
   }
 

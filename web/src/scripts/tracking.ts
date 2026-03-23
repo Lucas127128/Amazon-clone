@@ -9,7 +9,7 @@ import { getMatchingCart } from '#root/shared/src/data/cart.ts';
 import { handleSearchInput } from './header';
 import { policy } from '../../../shared/src/utils/trustedTypes';
 import { Order } from '#root/shared/src/schema.ts';
-import { STORAGE_KEYS } from '#root/shared/src/constants.ts';
+import { STORAGE_KEYS } from '#root/config/constants.ts';
 
 async function renderTrackingSummary() {
   const url = new URL(location.href);

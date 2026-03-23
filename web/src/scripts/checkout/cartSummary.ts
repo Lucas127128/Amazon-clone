@@ -1,4 +1,4 @@
-import { CART_CONFIG } from '#root/shared/src/constants.ts';
+import { CART_CONFIG } from '#root/config/constants.ts';
 import {
   removeFromCart,
   addToCart,
@@ -59,12 +59,12 @@ export async function renderOrderSummary(cart: Cart[]) {
       `input.quantity_Input_${productId}`,
     );
     const saveQuantityHTML = target?.parentElement?.querySelector(
-      `.save-quantity-link-${productId}`,
+      `span.save-quantity-link-${productId}`,
     );
     checkTruthy(saveQuantityHTML, 'Fail to select HTML element');
     checkTruthy(quantityInputHTML, 'Fail to select HTML element');
-    quantityInputHTML.classList.add('Display_Update_Element');
-    saveQuantityHTML.classList.add('Display_Update_Element');
+    quantityInputHTML.style.display = 'inline';
+    saveQuantityHTML.style.display = 'inline';
   }
 
   async function handleSaveQuantity(

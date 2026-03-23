@@ -2,18 +2,20 @@ import { Temporal } from 'temporal-polyfill-lite';
 import { Cart } from '../schema';
 import { getDeliveryDateISO } from './deliveryOption';
 import { Order } from '../schema';
+import { pipe } from 'fp-ts/function';
 
 export function getDeliveryProgress(order: Order, matchingCart: Cart) {
-  const deliveryDate = getDeliveryDateISO(matchingCart.deliveryOptionId);
   const orderTime = Temporal.Instant.from(order.orderTime)
     .toZonedDateTimeISO(Temporal.Now.timeZoneId())
     .toPlainDate();
-  const today = Temporal.Now.plainDateISO();
-  const deliveryDuration = deliveryDate
+  const deliveryProgress = Temporal.Now.plainDateISO()
     .since(orderTime)
     .total({ unit: 'hours' });
-  const deliveryProgress = today.since(orderTime).total({ unit: 'hours' });
-  const deliveryProgressPercent =
-    (deliveryProgress / deliveryDuration) * 100 + 5;
-  return deliveryProgressPercent;
+
+  return pipe(
+    getDeliveryDateISO(matchingCart.deliveryOptionId),
+    (deliveryDate) =>
+      deliveryDate.since(orderTime).total({ unit: 'hours' }),
+    (deliveryDuration) => (deliveryProgress / deliveryDuration) * 100 + 5,
+  );
 }

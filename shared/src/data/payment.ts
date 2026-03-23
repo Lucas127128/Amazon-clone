@@ -1,6 +1,6 @@
 import { Cart } from '../schema';
 import { checkTruthy } from '../utils/typeChecker';
-import { getMatchingProduct, Product } from './products';
+import { getMatchingProduct, type Product } from './products';
 import { getDeliveryPriceCents } from './deliveryOption';
 
 export interface Prices {
@@ -40,5 +40,5 @@ export function calculatePrices(
     totalPriceBeforeTax,
     totalTax,
     totalOrderPrice,
-  };
+  } satisfies Prices;
 }

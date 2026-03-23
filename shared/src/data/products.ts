@@ -19,7 +19,6 @@ export class Product {
     this.name = productDetails.name;
     this.ratingCount = productDetails.rating.count;
     this.priceCents = productDetails.priceCents;
-    this.keywords = productDetails.keywords;
     this.starsUrl = `/images/ratings/rating-${productDetails.rating.stars * 10}.png`;
     this.price = `${formatCurrency(productDetails.priceCents)}`;
     if (isClothing) {
@@ -35,7 +34,6 @@ export class Product {
   name;
   ratingCount;
   priceCents;
-  keywords;
   extraInfoHTML = '';
   starsUrl;
   price;

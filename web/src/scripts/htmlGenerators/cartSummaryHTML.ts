@@ -1,5 +1,5 @@
 import { Cart } from '#root/shared/src/schema.ts';
-import { Product } from '#root/shared/src/data/products.ts';
+import { type Product } from '#root/shared/src/data/products.ts';
 import {
   deliveryOptions,
   getDeliveryDate,
