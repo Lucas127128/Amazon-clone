@@ -1,41 +1,10 @@
 import { DeliveryOptionId } from '#root/shared/src/schema.ts';
 import {
   checkNullish,
-  checkTruthy,
   isDeliveryOptionId,
   isHTMLInputElement,
 } from '#root/shared/src/utils/typeChecker.ts';
 import { describe, expect, test } from 'bun:test';
-
-describe.concurrent('checkTruthy', () => {
-  describe('accept truthy and reject falsy', () => {
-    test('accept truthy', () => {
-      expect(() => checkTruthy(1)).not.toThrow();
-      expect(() => checkTruthy('foo')).not.toThrow();
-    });
-    test('reject falsy', () => {
-      expect(() => checkTruthy('')).toThrow();
-      expect(() => checkTruthy(0)).toThrow();
-    });
-    test('reject nullish', () => {
-      expect(() => checkTruthy(null)).toThrow();
-      expect(() => checkTruthy(undefined)).toThrow();
-    });
-  });
-
-  describe('throw custom message', () => {
-    test('throw custom message when falsy', () => {
-      expect(() => checkTruthy(undefined, 'success throw')).toThrow(
-        `success throw: The value of undefined is falsy`,
-      );
-    });
-    test('throw default error', () => {
-      expect(() => checkTruthy(undefined)).toThrowError(
-        'Error: The value of undefined is falsy',
-      );
-    });
-  });
-});
 
 describe.concurrent('checkNullish', () => {
   describe('accept truthy and reject falsy', () => {

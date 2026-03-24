@@ -1,5 +1,5 @@
 import { Cart } from '../schema';
-import { checkTruthy } from '../utils/typeChecker';
+import { checkNullish } from '../utils/typeChecker';
 import { getMatchingProduct, type Product } from './products';
 import { getDeliveryPriceCents } from './deliveryOption';
 
@@ -21,7 +21,7 @@ export function calculatePrices(
   let cartQuantity = 0;
   for (const cartItem of cart) {
     const product = getMatchingProduct(products, cartItem.productId);
-    checkTruthy(product, 'Fail to get matching product');
+    checkNullish(product, 'Fail to get matching product');
     const totalPrice = product.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.quantity;

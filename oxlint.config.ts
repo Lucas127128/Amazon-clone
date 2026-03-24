@@ -2,6 +2,7 @@ import { defineConfig } from 'oxlint';
 
 export default defineConfig({
   categories: {},
+  jsPlugins: ['eslint-plugin-depend'],
   rules: {
     'no-unused-expressions': ['warn', { allowTernary: true }],
     'no-param-reassign': 'error',

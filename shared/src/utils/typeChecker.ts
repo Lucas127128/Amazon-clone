@@ -4,14 +4,6 @@ import {
 } from '#root/shared/src/schema.ts';
 import { is } from 'valibot';
 
-export function checkTruthy(
-  variable: any,
-  customMessage: string = 'Error',
-): asserts variable {
-  if (!variable)
-    throw new Error(`${customMessage}: The value of ${variable} is falsy`);
-}
-
 export function checkNullish(
   variable: any,
   customMessage: string = 'Error',

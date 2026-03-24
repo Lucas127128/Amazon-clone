@@ -63,30 +63,32 @@ export function generateCartSummary(
               Quantity:
               <span class="quantity-label">${cartItem.quantity}</span>
             </span>
-              <span class="update-quantity-link link-primary"> Update </span>
+            <span class="update-quantity-link link-primary"> Update </span>
             <input
               type="number"
-              placeholder='quantity'
-              min='1'
-              max='10'
-              value='${cartItem.quantity}'
+              placeholder="quantity"
+              min="1"
+              max="10"
+              value="${cartItem.quantity}"
               class="quantity_Input_${matchingProduct.id} quantity_Input"
               style="width: 40px;"
             />
-              <span
+            <span
               class="save-quantity-link-${matchingProduct.id} link-primary save-quantity-link"
-              >
-                Save</span
-              >
-              <span
+            >
+              Save</span
+            >
+            <span
               class="delete-quantity-link delete-quantity-link-${matchingProduct.id} link-primary"
-              >
-                Delete
-              </span>
+            >
+              Delete
+            </span>
           </div>
         </div>
         <div class="delivery-options">
-          <div class="delivery-options-title">Choose a delivery option:</div>
+          <div class="delivery-options-title">
+            Choose a delivery option:
+          </div>
           ${deliveryOptionsHTML(matchingProduct.id)}
         </div>
       </div>

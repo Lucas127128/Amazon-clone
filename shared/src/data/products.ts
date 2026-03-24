@@ -21,20 +21,14 @@ export class Product {
     this.priceCents = productDetails.priceCents;
     this.starsUrl = `/images/ratings/rating-${productDetails.rating.stars * 10}.png`;
     this.price = `${formatCurrency(productDetails.priceCents)}`;
-    if (isClothing) {
-      this.extraInfoHTML = `
-        <a href='/images/clothing-size-chart.webp' target='_blank'>
-          Size chart
-        </a>
-      `;
-    }
+    this.isClothing = isClothing;
   }
   id;
   image;
   name;
   ratingCount;
   priceCents;
-  extraInfoHTML = '';
+  isClothing;
   starsUrl;
   price;
 }

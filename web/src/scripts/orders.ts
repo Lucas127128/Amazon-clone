@@ -4,7 +4,7 @@ import {
 } from '#root/shared/src/data/products.ts';
 import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
 import { getTimeString } from '#root/shared/src/data/orders.ts';
-import { checkTruthy } from '../../../shared/src/utils/typeChecker.ts';
+import { checkNullish } from '../../../shared/src/utils/typeChecker.ts';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
@@ -25,7 +25,7 @@ async function renderPlacedOrder() {
     ? JSON.parse(savedOrders)
     : [];
   const ordersHTML = document.querySelector('.orders-grid');
-  checkTruthy(ordersHTML);
+  checkNullish(ordersHTML);
   const ordersTime = await Promise.all(
     orders.map((order) => getTimeString(order.orderTime)),
   );
@@ -37,7 +37,7 @@ async function renderPlacedOrder() {
         products,
         product.productId,
       );
-      checkTruthy(matchingProduct);
+      checkNullish(matchingProduct);
       placedOrderHTML += generateOrdersProductHTML(
         product,
         matchingProduct,
@@ -53,7 +53,7 @@ async function renderPlacedOrder() {
     const trustedOrderContainerHTML = policy?.createHTML(
       placedOrderContainerHTML,
     );
-    checkTruthy(trustedOrderContainerHTML);
+    checkNullish(trustedOrderContainerHTML);
     ordersHTML.insertAdjacentHTML(
       'beforeend',
       trustedOrderContainerHTML as any,
@@ -65,8 +65,6 @@ async function renderPlacedOrder() {
     buyAgainMessageHTML: HTMLElement,
     buyAgainSuccessHTML: HTMLElement,
   ) {
-    checkTruthy(buyAgainSuccessHTML);
-    checkTruthy(buyAgainMessageHTML);
     buyAgainSuccessHTML.style.display = 'block';
     buyAgainSuccessHTML.style.opacity = '1';
     buyAgainMessageHTML.style.display = 'none';
@@ -108,7 +106,7 @@ async function renderPlacedOrder() {
       `span.buy-again-message-${productId}`,
     );
 
-    checkTruthy(productId, 'Fail to get productId');
+    checkNullish(productId, 'Fail to get productId');
     addToCart(
       {
         productId: productId,
@@ -118,12 +116,12 @@ async function renderPlacedOrder() {
       true,
     );
 
-    checkTruthy(buyAgainMessageHTML);
-    checkTruthy(buyAgainSuccessHTML);
+    checkNullish(buyAgainMessageHTML);
+    checkNullish(buyAgainSuccessHTML);
     displayBuyAgainMessage(buyAgainMessageHTML, buyAgainSuccessHTML);
   });
   const returnToHomeLink = document.querySelector('.cart-quantity');
-  checkTruthy(returnToHomeLink);
+  checkNullish(returnToHomeLink);
   effect(() => {
     returnToHomeLink.textContent = `${cartQuantity.value}`;
   });

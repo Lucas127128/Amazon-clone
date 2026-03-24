@@ -44,7 +44,9 @@ export function generateAmazonHTML(
               <option value="10">10</option>
               </select>
           </div>
-          ${product.extraInfoHTML}
+          <a href='/images/clothing-size-chart.webp' target='_blank' class='size-chart'>
+          Size chart
+          </a>
 
           <div class="added-to-cart added-to-cart-${product.id}">
               <img src="/images/icons/checkmark.svg">

@@ -26,17 +26,21 @@ export function generateOrdersProductHTML(
         data-product-id="${product.productId}"
       >
         <img class="buy-again-icon" src="images/icons/buy-again.png" />
-        <span class="buy-again-message buy-again-message-${product.productId}"
+        <span
+          class="buy-again-message buy-again-message-${product.productId}"
           >Buy it again</span
         >
-        <span class="buy-again-success buy-again-success-${product.productId}"
+        <span
+          class="buy-again-success buy-again-success-${product.productId}"
           >✓ Added</span
         >
       </button>
     </div>
 
     <div class="product-actions">
-      <a href="tracking.html?orderId=${orderId}&productId=${product.productId}">
+      <a
+        href="tracking.html?orderId=${orderId}&productId=${product.productId}"
+      >
         <button class="track-package-button button-secondary">
           Track package
         </button>

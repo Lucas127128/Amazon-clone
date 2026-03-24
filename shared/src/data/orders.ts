@@ -1,8 +1,9 @@
 import { dateFormatOption } from './deliveryOption';
 import { Temporal } from 'temporal-polyfill-lite';
 import { app } from './edenTreaty';
-import type { Order, Cart } from '../schema';
+import { Order, Cart, OrderSchemaArray } from '../schema';
 import { STORAGE_KEYS } from '../../../config/constants';
+import { parse } from 'valibot';
 
 export async function getTimeString(ISOOrderTime: string) {
   return Temporal.Instant.from(ISOOrderTime)
@@ -25,5 +26,5 @@ export async function fetchOrders(cart: Cart[]) {
 export function getOrders() {
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   const orders: Order[] = JSON.parse(savedOrders ?? '[]');
-  return orders;
+  return parse(OrderSchemaArray, orders);
 }

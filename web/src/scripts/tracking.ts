@@ -4,7 +4,7 @@ import {
   fetchProducts,
 } from '#root/shared/src/data/products.ts';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
-import { checkTruthy } from '../../../shared/src/utils/typeChecker';
+import { checkNullish } from '../../../shared/src/utils/typeChecker';
 import { getMatchingCart } from '#root/shared/src/data/cart.ts';
 import { handleSearchInput } from './header';
 import { policy } from '../../../shared/src/utils/trustedTypes';
@@ -15,22 +15,22 @@ async function renderTrackingSummary() {
   const url = new URL(location.href);
   const orderId = url.searchParams.get('orderId');
   const productId = url.searchParams.get('productId');
-  checkTruthy(orderId);
-  checkTruthy(productId);
+  checkNullish(orderId);
+  checkNullish(productId);
 
   const products = await fetchProducts();
   const matchingProducts = getMatchingProduct(products, productId);
-  checkTruthy(matchingProducts);
+  checkNullish(matchingProducts);
 
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
-  checkTruthy(savedOrders);
+  checkNullish(savedOrders);
   const orders: Order[] = JSON.parse(savedOrders);
   const matchingOrder = getMatchingOrder(orders, orderId);
-  checkTruthy(matchingOrder);
+  checkNullish(matchingOrder);
 
   const cart = matchingOrder?.products;
   const matchingCart = getMatchingCart(cart, productId);
-  checkTruthy(matchingCart);
+  checkNullish(matchingCart);
 
   const trackingHTML = generateTrackingHTML(
     matchingProducts,
@@ -39,7 +39,7 @@ async function renderTrackingSummary() {
   );
   const backToOrderLink = document.querySelector('.back-to-orders-link');
   const trustedTrackingHTML = policy?.createHTML(trackingHTML);
-  checkTruthy(trustedTrackingHTML);
+  checkNullish(trustedTrackingHTML);
   backToOrderLink?.insertAdjacentHTML(
     'afterend',
     trustedTrackingHTML as any,

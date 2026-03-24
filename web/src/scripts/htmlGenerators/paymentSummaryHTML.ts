@@ -40,7 +40,9 @@ export function generatePaymentSummary(prices: Prices): string {
       </div>
     </div>
 
-    <button class="place-order-button button-primary">Place your order</button>
+    <button class="place-order-button button-primary">
+      Place your order
+    </button>
   `;
   return paymentSummaryHTML;
 }

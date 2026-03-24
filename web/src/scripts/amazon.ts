@@ -1,9 +1,10 @@
 import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
 import {
   fetchProducts,
+  getMatchingProduct,
   type Product,
 } from '#root/shared/src/data/products.ts';
-import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
+import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';
 import { policy } from '#root/shared/src/utils/trustedTypes.ts';
@@ -16,7 +17,7 @@ import { effect } from '@preact/signals-core';
 
 async function renderAmazonHomePage() {
   const productsGrid = document.querySelector('.products-grid');
-  checkTruthy(productsGrid, 'Fail to select HTML element');
+  checkNullish(productsGrid, 'Fail to select HTML element');
 
   const url = new URL(location.href);
   const searchQuery = url.searchParams.get('q');
@@ -31,15 +32,30 @@ async function renderAmazonHomePage() {
     productsHTML += generateAmazonHTML(product, highFetchPriority);
   }
   const trustedProductsHTML = policy?.createHTML(productsHTML);
-  checkTruthy(trustedProductsHTML);
+  checkNullish(trustedProductsHTML);
   productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);
+  Promise.resolve()
+    .then(() => {
+      const productContainers = document.querySelectorAll(
+        'div.product-container',
+      );
+      for (const productContainer of productContainers) {
+        const sizeChart = productContainer.querySelector('a.size-chart');
+        const { productId } = productContainer.dataset;
+        checkNullish(productId);
+        checkNullish(sizeChart);
+        const product = getMatchingProduct(products, productId);
+        sizeChart.style.opacity = product?.isClothing ? '1' : '0';
+      }
+    })
+    .catch((err) => console.error(err));
 
   let timer: NodeJS.Timeout;
   function displayAdded(productId: string) {
     const addedToCart = document.querySelector(
       `div.added-to-cart-${productId}`,
     );
-    checkTruthy(addedToCart, 'Fail to select HTML element');
+    checkNullish(addedToCart, 'Fail to select HTML element');
     addedToCart.style.opacity = '1';
 
     if (timer) clearTimeout(timer);
@@ -50,9 +66,7 @@ async function renderAmazonHomePage() {
 
   productsGrid.addEventListener('click', (event) => {
     const button = <HTMLElement>event.target;
-    if (!button.classList.contains('add-to-cart-button')) {
-      return;
-    }
+    if (!button.classList.contains('add-to-cart-button')) return;
 
     const { productId } = button.dataset;
     const productContainer = button.parentElement;
@@ -60,11 +74,11 @@ async function renderAmazonHomePage() {
       productContainer?.querySelector<HTMLInputElement>(
         '.ProductQuantitySelector',
       );
-    checkTruthy(
+    checkNullish(
       quantitySelectorHTML,
       'Fail to get the HTML element or the product id dataset is incorrect',
     );
-    checkTruthy(
+    checkNullish(
       productId,
       'Fail to get the HTML element or the product id dataset is incorrect',
     );
@@ -80,7 +94,7 @@ async function renderAmazonHomePage() {
     displayAdded(productId);
   });
   const returnToHomeLink = document.querySelector('.cart-quantity');
-  checkTruthy(returnToHomeLink);
+  checkNullish(returnToHomeLink);
   effect(() => {
     returnToHomeLink.textContent = `${cartQuantity.value}`;
   });

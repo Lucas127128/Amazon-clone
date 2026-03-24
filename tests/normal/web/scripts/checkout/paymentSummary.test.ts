@@ -4,7 +4,7 @@ import { Cart } from '#root/shared/src/schema.ts';
 import { type Product } from '#root/shared/src/data/products.ts';
 import { formatCurrency } from '#root/shared/src/utils/money.ts';
 import { renderPaymentSummary } from '#root/web/src/scripts/checkout/paymentSummary.ts';
-import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
+import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
 
 const cartJson: Cart[] = await Bun.file('./tests/normal/cart.json').json();
@@ -28,7 +28,7 @@ describe.concurrent('test suite: render payment details', async () => {
     const totalProductPrice = document.querySelector(
       '.total-products-price',
     );
-    checkTruthy(totalProductPrice);
+    checkNullish(totalProductPrice);
     expect(totalProductPrice.textContent).toContain(
       formatCurrency(prices.totalProductPrice),
     );
@@ -36,7 +36,7 @@ describe.concurrent('test suite: render payment details', async () => {
 
   test('correct total delivery fee', () => {
     const totalDeliveryFee = document.querySelector('.total-delivery-fee');
-    checkTruthy(totalDeliveryFee);
+    checkNullish(totalDeliveryFee);
     expect(totalDeliveryFee.textContent).toContain(
       formatCurrency(prices.totalDeliveryFee),
     );
@@ -44,7 +44,7 @@ describe.concurrent('test suite: render payment details', async () => {
 
   test('correct cart quantity', () => {
     const cartQuantity = document.querySelector('.cart-item-quantity');
-    checkTruthy(cartQuantity);
+    checkNullish(cartQuantity);
     expect(cartQuantity.textContent).toContain(
       prices.cartQuantity.toString(),
     );
@@ -54,7 +54,7 @@ describe.concurrent('test suite: render payment details', async () => {
     const totalPriceBeforeTax = document.querySelector(
       '.total-price-before-tax',
     );
-    checkTruthy(totalPriceBeforeTax);
+    checkNullish(totalPriceBeforeTax);
     expect(totalPriceBeforeTax.textContent).toContain(
       formatCurrency(prices.totalPriceBeforeTax),
     );
@@ -62,7 +62,7 @@ describe.concurrent('test suite: render payment details', async () => {
 
   test('correct total tax', () => {
     const totalTax = document.querySelector('.total-tax');
-    checkTruthy(totalTax);
+    checkNullish(totalTax);
     expect(totalTax.textContent).toContain(
       formatCurrency(prices.totalTax),
     );
@@ -70,7 +70,7 @@ describe.concurrent('test suite: render payment details', async () => {
 
   test('correct total order price', () => {
     const totalOrderPrice = document.querySelector('.total-cost');
-    checkTruthy(totalOrderPrice);
+    checkNullish(totalOrderPrice);
     expect(totalOrderPrice.textContent).toContain(
       formatCurrency(prices.totalOrderPrice),
     );

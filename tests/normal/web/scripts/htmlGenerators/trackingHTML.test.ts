@@ -1,7 +1,7 @@
 import { getMatchingCart } from '#root/shared/src/data/cart.ts';
 import { getMatchingProduct } from '#root/shared/src/data/products.ts';
 import { Order } from '#root/shared/src/schema.ts';
-import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
+import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import { generateTrackingHTML } from '#root/web/src/scripts/htmlGenerators/trackingHTML.ts';
 import { describe, expect, test } from 'bun:test';
 
@@ -14,8 +14,8 @@ describe.concurrent('test suite: generateTrackingHTML', () => {
 
     const matchingProduct = getMatchingProduct(products, '59LXo');
     const matchingCart = getMatchingCart(order.products, '59LXo');
-    checkTruthy(matchingProduct);
-    checkTruthy(matchingCart);
+    checkNullish(matchingProduct);
+    checkNullish(matchingCart);
 
     const trackingHTML = generateTrackingHTML(
       matchingProduct,

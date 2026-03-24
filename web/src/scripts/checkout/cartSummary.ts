@@ -13,7 +13,7 @@ import { Cart } from '#root/shared/src/schema.ts';
 import { effect } from '@preact/signals-core';
 import { policy } from '../../../../shared/src/utils/trustedTypes.ts';
 import {
-  checkTruthy,
+  checkNullish,
   isDeliveryOptionId,
   isHTMLInputElement,
 } from '../../../../shared/src/utils/typeChecker.ts';
@@ -30,7 +30,7 @@ export async function renderOrderSummary(cart: Cart[]) {
   const products = await fetchProducts();
 
   const orderSummary = document.querySelector('.order-summary');
-  checkTruthy(orderSummary, 'Fail to select HTML element');
+  checkNullish(orderSummary, 'Fail to select HTML element');
   orderSummary.innerHTML = policy?.createHTML('') as any;
   let cartsSummaryHTML = '';
   for (const cartItem of cart) {
@@ -38,7 +38,7 @@ export async function renderOrderSummary(cart: Cart[]) {
       products,
       cartItem.productId,
     );
-    checkTruthy(matchingProduct);
+    checkNullish(matchingProduct);
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
     cartsSummaryHTML += cartSummaryHTML;
   }
@@ -49,7 +49,7 @@ export async function renderOrderSummary(cart: Cart[]) {
   );
 
   const returnToHomeLink = document.querySelector('.return-to-home-link');
-  checkTruthy(returnToHomeLink);
+  checkNullish(returnToHomeLink);
   effect(() => {
     returnToHomeLink.textContent = `${cartQuantity.value} items`;
   });
@@ -61,8 +61,8 @@ export async function renderOrderSummary(cart: Cart[]) {
     const saveQuantityHTML = target?.parentElement?.querySelector(
       `span.save-quantity-link-${productId}`,
     );
-    checkTruthy(saveQuantityHTML, 'Fail to select HTML element');
-    checkTruthy(quantityInputHTML, 'Fail to select HTML element');
+    checkNullish(saveQuantityHTML, 'Fail to select HTML element');
+    checkNullish(quantityInputHTML, 'Fail to select HTML element');
     quantityInputHTML.style.display = 'inline';
     saveQuantityHTML.style.display = 'inline';
   }
@@ -74,7 +74,7 @@ export async function renderOrderSummary(cart: Cart[]) {
     const quantityInput = cartItemContainer.querySelector(
       'input.quantity_Input',
     );
-    checkTruthy(quantityInput);
+    checkNullish(quantityInput);
     addToCart(
       {
         productId: productId,
@@ -89,7 +89,7 @@ export async function renderOrderSummary(cart: Cart[]) {
   );
   for (const cartItemContainer of cartItemContainers) {
     const { productId } = cartItemContainer.dataset;
-    checkTruthy(productId, 'Fail to get productId from dataset');
+    checkNullish(productId, 'Fail to get productId from dataset');
 
     cartItemContainer.addEventListener(
       'click',

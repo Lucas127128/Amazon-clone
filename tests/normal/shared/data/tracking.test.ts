@@ -11,7 +11,6 @@ describe.concurrent('test suite: getDeliveryProgress', () => {
     const cart = await Bun.file('./tests/normal/cart.json').json();
     const matchingCart = getMatchingCart(cart as Cart[], '59LXo');
     checkNullish(matchingCart);
-    console.log(matchingCart);
     const deliveryProgress = getDeliveryProgress(
       order as Order,
       matchingCart,

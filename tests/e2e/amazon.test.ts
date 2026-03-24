@@ -4,7 +4,7 @@ import {
   getMatchingProduct,
   transformProducts,
 } from '#root/shared/src/data/products.ts';
-import { checkTruthy } from '#root/shared/src/utils/typeChecker.ts';
+import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 
 test.describe('ui', () => {
   test.beforeEach(async ({ page }) => {
@@ -114,11 +114,11 @@ test.describe('ui', () => {
         const productImageScreenshot = productImageScreenshots[index];
 
         const productId = productsId[index];
-        checkTruthy(productId);
+        checkNullish(productId);
         const product = getMatchingProduct(products, productId);
-        checkTruthy(product);
+        checkNullish(product);
         const realProductImage = product.image;
-        checkTruthy(realProductImage);
+        checkNullish(realProductImage);
         expect(productImageScreenshot).toMatchSnapshot(realProductImage);
       }
     });

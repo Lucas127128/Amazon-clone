@@ -52,9 +52,9 @@ describe.concurrent('fetch products', () => {
       name: 'Ultra Soft Tissue 2-Ply - 18 Box',
       priceCents: 2374,
       ratingCount: 99,
-      extraInfoHTML: '',
       price: '23.74',
       starsUrl: '/images/ratings/rating-40.png',
+      isClothing: false,
     };
     expect(product).toEqual(correctProduct);
   });

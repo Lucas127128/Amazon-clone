@@ -60,10 +60,11 @@ export const OrderSchema = object({
   totalCostCents: number(),
   products: array(CartSchema),
 });
+export const OrderSchemaArray = array(OrderSchema);
 export type Order = InferOutput<typeof OrderSchema>;
 export type OrderType = Order;
 
-export const ClothingListSchema = array(string());
+export const ClothingListSchema = array(RawProductSchema.entries.id);
 
 export const SearchResultSchema = intersect([
   object({

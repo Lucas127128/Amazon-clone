@@ -1,7 +1,7 @@
 import { Temporal } from 'temporal-polyfill-lite';
 import { formatCurrency } from '../utils/money.ts';
 import { type DeliveryOptionId } from '../schema.ts';
-import { checkTruthy } from '../utils/typeChecker.ts';
+import { checkNullish } from '../utils/typeChecker.ts';
 
 export const deliveryOptions = [
   {
@@ -53,7 +53,7 @@ export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.plainDateISO();
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
-  checkTruthy(matchingDeliveryOption);
+  checkNullish(matchingDeliveryOption);
 
   const deliveryDate = addWeekDays(
     matchingDeliveryOption.deliveryDays,
@@ -66,7 +66,7 @@ export function getDeliveryDateISO(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.plainDateISO();
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
-  checkTruthy(matchingDeliveryOption);
+  checkNullish(matchingDeliveryOption);
   return addWeekDays(matchingDeliveryOption.deliveryDays, localNow);
 }
 
@@ -78,6 +78,6 @@ export function getPriceString(priceCents: number) {
 export function getDeliveryPriceCents(deliveryOptionId: DeliveryOptionId) {
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
-  checkTruthy(matchingDeliveryOption);
+  checkNullish(matchingDeliveryOption);
   return matchingDeliveryOption?.priceCents;
 }

@@ -5,7 +5,7 @@
     "name": "2 Slot Toaster - Black",
     "ratingCount": 2197,
     "priceCents": 1899,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-50.png",
     "price": "18.99"
   },
@@ -15,7 +15,7 @@
     "name": "Electric Glass and Steel Hot Tea Water Kettle - 1.7-Liter",
     "ratingCount": 846,
     "priceCents": 3074,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-50.png",
     "price": "30.74"
   },
@@ -25,7 +25,7 @@
     "name": "10-Piece Mixing Bowl Set with Lids - Floral",
     "ratingCount": 679,
     "priceCents": 3899,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-50.png",
     "price": "38.99"
   },
@@ -35,7 +35,7 @@
     "name": "Women's Chunky Cable Beanie - Gray",
     "ratingCount": 83,
     "priceCents": 1250,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-50.png",
     "price": "12.50"
   },
@@ -45,7 +45,7 @@
     "name": "Men's Classic-fit Pleated Chino Pants",
     "ratingCount": 9017,
     "priceCents": 2290,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "22.90"
   },
@@ -55,7 +55,7 @@
     "name": "Men's Full-Zip Hooded Fleece Sweatshirt",
     "ratingCount": 3157,
     "priceCents": 2400,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "24.00"
   },
@@ -65,7 +65,7 @@
     "name": "Men's Regular-Fit Quick-Dry Golf Polo Shirt",
     "ratingCount": 2556,
     "priceCents": 1599,
-    "extraInfoHTML": "",
+    "isClothing": true,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "15.99"
   },
@@ -75,7 +75,7 @@
     "name": "Women's Stretch Popover Hoodie",
     "ratingCount": 2465,
     "priceCents": 1374,
-    "extraInfoHTML": "",
+    "isClothing": true,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "13.74"
   },
@@ -85,7 +85,7 @@
     "name": "Trash Can with Foot Pedal - Brushed Stainless Steel",
     "ratingCount": 2286,
     "priceCents": 8300,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "83.00"
   },
@@ -95,7 +95,7 @@
     "name": "Coffeemaker with Glass Carafe and Reusable Filter - 25 Oz, Black",
     "ratingCount": 1211,
     "priceCents": 2250,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "22.50"
   },
@@ -105,7 +105,7 @@
     "name": "2-Ply Kitchen Paper Towels - 30 Pack",
     "ratingCount": 1045,
     "priceCents": 5799,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "57.99"
   },
@@ -115,7 +115,7 @@
     "name": "Women's Two Strap Buckle Sandals - Tan",
     "ratingCount": 562,
     "priceCents": 2499,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "24.99"
   },
@@ -125,7 +125,7 @@
     "name": "Non-Stick Cookware Set, Pots, Pans and Utensils - 15 Pieces",
     "ratingCount": 511,
     "priceCents": 6797,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "67.97"
   },
@@ -135,7 +135,7 @@
     "name": "Blackout Curtains Set 42 x 84-Inch - Black, 2 Panels",
     "ratingCount": 363,
     "priceCents": 3099,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "30.99"
   },
@@ -145,7 +145,7 @@
     "name": "Plain Hooded Fleece Sweatshirt",
     "ratingCount": 317,
     "priceCents": 2400,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "24.00"
   },
@@ -155,7 +155,7 @@
     "name": "Liquid Laundry Detergent, 110 Loads, 82.5 Fl Oz",
     "ratingCount": 305,
     "priceCents": 2899,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "28.99"
   },
@@ -165,7 +165,7 @@
     "name": "Women's Fleece Jogger Sweatpant",
     "ratingCount": 248,
     "priceCents": 2400,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "24.00"
   },
@@ -175,7 +175,7 @@
     "name": "Women's Chiffon Beachwear Cover Up - Black",
     "ratingCount": 235,
     "priceCents": 2070,
-    "extraInfoHTML": "",
+    "isClothing": true,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "20.70"
   },
@@ -185,7 +185,7 @@
     "name": "Blackout Curtains Set 4-Pack - Beige",
     "ratingCount": 232,
     "priceCents": 4599,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "45.99"
   },
@@ -195,7 +195,7 @@
     "name": "6-Piece Nonstick, Carbon Steel Oven Bakeware Baking Set",
     "ratingCount": 175,
     "priceCents": 3499,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "34.99"
   },
@@ -205,7 +205,7 @@
     "name": "Luxury Towel Set - Graphite Gray",
     "ratingCount": 144,
     "priceCents": 3599,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "35.99"
   },
@@ -215,7 +215,7 @@
     "name": "Vanity Mirror with Heavy Base - Chrome",
     "ratingCount": 130,
     "priceCents": 1649,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "16.49"
   },
@@ -225,7 +225,7 @@
     "name": "Bathroom Bath Rug Mat 20 x 31 Inch - Grey",
     "ratingCount": 119,
     "priceCents": 1250,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "12.50"
   },
@@ -235,7 +235,7 @@
     "name": "Double Oval Twist French Wire Earrings - Gold",
     "ratingCount": 117,
     "priceCents": 2400,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "24.00"
   },
@@ -245,7 +245,7 @@
     "name": "100% Cotton Bath Towels - 2 Pack, Light Teal",
     "ratingCount": 93,
     "priceCents": 2110,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "21.10"
   },
@@ -255,7 +255,7 @@
     "name": "Black and Gray Athletic Cotton Socks - 6 Pairs",
     "ratingCount": 87,
     "priceCents": 1090,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "10.90"
   },
@@ -265,7 +265,7 @@
     "name": "Adults Plain Cotton T-Shirt - 2 Pack",
     "ratingCount": 56,
     "priceCents": 799,
-    "extraInfoHTML": "",
+    "isClothing": true,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "7.99"
   },
@@ -275,7 +275,7 @@
     "name": "Sterling Silver Sky Flower Stud Earrings",
     "ratingCount": 52,
     "priceCents": 1799,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "17.99"
   },
@@ -285,7 +285,7 @@
     "name": "Round Sunglasses",
     "ratingCount": 30,
     "priceCents": 1560,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-45.png",
     "price": "15.60"
   },
@@ -295,7 +295,7 @@
     "name": "Duvet Cover Set with Zipper Closure",
     "ratingCount": 456,
     "priceCents": 2399,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "23.99"
   },
@@ -305,7 +305,7 @@
     "name": "Women's Knit Ballet Flat",
     "ratingCount": 326,
     "priceCents": 2640,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "26.40"
   },
@@ -315,7 +315,7 @@
     "name": "Men's Athletic Sneaker",
     "ratingCount": 229,
     "priceCents": 3890,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "38.90"
   },
@@ -325,7 +325,7 @@
     "name": "Straw Lifeguard Sun Hat",
     "ratingCount": 215,
     "priceCents": 2200,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "22.00"
   },
@@ -335,7 +335,7 @@
     "name": "Men's Slim-Fit Summer Shorts",
     "ratingCount": 160,
     "priceCents": 1699,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "16.99"
   },
@@ -345,7 +345,7 @@
     "name": "Intermediate Size Basketball",
     "ratingCount": 127,
     "priceCents": 2095,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "20.95"
   },
@@ -355,7 +355,7 @@
     "name": "Round Airtight Food Storage Containers - 5 Piece",
     "ratingCount": 126,
     "priceCents": 2899,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "28.99"
   },
@@ -365,7 +365,7 @@
     "name": "Ultra Soft Tissue 2-Ply - 18 Box",
     "ratingCount": 99,
     "priceCents": 2374,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "23.74"
   },
@@ -375,7 +375,7 @@
     "name": "Waterproof Knit Athletic Sneakers - Gray",
     "ratingCount": 89,
     "priceCents": 3390,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "33.90"
   },
@@ -385,7 +385,7 @@
     "name": "Waterproof Knit Athletic Sneakers - Pink",
     "ratingCount": 89,
     "priceCents": 3390,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "33.90"
   },
@@ -395,7 +395,7 @@
     "name": "6 Piece White Dinner Plate Set",
     "ratingCount": 37,
     "priceCents": 2067,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "20.67"
   },
@@ -405,7 +405,7 @@
     "name": "Synergie Skin AlgiZome",
     "ratingCount": 23,
     "priceCents": 10000,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "100.00"
   },
@@ -415,7 +415,7 @@
     "name": "Countertop Blender - 64oz, 1400 Watts",
     "ratingCount": 3,
     "priceCents": 10747,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-40.png",
     "price": "107.47"
   },
@@ -425,7 +425,7 @@
     "name": "Men's Navigator Sunglasses Pilot",
     "ratingCount": 42,
     "priceCents": 1690,
-    "extraInfoHTML": "",
+    "isClothing": false,
     "starsUrl": "/images/ratings/rating-35.png",
     "price": "16.90"
   }

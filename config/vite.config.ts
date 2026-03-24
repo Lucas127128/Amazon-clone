@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
-import TurboConsole from 'unplugin-turbo-console/vite';
 import { GLOBAL_CONFIG } from './constants';
 import htmlPurge from 'vite-plugin-purgecss';
 // import { analyzer, unstableRolldownAdapter } from 'vite-bundle-analyzer';
@@ -41,12 +40,6 @@ export default defineConfig({
   // experimental: { bundledDev: true },
   plugins: [
     htmlMinifier({ minify: true }),
-    TurboConsole({
-      highlight: {
-        extendedPathFileNames: ['index', 'checkout', 'order', 'tracking'],
-        themeDetect: true,
-      },
-    }),
     htmlPurge({}),
     // unstableRolldownAdapter(analyzer({ openAnalyzer: true })),
     // DevTools(),
