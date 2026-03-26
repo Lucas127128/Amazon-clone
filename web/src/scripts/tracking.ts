@@ -4,10 +4,10 @@ import {
   fetchProducts,
 } from '#root/shared/src/data/products.ts';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
-import { checkNullish } from '../../../shared/src/utils/typeChecker';
+import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import { getMatchingCart } from '#root/shared/src/data/cart.ts';
 import { handleSearchInput } from './header';
-import { policy } from '../../../shared/src/utils/trustedTypes';
+import { policy } from '#root/shared/src/utils/trustedTypes.ts';
 import { Order } from '#root/shared/src/schema.ts';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
 

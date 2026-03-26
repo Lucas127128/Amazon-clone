@@ -17,6 +17,10 @@ describe.concurrent('test suite: generateTrackingHTML', () => {
     checkNullish(matchingProduct);
     checkNullish(matchingCart);
 
+    console.log(
+      generateTrackingHTML(matchingProduct, order, matchingCart),
+    );
+
     const trackingHTML = generateTrackingHTML(
       matchingProduct,
       order,

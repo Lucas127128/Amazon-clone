@@ -4,13 +4,13 @@ import {
 } from '#root/shared/src/data/products.ts';
 import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
 import { getTimeString } from '#root/shared/src/data/orders.ts';
-import { checkNullish } from '../../../shared/src/utils/typeChecker.ts';
+import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
 } from './htmlGenerators/ordersHTML.ts';
 import { handleSearchInput } from './header.ts';
-import { policy } from '../../../shared/src/utils/trustedTypes.ts';
+import { policy } from '#root/shared/src/utils/trustedTypes.ts';
 import {
   CART_CONFIG,
   STORAGE_KEYS,

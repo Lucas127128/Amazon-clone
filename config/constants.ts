@@ -2,8 +2,6 @@ import { Temporal } from 'temporal-polyfill-lite';
 
 export const UI_TIMEOUTS = {
   ADDED_TO_CART_DISPLAY: 1500, // ms
-  //TODO: Implement search debounce using AbortController
-  SEARCH_DEBOUNCE: 300, // ms
 } as const;
 
 export const FETCH_CONFIG = {

@@ -11,12 +11,12 @@ import {
 } from '#root/shared/src/data/products.ts';
 import { Cart } from '#root/shared/src/schema.ts';
 import { effect } from '@preact/signals-core';
-import { policy } from '../../../../shared/src/utils/trustedTypes.ts';
+import { policy } from '#root/shared/src/utils/trustedTypes.ts';
 import {
   checkNullish,
   isDeliveryOptionId,
   isHTMLInputElement,
-} from '../../../../shared/src/utils/typeChecker.ts';
+} from '#root/shared/src/utils/typeChecker.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 import 'typed-query-selector';
 

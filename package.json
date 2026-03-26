@@ -18,7 +18,7 @@
     "build:backend": "bun build --compile --minify --sourcemap --bytecode --format='esm' ./server/src/api/index.ts ",
     "remove-build-cache": " find . -name '*.bun-build' -type f -delete ",
     "exec-api": "./api",
-    "api": "bun run --parallel build:backend allow-certs && bun run --parallel exec-api remove-build-cache",
+    "api": "bun run --parallel build:backend && bun run --parallel exec-api remove-build-cache",
     "api:dev": "bun run --watch ./server/src/api/server.ts",
     "lint": "oxlint -c ./oxlint.config.ts",
     "lint:fix": "oxlint --fix",
@@ -43,7 +43,7 @@
     "valibot": "^1.3.1"
   },
   "devDependencies": {
-    "@happy-dom/global-registrator": "^20.8.7",
+    "@happy-dom/global-registrator": "^20.8.8",
     "@playwright/test": "^1.58.2",
     "@types/bun": "^1.3.11",
     "@types/trusted-types": "^2.0.7",
@@ -57,7 +57,7 @@
     "oxlint-tsgolint": "^0.16.0",
     "playwright": "^1.58.2",
     "sharp": "^0.34.5",
-    "vite": "^8.0.2",
+    "vite": "^8.0.3",
     "vite-bundle-analyzer": "^1.3.6",
     "vite-plugin-html-minifier": "^1.0.5",
     "vite-plugin-purgecss": "^0.2.13",
