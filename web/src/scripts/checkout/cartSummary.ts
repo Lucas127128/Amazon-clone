@@ -9,16 +9,17 @@ import {
   getMatchingProduct,
   fetchProducts,
 } from '#root/shared/src/data/products.ts';
-import { Cart } from '#root/shared/src/schema.ts';
+import type { Cart } from '#root/shared/src/schema.ts';
+import { DeliveryOptionIdSchema } from '#root/shared/src/schema.ts';
 import { effect } from '@preact/signals-core';
 import { policy } from '#root/shared/src/utils/trustedTypes.ts';
 import {
   checkNullish,
-  isDeliveryOptionId,
   isHTMLInputElement,
 } from '#root/shared/src/utils/typeChecker.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 import 'typed-query-selector';
+import { parse } from 'valibot';
 
 let controller = new AbortController();
 
@@ -56,7 +57,7 @@ export async function renderOrderSummary(cart: Cart[]) {
 
   function handleUpdateQuantity(target: HTMLElement, productId: string) {
     const quantityInputHTML = target?.parentElement?.querySelector(
-      `input.quantity_Input_${productId}`,
+      `input.quantity-input-${productId}`,
     );
     const saveQuantityHTML = target?.parentElement?.querySelector(
       `span.save-quantity-link-${productId}`,
@@ -72,7 +73,7 @@ export async function renderOrderSummary(cart: Cart[]) {
     productId: string,
   ) {
     const quantityInput = cartItemContainer.querySelector(
-      'input.quantity_Input',
+      'input.quantity-input',
     );
     checkNullish(quantityInput);
     addToCart(
@@ -94,7 +95,7 @@ export async function renderOrderSummary(cart: Cart[]) {
     cartItemContainer.addEventListener(
       'click',
       async (event) => {
-        const target = <HTMLElement>event.target;
+        const target = event.target as HTMLElement;
         const targetClassList = Array.from(target.classList);
 
         if (targetClassList.includes('update-quantity-link')) {
@@ -111,10 +112,10 @@ export async function renderOrderSummary(cart: Cart[]) {
     cartItemContainer.addEventListener(
       'keyup',
       async (event: KeyboardEvent) => {
-        const target = <HTMLElement>event.target;
+        const target = event.target as HTMLElement;
         const targetClassList = Array.from(target.classList);
         if (
-          targetClassList.includes('quantity_Input') &&
+          targetClassList.includes('quantity-input') &&
           event.key === 'Enter'
         ) {
           await handleSaveQuantity(cartItemContainer, productId);
@@ -130,11 +131,10 @@ export async function renderOrderSummary(cart: Cart[]) {
 
         if (!targetClassList.includes('delivery-option-input')) return;
         const { deliveryChoiceId } = event.target.dataset;
-        isDeliveryOptionId(
-          deliveryChoiceId,
-          'Fail to get productId from HTML dataset',
+        updateDeliveryOption(
+          productId,
+          parse(DeliveryOptionIdSchema, deliveryChoiceId),
         );
-        updateDeliveryOption(productId, deliveryChoiceId);
       },
       { signal },
     );

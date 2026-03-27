@@ -13,7 +13,7 @@
   border: 0.4px solid #dedddd;
 
   display: grid;
-  grid-template-rows: 1fr 0.29fr 0.15fr 0.15fr 0.15fr 0.15fr 0.14fr;
+  grid-template-rows: 1fr 0.29fr 0.15fr 0.15fr 0.15fr 0.15fr 0.14fr 0.07fr;
   grid-template-areas:
     'image'
     'name'
@@ -21,7 +21,8 @@
     'price'
     'quantity'
     'added-to-cart'
-    'add-to-cart-button';
+    'add-to-cart-button'
+    'size-chart';
 }
 
 .product-image-container {
@@ -92,6 +93,7 @@
 
   grid-area: add-to-cart-button;
 }
-.display-added-to-cart {
-  opacity: 1;
+
+.size-chart-container {
+  grid-area: 'size-chart';
 }

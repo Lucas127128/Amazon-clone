@@ -1,4 +1,4 @@
-import { Cart } from '#root/shared/src/schema.ts';
+import { type Cart } from '#root/shared/src/schema.ts';
 import { type Product } from '#root/shared/src/data/products.ts';
 import {
   deliveryOptions,
@@ -70,8 +70,7 @@ export function generateCartSummary(
               min="1"
               max="10"
               value="${cartItem.quantity}"
-              class="quantity_Input_${matchingProduct.id} quantity_Input"
-              style="width: 40px;"
+              class="quantity-input-${matchingProduct.id} quantity-input"
             />
             <span
               class="save-quantity-link-${matchingProduct.id} link-primary save-quantity-link"

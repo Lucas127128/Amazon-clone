@@ -1,7 +1,6 @@
 import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
 import {
   fetchProducts,
-  getMatchingProduct,
   type Product,
 } from '#root/shared/src/data/products.ts';
 import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
@@ -34,21 +33,6 @@ async function renderAmazonHomePage() {
   const trustedProductsHTML = policy?.createHTML(productsHTML);
   checkNullish(trustedProductsHTML);
   productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);
-  Promise.resolve()
-    .then(() => {
-      const productContainers = document.querySelectorAll(
-        'div.product-container',
-      );
-      for (const productContainer of productContainers) {
-        const sizeChart = productContainer.querySelector('a.size-chart');
-        const { productId } = productContainer.dataset;
-        checkNullish(productId);
-        checkNullish(sizeChart);
-        const product = getMatchingProduct(products, productId);
-        sizeChart.style.opacity = product?.isClothing ? '1' : '0';
-      }
-    })
-    .catch((err) => console.error(err));
 
   let timer: NodeJS.Timeout;
   function displayAdded(productId: string) {
@@ -65,7 +49,7 @@ async function renderAmazonHomePage() {
   }
 
   productsGrid.addEventListener('click', (event) => {
-    const button = <HTMLElement>event.target;
+    const button = event.target as HTMLElement;
     if (!button.classList.contains('add-to-cart-button')) return;
 
     const { productId } = button.dataset;

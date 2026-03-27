@@ -1,5 +1,5 @@
 import { test, describe, expect } from 'bun:test';
-import { Cart, Order } from '#root/shared/src/schema.ts';
+import type { Cart, Order } from '#root/shared/src/schema.ts';
 import { fetchOrders } from '#root/shared/src/data/orders.ts';
 
 describe.concurrent('order api test', async () => {

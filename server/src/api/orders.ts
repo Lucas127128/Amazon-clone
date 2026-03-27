@@ -4,8 +4,12 @@ import { Temporal } from 'temporal-polyfill-lite';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
 import { nanoid } from 'nanoid';
 import { OrderSchema, CartSchemaArray } from '#root/shared/src/schema.ts';
-import { Cart, RawProduct, OrderType } from '#root/shared/src/schema.ts';
-import { Exact } from 'type-fest';
+import type {
+  Cart,
+  RawProduct,
+  OrderType,
+} from '#root/shared/src/schema.ts';
+import type { Exact } from 'type-fest';
 import { minLength, pipe } from 'valibot';
 
 const rawProducts: RawProduct[] = await Bun.file(

@@ -8,15 +8,15 @@ import {
   cartQuantity,
 } from '#root/shared/src/data/cart.ts';
 import cartJson from '../../cart.json';
-import { Cart } from '#root/shared/src/schema.ts';
+import type { Cart } from '#root/shared/src/schema.ts';
 
 beforeEach(() => {
-  cart.value = <Cart[]>[cartJson[0], cartJson[1], cartJson[2]];
+  cart.value = [cartJson[0], cartJson[1], cartJson[2]] as Cart[];
 });
 
 describe.concurrent('test suite: addToCart', () => {
   test('add a new product to cart', async () => {
-    addToCart(<Cart>cartJson[3]);
+    addToCart(cartJson[3] as Cart);
     expect(cart.value.length).toBe(4);
   });
   test('incrementally add an existing product to cart', async () => {
@@ -56,7 +56,7 @@ describe.concurrent('test suite: updateDeliveryOption', () => {
 describe.concurrent('test suite: calculateCartQuantity', () => {
   test('display cart quantity', async () => {
     const cartJson = await Bun.file('./tests/normal/cart.json').json();
-    cart.value = <Cart[]>[cartJson[0], cartJson[1], cartJson[2]];
+    cart.value = [cartJson[0], cartJson[1], cartJson[2]] as Cart[];
     expect(cartQuantity.value).toBe(7);
   });
 });

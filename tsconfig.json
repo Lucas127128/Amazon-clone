@@ -10,7 +10,7 @@
     "target": "esnext",
     "strict": true,
     "skipLibCheck": true,
-    // "types": ["trusted-types", "bun-types"],
+    "types": ["trusted-types", "bun-types"],
     "forceConsistentCasingInFileNames": true
   }
 }

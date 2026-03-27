@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia';
-import MiniSearch, { SearchResult } from 'minisearch';
+import type { SearchResult } from 'minisearch';
+import MiniSearch from 'minisearch';
 import { SearchResultSchema } from '#root/shared/src/schema.ts';
 import { array } from 'valibot';
 

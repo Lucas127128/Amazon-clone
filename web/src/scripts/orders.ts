@@ -16,7 +16,7 @@ import {
   STORAGE_KEYS,
   UI_TIMEOUTS,
 } from '#root/config/constants.ts';
-import { Order } from '#root/shared/src/schema.ts';
+import type { Order } from '#root/shared/src/schema.ts';
 import { effect } from '@preact/signals-core';
 
 async function renderPlacedOrder() {
@@ -79,7 +79,7 @@ async function renderPlacedOrder() {
     }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
   }
   ordersHTML.addEventListener('click', (event) => {
-    let buyAgainButton = <HTMLButtonElement>event.target;
+    let buyAgainButton = event.target as HTMLButtonElement;
     /*
     The event target may be the child element inside the buy again button and
     do not contain the "buy-again-button" class. If this is the situation,
@@ -95,7 +95,7 @@ async function renderPlacedOrder() {
       !buyAgainButton.classList.contains('buy-again-button') &&
       buyAgainButton.parentElement?.classList.contains('buy-again-button')
     ) {
-      buyAgainButton = <HTMLButtonElement>buyAgainButton.parentElement;
+      buyAgainButton = buyAgainButton.parentElement as HTMLButtonElement;
     }
 
     const { productId } = buyAgainButton.dataset;

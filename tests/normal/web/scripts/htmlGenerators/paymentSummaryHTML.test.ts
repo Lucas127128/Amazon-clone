@@ -1,4 +1,5 @@
-import { calculatePrices, Prices } from '#root/shared/src/data/payment.ts';
+import type { Prices } from '#root/shared/src/data/payment.ts';
+import { calculatePrices } from '#root/shared/src/data/payment.ts';
 import { describe, expect, test } from 'bun:test';
 import products from '../../../products.json';
 import { generatePaymentSummary } from '#root/web/src/scripts/htmlGenerators/paymentSummaryHTML.ts';

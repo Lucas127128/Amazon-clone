@@ -45,7 +45,7 @@ jobs:
       - name: Install dependency
         run: bun install
       - name: Lint
-        run: bun run lint
+        run: bun lint
 
   format:
     runs-on: ubuntu-latest

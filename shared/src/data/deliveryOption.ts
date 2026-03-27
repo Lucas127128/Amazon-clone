@@ -79,5 +79,5 @@ export function getDeliveryPriceCents(deliveryOptionId: DeliveryOptionId) {
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
   checkNullish(matchingDeliveryOption);
-  return matchingDeliveryOption?.priceCents;
+  return matchingDeliveryOption.priceCents;
 }

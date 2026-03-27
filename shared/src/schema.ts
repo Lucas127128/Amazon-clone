@@ -1,3 +1,4 @@
+import type { InferOutput } from 'valibot';
 import {
   object,
   number,
@@ -7,7 +8,6 @@ import {
   pipe,
   isoTimestamp,
   array,
-  InferOutput,
   minValue,
   maxValue,
   any,

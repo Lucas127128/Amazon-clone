@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import { GLOBAL_CONFIG } from './constants';
 import htmlPurge from 'vite-plugin-purgecss';
-// import { analyzer, unstableRolldownAdapter } from 'vite-bundle-analyzer';
+import { bundleStats } from 'rollup-plugin-bundle-stats';
 // import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
@@ -41,7 +41,7 @@ export default defineConfig({
   plugins: [
     htmlMinifier({ minify: true }),
     htmlPurge({}),
-    // unstableRolldownAdapter(analyzer({ openAnalyzer: true })),
+    bundleStats(),
     // DevTools(),
   ],
   css: {

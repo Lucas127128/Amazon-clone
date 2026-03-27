@@ -1,7 +1,7 @@
 import { Temporal } from 'temporal-polyfill-lite';
-import { Cart } from '../schema';
+import type { Cart } from '../schema';
 import { getDeliveryDateISO } from './deliveryOption';
-import { Order } from '../schema';
+import type { Order } from '../schema';
 import { pipe } from 'fp-ts/function';
 
 export function getDeliveryProgress(order: Order, matchingCart: Cart) {

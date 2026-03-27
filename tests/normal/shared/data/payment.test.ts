@@ -1,12 +1,10 @@
 import { describe, test, expect } from 'bun:test';
 import rawProducts from '#root/server/src/api/rawProducts.json';
 import clothings from '#root/server/src/api/clothing.json';
-import { Cart } from '#root/shared/src/schema.ts';
+import type { Cart } from '#root/shared/src/schema.ts';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
-import {
-  Product,
-  transformProducts,
-} from '#root/shared/src/data/products.ts';
+import type { Product } from '#root/shared/src/data/products.ts';
+import { transformProducts } from '#root/shared/src/data/products.ts';
 
 describe.concurrent('test suite: calculatePrices', () => {
   const cart: Cart[] = [

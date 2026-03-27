@@ -1,16 +1,16 @@
-import { Cart } from '../schema';
+import type { Cart } from '../schema';
 import { checkNullish } from '../utils/typeChecker';
 import { getMatchingProduct, type Product } from './products';
 import { getDeliveryPriceCents } from './deliveryOption';
 
-export interface Prices {
+export type Prices = {
   totalProductPrice: number;
   totalDeliveryFee: number;
   cartQuantity: number;
   totalPriceBeforeTax: number;
   totalTax: number;
   totalOrderPrice: number;
-}
+};
 
 export function calculatePrices(
   cart: Cart[],

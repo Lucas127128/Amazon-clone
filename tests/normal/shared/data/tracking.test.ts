@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test';
 import order from '../../order.json' with { type: 'json' };
 // import cart from '../../cart.json' with { type: 'json' };
 import { getDeliveryProgress } from '#root/shared/src/data/tracking.ts';
-import { Cart, Order } from '#root/shared/src/schema.ts';
+import type { Cart, Order } from '#root/shared/src/schema.ts';
 import { getMatchingCart } from '#root/shared/src/data/cart.ts';
 import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 

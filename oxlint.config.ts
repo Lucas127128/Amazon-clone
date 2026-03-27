@@ -39,6 +39,13 @@ export default defineConfig({
     'unicorn/no-lonely-if': 'error',
     'typescript/no-namespace': 'error',
     'oxc/no-map-spread': 'error',
+    'typescript/array-type': 'error',
+    'typescript/class-literal-property-style': 'error',
+    'typescript/consistent-generic-constructors': 'error',
+    'typescript/consistent-indexed-object-style': 'error',
+    'typescript/consistent-type-assertions': 'error',
+    'typescript/consistent-type-definitions': ['error', 'type'],
+    'typescript/consistent-type-imports': 'error',
   },
   settings: {
     vitest: {

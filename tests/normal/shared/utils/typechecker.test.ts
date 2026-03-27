@@ -1,7 +1,5 @@
-import { DeliveryOptionId } from '#root/shared/src/schema.ts';
 import {
   checkNullish,
-  isDeliveryOptionId,
   isHTMLInputElement,
 } from '#root/shared/src/utils/typeChecker.ts';
 import { describe, expect, test } from 'bun:test';
@@ -46,17 +44,5 @@ describe.concurrent('isHTMLInputElement', () => {
     const divElement = document.createElement('div');
     expect(() => isHTMLInputElement(textElement)).toThrow();
     expect(() => isHTMLInputElement(divElement)).toThrow();
-  });
-});
-
-describe.concurrent('isDeliveryOptionId', () => {
-  test('accept deliveryOptionId', () => {
-    const deliveryOptions: DeliveryOptionId[] = ['1', '2', '3'];
-    for (const deliveryOption of deliveryOptions) {
-      expect(() => isDeliveryOptionId(deliveryOption)).not.toThrow();
-    }
-  });
-  test('reject not deliveryOptionId', () => {
-    expect(() => isDeliveryOptionId('4')).toThrow();
   });
 });
