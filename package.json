@@ -19,7 +19,7 @@
     "exec-api": "./api",
     "api": "bun run ./config/bun-build.ts && bun run --parallel exec-api remove-build-cache",
     "api:dev": "bun run --watch ./server/src/api/server.ts",
-    "lint": "oxlint -c ./oxlint.config.ts",
+    "lint": "bunx --bun oxlint -c ./oxlint.config.ts",
     "fmt": "oxfmt",
     "knip": "knip -c ./config/knip.ts"
   },
