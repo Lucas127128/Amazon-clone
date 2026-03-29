@@ -8,7 +8,10 @@ import { signal, effect, computed } from '@preact/signals-core';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
 
 export const cart: Signal<Cart[]> = signal(
-  JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_STATE) ?? '[]'),
+  parse(
+    CartSchemaArray,
+    JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_STATE) ?? '[]'),
+  ),
 );
 effect(() => {
   localStorage.setItem(

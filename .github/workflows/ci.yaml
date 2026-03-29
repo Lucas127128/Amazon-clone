@@ -58,7 +58,7 @@ jobs:
       - name: Install dependency
         run: bun install
       - name: check fmt
-        run: bun run fmt --check
+        run: bun fmt --check
 
   audit:
     runs-on: ubuntu-latest
@@ -70,3 +70,14 @@ jobs:
         uses: oven-sh/setup-bun@v2
       - name: Audit with bun
         run: bun audit --prod
+
+  declutter:
+    runs-on: ubuntu-latest
+    name: Check unused deps and files
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+      - name: Check unused deps and files
+        run: bun knip

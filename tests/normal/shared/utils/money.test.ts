@@ -1,7 +1,7 @@
 import { test, describe, expect } from 'bun:test';
-import { formatCurrency } from '#root/shared/src/utils/money.ts';
+import { formatCurrency } from '#utils/money.ts';
 
-describe.concurrent('test suite: FormatCurrency', () => {
+describe.concurrent('formatCurrency', () => {
   test('converts cents into dollars', async () => {
     expect(formatCurrency(2095)).toBe('20.95');
   });

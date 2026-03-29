@@ -7,7 +7,6 @@ import type { HttpMethods } from '../schema';
 type CacheData = {
   body: string;
   time: Temporal.InstantLike;
-  ttl: Temporal.DurationLike;
 };
 
 type CacheKey =
@@ -16,10 +15,15 @@ type CacheKey =
 
 const cacheMap = new Map<CacheKey, CacheData>();
 
-async function _cachedFetch(
+async function cachedFetch(
   input: string | URL | Request,
   init?: RequestInit,
 ) {
+  try {
+    if (Bun.env.NODE_ENV === 'test') return fetch(input, init);
+  } catch (err) {
+    const _err = err;
+  }
   const url =
     typeof input === 'string'
       ? input
@@ -39,7 +43,7 @@ async function _cachedFetch(
   const cacheData = cacheMap?.get(cacheKey);
   if (
     cacheData &&
-    now.since(cacheData?.time).subtract(cacheData.ttl).seconds < 0
+    now.since(cacheData?.time).subtract(FETCH_CONFIG.CACHE_TTL).seconds < 0
   )
     return new Response(cacheData.body);
 
@@ -51,7 +55,6 @@ async function _cachedFetch(
       const cacheData = {
         body: await response.clone().text(),
         time: now.toJSON(),
-        ttl: FETCH_CONFIG.CACHE_TTL.toJSON(),
       };
       cacheMap.set(cacheKey, cacheData);
     })
@@ -60,5 +63,5 @@ async function _cachedFetch(
 }
 
 export const app = treaty<App>(GLOBAL_CONFIG.API_URL, {
-  // fetcher: cachedFetch as typeof fetch,
+  fetcher: cachedFetch as typeof fetch,
 });

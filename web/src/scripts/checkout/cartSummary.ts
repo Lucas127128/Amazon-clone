@@ -4,33 +4,23 @@ import {
   addToCart,
   updateDeliveryOption,
   cartQuantity,
-} from '#root/shared/src/data/cart.ts';
+} from '#data/cart.ts';
+import { getMatchingProduct, fetchProducts } from '#data/products.ts';
 import {
-  getMatchingProduct,
-  fetchProducts,
-} from '#root/shared/src/data/products.ts';
-import type { Cart } from '#root/shared/src/schema.ts';
-import { DeliveryOptionIdSchema } from '#root/shared/src/schema.ts';
+  DeliveryOptionIdSchema,
+  type Cart,
+} from '#root/shared/src/schema.ts';
 import { effect } from '@preact/signals-core';
-import { policy } from '#root/shared/src/utils/trustedTypes.ts';
-import {
-  checkNullish,
-  isHTMLInputElement,
-} from '#root/shared/src/utils/typeChecker.ts';
+import { policy } from '#utils/trustedTypes.ts';
+import { checkNullish, isHTMLInputElement } from '#utils/typeChecker.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
-import 'typed-query-selector';
 import { parse } from 'valibot';
+import 'typed-query-selector';
 
-let controller = new AbortController();
+const orderSummary = document.querySelector('div.order-summary');
 
 export async function renderOrderSummary(cart: Cart[]) {
-  controller.abort();
-  controller = new AbortController();
-  const { signal } = controller;
-
   const products = await fetchProducts();
-
-  const orderSummary = document.querySelector('.order-summary');
   checkNullish(orderSummary, 'Fail to select HTML element');
   orderSummary.innerHTML = policy?.createHTML('') as any;
   let cartsSummaryHTML = '';
@@ -48,98 +38,6 @@ export async function renderOrderSummary(cart: Cart[]) {
     'beforeend',
     trustedCartsSummaryHTML as any,
   );
-
-  const returnToHomeLink = document.querySelector('.return-to-home-link');
-  checkNullish(returnToHomeLink);
-  effect(() => {
-    returnToHomeLink.textContent = `${cartQuantity.value} items`;
-  });
-
-  function handleUpdateQuantity(target: HTMLElement, productId: string) {
-    const quantityInputHTML = target?.parentElement?.querySelector(
-      `input.quantity-input-${productId}`,
-    );
-    const saveQuantityHTML = target?.parentElement?.querySelector(
-      `span.save-quantity-link-${productId}`,
-    );
-    checkNullish(saveQuantityHTML, 'Fail to select HTML element');
-    checkNullish(quantityInputHTML, 'Fail to select HTML element');
-    quantityInputHTML.style.display = 'inline';
-    saveQuantityHTML.style.display = 'inline';
-  }
-
-  async function handleSaveQuantity(
-    cartItemContainer: Element,
-    productId: string,
-  ) {
-    const quantityInput = cartItemContainer.querySelector(
-      'input.quantity-input',
-    );
-    checkNullish(quantityInput);
-    addToCart(
-      {
-        productId: productId,
-        quantity: Number(quantityInput.value),
-        deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
-      },
-      false,
-    );
-  }
-  const cartItemContainers = document.querySelectorAll<HTMLElement>(
-    '.cart-item-container',
-  );
-  for (const cartItemContainer of cartItemContainers) {
-    const { productId } = cartItemContainer.dataset;
-    checkNullish(productId, 'Fail to get productId from dataset');
-
-    cartItemContainer.addEventListener(
-      'click',
-      async (event) => {
-        const target = event.target as HTMLElement;
-        const targetClassList = Array.from(target.classList);
-
-        if (targetClassList.includes('update-quantity-link')) {
-          handleUpdateQuantity(target, productId);
-        } else if (targetClassList.includes('save-quantity-link')) {
-          await handleSaveQuantity(cartItemContainer, productId);
-        } else if (targetClassList.includes('delete-quantity-link')) {
-          removeFromCart(productId);
-        }
-      },
-      { signal },
-    );
-
-    cartItemContainer.addEventListener(
-      'keyup',
-      async (event: KeyboardEvent) => {
-        const target = event.target as HTMLElement;
-        const targetClassList = Array.from(target.classList);
-        if (
-          targetClassList.includes('quantity-input') &&
-          event.key === 'Enter'
-        ) {
-          await handleSaveQuantity(cartItemContainer, productId);
-        }
-      },
-    );
-
-    cartItemContainer.addEventListener(
-      'change',
-      async (event) => {
-        isHTMLInputElement(event.target);
-        const targetClassList = Array.from(event.target.classList);
-
-        if (!targetClassList.includes('delivery-option-input')) return;
-        const { deliveryChoiceId } = event.target.dataset;
-        updateDeliveryOption(
-          productId,
-          parse(DeliveryOptionIdSchema, deliveryChoiceId),
-        );
-      },
-      { signal },
-    );
-  }
-
   for (const cartItem of cart) {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
@@ -151,3 +49,86 @@ export async function renderOrderSummary(cart: Cart[]) {
     deliveryOptionButtonHTML.checked = true;
   }
 }
+
+const returnToHomeLink = document.querySelector('.return-to-home-link');
+checkNullish(returnToHomeLink);
+effect(() => {
+  returnToHomeLink.textContent = `${cartQuantity.value} items`;
+});
+
+function handleUpdateQuantity(target: HTMLElement, productId: string) {
+  const quantityInputHTML = target?.parentElement?.querySelector(
+    `input.quantity-input-${productId}`,
+  );
+  const saveQuantityHTML = target?.parentElement?.querySelector(
+    `span.save-quantity-link-${productId}`,
+  );
+  checkNullish(saveQuantityHTML, 'Fail to select HTML element');
+  checkNullish(quantityInputHTML, 'Fail to select HTML element');
+  quantityInputHTML.style.display = 'inline';
+  saveQuantityHTML.style.display = 'inline';
+}
+
+async function handleSaveQuantity(
+  cartItemContainer: HTMLElement,
+  productId: string,
+) {
+  const quantityInput = cartItemContainer.querySelector(
+    'input.quantity-input',
+  );
+  checkNullish(quantityInput);
+  addToCart(
+    {
+      productId: productId,
+      quantity: Number(quantityInput.value),
+      deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+    },
+    false,
+  );
+}
+
+function handleOrderEvent(event: Event) {
+  const target = event.target as HTMLElement;
+  const cartItemContainer = target?.closest('div.cart-item-container');
+  checkNullish(cartItemContainer);
+  const { productId } = cartItemContainer.dataset;
+  checkNullish(productId, 'Fail to get productId from dataset');
+  return {
+    classList: Array.from(target.classList),
+    productId,
+    cartItemContainer,
+  };
+}
+
+orderSummary?.addEventListener('click', async (event) => {
+  const { classList, productId, cartItemContainer } =
+    handleOrderEvent(event);
+  const target = event.target as HTMLElement;
+
+  if (classList.includes('update-quantity-link')) {
+    handleUpdateQuantity(target, productId);
+  } else if (classList.includes('save-quantity-link')) {
+    await handleSaveQuantity(cartItemContainer, productId);
+  } else if (classList.includes('delete-quantity-link')) {
+    removeFromCart(productId);
+  }
+});
+
+orderSummary?.addEventListener('keyup', async (event: KeyboardEvent) => {
+  const { classList, productId, cartItemContainer } =
+    handleOrderEvent(event);
+  if (classList.includes('quantity-input') && event.key === 'Enter')
+    await handleSaveQuantity(cartItemContainer, productId);
+});
+
+orderSummary?.addEventListener('change', async (event) => {
+  const { classList, productId } = handleOrderEvent(event);
+  const { target } = event;
+  isHTMLInputElement(target);
+  if (!classList.includes('delivery-option-input')) return;
+  const { deliveryChoiceId } = target.dataset;
+  updateDeliveryOption(
+    productId,
+    parse(DeliveryOptionIdSchema, deliveryChoiceId),
+  );
+});

@@ -1,10 +1,7 @@
-import {
-  getMatchingProduct,
-  fetchProducts,
-} from '#root/shared/src/data/products.ts';
-import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
-import { getTimeString } from '#root/shared/src/data/orders.ts';
-import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
+import { getMatchingProduct, fetchProducts } from '#data/products.ts';
+import { addToCart, cartQuantity } from '#data/cart.ts';
+import { getTimeString } from '#data/orders.ts';
+import { checkNullish } from '#utils/typeChecker.ts';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,

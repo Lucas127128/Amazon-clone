@@ -1,7 +1,4 @@
-import {
-  getMatchingProduct,
-  fetchProducts,
-} from '#root/shared/src/data/products.ts';
+import { getMatchingProduct, fetchProducts } from '#data/products.ts';
 import { app } from '#root/shared/src/data/edenTreaty.ts';
 import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import 'typed-query-selector';

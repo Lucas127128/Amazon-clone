@@ -3,6 +3,7 @@ import { defineConfig } from 'oxlint';
 export default defineConfig({
   categories: {},
   jsPlugins: ['eslint-plugin-depend'],
+  plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'promise', 'import'],
   rules: {
     'no-unused-expressions': ['warn', { allowTernary: true }],
     'no-param-reassign': 'error',
@@ -46,6 +47,13 @@ export default defineConfig({
     'typescript/consistent-type-assertions': 'error',
     'typescript/consistent-type-definitions': ['error', 'type'],
     'typescript/consistent-type-imports': 'error',
+    'promise/avoid-new': 'error',
+    'typescript/no-confusing-non-null-assertion': 'error',
+    'typescript/no-dynamic-delete': 'error',
+    'typescript/no-empty-interface': 'error',
+    'typescript/no-empty-object-type': 'error',
+    'typescript/no-extraneous-class': 'error',
+    'typescript/no-import-type-side-effects': 'error',
   },
   settings: {
     vitest: {

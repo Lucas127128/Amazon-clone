@@ -1,10 +1,10 @@
-import { type Cart } from '#root/shared/src/schema.ts';
-import { type Product } from '#root/shared/src/data/products.ts';
+import type { Cart } from '#root/shared/src/schema.ts';
+import type { Product } from '#data/products.ts';
 import {
   deliveryOptions,
   getDeliveryDate,
   getPriceString,
-} from '#root/shared/src/data/deliveryOption.ts';
+} from '#data/deliveryOption.ts';
 
 const html = String.raw;
 

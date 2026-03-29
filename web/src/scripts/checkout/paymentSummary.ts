@@ -1,10 +1,9 @@
 import { fetchOrders, getOrders } from '#root/shared/src/data/orders.ts';
-// import { cart } from '#root/shared/src/data/cart.ts';
-import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
+import { checkNullish } from '#utils/typeChecker.ts';
 import { calculatePrices } from '#root/shared/src/data/payment.ts';
 import { fetchProducts } from '#root/shared/src/data/products.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
-import { policy } from '#root/shared/src/utils/trustedTypes.ts';
+import { policy } from '#utils/trustedTypes.ts';
 import type { Cart, Order } from '#root/shared/src/schema.ts';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
 

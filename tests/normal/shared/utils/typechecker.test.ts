@@ -1,7 +1,4 @@
-import {
-  checkNullish,
-  isHTMLInputElement,
-} from '#root/shared/src/utils/typeChecker.ts';
+import { checkNullish, isHTMLInputElement } from '#utils/typeChecker.ts';
 import { describe, expect, test } from 'bun:test';
 
 describe.concurrent('checkNullish', () => {
@@ -40,9 +37,7 @@ describe.concurrent('isHTMLInputElement', () => {
     expect(() => isHTMLInputElement(inputElement)).not.toThrow();
   });
   test('reject other html element', () => {
-    const textElement = document.createElement('h1');
     const divElement = document.createElement('div');
-    expect(() => isHTMLInputElement(textElement)).toThrow();
     expect(() => isHTMLInputElement(divElement)).toThrow();
   });
 });

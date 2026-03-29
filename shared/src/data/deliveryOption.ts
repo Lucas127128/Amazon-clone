@@ -1,6 +1,6 @@
 import { Temporal } from 'temporal-polyfill-lite';
 import { formatCurrency } from '../utils/money.ts';
-import { type DeliveryOptionId } from '../schema.ts';
+import type { DeliveryOptionId } from '../schema.ts';
 import { checkNullish } from '../utils/typeChecker.ts';
 
 export const deliveryOptions = [

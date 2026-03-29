@@ -1,11 +1,11 @@
 /// <reference lib="dom" />
 import { beforeAll, describe, expect, test } from 'bun:test';
 import type { Cart } from '#root/shared/src/schema.ts';
-import { type Product } from '#root/shared/src/data/products.ts';
-import { formatCurrency } from '#root/shared/src/utils/money.ts';
+import type { Product } from '#data/products.ts';
+import { formatCurrency } from '#utils/money.ts';
 import { renderPaymentSummary } from '#root/web/src/scripts/checkout/paymentSummary.ts';
-import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
-import { calculatePrices } from '#root/shared/src/data/payment.ts';
+import { checkNullish } from '#utils/typeChecker.ts';
+import { calculatePrices } from '#data/payment.ts';
 
 const cartJson: Cart[] = await Bun.file('./tests/normal/cart.json').json();
 

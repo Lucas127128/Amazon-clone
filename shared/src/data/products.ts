@@ -1,4 +1,4 @@
-import { formatCurrency } from '../utils/money.ts';
+import { formatCurrency } from '#utils/money.ts';
 import { app } from './edenTreaty.ts';
 import type { RawProduct } from '../schema.ts';
 

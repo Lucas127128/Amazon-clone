@@ -1,7 +1,7 @@
 import type { Cart } from '#root/shared/src/schema.ts';
 import { getDeliveryDate } from '#root/shared/src/data/deliveryOption.ts';
 import type { Order } from '#root/shared/src/schema.ts';
-import { type Product } from '#root/shared/src/data/products.ts';
+import type { Product } from '#root/shared/src/data/products.ts';
 import { getDeliveryProgress } from '#root/shared/src/data/tracking.ts';
 
 export function generateTrackingHTML(

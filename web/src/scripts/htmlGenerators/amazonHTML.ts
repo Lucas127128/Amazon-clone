@@ -1,4 +1,4 @@
-import { type Product } from '#root/shared/src/data/products.ts';
+import type { Product } from '#data/products.ts';
 export function generateAmazonHTML(
   product: Product,
   highFetchPriority: boolean,

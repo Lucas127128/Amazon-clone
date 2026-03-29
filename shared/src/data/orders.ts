@@ -1,8 +1,7 @@
 import { dateFormatOption } from './deliveryOption';
 import { Temporal } from 'temporal-polyfill-lite';
 import { app } from './edenTreaty';
-import type { Order, Cart } from '../schema';
-import { OrderSchemaArray } from '../schema';
+import { type Order, type Cart, OrderSchemaArray } from '../schema';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
 import { parse } from 'valibot';
 

@@ -53,7 +53,7 @@ export const searchPlugin = new Elysia({ prefix: '/api/search' }).get(
     response: array(SearchResultSchema),
     detail: {
       description:
-        'Get the search query using path params and return the products matching the query inside a product array',
+        'Get the search query using path params and return the search result.',
     },
   },
 );

@@ -1,12 +1,9 @@
-import { addToCart, cartQuantity } from '#root/shared/src/data/cart.ts';
-import {
-  fetchProducts,
-  type Product,
-} from '#root/shared/src/data/products.ts';
+import { addToCart, cartQuantity } from '#data/cart.ts';
+import { fetchProducts, type Product } from '#data/products.ts';
 import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import { generateAmazonHTML } from './htmlGenerators/amazonHTML';
 import { handleSearch, handleSearchInput } from './header';
-import { policy } from '#root/shared/src/utils/trustedTypes.ts';
+import { policy } from '#utils/trustedTypes.ts';
 import {
   CART_CONFIG,
   FETCH_CONFIG,

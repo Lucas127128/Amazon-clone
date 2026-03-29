@@ -1,13 +1,10 @@
 import { getMatchingOrder } from '#root/shared/src/data/orders.ts';
-import {
-  getMatchingProduct,
-  fetchProducts,
-} from '#root/shared/src/data/products.ts';
+import { getMatchingProduct, fetchProducts } from '#data/products.ts';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
-import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
-import { getMatchingCart } from '#root/shared/src/data/cart.ts';
+import { checkNullish } from '#utils/typeChecker.ts';
+import { getMatchingCart } from '#data/cart.ts';
 import { handleSearchInput } from './header';
-import { policy } from '#root/shared/src/utils/trustedTypes.ts';
+import { policy } from '#utils/trustedTypes.ts';
 import type { Order } from '#root/shared/src/schema.ts';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
 
