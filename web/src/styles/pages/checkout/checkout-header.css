@@ -1,4 +1,6 @@
 .checkout-header {
+  contain: strict;
+
   height: 3em;
   padding: 1.5vw;
   padding-top: 18px;

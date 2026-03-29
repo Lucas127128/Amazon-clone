@@ -22,7 +22,7 @@
     "api:dev": "bun run --watch ./server/src/api/server.ts",
     "lint": "bunx --bun oxlint -c ./oxlint.config.ts",
     "fmt": "oxfmt",
-    "knip": "knip -c ./config/knip.ts"
+    "knip": "bunx --bun knip -c ./config/knip.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
