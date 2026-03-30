@@ -22,7 +22,8 @@
     "api:dev": "bun run --watch ./server/src/api/server.ts",
     "lint": "bunx --bun oxlint -c ./oxlint.config.ts",
     "fmt": "oxfmt",
-    "knip": "knip -c ./config/knip.ts"
+    "knip": "knip -c ./config/knip.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
@@ -52,6 +53,7 @@
     "@vitejs/devtools": "^0.1.11",
     "@vitest/browser-preview": "^4.1.2",
     "eslint-plugin-depend": "^1.5.0",
+    "husky": "^9.1.7",
     "knip": "^6.1.0",
     "node-modules-inspector": "^1.4.2",
     "oxfmt": "^0.42.0",
