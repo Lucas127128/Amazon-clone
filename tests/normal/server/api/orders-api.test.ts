@@ -2,14 +2,13 @@ import { test, describe, expect } from 'bun:test';
 import type { Cart, Order } from '#root/shared/src/schema.ts';
 import { fetchOrders } from '#root/shared/src/data/orders.ts';
 
-describe.concurrent('order api test', async () => {
-  const cart: Cart[] = await Bun.file('./tests/normal/cart.json').json();
-  const order = await fetchOrders(cart);
+const cart = (await Bun.file('./tests/normal/cart.json').json()) as Cart[];
+const order = await fetchOrders(cart);
 
-  const correctOrder: Order = await Bun.file(
-    './tests/normal/order.json',
-  ).json();
-
+const correctOrder = (await Bun.file(
+  './tests/normal/order.json',
+).json()) as Order;
+describe.concurrent('order api test', () => {
   test('Return right totalCostCents ', async () => {
     expect(order.totalCostCents).toBe(correctOrder.totalCostCents);
   });

@@ -7,8 +7,10 @@ import type { Cart } from '#root/shared/src/schema.ts';
 
 describe.concurrent('test suite: generatePaymentSummary', () => {
   test('generate correct HTML', async () => {
-    const cart = await Bun.file('./tests/normal/cart.json').json();
-    const price: Prices = calculatePrices(cart as Cart[], products);
+    const cart = (await Bun.file(
+      './tests/normal/cart.json',
+    ).json()) as Cart[];
+    const price: Prices = calculatePrices(cart, products);
     const html = generatePaymentSummary(price)
       .replaceAll('\n', '')
       .replaceAll(' ', '');

@@ -2,7 +2,7 @@ import { defineConfig } from 'oxlint';
 
 export default defineConfig({
   categories: {},
-  jsPlugins: ['eslint-plugin-depend'],
+  jsPlugins: ['eslint-plugin-depend', '@preact/eslint-plugin-signals'],
   plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'promise', 'import'],
   rules: {
     'no-unused-expressions': ['warn', { allowTernary: true }],
@@ -53,7 +53,27 @@ export default defineConfig({
     'typescript/no-empty-interface': 'error',
     'typescript/no-empty-object-type': 'error',
     'typescript/no-extraneous-class': 'error',
+    'typescript/no-unnecessary-condition': 'error',
+    'typescript/no-unsafe-assignment': 'error',
+    'typescript/consistent-return': 'error',
+    'typescript/consistent-type-exports': 'error',
+    'typescript/dot-notation': 'error',
+    'typescript/no-deprecated': 'error',
     'typescript/no-import-type-side-effects': 'error',
+    'typescript/no-misused-promises': 'error',
+    'typescript/no-mixed-enums': 'error',
+    'typescript/no-unnecessary-boolean-literal-compare': 'error',
+    'typescript/no-unnecessary-template-expression': 'error',
+    'typescript/no-unnecessary-type-arguments': 'error',
+    'typescript/no-unnecessary-type-assertion': 'error',
+    'typescript/no-unnecessary-type-conversion': 'error',
+    '@preact/signals/no-signal-write-in-computed': 'error',
+    '@preact/signals/no-value-after-await': 'error',
+    '@preact/signals/no-signal-truthiness': 'warn',
+    '@preact/signals/no-signal-in-component-body': 'error',
+    '@preact/signals/no-conditional-value-read': 'error',
+    'promise/always-return': ['warn', { ignoreLastCallback: true }],
+    'promise/catch-or-return': 'error',
   },
   settings: {
     vitest: {

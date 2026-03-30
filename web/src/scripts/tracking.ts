@@ -5,8 +5,9 @@ import { checkNullish } from '#utils/typeChecker.ts';
 import { getMatchingCart } from '#data/cart.ts';
 import { handleSearchInput } from './header';
 import { policy } from '#utils/trustedTypes.ts';
-import type { Order } from '#root/shared/src/schema.ts';
+import { OrderSchemaArray } from '#root/shared/src/schema.ts';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
+import { parse } from 'valibot';
 
 async function renderTrackingSummary() {
   const url = new URL(location.href);
@@ -21,11 +22,11 @@ async function renderTrackingSummary() {
 
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   checkNullish(savedOrders);
-  const orders: Order[] = JSON.parse(savedOrders);
+  const orders = parse(OrderSchemaArray, JSON.parse(savedOrders));
   const matchingOrder = getMatchingOrder(orders, orderId);
   checkNullish(matchingOrder);
 
-  const cart = matchingOrder?.products;
+  const cart = matchingOrder.products;
   const matchingCart = getMatchingCart(cart, productId);
   checkNullish(matchingCart);
 

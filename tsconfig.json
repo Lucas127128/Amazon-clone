@@ -10,7 +10,7 @@
     "target": "esnext",
     "strict": true,
     "skipLibCheck": true,
-    "types": ["trusted-types"],
+    "types": ["trusted-types", "vite/client"],
     "forceConsistentCasingInFileNames": true
   }
 }

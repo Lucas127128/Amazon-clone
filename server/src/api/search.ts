@@ -1,20 +1,26 @@
 import { Elysia } from 'elysia';
-import type { SearchResult } from 'minisearch';
-import MiniSearch from 'minisearch';
-import { SearchResultSchema } from '#root/shared/src/schema.ts';
-import { array } from 'valibot';
+import { create, insertMultiple, search } from '@orama/orama';
+import {
+  RawProductSchemaArray,
+  type SearchResult,
+  SearchResultSchema,
+} from '#root/shared/src/schema.ts';
+import { array, parse } from 'valibot';
 
-const products = await Bun.file(
-  './server/src/api/rawProducts.json',
-).json();
-const productsSearch = new MiniSearch({
-  fields: ['name'],
-  storeFields: ['id'],
+const products = parse(
+  RawProductSchemaArray,
+  await Bun.file('./server/src/api/rawProducts.json').json(),
+);
+
+const productsSearch = create({
+  schema: {
+    name: 'string',
+    id: 'string',
+  },
 });
-productsSearch.addAll(products);
+await insertMultiple(productsSearch, products);
 
 const cachedSearches = new Map<string, SearchResult[]>();
-
 function cleanupCache() {
   const keys = [...cachedSearches.keys()];
   for (const key in cachedSearches) {
@@ -24,30 +30,26 @@ function cleanupCache() {
   }
 }
 
-function setCache(q: string, result: SearchResult[]) {
-  Promise.resolve()
-    .then(() => {
-      cachedSearches.size < 2000
-        ? cachedSearches.set(q, result)
-        : cleanupCache();
-    })
-    .catch((error) => {
-      console.error(`Fail to set cache for products search: ${error}`);
-    });
-}
-
 export const searchPlugin = new Elysia({ prefix: '/api/search' }).get(
   '/products/:q',
-  ({ params: { q } }) => {
-    const cachedSearch = cachedSearches.get(q);
-    if (cachedSearch) return cachedSearch;
-
-    const results = productsSearch.search(q, {
-      fuzzy: 0.1,
-      prefix: true,
+  async ({ params: { q } }) => {
+    if (cachedSearches.size > 2000) {
+      Promise.resolve()
+        .then(() => cleanupCache())
+        .catch((err) => console.error(err));
+    }
+    const results = (
+      await search(productsSearch, {
+        term: q,
+        properties: ['name'],
+        tolerance: 2,
+      })
+    ).hits.map((result) => {
+      const name = result.document.name.replaceAll(q, `<em>${q}</em>`);
+      result.document.name = name;
+      return result.document;
     });
-    setCache(q, results);
-    return results;
+    return cachedSearches.getOrInsert(q, results);
   },
   {
     response: array(SearchResultSchema),

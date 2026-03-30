@@ -40,10 +40,10 @@ async function cachedFetch(
 
   const now = Temporal.Now.instant();
 
-  const cacheData = cacheMap?.get(cacheKey);
+  const cacheData = cacheMap.get(cacheKey);
   if (
     cacheData &&
-    now.since(cacheData?.time).subtract(FETCH_CONFIG.CACHE_TTL).seconds < 0
+    now.since(cacheData.time).subtract(FETCH_CONFIG.CACHE_TTL).seconds < 0
   )
     return new Response(cacheData.body);
 

@@ -39,7 +39,7 @@ async function renderAmazonHomePage() {
     checkNullish(addedToCart, 'Fail to select HTML element');
     addedToCart.style.opacity = '1';
 
-    if (timer) clearTimeout(timer);
+    clearTimeout(timer);
     timer = setTimeout(() => {
       addedToCart.style.opacity = '0';
     }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY);
@@ -76,9 +76,12 @@ async function renderAmazonHomePage() {
   });
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  effect(() => {
-    returnToHomeLink.textContent = `${cartQuantity.value}`;
-  });
+  effect(
+    () => {
+      returnToHomeLink.textContent = `${cartQuantity.value}`;
+    },
+    { name: 'update cart quantity in dom' },
+  );
 
   url.searchParams.delete('q');
   history.replaceState(null, '', url.toString());

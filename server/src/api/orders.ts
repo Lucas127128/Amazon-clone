@@ -1,23 +1,25 @@
 import { Elysia } from 'elysia';
-import { transformProducts } from '#root/shared/src/data/products.ts';
+import { transformProducts } from '#data/products.ts';
 import { Temporal } from 'temporal-polyfill-lite';
-import { calculatePrices } from '#root/shared/src/data/payment.ts';
+import { calculatePrices } from '#data/payment.ts';
 import { nanoid } from 'nanoid';
-import { OrderSchema, CartSchemaArray } from '#root/shared/src/schema.ts';
-import type {
-  Cart,
-  RawProduct,
-  OrderType,
+import {
+  OrderSchema,
+  CartSchemaArray,
+  RawProductSchemaArray,
 } from '#root/shared/src/schema.ts';
+import type { Cart, Order as OrderType } from '#root/shared/src/schema.ts';
 import type { Exact } from 'type-fest';
-import { minLength, pipe } from 'valibot';
+import { array, minLength, parse, pipe, string } from 'valibot';
 
-const rawProducts: RawProduct[] = await Bun.file(
-  './server/src/api/rawProducts.json',
-).json();
-const clothings: string[] = await Bun.file(
-  './server/src/api/clothing.json',
-).json();
+const rawProducts = parse(
+  RawProductSchemaArray,
+  await Bun.file('./server/src/api/rawProducts.json').json(),
+);
+const clothings = parse(
+  array(string()),
+  await Bun.file('./server/src/api/clothing.json').json(),
+);
 const products = transformProducts(rawProducts, clothings);
 
 class Order implements Exact<OrderType, Order> {

@@ -37,10 +37,7 @@ export async function handleSearch(searchQuery: string) {
       searchResult.id,
     );
     checkNullish(matchingProduct);
-    matchingProduct.name = matchingProduct.name.replaceAll(
-      searchQuery,
-      `<em>${searchQuery}</em>`,
-    );
+    matchingProduct.name = searchResult.name;
     return matchingProduct;
   });
 }

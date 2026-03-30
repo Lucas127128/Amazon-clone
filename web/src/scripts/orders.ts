@@ -13,14 +13,17 @@ import {
   STORAGE_KEYS,
   UI_TIMEOUTS,
 } from '#root/config/constants.ts';
-import type { Order } from '#root/shared/src/schema.ts';
+import { OrderSchemaArray, type Order } from '#root/shared/src/schema.ts';
 import { effect } from '@preact/signals-core';
+import { parse } from 'valibot';
 
 async function renderPlacedOrder() {
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
-  const orders: readonly Order[] = savedOrders
-    ? JSON.parse(savedOrders)
-    : [];
+  checkNullish(savedOrders);
+  const orders: readonly Order[] = parse(
+    OrderSchemaArray,
+    JSON.parse(savedOrders),
+  );
   const ordersHTML = document.querySelector('.orders-grid');
   checkNullish(ordersHTML);
   const ordersTime = await Promise.all(
@@ -67,7 +70,7 @@ async function renderPlacedOrder() {
     buyAgainMessageHTML.style.display = 'none';
     buyAgainMessageHTML.style.opacity = '0';
 
-    if (timer) clearTimeout(timer);
+    clearTimeout(timer);
     timer = setTimeout(() => {
       buyAgainMessageHTML.style.display = 'block';
       buyAgainMessageHTML.style.opacity = '1';
@@ -119,9 +122,12 @@ async function renderPlacedOrder() {
   });
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  effect(() => {
-    returnToHomeLink.textContent = `${cartQuantity.value}`;
-  });
+  effect(
+    () => {
+      returnToHomeLink.textContent = `${cartQuantity.value}`;
+    },
+    { name: 'update cart quantity in dom' },
+  );
 }
 
 await Promise.allSettled([renderPlacedOrder(), handleSearchInput()]);

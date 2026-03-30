@@ -10,9 +10,6 @@ import {
   array,
   minValue,
   maxValue,
-  any,
-  record,
-  intersect,
   minLength,
   maxLength,
   check,
@@ -71,20 +68,8 @@ export const OrderSchema = object({
 });
 export const OrderSchemaArray = array(OrderSchema);
 export type Order = InferOutput<typeof OrderSchema>;
-export type OrderType = Order;
 
 export const ClothingListSchema = array(RawProductSchema.entries.id);
-
-export const SearchResultSchema = intersect([
-  object({
-    id: any(),
-    terms: array(string()),
-    queryTerms: array(string()),
-    score: number(),
-    match: record(string(), array(string())),
-  }),
-  record(string(), any()),
-]);
 
 export type HttpMethods =
   | 'GET'
@@ -94,3 +79,10 @@ export type HttpMethods =
   | 'PUT'
   | 'PATCH'
   | 'QUERY';
+
+export const SearchResultSchema = object({
+  id: RawProductSchema.entries.id,
+  name: RawProductSchema.entries.name,
+});
+
+export type SearchResult = InferOutput<typeof SearchResultSchema>;

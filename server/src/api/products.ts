@@ -4,11 +4,16 @@ import {
   ClothingListSchema,
   RawProductSchemaArray,
 } from '#root/shared/src/schema.ts';
+import { array, parse, string } from 'valibot';
 
-const products = await Bun.file(
-  './server/src/api/rawProducts.json',
-).json();
-const clothings = await Bun.file('./server/src/api/clothing.json').json();
+const products = parse(
+  RawProductSchemaArray,
+  await Bun.file('./server/src/api/rawProducts.json').json(),
+);
+const clothings = parse(
+  array(string()),
+  await Bun.file('./server/src/api/clothing.json').json(),
+);
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
   .get(

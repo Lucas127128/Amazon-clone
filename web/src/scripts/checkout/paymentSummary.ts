@@ -19,17 +19,24 @@ export async function renderPaymentSummary(cart: Cart[]) {
   const paymentSummary = document.querySelector('.payment-summary');
   const paymentSummaryHTML = generatePaymentSummary(prices);
   checkNullish(paymentSummary, 'Fail to select HTML element');
-  const trustedPaymentSummaryHTML =
-    policy?.createHTML(paymentSummaryHTML) ?? paymentSummaryHTML;
-  checkNullish(trustedPaymentSummaryHTML);
-  paymentSummary.innerHTML = trustedPaymentSummaryHTML as any;
+  if (!window.trustedTypes) {
+    paymentSummary.innerHTML = paymentSummaryHTML;
+  } else {
+    const trustedPaymentSummaryHTML =
+      policy?.createHTML(paymentSummaryHTML);
+    checkNullish(trustedPaymentSummaryHTML);
+
+    paymentSummary.innerHTML =
+      trustedPaymentSummaryHTML as unknown as string;
+  }
 
   const placeOrderHTML = document.querySelector('.place-order-button');
   checkNullish(placeOrderHTML, 'Fail to get the HTML element');
+
+  const order = await fetchOrders(cart);
   placeOrderHTML.addEventListener(
     'click',
-    async () => {
-      const order = await fetchOrders(cart);
+    () => {
       checkNullish(order);
 
       const orders: Order[] = getOrders();

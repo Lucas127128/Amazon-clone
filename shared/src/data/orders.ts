@@ -25,6 +25,7 @@ export async function fetchOrders(cart: Cart[]) {
 
 export function getOrders() {
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
-  const orders: Order[] = JSON.parse(savedOrders ?? '[]');
+
+  const orders = parse(OrderSchemaArray, JSON.parse(savedOrders ?? '[]'));
   return parse(OrderSchemaArray, orders);
 }

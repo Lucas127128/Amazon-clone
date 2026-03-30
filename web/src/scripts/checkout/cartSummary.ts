@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import { CART_CONFIG } from '#root/config/constants.ts';
 import {
   removeFromCart,
@@ -22,7 +23,7 @@ const orderSummary = document.querySelector('div.order-summary');
 export async function renderOrderSummary(cart: Cart[]) {
   const products = await fetchProducts();
   checkNullish(orderSummary, 'Fail to select HTML element');
-  orderSummary.innerHTML = policy?.createHTML('') as any;
+  orderSummary.innerHTML = policy?.createHTML('') as unknown as string;
   let cartsSummaryHTML = '';
   for (const cartItem of cart) {
     const matchingProduct = getMatchingProduct(
@@ -52,15 +53,18 @@ export async function renderOrderSummary(cart: Cart[]) {
 
 const returnToHomeLink = document.querySelector('.return-to-home-link');
 checkNullish(returnToHomeLink);
-effect(() => {
-  returnToHomeLink.textContent = `${cartQuantity.value} items`;
-});
+effect(
+  () => {
+    returnToHomeLink.textContent = `${cartQuantity.value} items`;
+  },
+  { name: 'update cart quantity in dom' },
+);
 
 function handleUpdateQuantity(target: HTMLElement, productId: string) {
-  const quantityInputHTML = target?.parentElement?.querySelector(
+  const quantityInputHTML = target.parentElement?.querySelector(
     `input.quantity-input-${productId}`,
   );
-  const saveQuantityHTML = target?.parentElement?.querySelector(
+  const saveQuantityHTML = target.parentElement?.querySelector(
     `span.save-quantity-link-${productId}`,
   );
   checkNullish(saveQuantityHTML, 'Fail to select HTML element');
@@ -69,7 +73,7 @@ function handleUpdateQuantity(target: HTMLElement, productId: string) {
   saveQuantityHTML.style.display = 'inline';
 }
 
-async function handleSaveQuantity(
+function handleSaveQuantity(
   cartItemContainer: HTMLElement,
   productId: string,
 ) {
@@ -89,7 +93,7 @@ async function handleSaveQuantity(
 
 function handleOrderEvent(event: Event) {
   const target = event.target as HTMLElement;
-  const cartItemContainer = target?.closest('div.cart-item-container');
+  const cartItemContainer = target.closest('div.cart-item-container');
   checkNullish(cartItemContainer);
   const { productId } = cartItemContainer.dataset;
   checkNullish(productId, 'Fail to get productId from dataset');
@@ -100,7 +104,7 @@ function handleOrderEvent(event: Event) {
   };
 }
 
-orderSummary?.addEventListener('click', async (event) => {
+orderSummary?.addEventListener('click', (event) => {
   const { classList, productId, cartItemContainer } =
     handleOrderEvent(event);
   const target = event.target as HTMLElement;
@@ -108,20 +112,20 @@ orderSummary?.addEventListener('click', async (event) => {
   if (classList.includes('update-quantity-link')) {
     handleUpdateQuantity(target, productId);
   } else if (classList.includes('save-quantity-link')) {
-    await handleSaveQuantity(cartItemContainer, productId);
+    handleSaveQuantity(cartItemContainer, productId);
   } else if (classList.includes('delete-quantity-link')) {
     removeFromCart(productId);
   }
 });
 
-orderSummary?.addEventListener('keyup', async (event: KeyboardEvent) => {
+orderSummary?.addEventListener('keyup', (event: KeyboardEvent) => {
   const { classList, productId, cartItemContainer } =
     handleOrderEvent(event);
   if (classList.includes('quantity-input') && event.key === 'Enter')
-    await handleSaveQuantity(cartItemContainer, productId);
+    handleSaveQuantity(cartItemContainer, productId);
 });
 
-orderSummary?.addEventListener('change', async (event) => {
+orderSummary?.addEventListener('change', (event) => {
   const { classList, productId } = handleOrderEvent(event);
   const { target } = event;
   isHTMLInputElement(target);

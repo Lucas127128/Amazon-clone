@@ -1,24 +1,40 @@
 import { checkNullish } from '../utils/typeChecker.ts';
-import type { DeliveryOptionId } from '../schema.ts';
-import { CartSchemaArray } from '../schema.ts';
-import type { Cart } from '../schema.ts';
+import {
+  type DeliveryOptionId,
+  type Cart,
+  CartSchemaArray,
+} from '../schema.ts';
 import { parse } from 'valibot';
-import type { Signal } from '@preact/signals-core';
-import { signal, effect, computed } from '@preact/signals-core';
+import {
+  signal,
+  effect,
+  computed,
+  type Signal,
+} from '@preact/signals-core';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
+
+if (import.meta.env.DEV) {
+  const { setDebugOptions } = await import('@preact/signals-debug');
+  setDebugOptions({ enabled: true, grouped: true });
+}
 
 export const cart: Signal<Cart[]> = signal(
   parse(
     CartSchemaArray,
     JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_STATE) ?? '[]'),
   ),
+  { name: 'cart' },
 );
-effect(() => {
-  localStorage.setItem(
-    STORAGE_KEYS.CART_STATE,
-    JSON.stringify(cart.value),
-  );
-});
+
+effect(
+  () => {
+    localStorage.setItem(
+      STORAGE_KEYS.CART_STATE,
+      JSON.stringify(cart.value),
+    );
+  },
+  { name: 'persistent cart state' },
+);
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
@@ -52,10 +68,13 @@ export function updateDeliveryOption(
   cart.value = parse(CartSchemaArray, newCart);
 }
 
-export const cartQuantity = computed(() => {
-  let tempCartQuantity = 0;
-  for (const cartItem of cart.value) {
-    tempCartQuantity += cartItem.quantity;
-  }
-  return tempCartQuantity;
-});
+export const cartQuantity = computed(
+  () => {
+    let tempCartQuantity = 0;
+    for (const cartItem of cart.value) {
+      tempCartQuantity += cartItem.quantity;
+    }
+    return tempCartQuantity;
+  },
+  { name: 'cart quantity' },
+);

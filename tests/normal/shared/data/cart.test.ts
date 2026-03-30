@@ -55,7 +55,9 @@ describe.concurrent('test suite: updateDeliveryOption', () => {
 
 describe.concurrent('test suite: calculateCartQuantity', () => {
   test('display cart quantity', async () => {
-    const cartJson = await Bun.file('./tests/normal/cart.json').json();
+    const cartJson = (await Bun.file(
+      './tests/normal/cart.json',
+    ).json()) as Cart[];
     cart.value = [cartJson[0], cartJson[1], cartJson[2]] as Cart[];
     expect(cartQuantity.value).toBe(7);
   });

@@ -80,4 +80,4 @@ jobs:
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Check unused deps and files
-        run: bun knip
+        run: bun knip --debug

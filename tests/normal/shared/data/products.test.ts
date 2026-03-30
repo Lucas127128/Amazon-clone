@@ -4,11 +4,11 @@ import {
   Product,
   getMatchingRawProduct,
   fetchProducts,
-} from '#root/shared/src/data/products.ts';
+} from '#data/products.ts';
 import correctRawProducts from '#root/server/src/api/rawProducts.json';
 import correctProducts from '../../products.json';
 import type { RawProduct } from '#root/shared/src/schema.ts';
-import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
+import { checkNullish } from '#utils/typeChecker.ts';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',
@@ -17,7 +17,7 @@ const correctRawProduct: RawProduct = {
   rating: { stars: 4, count: 99 },
   priceCents: 2374,
 };
-describe.concurrent('Get matching item', async () => {
+describe.concurrent('Get matching item', () => {
   test('get matching products', async () => {
     const products = await fetchProducts();
     const matchingProduct = getMatchingProduct(products, 'sMmsZ');

@@ -20,7 +20,7 @@ export class Product {
     this.ratingCount = productDetails.rating.count;
     this.priceCents = productDetails.priceCents;
     this.starsUrl = `/images/ratings/rating-${productDetails.rating.stars * 10}.png`;
-    this.price = `${formatCurrency(productDetails.priceCents)}`;
+    this.price = formatCurrency(productDetails.priceCents);
     this.isClothing = isClothing;
   }
   id;

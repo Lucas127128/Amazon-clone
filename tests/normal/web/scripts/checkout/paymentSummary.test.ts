@@ -7,7 +7,9 @@ import { renderPaymentSummary } from '#root/web/src/scripts/checkout/paymentSumm
 import { checkNullish } from '#utils/typeChecker.ts';
 import { calculatePrices } from '#data/payment.ts';
 
-const cartJson: Cart[] = await Bun.file('./tests/normal/cart.json').json();
+const cartJson = (await Bun.file(
+  './tests/normal/cart.json',
+).json()) as Cart[];
 
 beforeAll(async () => {
   localStorage.clear();
@@ -18,10 +20,11 @@ beforeAll(async () => {
   await renderPaymentSummary(cartJson);
 });
 
-describe.concurrent('test suite: render payment details', async () => {
-  const products: Product[] = await Bun.file(
-    './tests/normal/products.json',
-  ).json();
+const products = (await Bun.file(
+  './tests/normal/products.json',
+).json()) as Product[];
+
+describe.concurrent('test suite: render payment details', () => {
   const prices = calculatePrices(cartJson, products);
 
   test('correct total product price', () => {
