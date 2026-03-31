@@ -28,22 +28,23 @@ export class Product {
   name;
   ratingCount;
   priceCents;
-  isClothing;
   starsUrl;
   price;
+  isClothing;
 }
 
 export function transformProducts(
   rawProducts: RawProduct[],
   clothings: string[],
+  compareFn: (a: RawProduct, b: RawProduct) => number = (a, b) => {
+    if (a.rating.stars === b.rating.stars) {
+      return b.rating.count - a.rating.count;
+    }
+    return b.rating.stars - a.rating.stars;
+  },
 ) {
   const products: readonly Product[] = rawProducts
-    .toSorted((a, b) => {
-      if (a.rating.stars === b.rating.stars) {
-        return b.rating.count - a.rating.count;
-      }
-      return b.rating.stars - a.rating.stars;
-    })
+    .toSorted((a, b) => compareFn(a, b))
     .map((product) => {
       const isClothing = clothings.includes(product.id);
       return new Product(product, isClothing);
@@ -51,7 +52,9 @@ export function transformProducts(
   return products;
 }
 
-export async function fetchProducts() {
+export async function fetchProducts(
+  compareFn?: (a: RawProduct, b: RawProduct) => number,
+) {
   const [
     { data: clothings, error: clothingsError },
     { data: rawProducts, error: productsError },
@@ -62,5 +65,5 @@ export async function fetchProducts() {
   if (clothingsError) throw clothingsError;
   if (productsError) throw productsError;
 
-  return transformProducts(rawProducts, clothings);
+  return transformProducts(rawProducts, clothings, compareFn);
 }

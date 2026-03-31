@@ -8,11 +8,7 @@ type CacheData = {
   body: string;
   time: Temporal.InstantLike;
 };
-
-type CacheKey =
-  | `${'GET' | 'DELETE' | 'OPTIONS'}:${string}`
-  | `${'POST' | 'PUT' | 'PATCH' | 'QUERY'}:${string}:${string}`;
-
+type CacheKey = { method: HttpMethods; url: string; requestBody: string };
 const cacheMap = new Map<CacheKey, CacheData>();
 
 async function cachedFetch(
@@ -33,10 +29,11 @@ async function cachedFetch(
   const method = (init?.method ??
     (input instanceof Request ? input.method : 'GET')) as HttpMethods;
   const body = JSON.stringify(init?.body);
-  const cacheKey: CacheKey =
-    method === 'GET' || method === 'DELETE' || method === 'OPTIONS'
-      ? `${method}:${url}`
-      : `${method}:${url}:${body}`;
+  const cacheKey = {
+    method: method,
+    url: url,
+    requestBody: body,
+  } satisfies CacheKey;
 
   const now = Temporal.Now.instant();
 

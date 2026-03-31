@@ -10,16 +10,19 @@ import {
   UI_TIMEOUTS,
 } from '#root/config/constants.ts';
 import { effect } from '@preact/signals-core';
+import type { ProductSortOptions } from '#root/shared/src/schema.ts';
 
-async function renderAmazonHomePage() {
+async function renderAmazonHomePage(inputProducts?: readonly Product[]) {
   const productsGrid = document.querySelector('.products-grid');
   checkNullish(productsGrid, 'Fail to select HTML element');
 
   const url = new URL(location.href);
   const searchQuery = url.searchParams.get('q');
-  const products: readonly Product[] = searchQuery
-    ? await handleSearch(searchQuery)
-    : await fetchProducts();
+  const products: readonly Product[] = inputProducts
+    ? inputProducts
+    : searchQuery
+      ? await handleSearch(searchQuery)
+      : await fetchProducts();
 
   let productsHTML = '';
   for (const [index, product] of products.entries()) {
@@ -29,6 +32,7 @@ async function renderAmazonHomePage() {
   }
   const trustedProductsHTML = policy?.createHTML(productsHTML);
   checkNullish(trustedProductsHTML);
+  productsGrid.innerHTML = policy?.createHTML('') as unknown as string;
   productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);
 
   let timer: NodeJS.Timeout;
@@ -74,6 +78,21 @@ async function renderAmazonHomePage() {
     );
     displayAdded(productId);
   });
+
+  const sortSelectHTML = document.querySelector('select.sort-select');
+  checkNullish(sortSelectHTML);
+  sortSelectHTML.addEventListener('change', async () => {
+    const productSortOption = sortSelectHTML.value as ProductSortOptions;
+    console.log(productSortOption);
+    if (productSortOption === 'most-stars')
+      await renderAmazonHomePage(await fetchProducts());
+    else {
+      await renderAmazonHomePage(
+        await fetchProducts((a, b) => a.rating.stars - b.rating.stars),
+      );
+    }
+  });
+
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
   effect(

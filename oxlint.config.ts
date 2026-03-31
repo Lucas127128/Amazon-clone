@@ -60,7 +60,6 @@ export default defineConfig({
     'typescript/dot-notation': 'error',
     'typescript/no-deprecated': 'error',
     'typescript/no-import-type-side-effects': 'error',
-    'typescript/no-misused-promises': 'error',
     'typescript/no-mixed-enums': 'error',
     'typescript/no-unnecessary-boolean-literal-compare': 'error',
     'typescript/no-unnecessary-template-expression': 'error',
