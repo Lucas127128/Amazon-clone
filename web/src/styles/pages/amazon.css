@@ -110,9 +110,9 @@
   padding: 0.3em;
 
   background-color: #2d2d2d;
-  border-radius: 0 0 10px 0px;
+  border-radius: 0 0 12px 0px;
   overflow: hidden;
-  width: 9em;
+  width: 18em;
   height: 2.35em;
 
   display: grid;
@@ -122,6 +122,8 @@
 
 .sort-select {
   height: 2em;
+  border-radius: 9px;
+  overflow: hidden;
 
   background-color: hsl(0, 0%, 27.5%);
   border: none;
@@ -130,5 +132,5 @@
 }
 
 .sort-select:focus {
-  outline: 1.4px solid white;
+  outline: none;
 }

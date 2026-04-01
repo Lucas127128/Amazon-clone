@@ -1,4 +1,3 @@
-/// <reference lib="dom" />
 import { CART_CONFIG } from '#root/config/constants.ts';
 import {
   removeFromCart,

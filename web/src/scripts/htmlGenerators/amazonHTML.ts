@@ -48,9 +48,13 @@ export function generateAmazonHTML(
         <div class='size-chart-container'>
           ${
             product.isClothing
-              ? `<a href='/images/clothing-size-chart.webp' target='_blank' class='size-chart'>
-            Size chart
-          </a>`
+              ? html`<a
+                  href="/images/clothing-size-chart.webp"
+                  target="_blank"
+                  class="size-chart"
+                >
+                  Size chart
+                </a>`
               : ''
           }
           

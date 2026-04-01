@@ -14,7 +14,7 @@ function handleSearchBar() {
   location.href = `/index.html?q=${searchQuery}`;
 }
 
-export function handleSearchInput() {
+export async function handleSearchInput() {
   searchButton?.addEventListener('click', handleSearchBar);
   searchBar?.addEventListener('keyup', (event: KeyboardEvent) => {
     if (event.key === 'Enter') {

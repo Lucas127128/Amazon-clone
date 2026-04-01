@@ -1,8 +1,4 @@
-/// <reference lib="dom" />
 import DOMPurify from 'dompurify';
-// import { checkNullish } from './typeChecker';
-
-// checkNullish(window.trustedTypes);
 
 export const policy = window.trustedTypes?.createPolicy('DOMPurify', {
   createHTML: (inputHTML) =>

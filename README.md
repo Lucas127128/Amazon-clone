@@ -4,6 +4,12 @@
 
 This is a very basic clone of Amazon(for my own learning).
 
+**Install dependency**
+
+```bash
+bun i
+```
+
 **Build:**
 
 ```bash

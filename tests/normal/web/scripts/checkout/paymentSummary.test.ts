@@ -1,4 +1,3 @@
-/// <reference lib="dom" />
 import { beforeAll, describe, expect, test } from 'bun:test';
 import type { Cart } from '#root/shared/src/schema.ts';
 import type { Product } from '#data/products.ts';

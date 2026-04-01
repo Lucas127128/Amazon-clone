@@ -87,4 +87,10 @@ export const SearchResultSchema = object({
 
 export type SearchResult = InferOutput<typeof SearchResultSchema>;
 
-export type ProductSortOptions = 'most-stars' | 'least-stars';
+export type ProductSortOptions =
+  | 'most-stars'
+  | 'least-stars'
+  | 'most-people-star'
+  | 'least-people-star'
+  | 'most-expensive'
+  | 'least-expensive';
