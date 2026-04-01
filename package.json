@@ -7,9 +7,10 @@
     "#utils/*": "./shared/src/utils/*"
   },
   "scripts": {
-    "test:bun": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test --watch --max-concurrency 100",
-    "test:ci": "NODE_TLS_REJECT_UNAUTHORIZED=0 FORCE_COLOR=1 bun test --max-concurrency 100",
-    "test:api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./tests/normal/server/api --watch --max-concurrency 100",
+    "test:bun": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test --watch",
+    "test:ci": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test",
+    "test:unit": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./tests/normal/shared ./tests/normal/web",
+    "test:api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./tests/normal/server/api --watch",
     "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on -c ./config/playwright.config.ts",
     "test:vitest": "vitest -c ./config/vitest.config.ts",
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --parallel test:vitest test:bun",

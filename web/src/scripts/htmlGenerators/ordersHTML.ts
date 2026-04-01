@@ -1,8 +1,7 @@
-import type { Cart } from '#root/shared/src/schema.ts';
-import { getDeliveryDate } from '#root/shared/src/data/deliveryOption.ts';
-import type { Order } from '#root/shared/src/schema.ts';
+import { getDeliveryDate } from '#data/deliveryOption.ts';
+import type { Order, Cart } from '#root/shared/src/schema.ts';
 import type { Product } from '#root/shared/src/data/products.ts';
-import { formatCurrency } from '#root/shared/src/utils/money.ts';
+import { formatCurrency } from '#utils/money.ts';
 
 const html = String.raw;
 
