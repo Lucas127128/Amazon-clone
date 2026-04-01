@@ -8,11 +8,10 @@ import { policy } from '#utils/trustedTypes.ts';
 import { OrderSchemaArray } from '#root/shared/src/schema.ts';
 import { STORAGE_KEYS } from '#root/config/constants.ts';
 import { parse } from 'valibot';
+import { getURLParams } from '#root/shared/src/utils/url.ts';
 
 async function renderTrackingSummary() {
-  const url = new URL(location.href);
-  const orderId = url.searchParams.get('orderId');
-  const productId = url.searchParams.get('productId');
+  const { orderId, productId } = getURLParams();
   checkNullish(orderId);
   checkNullish(productId);
 

@@ -10,3 +10,9 @@ coveragePathIgnorePatterns = [
   "src/scripts/Utils/trustedTypes.ts",
 ]
 preload = ["./tests/normal/preload.ts"]
+
+[install]
+minimumReleaseAge = 259200
+
+[install.security]
+scanner = "@socketsecurity/bun-security-scanner"

@@ -1,55 +1,62 @@
 import type { ProductSortOptions } from '#root/shared/src/schema.ts';
-import { fetchProducts } from '#data/products.ts';
+import type { Product } from '#data/products.ts';
 import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import { renderProducts } from '../amazon/products';
 
-export async function handleSortSelect() {
+export async function handleSortSelect(products: readonly Product[]) {
   const sortSelectHTML = document.querySelector('select.sort-select');
   checkNullish(sortSelectHTML);
   sortSelectHTML.addEventListener('change', async () => {
     const productSortOption = sortSelectHTML.value as ProductSortOptions;
     switch (productSortOption) {
       case 'most-stars':
-        renderProducts(await fetchProducts());
+        await renderProducts(
+          products.toSorted((a, b) => {
+            if (a.ratingStars === b.ratingStars) {
+              return b.ratingCount - a.ratingCount;
+            }
+            return b.ratingStars - a.ratingStars;
+          }),
+        );
         break;
       case 'least-stars':
-        renderProducts(
-          await fetchProducts((a, b) => {
-            if (b.rating.stars === a.rating.stars) {
-              return a.rating.count - b.rating.count;
+        await renderProducts(
+          products.toSorted((a, b) => {
+            if (b.ratingStars === a.ratingStars) {
+              return a.ratingCount - b.ratingCount;
             }
-            return a.rating.stars - b.rating.stars;
+            return a.ratingStars - b.ratingStars;
           }),
         );
         break;
       case 'most-people-star':
-        renderProducts(
-          await fetchProducts((a, b) => {
-            if (b.rating.count === a.rating.count) {
-              return b.rating.stars - a.rating.stars;
+        await renderProducts(
+          products.toSorted((a, b) => {
+            if (b.ratingCount === a.ratingCount) {
+              return b.ratingStars - a.ratingStars;
             }
-            return b.rating.count - a.rating.count;
+            return b.ratingCount - a.ratingCount;
           }),
         );
         break;
       case 'least-people-star':
-        renderProducts(
-          await fetchProducts((a, b) => {
-            if (a.rating.count === b.rating.count) {
-              return a.rating.stars - b.rating.stars;
+        await renderProducts(
+          products.toSorted((a, b) => {
+            if (a.ratingCount === b.ratingCount) {
+              return a.ratingStars - b.ratingStars;
             }
-            return a.rating.count - b.rating.count;
+            return a.ratingCount - b.ratingCount;
           }),
         );
         break;
       case 'most-expensive':
-        renderProducts(
-          await fetchProducts((a, b) => b.priceCents - a.priceCents),
+        await renderProducts(
+          products.toSorted((a, b) => b.priceCents - a.priceCents),
         );
         break;
       case 'least-expensive':
-        renderProducts(
-          await fetchProducts((a, b) => a.priceCents - b.priceCents),
+        await renderProducts(
+          products.toSorted((a, b) => a.priceCents - b.priceCents),
         );
         break;
     }

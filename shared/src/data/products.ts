@@ -19,6 +19,7 @@ export class Product {
     this.name = productDetails.name;
     this.ratingCount = productDetails.rating.count;
     this.priceCents = productDetails.priceCents;
+    this.ratingStars = productDetails.rating.stars;
     this.starsUrl = `/images/ratings/rating-${productDetails.rating.stars * 10}.png`;
     this.price = formatCurrency(productDetails.priceCents);
     this.isClothing = isClothing;
@@ -27,6 +28,7 @@ export class Product {
   image;
   name;
   ratingCount;
+  ratingStars;
   priceCents;
   starsUrl;
   price;

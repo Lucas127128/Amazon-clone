@@ -24,7 +24,7 @@ function displayAdded(productId: string) {
 }
 
 let controller = new AbortController();
-export function renderProducts(products: readonly Product[]) {
+export async function renderProducts(products: readonly Product[]) {
   controller.abort();
   controller = new AbortController();
   const { signal } = controller;
@@ -75,4 +75,7 @@ export function renderProducts(products: readonly Product[]) {
     },
     { signal },
   );
+  const url = new URL(location.href);
+  url.searchParams.delete('q');
+  history.replaceState(null, '', url.toString());
 }

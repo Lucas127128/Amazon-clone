@@ -1,20 +1,14 @@
 import { cartQuantity } from '#data/cart.ts';
-import { fetchProducts, type Product } from '#data/products.ts';
+import { fetchProducts } from '#data/products.ts';
 import { checkNullish } from '#root/shared/src/utils/typeChecker.ts';
 import { handleSearch, handleSearchInput } from './header';
 import { effect } from '@preact/signals-core';
 import { renderProducts } from './amazon/products';
 import { handleSortSelect } from './amazon/sort';
+import { all } from 'better-all';
+import { getURLParams } from '#root/shared/src/utils/url.ts';
 
 async function renderAmazonHomePage() {
-  const url = new URL(location.href);
-  const searchQuery = url.searchParams.get('q');
-
-  const products: readonly Product[] = searchQuery
-    ? await handleSearch(searchQuery)
-    : await fetchProducts();
-  renderProducts(products);
-
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
   effect(
@@ -23,13 +17,28 @@ async function renderAmazonHomePage() {
     },
     { name: 'update cart quantity in dom' },
   );
-
-  url.searchParams.delete('q');
-  history.replaceState(null, '', url.toString());
 }
 
-await Promise.allSettled([
-  renderAmazonHomePage(),
-  handleSearchInput(),
-  handleSortSelect(),
-]);
+await all(
+  {
+    async handleSearch() {
+      return handleSearchInput();
+    },
+    async renderHomePage() {
+      return renderAmazonHomePage();
+    },
+    async products() {
+      const { q: searchQuery } = getURLParams();
+      return searchQuery
+        ? await handleSearch(searchQuery)
+        : await fetchProducts();
+    },
+    async renderProducts() {
+      return renderProducts(await this.$.products);
+    },
+    async handleSortSelect() {
+      return handleSortSelect(await this.$.products);
+    },
+  },
+  { debug: true },
+);
