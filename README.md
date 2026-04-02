@@ -16,6 +16,14 @@ bun i
 bun run build
 ```
 
+**TODO**
+
+- [ ] Make the test work in new monorepo
+
+- [ ] Make single file executable work in new monorepo
+
+- [ ] Make knip work in new monorepo
+
 **Acknowledgement:**
 
 The Amazon project in this repo is mainly follow the following youtube tutorial:

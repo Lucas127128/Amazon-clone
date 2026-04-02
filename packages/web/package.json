@@ -1,0 +1,29 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "exports": {
+    "./paymentSummary": "./src/scripts/checkout/paymentSummary.ts",
+    "./amazonHTML": "./src/scripts/htmlGenerators/amazonHTML.ts",
+    "./paymentSummaryHTML": "./src/scripts/htmlGenerators/paymentSummaryHTML.ts",
+    "./ordersHTML": "./src/scripts/htmlGenerators/ordersHTML.ts",
+    "./trackingHTML": "./src/scripts/htmlGenerators/trackingHTML.ts"
+  },
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite"
+  },
+  "dependencies": {
+    "@preact/signals-core": "^1.14.0",
+    "better-all": "^0.0.7",
+    "shared": "workspace:*",
+    "typed-query-selector": "^2.12.1",
+    "valibot": "^1.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/devtools": "^0.1.11",
+    "sonda": "^0.11.1",
+    "vite": "^8.0.3",
+    "vite-plugin-html-minifier": "^1.0.5",
+    "vite-plugin-purgecss": "^0.2.13"
+  }
+}

@@ -1,0 +1,97 @@
+import type { Cart } from 'shared/schema';
+import type { Product } from 'shared/products';
+import {
+  deliveryOptions,
+  getDeliveryDate,
+  getPriceString,
+} from 'shared/deliveryOption';
+
+const html = String.raw;
+
+function deliveryOptionsHTML(matchingProductId: string) {
+  let deliveryOptionsHTML = '';
+  for (const deliveryOption of deliveryOptions) {
+    const deliveryDate = getDeliveryDate(deliveryOption.id);
+    const priceString = getPriceString(deliveryOption.priceCents);
+    deliveryOptionsHTML += html`
+      <div>
+        <input
+          type="radio"
+          class="delivery-option-input"
+          data-delivery-choice-id="${deliveryOption.id}"
+          id="${deliveryOption.id}-${matchingProductId}"
+        />
+        <div>
+          <div class="delivery-option-date">${deliveryDate}</div>
+        </div>
+        <div class="delivery-option-price">${priceString}Shipping</div>
+      </div>
+    `;
+  }
+  return deliveryOptionsHTML;
+}
+
+function deliveryDateHTML(cartItem: Cart) {
+  const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
+  const html = `Delivery date: ${deliveryDate}`;
+  return html;
+}
+
+export function generateCartSummary(
+  matchingProduct: Product,
+  cartItem: Cart,
+) {
+  const cartSummaryHTML = html`
+    <div
+      class="cart-item-container cart-item-container-${matchingProduct.id}"
+      data-product-id="${matchingProduct.id}"
+    >
+      <div class="delivery-date-${matchingProduct.id} delivery-date">
+        ${deliveryDateHTML(cartItem)}
+      </div>
+
+      <div class="cart-item-details-grid">
+        <img class="product-image" src="${matchingProduct.image}" />
+
+        <div class="cart-item-details">
+          <div class="product-name">${matchingProduct.name}</div>
+          <div class="product-price product-price-${matchingProduct.id} ">
+            $${matchingProduct.price}
+          </div>
+          <div class="product-quantity">
+            <span class="js-product-quantity-${matchingProduct.id}">
+              Quantity:
+              <span class="quantity-label">${cartItem.quantity}</span>
+            </span>
+            <span class="update-quantity-link link-primary"> Update </span>
+            <input
+              type="number"
+              placeholder="quantity"
+              min="1"
+              max="10"
+              value="${cartItem.quantity}"
+              class="quantity-input-${matchingProduct.id} quantity-input"
+            />
+            <span
+              class="save-quantity-link-${matchingProduct.id} link-primary save-quantity-link"
+            >
+              Save</span
+            >
+            <span
+              class="delete-quantity-link delete-quantity-link-${matchingProduct.id} link-primary"
+            >
+              Delete
+            </span>
+          </div>
+        </div>
+        <div class="delivery-options">
+          <div class="delivery-options-title">
+            Choose a delivery option:
+          </div>
+          ${deliveryOptionsHTML(matchingProduct.id)}
+        </div>
+      </div>
+    </div>
+  `;
+  return cartSummaryHTML;
+}

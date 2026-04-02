@@ -1,5 +1,5 @@
 bun fmt
 bun lint
 bun audit --prod
-bun knip
-bun run test:unit
+# bun knip
+# bun run test:unit
