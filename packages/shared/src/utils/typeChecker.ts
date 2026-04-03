@@ -23,8 +23,6 @@ export function isHTMLElement(
   variableName: string,
 ): asserts variable is HTMLElement {
   if (!(variable instanceof HTMLElement)) {
-    throw new Error(
-      `Error: variable ${variableName} is not HTMLInputElement`,
-    );
+    throw new Error(`Error: variable ${variableName} is not HTMLElement`);
   }
 }

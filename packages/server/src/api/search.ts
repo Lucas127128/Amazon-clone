@@ -6,6 +6,8 @@ import {
   SearchResultSchema,
 } from 'shared/schema';
 import { array, parse } from 'valibot';
+import { Temporal } from 'temporal-polyfill-lite';
+import { FETCH_CONFIG } from 'shared/constants';
 
 const products = parse(
   RawProductSchemaArray,
@@ -20,42 +22,49 @@ const productsSearch = create({
 });
 await insertMultiple(productsSearch, products);
 
-const cachedSearches = new Map<string, SearchResult[]>();
+const cachedSearches = new Map<
+  { q: string; time: Temporal.ZonedDateTime },
+  SearchResult[]
+>();
 function cleanupCache() {
-  const keys = [...cachedSearches.keys()];
-  for (const key in cachedSearches) {
-    const index = keys.indexOf(key);
-    //remove the oldest 250 cache
-    if (index < 250) cachedSearches.delete(key);
+  const now = Temporal.Now.zonedDateTimeISO();
+  for (const key of cachedSearches.keys()) {
+    const expirationTime = key.time.add(FETCH_CONFIG.CACHE_TTL);
+    if (Temporal.ZonedDateTime.compare(now, expirationTime) > 0) {
+      cachedSearches.delete(key);
+    }
   }
 }
 
-export const searchPlugin = new Elysia({ prefix: '/api/search' }).get(
-  '/products/:q',
-  async ({ params: { q } }) => {
+export const searchPlugin = new Elysia({ prefix: '/api/search' })
+  .onAfterResponse(() => {
     if (cachedSearches.size > 2000) {
-      Promise.resolve()
-        .then(() => cleanupCache())
-        .catch((err: unknown) => console.error(err));
+      cleanupCache();
     }
-    const results = (
-      await search(productsSearch, {
-        term: q,
-        properties: ['name'],
-        tolerance: 2,
-      })
-    ).hits.map((result) => {
-      const name = result.document.name.replaceAll(q, `<em>${q}</em>`);
-      result.document.name = name;
-      return result.document;
-    });
-    return cachedSearches.getOrInsert(q, results);
-  },
-  {
-    response: array(SearchResultSchema),
-    detail: {
-      description:
-        'Get the search query using path params and return the search result.',
+  })
+  .get(
+    '/products/:q',
+    async ({ params: { q } }) => {
+      const results = (
+        await search(productsSearch, {
+          term: q,
+          properties: ['name'],
+          tolerance: 2,
+        })
+      ).hits.map((result) => {
+        const name = result.document.name.replaceAll(q, `<em>${q}</em>`);
+        return Object.assign(result.document, { name: name });
+      });
+      return cachedSearches.getOrInsert(
+        { q, time: Temporal.Now.zonedDateTimeISO() },
+        results,
+      );
     },
-  },
-);
+    {
+      response: array(SearchResultSchema),
+      detail: {
+        description:
+          'Get the search query using path params and return the search result.',
+      },
+    },
+  );

@@ -18,13 +18,9 @@ bun run build
 
 **TODO**
 
-- [x] Make the test work in new monorepo
+- [ ] Add accounts and auth
 
-- [x] Make single file executable work in new monorepo
-
-- [x] Make knip work in new monorepo
-
-- [x] Use catalog in new monorepo
+- [ ] Use my own code in copy button in orders page
 
 **Acknowledgement:**
 

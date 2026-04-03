@@ -36,6 +36,9 @@ describe.concurrent('generateOrderContainerHTML', () => {
       './normal/ordersProduct.html',
     ).text();
     const order = (await Bun.file('./normal/order.json').json()) as Order;
+    console.log(
+      generateOrderContainerHTML(order, 'Wednesday', ordersProductHTML),
+    );
     const html = generateOrderContainerHTML(
       order,
       'Wednesday',

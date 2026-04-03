@@ -5,6 +5,8 @@ import { generateAmazonHTML } from '../htmlGenerators/amazonHTML.ts';
 import { policy } from 'shared/trustedType';
 import { addToCart } from 'shared/cart';
 
+policy();
+
 const timers: { timer: NodeJS.Timeout; productId: string }[] = [];
 function displayAdded(productId: string) {
   const addedToCart = document.querySelector(
@@ -45,9 +47,9 @@ export function renderProducts(products: readonly Product[]) {
       index <= FETCH_CONFIG.HIGH_PRIORITY_THRESHOLD ? true : false;
     productsHTML += generateAmazonHTML(product, highFetchPriority);
   }
-  const trustedProductsHTML = policy?.createHTML(productsHTML);
+  const trustedProductsHTML = productsHTML;
   checkNullish(trustedProductsHTML);
-  productsGrid.innerHTML = policy?.createHTML('') as unknown as string;
+  productsGrid.innerHTML = '';
   productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);
 
   productsGrid.addEventListener(

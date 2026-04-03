@@ -2,6 +2,7 @@
   "name": "web",
   "version": "1.0.0",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     "./paymentSummary": "./src/scripts/checkout/paymentSummary.ts",
     "./amazonHTML": "./src/scripts/htmlGenerators/amazonHTML.ts",
@@ -14,6 +15,7 @@
     "dev": "vite"
   },
   "dependencies": {
+    "@awesome.me/webawesome": "^3.4.0",
     "@preact/signals-core": "catalog:",
     "better-all": "^0.0.7",
     "shared": "workspace:*",

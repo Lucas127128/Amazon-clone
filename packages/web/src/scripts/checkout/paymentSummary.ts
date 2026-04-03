@@ -22,28 +22,26 @@ export async function renderPaymentSummary(cart: Cart[]) {
   if (!window.trustedTypes) {
     paymentSummary.innerHTML = paymentSummaryHTML;
   } else {
-    const trustedPaymentSummaryHTML =
-      policy?.createHTML(paymentSummaryHTML);
-    checkNullish(trustedPaymentSummaryHTML);
-
-    paymentSummary.innerHTML =
-      trustedPaymentSummaryHTML as unknown as string;
+    policy();
+    paymentSummary.innerHTML = paymentSummaryHTML;
   }
 
   const placeOrderHTML = document.querySelector('.place-order-button');
   checkNullish(placeOrderHTML, 'Fail to get the HTML element');
 
-  const order = await fetchOrders(cart);
   placeOrderHTML.addEventListener(
     'click',
     () => {
-      checkNullish(order);
-
-      const orders: Order[] = getOrders();
-      orders.unshift(order);
-      localStorage.setItem(STORAGE_KEYS.ORDER, JSON.stringify(orders));
-      localStorage.removeItem(STORAGE_KEYS.CART_STATE);
-      location.href = '/orders.html';
+      fetchOrders(cart)
+        .then((order) => {
+          checkNullish(order);
+          const orders: Order[] = getOrders();
+          orders.unshift(order);
+          localStorage.setItem(STORAGE_KEYS.ORDER, JSON.stringify(orders));
+          localStorage.removeItem(STORAGE_KEYS.CART_STATE);
+          location.href = '/orders.html';
+        })
+        .catch((err: unknown) => console.error(err));
     },
     { signal },
   );

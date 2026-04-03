@@ -1,3 +1,4 @@
+import '@awesome.me/webawesome/dist/components/copy-button/copy-button.js';
 import { getMatchingProduct, fetchProducts } from 'shared/products';
 import { addToCart, cartQuantity } from 'shared/cart';
 import { getTimeString } from 'shared/orders';
@@ -14,6 +15,7 @@ import { effect } from '@preact/signals-core';
 import { parse } from 'valibot';
 
 async function renderPlacedOrder() {
+  policy();
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   checkNullish(savedOrders);
   const orders: readonly Order[] = parse(
@@ -43,14 +45,7 @@ async function renderPlacedOrder() {
       orderTime,
       placedOrderHTML,
     );
-    const trustedOrderContainerHTML = policy?.createHTML(
-      placedOrderContainerHTML,
-    );
-    checkNullish(trustedOrderContainerHTML);
-    ordersHTML.insertAdjacentHTML(
-      'beforeend',
-      trustedOrderContainerHTML as any,
-    );
+    ordersHTML.insertAdjacentHTML('beforeend', placedOrderContainerHTML);
   }
 
   type Timer = {

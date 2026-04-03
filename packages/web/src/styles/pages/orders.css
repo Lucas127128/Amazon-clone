@@ -81,11 +81,6 @@
     grid-template-columns: auto 1fr;
     margin-right: 0;
   }
-
-  .order-header-right-section {
-    display: grid;
-    grid-template-columns: auto 1fr;
-  }
 }
 
 .order-details-grid {
@@ -229,4 +224,21 @@
 
 .order-container {
   contain-intrinsic-size: auto 500px;
+}
+
+.order-header-right-section {
+  display: grid;
+  grid-template-rows: 0.7fr 1fr;
+}
+
+.order-id-container {
+  display: grid;
+  grid-template-columns: 1.65fr 1fr;
+  align-items: center;
+}
+
+.copy-button::part(tooltip__base__popup) {
+  background-color: black;
+  color: white;
+  border-radius: 0.375em;
 }

@@ -72,7 +72,10 @@ export function generateOrderContainerHTML(
 
         <div class="order-header-right-section">
           <div class="order-header-label">Order ID:</div>
-          <div>${order.id}</div>
+            <div class='order-id-container'>
+              <span id="order-id">${order.id}</span>
+              <wa-copy-button tooltip-placement='bottom' from="order-id" class='copy-button'></wa-copy-button>
+            </div>
         </div>
       </div>
       <div class="order-details-grid order-details-grid-${order.id} data-order-id="${order.id}">

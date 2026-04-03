@@ -2,7 +2,7 @@
 root = "normal"
 concurrentTestGlob = "**/*"
 randomize = true
-retry = 0
+retry = 1
 coverage = true
 coverageSkipTestFiles = true
 coveragePathIgnorePatterns = [

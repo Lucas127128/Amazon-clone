@@ -18,12 +18,14 @@ import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 import { parse } from 'valibot';
 import 'typed-query-selector';
 
+policy();
+
 const orderSummary = document.querySelector('div.order-summary');
 
 export async function renderOrderSummary(cart: Cart[]) {
   const products = await fetchProducts();
   checkNullish(orderSummary, 'Fail to select HTML element');
-  orderSummary.innerHTML = policy?.createHTML('') as unknown as string;
+  orderSummary.innerHTML = '';
   let cartsSummaryHTML = '';
   for (const cartItem of cart) {
     const matchingProduct = getMatchingProduct(
@@ -34,11 +36,7 @@ export async function renderOrderSummary(cart: Cart[]) {
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
     cartsSummaryHTML += cartSummaryHTML;
   }
-  const trustedCartsSummaryHTML = policy?.createHTML(cartsSummaryHTML);
-  orderSummary.insertAdjacentHTML(
-    'beforeend',
-    trustedCartsSummaryHTML as unknown as string,
-  );
+  orderSummary.insertAdjacentHTML('beforeend', cartsSummaryHTML);
   for (const cartItem of cart) {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,

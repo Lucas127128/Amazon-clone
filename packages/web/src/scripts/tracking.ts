@@ -11,6 +11,7 @@ import { parse } from 'valibot';
 import { getURLParams } from 'shared/url';
 
 async function renderTrackingSummary() {
+  policy();
   const { orderId, productId } = getURLParams();
   checkNullish(orderId);
   checkNullish(productId);
@@ -35,12 +36,9 @@ async function renderTrackingSummary() {
     matchingCart,
   );
   const backToOrderLink = document.querySelector('.back-to-orders-link');
-  const trustedTrackingHTML = policy?.createHTML(trackingHTML);
-  checkNullish(trustedTrackingHTML);
-  backToOrderLink?.insertAdjacentHTML(
-    'afterend',
-    trustedTrackingHTML as any,
-  );
+  // const trustedTrackingHTML = policy?.createHTML(trackingHTML);
+  // checkNullish(trustedTrackingHTML);
+  backToOrderLink?.insertAdjacentHTML('afterend', trackingHTML);
 }
 
 await Promise.allSettled([renderTrackingSummary(), handleSearchInput()]);
