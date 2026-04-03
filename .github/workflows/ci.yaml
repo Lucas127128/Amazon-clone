@@ -30,7 +30,7 @@ jobs:
       - name: Run Bun Server
         uses: JarvusInnovations/background-action@v1
         with:
-          run: FORCE_COLOR=1 bun run --filter server api:dev
+          run: FORCE_COLOR=1 bun run --filter server dev
           wait-on: https://localhost:8080
       - name: Run tests
         run: FORCE_COLOR=1 bun run --filter tests test:ci

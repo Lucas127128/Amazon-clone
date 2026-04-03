@@ -22,9 +22,9 @@ bun run build
 
 - [x] Make single file executable work in new monorepo
 
-- [ ] Make knip work in new monorepo
+- [x] Make knip work in new monorepo
 
-- [ ] Use catalog in new monorepo
+- [x] Use catalog in new monorepo
 
 **Acknowledgement:**
 

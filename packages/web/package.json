@@ -1,6 +1,7 @@
 {
   "name": "web",
   "version": "1.0.0",
+  "type": "module",
   "exports": {
     "./paymentSummary": "./src/scripts/checkout/paymentSummary.ts",
     "./amazonHTML": "./src/scripts/htmlGenerators/amazonHTML.ts",

@@ -1,13 +1,14 @@
 {
   "name": "tests",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "test:bun": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test --watch",
     "test:ci": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test",
     "test:unit": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./normal/shared ./normal/web",
     "test:api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./normal/server/api --watch",
     "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on",
-    "test:vitest": "vitest",
+    "test:vitest": "vitest ",
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --parallel test:vitest test:bun"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "@playwright/test": "^1.58.2",
     "@vitest/browser-preview": "^4.1.2",
     "playwright": "^1.58.2",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "vitest": "^4.1.2"
   }
 }
