@@ -31,10 +31,10 @@
         "elysia-local-https": "^1.0.2",
         "nanoid": "^5.1.7",
         "shared": "workspace:*",
-        "temporal-polyfill-lite": "^0.3.3",
+        "temporal-polyfill-lite": "catalog:",
         "ts-pattern": "^5.9.0",
         "type-fest": "^5.5.0",
-        "valibot": "^1.3.1",
+        "valibot": "catalog:",
       },
     },
     "packages/shared": {
@@ -42,13 +42,13 @@
       "version": "1.0.0",
       "dependencies": {
         "@elysiajs/eden": "^1.4.8",
-        "@preact/signals-core": "^1.14.0",
+        "@preact/signals-core": "catalog:",
         "@preact/signals-debug": "^1.4.2",
         "dompurify": "^3.3.3",
         "fp-ts": "^2.16.11",
         "server": "workspace:*",
-        "temporal-polyfill-lite": "^0.3.3",
-        "valibot": "^1.3.1",
+        "temporal-polyfill-lite": "catalog:",
+        "valibot": "catalog:",
       },
     },
     "packages/tests": {
@@ -57,8 +57,8 @@
       "dependencies": {
         "server": "workspace:*",
         "shared": "workspace:*",
-        "temporal-polyfill-lite": "^0.3.3",
-        "valibot": "^1.3.1",
+        "temporal-polyfill-lite": "catalog:",
+        "valibot": "catalog:",
         "web": "workspace:*",
       },
       "devDependencies": {
@@ -73,11 +73,11 @@
       "name": "web",
       "version": "1.0.0",
       "dependencies": {
-        "@preact/signals-core": "^1.14.0",
+        "@preact/signals-core": "catalog:",
         "better-all": "^0.0.7",
         "shared": "workspace:*",
         "typed-query-selector": "^2.12.1",
-        "valibot": "^1.3.1",
+        "valibot": "catalog:",
       },
       "devDependencies": {
         "@vitejs/devtools": "^0.1.11",
@@ -87,6 +87,11 @@
         "vite-plugin-purgecss": "^0.2.13",
       },
     },
+  },
+  "catalog": {
+    "@preact/signals-core": "^1.14.0",
+    "temporal-polyfill-lite": "^0.3.3",
+    "valibot": "^1.3.1",
   },
   "packages": {
     "@babel/code-frame": ["@babel/code-frame@7.29.0", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.28.5", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw=="],
