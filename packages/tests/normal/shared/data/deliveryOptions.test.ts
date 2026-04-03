@@ -1,10 +1,10 @@
-import { describe, test, expect } from 'bun:test';
+import { describe, expect, test } from 'bun:test';
 import {
   addWeekDays,
   getDeliveryDate,
-  getPriceString,
-  getDeliveryPriceCents,
   getDeliveryDateISO,
+  getDeliveryPriceCents,
+  getPriceString,
 } from 'shared/deliveryOption';
 import { Temporal } from 'temporal-polyfill-lite';
 

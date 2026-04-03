@@ -1,14 +1,15 @@
-import { describe, test, expect, beforeEach } from 'bun:test';
+import { beforeEach, describe, expect, test } from 'bun:test';
 import {
   addToCart,
   cart,
+  cartQuantity,
   getMatchingCart,
   removeFromCart,
   updateDeliveryOption,
-  cartQuantity,
 } from 'shared/cart';
-import cartJson from '../../cart.json';
 import type { Cart } from 'shared/schema';
+
+import cartJson from '../../cart.json';
 
 beforeEach(() => {
   cart.value = [cartJson[0], cartJson[1], cartJson[2]] as Cart[];

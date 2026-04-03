@@ -1,13 +1,13 @@
-import { Elysia } from 'elysia';
 import { create, insertMultiple, search } from '@orama/orama';
+import { Elysia } from 'elysia';
+import { FETCH_CONFIG } from 'shared/constants';
 import {
   RawProductSchemaArray,
   type SearchResult,
   SearchResultSchema,
 } from 'shared/schema';
-import { array, parse } from 'valibot';
 import { Temporal } from 'temporal-polyfill-lite';
-import { FETCH_CONFIG } from 'shared/constants';
+import { array, parse } from 'valibot';
 
 const products = parse(
   RawProductSchemaArray,

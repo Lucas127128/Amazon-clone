@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'bun:test';
+import { describe, expect, test } from 'bun:test';
 import clothingListJSON from 'server/clothing' with { type: 'json' };
 import { app } from 'shared/edenTreaty';
 describe.concurrent('clothing list api test', () => {

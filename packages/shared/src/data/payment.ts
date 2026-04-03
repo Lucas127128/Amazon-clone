@@ -1,7 +1,7 @@
 import type { Cart } from '../schema.ts';
 import { checkNullish } from '../utils/typeChecker.ts';
-import { getMatchingProduct, type Product } from './products.ts';
 import { getDeliveryPriceCents } from './deliveryOption.ts';
+import { getMatchingProduct, type Product } from './products.ts';
 
 export type Prices = {
   totalProductPrice: number;

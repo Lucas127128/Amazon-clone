@@ -1,22 +1,24 @@
-import { CART_CONFIG } from 'shared/constants';
-import {
-  removeFromCart,
-  addToCart,
-  updateDeliveryOption,
-  cartQuantity,
-} from 'shared/cart';
-import { getMatchingProduct, fetchProducts } from 'shared/products';
-import { DeliveryOptionIdSchema, type Cart } from 'shared/schema';
+import 'typed-query-selector';
+
 import { effect } from '@preact/signals-core';
+import {
+  addToCart,
+  cartQuantity,
+  removeFromCart,
+  updateDeliveryOption,
+} from 'shared/cart';
+import { CART_CONFIG } from 'shared/constants';
+import { fetchProducts, getMatchingProduct } from 'shared/products';
+import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
 import { policy } from 'shared/trustedType';
 import {
   checkNullish,
   isHTMLElement,
   isHTMLInputElement,
 } from 'shared/typeChecker';
-import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 import { parse } from 'valibot';
-import 'typed-query-selector';
+
+import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 
 policy();
 

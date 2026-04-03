@@ -1,5 +1,5 @@
-import type { Prices } from 'shared/payment';
 import { formatCurrency } from 'shared/money';
+import type { Prices } from 'shared/payment';
 
 export function generatePaymentSummary(prices: Prices): string {
   const html = String.raw;

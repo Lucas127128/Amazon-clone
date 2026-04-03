@@ -1,6 +1,7 @@
 import { formatCurrency } from '#utils/money.ts';
-import { app } from './edenTreaty.ts';
+
 import type { RawProduct } from '../schema.ts';
+import { app } from './edenTreaty.ts';
 
 export const getMatchingProduct = (
   products: readonly Product[],

@@ -1,9 +1,10 @@
+import { describe, expect, test } from 'bun:test';
 import type { Prices } from 'shared/payment';
 import { calculatePrices } from 'shared/payment';
-import { describe, expect, test } from 'bun:test';
-import products from '../../../products.json';
-import { generatePaymentSummary } from 'web/paymentSummaryHTML';
 import type { Cart } from 'shared/schema';
+import { generatePaymentSummary } from 'web/paymentSummaryHTML';
+
+import products from '../../../products.json';
 
 describe.concurrent('test suite: generatePaymentSummary', () => {
   test('generate correct HTML', async () => {

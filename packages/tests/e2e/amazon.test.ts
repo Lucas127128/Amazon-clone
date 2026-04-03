@@ -1,7 +1,7 @@
-import { test, expect } from '@playwright/test';
-import sharp from 'sharp';
+import { expect, test } from '@playwright/test';
 import { getMatchingProduct, transformProducts } from 'shared/products';
 import { checkNullish } from 'shared/typeChecker';
+import sharp from 'sharp';
 
 test.describe('ui', () => {
   test.beforeEach(async ({ page }) => {

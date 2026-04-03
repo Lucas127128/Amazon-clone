@@ -1,5 +1,5 @@
-import { checkNullish } from 'shared/typeChecker';
 import { Elysia } from 'elysia';
+import { checkNullish } from 'shared/typeChecker';
 import { match, P } from 'ts-pattern';
 
 const glob = new Bun.Glob('**/*');

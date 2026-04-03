@@ -1,8 +1,8 @@
+import { GLOBAL_CONFIG } from 'shared/constants';
+import Sonda from 'sonda/vite';
 import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
-import { GLOBAL_CONFIG } from 'shared/constants';
 import htmlPurge from 'vite-plugin-purgecss';
-import Sonda from 'sonda/vite';
 // import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
@@ -38,7 +38,7 @@ export default defineConfig({
     assetsInlineLimit: 0,
     // sourcemap: true,
   },
-  // experimental: { bundledDev: true },
+  experimental: { bundledDev: true },
   plugins: [
     htmlMinifier({ minify: true }),
     htmlPurge({}),

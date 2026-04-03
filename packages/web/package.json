@@ -8,7 +8,8 @@
     "./amazonHTML": "./src/scripts/htmlGenerators/amazonHTML.ts",
     "./paymentSummaryHTML": "./src/scripts/htmlGenerators/paymentSummaryHTML.ts",
     "./ordersHTML": "./src/scripts/htmlGenerators/ordersHTML.ts",
-    "./trackingHTML": "./src/scripts/htmlGenerators/trackingHTML.ts"
+    "./trackingHTML": "./src/scripts/htmlGenerators/trackingHTML.ts",
+    "./cartSummaryHTML": "./src/scripts/htmlGenerators/cartSummaryHTML.ts"
   },
   "scripts": {
     "build": "bunx --bun vite build",

@@ -1,6 +1,7 @@
 import { treaty } from '@elysiajs/eden';
 import type { App } from 'server';
 import { Temporal } from 'temporal-polyfill-lite';
+
 import { FETCH_CONFIG, GLOBAL_CONFIG } from '../../config/constants.ts';
 import type { HttpMethods } from '../schema.ts';
 

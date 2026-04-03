@@ -1,5 +1,5 @@
 bun fmt
 bun lint
 bun audit --prod
-FORCE_COLOR=1 bun run --elide-lines 0 --filter tests test:unit
+bun run --elide-lines 1 --filter tests test:unit
 bunx knip

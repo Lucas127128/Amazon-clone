@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, test } from 'bun:test';
-import type { Cart } from 'shared/schema';
-import type { Product } from 'shared/products';
 import { formatCurrency } from 'shared/money';
-import { renderPaymentSummary } from 'web/paymentSummary';
-import { checkNullish } from 'shared/typeChecker';
 import { calculatePrices } from 'shared/payment';
+import type { Product } from 'shared/products';
+import type { Cart } from 'shared/schema';
+import { checkNullish } from 'shared/typeChecker';
+import { renderPaymentSummary } from 'web/paymentSummary';
 
 const cartJson = (await Bun.file('./normal/cart.json').json()) as Cart[];
 

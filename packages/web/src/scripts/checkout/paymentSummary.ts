@@ -1,11 +1,12 @@
+import { STORAGE_KEYS } from 'shared/constants';
 import { fetchOrders, getOrders } from 'shared/orders';
-import { checkNullish } from 'shared/typeChecker';
 import { calculatePrices } from 'shared/payment';
 import { fetchProducts } from 'shared/products';
-import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
-import { policy } from 'shared/trustedType';
 import type { Cart, Order } from 'shared/schema';
-import { STORAGE_KEYS } from 'shared/constants';
+import { policy } from 'shared/trustedType';
+import { checkNullish } from 'shared/typeChecker';
+
+import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
 let controller = new AbortController();
 export async function renderPaymentSummary(cart: Cart[]) {

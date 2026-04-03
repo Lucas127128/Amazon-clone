@@ -1,10 +1,10 @@
+import { describe, expect, test } from 'bun:test';
 import { getMatchingCart } from 'shared/cart';
 import { getMatchingProduct, type Product } from 'shared/products';
 import { OrderSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
-import { generateTrackingHTML } from 'web/trackingHTML';
-import { describe, expect, test } from 'bun:test';
 import { parse } from 'valibot';
+import { generateTrackingHTML } from 'web/trackingHTML';
 
 describe.concurrent('test suite: generateTrackingHTML', () => {
   test('generate correct HTML', async () => {

@@ -1,9 +1,9 @@
-import { describe, test, expect } from 'bun:test';
-import rawProducts from 'server/rawProducts';
+import { describe, expect, test } from 'bun:test';
 import clothings from 'server/clothing';
-import type { Cart } from 'shared/schema';
+import rawProducts from 'server/rawProducts';
 import { calculatePrices } from 'shared/payment';
 import { type Product, transformProducts } from 'shared/products';
+import type { Cart } from 'shared/schema';
 
 describe.concurrent('test suite: calculatePrices', () => {
   const cart: Cart[] = [

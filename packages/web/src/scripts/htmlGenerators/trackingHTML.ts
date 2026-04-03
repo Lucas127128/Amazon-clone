@@ -1,6 +1,6 @@
-import type { Cart, Order } from 'shared/schema';
 import { getDeliveryDate } from 'shared/deliveryOption';
 import type { Product } from 'shared/products';
+import type { Cart, Order } from 'shared/schema';
 import { getDeliveryProgress } from 'shared/tracking';
 
 export function generateTrackingHTML(

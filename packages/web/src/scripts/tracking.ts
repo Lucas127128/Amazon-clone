@@ -1,14 +1,15 @@
-import { getMatchingOrder } from 'shared/orders';
-import { getMatchingProduct, fetchProducts } from 'shared/products';
-import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
-import { checkNullish } from 'shared/typeChecker';
 import { getMatchingCart } from 'shared/cart';
-import { handleSearchInput } from './header';
-import { policy } from 'shared/trustedType';
-import { OrderSchemaArray } from 'shared/schema';
 import { STORAGE_KEYS } from 'shared/constants';
-import { parse } from 'valibot';
+import { getMatchingOrder } from 'shared/orders';
+import { fetchProducts, getMatchingProduct } from 'shared/products';
+import { OrderSchemaArray } from 'shared/schema';
+import { policy } from 'shared/trustedType';
+import { checkNullish } from 'shared/typeChecker';
 import { getURLParams } from 'shared/url';
+import { parse } from 'valibot';
+
+import { handleSearchInput } from './header';
+import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
 
 async function renderTrackingSummary() {
   policy();

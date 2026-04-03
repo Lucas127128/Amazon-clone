@@ -1,14 +1,15 @@
-import { describe, test, expect } from 'bun:test';
-import {
-  getMatchingProduct,
-  Product,
-  getMatchingRawProduct,
-  fetchProducts,
-} from 'shared/products';
+import { describe, expect, test } from 'bun:test';
 import correctRawProducts from 'server/rawProducts';
-import correctProducts from '../../products.json';
+import {
+  fetchProducts,
+  getMatchingProduct,
+  getMatchingRawProduct,
+  Product,
+} from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
+
+import correctProducts from '../../products.json';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',

@@ -1,5 +1,5 @@
-import { checkNullish, isHTMLInputElement } from 'shared/typeChecker';
 import { describe, expect, test } from 'bun:test';
+import { checkNullish, isHTMLInputElement } from 'shared/typeChecker';
 
 describe.concurrent('checkNullish', () => {
   describe('accept truthy and reject falsy', () => {

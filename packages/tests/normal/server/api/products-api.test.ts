@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'bun:test';
+import { describe, expect, test } from 'bun:test';
 import { fetchProducts, type Product } from 'shared/products';
 
 describe.concurrent('products api test', () => {

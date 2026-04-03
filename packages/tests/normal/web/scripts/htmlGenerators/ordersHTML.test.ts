@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'bun:test';
 import { getMatchingCart } from 'shared/cart';
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
@@ -6,7 +7,6 @@ import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
 } from 'web/ordersHTML';
-import { describe, expect, test } from 'bun:test';
 
 describe.concurrent('generateOrdersProductHTML', () => {
   test('generate correct html', async () => {
@@ -36,9 +36,6 @@ describe.concurrent('generateOrderContainerHTML', () => {
       './normal/ordersProduct.html',
     ).text();
     const order = (await Bun.file('./normal/order.json').json()) as Order;
-    console.log(
-      generateOrderContainerHTML(order, 'Wednesday', ordersProductHTML),
-    );
     const html = generateOrderContainerHTML(
       order,
       'Wednesday',

@@ -1,14 +1,14 @@
-import type { Cart } from 'shared/schema';
-import type { Product } from 'shared/products';
 import {
   deliveryOptions,
   getDeliveryDate,
   getPriceString,
 } from 'shared/deliveryOption';
+import type { Product } from 'shared/products';
+import type { Cart } from 'shared/schema';
 
 const html = String.raw;
 
-function deliveryOptionsHTML(matchingProductId: string) {
+export function deliveryOptionsHTML(matchingProductId: string) {
   let deliveryOptionsHTML = '';
   for (const deliveryOption of deliveryOptions) {
     const deliveryDate = getDeliveryDate(deliveryOption.id);
@@ -31,12 +31,6 @@ function deliveryOptionsHTML(matchingProductId: string) {
   return deliveryOptionsHTML;
 }
 
-function deliveryDateHTML(cartItem: Cart) {
-  const deliveryDate = getDeliveryDate(cartItem.deliveryOptionId);
-  const html = `Delivery date: ${deliveryDate}`;
-  return html;
-}
-
 export function generateCartSummary(
   matchingProduct: Product,
   cartItem: Cart,
@@ -47,7 +41,7 @@ export function generateCartSummary(
       data-product-id="${matchingProduct.id}"
     >
       <div class="delivery-date-${matchingProduct.id} delivery-date">
-        ${deliveryDateHTML(cartItem)}
+        Delivery date: ${getDeliveryDate(cartItem.deliveryOptionId)}
       </div>
 
       <div class="cart-item-details-grid">

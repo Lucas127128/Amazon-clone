@@ -1,12 +1,12 @@
-import { describe, test, expect } from 'bun:test';
+import { describe, expect, test } from 'bun:test';
+import { dateFormatOption } from 'shared/deliveryOption';
 import {
   fetchOrders,
   getMatchingOrder,
   getTimeString,
 } from 'shared/orders';
-import { dateFormatOption } from 'shared/deliveryOption';
-import { Temporal } from 'temporal-polyfill-lite';
 import type { Cart, Order } from 'shared/schema';
+import { Temporal } from 'temporal-polyfill-lite';
 
 const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
 

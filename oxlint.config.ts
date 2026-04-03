@@ -2,7 +2,11 @@ import { defineConfig } from 'oxlint';
 
 export default defineConfig({
   categories: {},
-  jsPlugins: ['eslint-plugin-depend', '@preact/eslint-plugin-signals'],
+  jsPlugins: [
+    'eslint-plugin-depend',
+    '@preact/eslint-plugin-signals',
+    'eslint-plugin-simple-import-sort',
+  ],
   plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'promise', 'import'],
   rules: {
     'no-unused-expressions': ['warn', { allowTernary: true }],
@@ -102,6 +106,8 @@ export default defineConfig({
     'promise/always-return': ['warn', { ignoreLastCallback: true }],
     'promise/catch-or-return': 'error',
     'promise/no-nesting': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
   settings: {
     vitest: {

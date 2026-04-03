@@ -1,19 +1,20 @@
 import {
-  object,
-  number,
-  string,
-  union,
-  literal,
-  pipe,
-  isoTimestamp,
   array,
-  minValue,
-  maxValue,
-  minLength,
-  maxLength,
   check,
   type InferOutput,
+  isoTimestamp,
+  literal,
+  maxLength,
+  maxValue,
+  minLength,
+  minValue,
+  number,
+  object,
+  pipe,
+  string,
+  union,
 } from 'valibot';
+
 import { CART_CONFIG } from '../config/constants.ts';
 
 const RatingSchema = object({

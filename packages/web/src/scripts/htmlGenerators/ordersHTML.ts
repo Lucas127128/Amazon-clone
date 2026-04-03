@@ -1,7 +1,7 @@
 import { getDeliveryDate } from 'shared/deliveryOption';
-import type { Order, Cart } from 'shared/schema';
-import type { Product } from 'shared/products';
 import { formatCurrency } from 'shared/money';
+import type { Product } from 'shared/products';
+import type { Cart, Order } from 'shared/schema';
 
 const html = String.raw;
 

@@ -1,17 +1,18 @@
-import { checkNullish } from '../utils/typeChecker.ts';
 import {
-  type DeliveryOptionId,
+  computed,
+  effect,
+  type Signal,
+  signal,
+} from '@preact/signals-core';
+import { parse } from 'valibot';
+
+import { STORAGE_KEYS } from '../../config/constants.ts';
+import {
   type Cart,
   CartSchemaArray,
+  type DeliveryOptionId,
 } from '../schema.ts';
-import { parse } from 'valibot';
-import {
-  signal,
-  effect,
-  computed,
-  type Signal,
-} from '@preact/signals-core';
-import { STORAGE_KEYS } from '../../config/constants.ts';
+import { checkNullish } from '../utils/typeChecker.ts';
 
 if (import.meta.env.DEV) {
   const { setDebugOptions } = await import('@preact/signals-debug');

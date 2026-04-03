@@ -1,9 +1,10 @@
-import { dateFormatOption } from './deliveryOption.ts';
 import { Temporal } from 'temporal-polyfill-lite';
-import { app } from './edenTreaty';
-import { type Order, type Cart, OrderSchemaArray } from '../schema.ts';
-import { STORAGE_KEYS } from '../../config/constants.ts';
 import { parse } from 'valibot';
+
+import { STORAGE_KEYS } from '../../config/constants.ts';
+import { type Cart, type Order, OrderSchemaArray } from '../schema.ts';
+import { dateFormatOption } from './deliveryOption.ts';
+import { app } from './edenTreaty';
 
 export function getTimeString(ISOOrderTime: string) {
   return Temporal.Instant.from(ISOOrderTime)

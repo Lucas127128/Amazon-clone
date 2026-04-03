@@ -1,12 +1,13 @@
+import { effect } from '@preact/signals-core';
+import { all } from 'better-all';
 import { cartQuantity } from 'shared/cart';
 import { fetchProducts } from 'shared/products';
 import { checkNullish } from 'shared/typeChecker';
-import { handleSearch, handleSearchInput } from './header.ts';
-import { effect } from '@preact/signals-core';
+import { getURLParams } from 'shared/url';
+
 import { renderProducts } from './amazon/products.ts';
 import { handleSortSelect } from './amazon/sort.ts';
-import { all } from 'better-all';
-import { getURLParams } from 'shared/url';
+import { handleSearch, handleSearchInput } from './header.ts';
 
 function renderAmazonHomePage() {
   const returnToHomeLink = document.querySelector('.cart-quantity');

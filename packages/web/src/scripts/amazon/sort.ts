@@ -1,8 +1,9 @@
-import { ProductSortOptionsSchema } from 'shared/schema';
 import type { Product } from 'shared/products';
+import { ProductSortOptionsSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
-import { renderProducts } from './products.ts';
 import { parse } from 'valibot';
+
+import { renderProducts } from './products.ts';
 
 export function handleSortSelect(products: readonly Product[]) {
   const sortSelectHTML = document.querySelector('select.sort-select');

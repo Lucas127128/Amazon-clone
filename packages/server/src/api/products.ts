@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
-import { Temporal } from 'temporal-polyfill-lite';
 import { ClothingListSchema, RawProductSchemaArray } from 'shared/schema';
+import { Temporal } from 'temporal-polyfill-lite';
 import { array, parse, string } from 'valibot';
 
 const products = parse(

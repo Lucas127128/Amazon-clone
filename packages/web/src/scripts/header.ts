@@ -1,7 +1,8 @@
-import { getMatchingProduct, fetchProducts } from 'shared/products';
-import { app } from 'shared/edenTreaty';
-import { checkNullish } from 'shared/typeChecker';
 import 'typed-query-selector';
+
+import { app } from 'shared/edenTreaty';
+import { fetchProducts, getMatchingProduct } from 'shared/products';
+import { checkNullish } from 'shared/typeChecker';
 
 const searchBar = document.querySelector('input.search-bar');
 checkNullish(searchBar);

@@ -1,13 +1,14 @@
-import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { fromTypes, openapi } from '@elysiajs/openapi';
-import { localHttps } from 'elysia-local-https';
-import { productsPlugin } from './products.ts';
-import { orderPlugin } from './orders.ts';
-import { staticPlugin } from './static.ts';
-import { searchPlugin } from './search.ts';
 import { toJsonSchema } from '@valibot/to-json-schema';
+import { Elysia } from 'elysia';
+import { localHttps } from 'elysia-local-https';
 import { GLOBAL_CONFIG } from 'shared/constants';
+
+import { orderPlugin } from './orders.ts';
+import { productsPlugin } from './products.ts';
+import { searchPlugin } from './search.ts';
+import { staticPlugin } from './static.ts';
 
 export const app = new Elysia({ precompile: true })
   .onBeforeHandle(({ set }) => {
