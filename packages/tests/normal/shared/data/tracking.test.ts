@@ -7,9 +7,7 @@ import { checkNullish } from 'shared/typeChecker';
 
 describe.concurrent('test suite: getDeliveryProgress', () => {
   test('get correct delivery progress', async () => {
-    const cart = (await Bun.file(
-      './tests/normal/cart.json',
-    ).json()) as Cart[];
+    const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
     const matchingCart = getMatchingCart(cart, '59LXo');
     checkNullish(matchingCart);
     const deliveryProgress = getDeliveryProgress(

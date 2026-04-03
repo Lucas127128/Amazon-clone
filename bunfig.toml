@@ -1,16 +1,3 @@
-[test]
-root = "tests/normal"
-concurrentTestGlob = "**/*"
-randomize = true
-retry = 1
-coverage = true
-coverageSkipTestFiles = true
-coveragePathIgnorePatterns = [
-  "server/src/api/**/*.ts",
-  "src/scripts/Utils/trustedTypes.ts",
-]
-preload = ["./tests/normal/preload.ts"]
-
 [install]
 minimumReleaseAge = 259200
 

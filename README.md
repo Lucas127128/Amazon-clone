@@ -18,7 +18,7 @@ bun run build
 
 **TODO**
 
-- [ ] Make the test work in new monorepo
+- [x] Make the test work in new monorepo
 
 - [x] Make single file executable work in new monorepo
 

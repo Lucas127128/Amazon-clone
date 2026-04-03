@@ -9,11 +9,11 @@ import { parse } from 'valibot';
 describe.concurrent('test suite: generateTrackingHTML', () => {
   test('generate correct HTML', async () => {
     const products = (await Bun.file(
-      './tests/normal/products.json',
+      './normal/products.json',
     ).json()) as Product[];
     const order = parse(
       OrderSchema,
-      await Bun.file('./tests/normal/order.json').json(),
+      await Bun.file('./normal/order.json').json(),
     );
 
     const matchingProduct = getMatchingProduct(products, '59LXo');
@@ -29,7 +29,7 @@ describe.concurrent('test suite: generateTrackingHTML', () => {
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     const correctTrackingHTML = (
-      await Bun.file('./tests/normal/trackingHTML.html').text()
+      await Bun.file('./normal/trackingHTML.html').text()
     )
       .replaceAll('\n', '')
       .replaceAll(' ', '');

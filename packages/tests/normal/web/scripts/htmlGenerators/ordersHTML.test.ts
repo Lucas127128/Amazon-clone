@@ -10,11 +10,9 @@ import { describe, expect, test } from 'bun:test';
 
 describe.concurrent('generateOrdersProductHTML', () => {
   test('generate correct html', async () => {
-    const carts = (await Bun.file(
-      './tests/normal/cart.json',
-    ).json()) as Cart[];
+    const carts = (await Bun.file('./normal/cart.json').json()) as Cart[];
     const products = (await Bun.file(
-      './tests/normal/products.json',
+      './normal/products.json',
     ).json()) as Product[];
     const cart = getMatchingCart(carts, '59LXo');
     const product = getMatchingProduct(products, '59LXo');
@@ -24,7 +22,7 @@ describe.concurrent('generateOrdersProductHTML', () => {
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     const correctHTML = (
-      await Bun.file('./tests/normal/ordersProduct.html').text()
+      await Bun.file('./normal/ordersProduct.html').text()
     )
       .replaceAll('\n', '')
       .replaceAll(' ', '');
@@ -35,11 +33,9 @@ describe.concurrent('generateOrdersProductHTML', () => {
 describe.concurrent('generateOrderContainerHTML', () => {
   test('generate correct html', async () => {
     const ordersProductHTML = await Bun.file(
-      './tests/normal/ordersProduct.html',
+      './normal/ordersProduct.html',
     ).text();
-    const order = (await Bun.file(
-      './tests/normal/order.json',
-    ).json()) as Order;
+    const order = (await Bun.file('./normal/order.json').json()) as Order;
     const html = generateOrderContainerHTML(
       order,
       'Wednesday',
@@ -48,7 +44,7 @@ describe.concurrent('generateOrderContainerHTML', () => {
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     const correctHTML = (
-      await Bun.file('./tests/normal/orderContainer.html').text()
+      await Bun.file('./normal/orderContainer.html').text()
     )
       .replaceAll('\n', '')
       .replaceAll(' ', '');

@@ -1,0 +1,12 @@
+[test]
+root = "normal"
+concurrentTestGlob = "**/*"
+randomize = true
+retry = 0
+coverage = true
+coverageSkipTestFiles = true
+coveragePathIgnorePatterns = [
+  "../server/src/api/*.ts",
+  "../**/*/trustedTypes.ts",
+]
+preload = ["./normal/preload.ts"]

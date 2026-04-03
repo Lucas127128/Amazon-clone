@@ -8,7 +8,7 @@ import { dateFormatOption } from 'shared/deliveryOption';
 import { Temporal } from 'temporal-polyfill-lite';
 import type { Cart, Order } from 'shared/schema';
 
-const cart = (await Bun.file('./tests/normal/cart.json').json()) as Cart[];
+const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
 
 describe.concurrent('test suite: getTimeString', () => {
   test('get time string from ISO time', () => {

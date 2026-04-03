@@ -4,9 +4,9 @@
   "scripts": {
     "test:bun": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test --watch",
     "test:ci": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test",
-    "test:unit": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./tests/normal/shared ./tests/normal/web",
-    "test:api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./tests/normal/server/api --watch",
-    "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on -c ./config/playwright.config.ts",
+    "test:unit": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./normal/shared ./normal/web",
+    "test:api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./normal/server/api --watch",
+    "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on",
     "test:vitest": "vitest",
     "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --parallel test:vitest test:bun"
   },

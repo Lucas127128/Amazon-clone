@@ -6,9 +6,7 @@ import { renderPaymentSummary } from 'web/paymentSummary';
 import { checkNullish } from 'shared/typeChecker';
 import { calculatePrices } from 'shared/payment';
 
-const cartJson = (await Bun.file(
-  './tests/normal/cart.json',
-).json()) as Cart[];
+const cartJson = (await Bun.file('./normal/cart.json').json()) as Cart[];
 
 beforeAll(async () => {
   localStorage.clear();
@@ -20,7 +18,7 @@ beforeAll(async () => {
 });
 
 const products = (await Bun.file(
-  './tests/normal/products.json',
+  './normal/products.json',
 ).json()) as Product[];
 
 describe.concurrent('test suite: render payment details', () => {

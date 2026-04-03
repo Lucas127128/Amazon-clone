@@ -13,24 +13,24 @@ jobs:
           key: the-key
           path: |
             ./node_modules
-            ./certs
+            **/*/node_modules
+            ./packages/server/certs
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Install dependency
         run: bun install
+
       - name: Build app
-        run: bun run build
+        run: bun run --elide-lines 0 --filter web build
       - name: Install dependency for https
         run: |
           curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
           chmod +x mkcert-v*-linux-amd64
           sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
-        # run: mkcert -install
-      # - name: Install certs
       - name: Run Bun Server
         uses: JarvusInnovations/background-action@v1
         with:
-          run: bun run api:dev
+          run: FORCE_COLOR=1 bun run --elide-lines 0 --filter server api:dev
           wait-on: https://localhost:8080
       - name: Run tests
-        run: bun run test:ci
+        run: FORCE_COLOR=1 bun run --elide-lines 0 --filter tests test:ci

@@ -5,7 +5,7 @@ describe.concurrent('products api test', () => {
   test('deliver correct products', async () => {
     const products = await fetchProducts();
     const realProducts = (await Bun.file(
-      './tests/normal/products.json',
+      './normal/products.json',
     ).json()) as Product[];
     expect(products).toEqual(realProducts);
   });
