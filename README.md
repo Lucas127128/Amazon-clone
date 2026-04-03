@@ -24,6 +24,8 @@ bun run build
 
 - [ ] Make knip work in new monorepo
 
+- [ ] Use catalog in new monorepo
+
 **Acknowledgement:**
 
 The Amazon project in this repo is mainly follow the following youtube tutorial:
