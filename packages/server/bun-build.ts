@@ -4,7 +4,7 @@ await Bun.build({
   sourcemap: true,
   bytecode: true,
   format: 'esm',
-  entrypoints: ['./server/src/api/index.ts'],
+  entrypoints: ['./src/api/index.ts'],
   target: 'bun',
 });
 export {};

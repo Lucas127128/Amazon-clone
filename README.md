@@ -20,7 +20,7 @@ bun run build
 
 - [ ] Make the test work in new monorepo
 
-- [ ] Make single file executable work in new monorepo
+- [x] Make single file executable work in new monorepo
 
 - [ ] Make knip work in new monorepo
 

@@ -9,7 +9,7 @@
   "scripts": {
     "remove-build-cache": " find . -name '*.bun-build' -type f -delete ",
     "exec-api": "./api",
-    "api": "bun run ./config/bun-build.ts && bun run --parallel exec-api remove-build-cache",
+    "api": "bun run ./bun-build.ts && bun run --parallel exec-api remove-build-cache",
     "api:dev": "bun run --watch ./src/api/server.ts"
   },
   "dependencies": {
