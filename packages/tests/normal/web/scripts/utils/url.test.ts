@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { getURLParams } from 'shared/url';
+import { getURLParams } from 'web/url';
 
 describe.concurrent('getURLParams', () => {
   test('get correct params', () => {

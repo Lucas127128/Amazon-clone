@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
-import { fetchOrders } from 'shared/orders';
 import type { Cart, Order } from 'shared/schema';
+import { fetchOrders } from 'web/orders';
 
 const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
 const order = await fetchOrders(cart);

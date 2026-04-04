@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import { generateAmazonHTML } from 'web/amazonHTML';
 
-import products from '../../../products.json';
+import products from '../../../../products.json';
 
 describe.concurrent('generateAmazonHTML', () => {
   test('generate correct amazon HTML', async () => {

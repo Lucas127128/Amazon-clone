@@ -1,5 +1,9 @@
 import { describe, expect, test } from 'bun:test';
-import { checkNullish, isHTMLInputElement } from 'shared/typeChecker';
+import {
+  checkNullish,
+  isHTMLElement,
+  isHTMLInputElement,
+} from 'shared/typeChecker';
 
 describe.concurrent('checkNullish', () => {
   describe('accept truthy and reject falsy', () => {
@@ -39,5 +43,16 @@ describe.concurrent('isHTMLInputElement', () => {
   test('reject other html element', () => {
     const divElement = document.createElement('div');
     expect(() => isHTMLInputElement(divElement)).toThrow();
+  });
+});
+
+describe.concurrent('isHTMLElement', () => {
+  test('accept HTMLElement', () => {
+    const htmlElement = document.createElement('div');
+    expect(() => isHTMLElement(htmlElement, 'htmlElement')).not.toThrow();
+  });
+  test('reject event target', () => {
+    const eventTarget = new EventTarget();
+    expect(() => isHTMLElement(eventTarget, 'eventTarget')).toThrow();
   });
 });

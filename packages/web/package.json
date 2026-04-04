@@ -4,12 +4,14 @@
   "type": "module",
   "sideEffects": false,
   "exports": {
-    "./paymentSummary": "./src/scripts/checkout/paymentSummary.ts",
-    "./amazonHTML": "./src/scripts/htmlGenerators/amazonHTML.ts",
-    "./paymentSummaryHTML": "./src/scripts/htmlGenerators/paymentSummaryHTML.ts",
-    "./ordersHTML": "./src/scripts/htmlGenerators/ordersHTML.ts",
-    "./trackingHTML": "./src/scripts/htmlGenerators/trackingHTML.ts",
-    "./cartSummaryHTML": "./src/scripts/htmlGenerators/cartSummaryHTML.ts"
+    "./paymentSummary": "./src/scripts/pages/checkout/paymentSummary.ts",
+    "./amazonHTML": "./src/scripts/pages/htmlGenerators/amazonHTML.ts",
+    "./paymentSummaryHTML": "./src/scripts/pages/htmlGenerators/paymentSummaryHTML.ts",
+    "./ordersHTML": "./src/scripts/pages/htmlGenerators/ordersHTML.ts",
+    "./trackingHTML": "./src/scripts/pages/htmlGenerators/trackingHTML.ts",
+    "./cartSummaryHTML": "./src/scripts/pages/htmlGenerators/cartSummaryHTML.ts",
+    "./url": "./src/scripts/utils/url.ts",
+    "./orders": "./src/scripts/data/orders.ts"
   },
   "scripts": {
     "build": "bunx --bun vite build",
@@ -19,7 +21,9 @@
     "@awesome.me/webawesome": "^3.4.0",
     "@preact/signals-core": "catalog:",
     "better-all": "^0.0.7",
+    "dompurify": "^3.3.3",
     "shared": "workspace:*",
+    "temporal-polyfill-lite": "catalog:",
     "typed-query-selector": "^2.12.1",
     "valibot": "catalog:"
   },

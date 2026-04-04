@@ -1,5 +1,6 @@
 [install]
-minimumReleaseAge = 259200
+# temporary disable minimumReleaseAge for update critical security issue(CVE-2026-35209)
+# minimumReleaseAge = 259200
 linker = "isolated"
 
 [install.security]

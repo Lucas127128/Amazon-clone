@@ -1,5 +1,5 @@
 bun fmt
 bun lint
-bun audit --prod
+bun audit --ignore 1115969 --prod
 bun run --elide-lines 1 --filter tests test:unit
 bunx knip

@@ -1,4 +1,5 @@
 import { Elysia } from 'elysia';
+import { evlog } from 'evlog/elysia';
 import { nanoid } from 'nanoid';
 import { calculatePrices } from 'shared/payment';
 import { transformProducts } from 'shared/products';
@@ -37,23 +38,23 @@ class Order implements Exact<OrderType, Order> {
   products: Cart[] = [];
 }
 
-export const orderPlugin = new Elysia({ prefix: '/api' }).post(
-  '/orders',
-  ({ body, request, server }) => {
-    const clientIP = server?.requestIP(request)?.address;
-    const now = Temporal.Now.plainTimeISO().toJSON();
-    console.log(`new orders request from ${clientIP} at ${now}`);
-    const order = new Order(body);
-    return order;
-  },
-  {
-    response: OrderSchema,
-    body: pipe(CartSchemaArray, minLength(1)),
-    detail: {
-      description:
-        'generate order from a cart(No actual database involved, only for demo)',
+export const orderPlugin = new Elysia({ prefix: '/api' })
+  .use(evlog())
+  .post(
+    '/orders',
+    ({ body, request, server, log }) => {
+      const clientIP = server?.requestIP(request)?.address;
+      log.set({ clientIp: clientIP });
+      const order = new Order(body);
+      return order;
     },
-  },
-);
-console.log(`🦊 Elysia is running`);
+    {
+      response: OrderSchema,
+      body: pipe(CartSchemaArray, minLength(1)),
+      detail: {
+        description:
+          'generate order from a cart(No actual database involved, only for demo)',
+      },
+    },
+  );
 console.log('Orders api service starts');

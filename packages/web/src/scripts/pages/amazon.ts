@@ -3,8 +3,8 @@ import { all } from 'better-all';
 import { cartQuantity } from 'shared/cart';
 import { fetchProducts } from 'shared/products';
 import { checkNullish } from 'shared/typeChecker';
-import { getURLParams } from 'shared/url';
 
+import { getURLParams } from '../utils/url.ts';
 import { renderProducts } from './amazon/products.ts';
 import { handleSortSelect } from './amazon/sort.ts';
 import { handleSearch, handleSearchInput } from './header.ts';

@@ -1,11 +1,11 @@
 import { STORAGE_KEYS } from 'shared/constants';
-import { fetchOrders, getOrders } from 'shared/orders';
 import { calculatePrices } from 'shared/payment';
 import { fetchProducts } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
-import { policy } from 'shared/trustedType';
 import { checkNullish } from 'shared/typeChecker';
 
+import { fetchOrders, getOrders } from '../../data/orders.ts';
+import { sanitize } from '../../utils/trustedTypes.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
 let controller = new AbortController();
@@ -23,8 +23,9 @@ export async function renderPaymentSummary(cart: Cart[]) {
   if (!window.trustedTypes) {
     paymentSummary.innerHTML = paymentSummaryHTML;
   } else {
-    policy();
-    paymentSummary.innerHTML = paymentSummaryHTML;
+    paymentSummary.innerHTML = sanitize?.createHTML(
+      paymentSummaryHTML,
+    ) as unknown as string;
   }
 
   const placeOrderHTML = document.querySelector('.place-order-button');

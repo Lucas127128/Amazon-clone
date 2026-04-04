@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Amazon Project</title>
-    <script type="module" src="./scripts/amazon.ts" defer></script>
+    <script type="module" src="./scripts/pages/amazon.ts" defer></script>
     <link
       rel="stylesheet"
       rel="preload"
@@ -29,13 +29,13 @@
         <a href="./index.html" class="header-link amazon-link">
           <img
             class="amazon-logo"
-            src="../images/amazon-logo-white.webp"
+            src="./images/amazon-logo-white.webp"
             fetchpriority="high"
           />
           <img
             fetchpriority="high"
             class="amazon-mobile-logo"
-            src="../images/amazon-mobile-logo-white.webp"
+            src="./images/amazon-mobile-logo-white.webp"
           />
         </a>
       </div>
@@ -47,7 +47,7 @@
           <img
             class="search-icon"
             fetchpriority="high"
-            src="../images/icons/search-icon.svg"
+            src="./images/icons/search-icon.svg"
           />
         </button>
       </div>
@@ -62,7 +62,7 @@
           <img
             class="cart-icon"
             fetchpriority="high"
-            src="../images/icons/cart-icon.png"
+            src="./images/icons/cart-icon.png"
           />
           <div class="cart-quantity">0</div>
           <div class="cart-text">Cart</div>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="sort-container">
-      <img src="/images/icons/sort.svg" class="sort-image" />
+      <img src="./images/icons/sort.svg" class="sort-image" />
       <select class="sort-select">
         <option value="most-stars" selected>stars - more to less</option>
         <option value="least-stars">stars - less to more</option>

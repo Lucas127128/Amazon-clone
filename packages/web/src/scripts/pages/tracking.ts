@@ -1,13 +1,13 @@
 import { getMatchingCart } from 'shared/cart';
 import { STORAGE_KEYS } from 'shared/constants';
-import { getMatchingOrder } from 'shared/orders';
 import { fetchProducts, getMatchingProduct } from 'shared/products';
 import { OrderSchemaArray } from 'shared/schema';
-import { policy } from 'shared/trustedType';
 import { checkNullish } from 'shared/typeChecker';
-import { getURLParams } from 'shared/url';
 import { parse } from 'valibot';
 
+import { getMatchingOrder } from '../data/orders.ts';
+import { policy } from '../utils/trustedTypes.ts';
+import { getURLParams } from '../utils/url.ts';
 import { handleSearchInput } from './header';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
 
@@ -42,4 +42,5 @@ async function renderTrackingSummary() {
   backToOrderLink?.insertAdjacentHTML('afterend', trackingHTML);
 }
 
-await Promise.allSettled([renderTrackingSummary(), handleSearchInput()]);
+await renderTrackingSummary();
+handleSearchInput();

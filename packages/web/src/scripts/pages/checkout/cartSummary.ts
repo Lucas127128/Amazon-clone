@@ -10,7 +10,6 @@ import {
 import { CART_CONFIG } from 'shared/constants';
 import { fetchProducts, getMatchingProduct } from 'shared/products';
 import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
-import { policy } from 'shared/trustedType';
 import {
   checkNullish,
   isHTMLElement,
@@ -18,6 +17,7 @@ import {
 } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
+import { policy } from '../../utils/trustedTypes.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 
 policy();

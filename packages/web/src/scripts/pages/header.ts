@@ -27,9 +27,9 @@ export function handleSearchInput() {
 export async function handleSearch(searchQuery: string) {
   checkNullish(searchBar);
   searchBar.value = searchQuery;
-  const { data: searchResults, error } = await app.api.search
-    .products({ q: searchQuery })
-    .get();
+  const { data: searchResults, error } = await app.api.search.products.get(
+    { query: { q: searchQuery } },
+  );
   if (error) throw error;
   const fullProducts = await fetchProducts();
   return searchResults.map((searchResult) => {

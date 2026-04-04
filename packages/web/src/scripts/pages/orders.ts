@@ -3,13 +3,13 @@ import '@awesome.me/webawesome/dist/components/copy-button/copy-button.js';
 import { effect } from '@preact/signals-core';
 import { addToCart, cartQuantity } from 'shared/cart';
 import { CART_CONFIG, STORAGE_KEYS, UI_TIMEOUTS } from 'shared/constants';
-import { getTimeString } from 'shared/orders';
 import { fetchProducts, getMatchingProduct } from 'shared/products';
 import { type Order, OrderSchemaArray } from 'shared/schema';
-import { policy } from 'shared/trustedType';
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
+import { getTimeString } from '../data/orders.ts';
+import { policy } from '../utils/trustedTypes.ts';
 import { handleSearchInput } from './header.ts';
 import {
   generateOrderContainerHTML,
@@ -146,4 +146,5 @@ async function renderPlacedOrder() {
   );
 }
 
-await Promise.allSettled([renderPlacedOrder(), handleSearchInput()]);
+await renderPlacedOrder();
+handleSearchInput();

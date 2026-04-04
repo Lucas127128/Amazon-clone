@@ -5,18 +5,18 @@ import { Elysia } from 'elysia';
 import { localHttps } from 'elysia-local-https';
 import { GLOBAL_CONFIG } from 'shared/constants';
 
+import { initEvlog } from '../utils/logger.ts';
 import { orderPlugin } from './orders.ts';
 import { productsPlugin } from './products.ts';
 import { searchPlugin } from './search.ts';
 import { staticPlugin } from './static.ts';
 
-export const app = new Elysia({ precompile: true })
+initEvlog();
+
+export const app = new Elysia({ precompile: true, aot: true })
   .onBeforeHandle(({ set }) => {
     set.headers['content-type'] = 'application/json';
     set.headers['cache-control'] = 'public, max-age=86400';
-  })
-  .onAfterResponse(({ set }) => {
-    console.log(set.status);
   })
   .use(
     cors({
@@ -26,13 +26,12 @@ export const app = new Elysia({ precompile: true })
         GLOBAL_CONFIG.PREVIEW_URL,
         GLOBAL_CONFIG.CADDY_URL,
       ],
-      credentials: true,
-      allowedHeaders: ['Content-Type', 'Authorization'],
+      allowedHeaders: ['Content-Type'],
     }),
   )
   .use(
     openapi({
-      references: fromTypes('server/src/api/server.ts'),
+      references: fromTypes('src/api/server.ts'),
       mapJsonSchema: {
         valibot: toJsonSchema,
       },
@@ -45,7 +44,7 @@ export const app = new Elysia({ precompile: true })
   .listen(localHttps({ port: 8080 }));
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port} on pid: ${process.pid}`,
 );
 
 export type App = typeof app;

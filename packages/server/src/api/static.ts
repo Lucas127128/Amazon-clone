@@ -5,7 +5,10 @@ import { match, P } from 'ts-pattern';
 const glob = new Bun.Glob('**/*');
 const filesName = [...glob.scanSync('../web/dist')];
 
-export const staticPlugin = new Elysia({ precompile: true })
+export const staticPlugin = new Elysia({
+  precompile: true,
+  nativeStaticResponse: true,
+})
   .get(
     '/',
     ({ redirect }) => {
@@ -35,7 +38,9 @@ await Promise.all(
 
     const fileObj = Bun.file(`../web/dist/${fileName}`);
     const file = await match(fileExtension)
-      .with('html', 'css', 'js', async () => await fileObj.text())
+      .with('html', 'css', 'js', async () =>
+        Bun.gzipSync(await fileObj.text()),
+      )
       .with(
         'webp',
         'png',
@@ -47,7 +52,7 @@ await Promise.all(
       .with(P._, P.nullish, async () => await fileObj.bytes())
       .exhaustive();
 
-    const compressedFile = Bun.gzipSync(file);
+    // const compressedFile = Bun.gzipSync(file);
 
     const cacheControl = match(fileExtension)
       .with('html', () => 'public, no-cache')
@@ -63,13 +68,18 @@ await Promise.all(
       .with(P._, P.nullish, () => undefined)
       .exhaustive();
 
+    const contentEncoding = match(fileExtension)
+      .with('html', 'css', 'js', () => 'gzip')
+      .with(P._, P.nullish, () => undefined)
+      .exhaustive();
+
     const route = fileName.replace('./dist', '');
 
     staticPlugin.get(route, ({ set }) => {
       checkNullish(contentType);
       set.headers['content-type'] = contentType;
       set.headers['cache-control'] = cacheControl;
-      set.headers['content-encoding'] = 'gzip';
+      set.headers['content-encoding'] = contentEncoding;
       set.headers['strict-transport-security'] =
         'max-age=31536000; includeSubDomains; preload';
       set.headers['cross-origin-opener-policy'] =
@@ -77,7 +87,7 @@ await Promise.all(
       set.headers['content-security-policy'] =
         "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' data:; frame-ancestors 'none'; require-trusted-types-for 'script';";
       set.headers['Speculation-Rules'] = '"/speculationRules.json"';
-      return compressedFile;
+      return file;
     });
   }),
 );

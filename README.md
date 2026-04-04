@@ -22,6 +22,8 @@ bun run build
 
 - [ ] Use my own code in copy button in orders page
 
+- [ ] Use db instead of json files for products
+
 **Acknowledgement:**
 
 The Amazon project in this repo is mainly follow the following youtube tutorial:

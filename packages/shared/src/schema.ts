@@ -96,7 +96,3 @@ export const ProductSortOptionsSchema = union([
   literal('most-expensive'),
   literal('least-expensive'),
 ]);
-
-export type ProductSortOptions = InferOutput<
-  typeof ProductSortOptionsSchema
->;

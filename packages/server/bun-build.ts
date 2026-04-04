@@ -1,4 +1,6 @@
+Bun.env.PROD = true;
 await Bun.build({
+  env: 'inline',
   compile: true,
   minify: true,
   sourcemap: true,

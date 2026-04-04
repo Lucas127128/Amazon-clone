@@ -5,7 +5,7 @@ const config = {
       entry: ['src/api/index.ts'],
     },
     'packages/web': {
-      entry: ['src/scripts/*.ts'],
+      entry: ['src/scripts/pages/*.ts'],
     },
     'packages/tests': {
       entry: ['**/*.test.ts'],

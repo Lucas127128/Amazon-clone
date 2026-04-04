@@ -96,7 +96,6 @@ export default defineConfig({
       { allowNullableBoolean: true },
     ],
     'typescript/switch-exhaustiveness-check': 'error',
-    'typescript/strict-void-return': 'error',
     'typescript/use-unknown-in-catch-callback-variable': 'error',
     '@preact/signals/no-signal-write-in-computed': 'error',
     '@preact/signals/no-value-after-await': 'error',

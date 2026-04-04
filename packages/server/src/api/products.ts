@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
+import { evlog } from 'evlog/elysia';
 import { ClothingListSchema, RawProductSchemaArray } from 'shared/schema';
-import { Temporal } from 'temporal-polyfill-lite';
 import { array, parse, string } from 'valibot';
 
 const products = parse(
@@ -13,14 +13,12 @@ const clothings = parse(
 );
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
+  .use(evlog())
   .get(
     '/products',
-    ({ request, server, set }) => {
+    ({ server, request, log }) => {
       const clientIP = server?.requestIP(request)?.address;
-      const now = Temporal.Now.plainTimeISO().toString();
-      set.headers['cache-control'] = 'public, max-age=86400';
-
-      console.log(`new products request from ${clientIP} at ${now}`);
+      log.set({ clientIp: clientIP });
       return products;
     },
     {
@@ -32,10 +30,9 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
   )
   .get(
     '/clothingList',
-    ({ request, server }) => {
+    ({ server, request, log }) => {
       const clientIP = server?.requestIP(request)?.address;
-      const now = Temporal.Now.plainTimeISO().toString();
-      console.log(`new clothing request from ${clientIP} at ${now}`);
+      log.set({ clientIp: clientIP });
       return clothings;
     },
     {
@@ -45,7 +42,5 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
       },
     },
   );
-
-console.log(`🦊 Elysia is running`);
 
 console.log('Products api service starts');

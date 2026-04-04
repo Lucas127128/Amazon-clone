@@ -1,12 +1,8 @@
 import { describe, expect, test } from 'bun:test';
 import { dateFormatOption } from 'shared/deliveryOption';
-import {
-  fetchOrders,
-  getMatchingOrder,
-  getTimeString,
-} from 'shared/orders';
 import type { Cart, Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
+import { fetchOrders, getMatchingOrder, getTimeString } from 'web/orders';
 
 const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
 
@@ -21,10 +17,12 @@ describe.concurrent('test suite: getTimeString', () => {
   });
 });
 
-const orders = await fetchOrders(cart);
-const ordersJSON = (await import('../../order.json')).default as Order;
-describe.concurrent('test suite: fetchOrders', () => {
-  test('same totalCostCents', () => {
+describe.concurrent('test suite: fetchOrders', async () => {
+  const orders = await fetchOrders(cart);
+  test('same totalCostCents', async () => {
+    const ordersJSON = (await Bun.file(
+      './normal/order.json',
+    ).json()) as Order;
     expect(orders.totalCostCents).toBe(ordersJSON.totalCostCents);
   });
 
