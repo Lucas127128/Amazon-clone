@@ -14,11 +14,10 @@
   },
   "type": "module",
   "scripts": {
-    "inspect": "node-modules-inspector",
     "lint": "bunx --bun oxlint -c ./oxlint.config.ts",
     "fmt": "oxfmt",
     "dev": "bun run --parallel --elide-lines 10000 -F '*' dev",
-    "test": "bun run --elide-lines 10000 -F tests test:bun",
+    "test": "bun run --elide-lines 10000 -F tests test",
     "start": "bun run --elide-lines 10000 -F server start"
   },
   "devDependencies": {
@@ -29,8 +28,7 @@
     "eslint-plugin-depend": "^1.5.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^9.1.7",
-    "knip": "^6.2.0",
-    "node-modules-inspector": "^1.4.2",
+    "knip": "^6.3.0",
     "oxfmt": "^0.43.0",
     "oxlint": "^1.58.0",
     "oxlint-tsgolint": "^0.19.0",

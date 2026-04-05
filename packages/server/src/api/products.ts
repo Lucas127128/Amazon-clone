@@ -1,14 +1,14 @@
 import { Elysia } from 'elysia';
 import { evlog } from 'evlog/elysia';
 import { ClothingListSchema, RawProductSchemaArray } from 'shared/schema';
-import { array, parse, string } from 'valibot';
+import { parse } from 'valibot';
 
 const products = parse(
   RawProductSchemaArray,
   await Bun.file('./src/api/rawProducts.json').json(),
 );
 const clothings = parse(
-  array(string()),
+  ClothingListSchema,
   await Bun.file('./src/api/clothing.json').json(),
 );
 

@@ -1,9 +1,9 @@
-import { describe, expect, test } from 'bun:test';
 import {
   checkNullish,
   isHTMLElement,
   isHTMLInputElement,
 } from 'shared/typeChecker';
+import { describe, expect, test } from 'vitest';
 
 describe.concurrent('checkNullish', () => {
   describe('accept truthy and reject falsy', () => {
@@ -28,7 +28,7 @@ describe.concurrent('checkNullish', () => {
       );
     });
     test('throw default error', () => {
-      expect(() => checkNullish(undefined)).toThrowError(
+      expect(() => checkNullish(undefined)).toThrow(
         'Error: The value of undefined is falsy',
       );
     });

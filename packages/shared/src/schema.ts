@@ -1,5 +1,6 @@
 import {
   array,
+  cache,
   check,
   type InferOutput,
   isoTimestamp,
@@ -32,13 +33,15 @@ const RatingSchema = object({
 
 export const PriceCentsSchema = pipe(number(), minValue(0));
 
-export const RawProductSchema = object({
-  id: pipe(string(), minLength(5), maxLength(5)),
-  image: pipe(string(), minLength(1)),
-  name: pipe(string(), minLength(1)),
-  rating: RatingSchema,
-  priceCents: PriceCentsSchema,
-});
+export const RawProductSchema = cache(
+  object({
+    id: pipe(string(), minLength(5), maxLength(5)),
+    image: pipe(string(), minLength(1)),
+    name: pipe(string(), minLength(1)),
+    rating: RatingSchema,
+    priceCents: PriceCentsSchema,
+  }),
+);
 export const RawProductSchemaArray = array(RawProductSchema);
 export type RawProduct = InferOutput<typeof RawProductSchema>;
 
@@ -70,7 +73,9 @@ export const OrderSchema = object({
 export const OrderSchemaArray = array(OrderSchema);
 export type Order = InferOutput<typeof OrderSchema>;
 
-export const ClothingListSchema = array(RawProductSchema.entries.id);
+export const ClothingListSchema = cache(
+  array(RawProductSchema.entries.id),
+);
 
 export type HttpMethods =
   | 'GET'

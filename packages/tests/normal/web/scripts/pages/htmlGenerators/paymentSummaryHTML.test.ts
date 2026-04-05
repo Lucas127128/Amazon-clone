@@ -1,7 +1,7 @@
-import { describe, expect, test } from 'bun:test';
 import type { Prices } from 'shared/payment';
 import { calculatePrices } from 'shared/payment';
 import type { Cart } from 'shared/schema';
+import { describe, expect, test } from 'vitest';
 import { generatePaymentSummary } from 'web/paymentSummaryHTML';
 
 import products from '../../../../products.json';

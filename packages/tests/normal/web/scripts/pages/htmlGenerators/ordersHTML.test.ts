@@ -1,8 +1,8 @@
-import { describe, expect, test } from 'bun:test';
 import { getMatchingCart } from 'shared/cart';
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
+import { describe, expect, test } from 'vitest';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,

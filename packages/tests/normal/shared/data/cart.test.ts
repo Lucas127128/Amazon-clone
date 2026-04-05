@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, test } from 'bun:test';
 import {
   addToCart,
   cart,
@@ -8,6 +7,7 @@ import {
   updateDeliveryOption,
 } from 'shared/cart';
 import type { Cart } from 'shared/schema';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import cartJson from '../../cart.json';
 
@@ -21,6 +21,7 @@ describe.concurrent('addToCart', () => {
     expect(cart.value.length).toBe(4);
   });
   test('incrementally add an existing product to cart', () => {
+    cart.value = [cartJson[0], cartJson[1], cartJson[2]] as Cart[];
     addToCart({ ...cart.value[2], quantity: 1 }, true);
     expect(cart.value.length).toBe(3);
     expect(cart.value[2].productId).toBe('acmQY');
@@ -45,10 +46,10 @@ describe.concurrent('removeFromCart', () => {
 
 describe.concurrent('updateDeliveryOption', () => {
   test('update delivery option', () => {
-    updateDeliveryOption('59LXo', '3');
+    updateDeliveryOption('Hwme8', '3');
     const deliveryOptionId = getMatchingCart(
       cart.value,
-      '59LXo',
+      'Hwme8',
     )?.deliveryOptionId;
     expect(deliveryOptionId).toBe('3');
   });

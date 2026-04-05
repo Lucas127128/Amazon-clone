@@ -6,10 +6,10 @@ import type { Order } from '../schema';
 import { getDeliveryDateISO } from './deliveryOption';
 
 export function getDeliveryProgress(order: Order, matchingCart: Cart) {
-  const orderTime = Temporal.Instant.from(order.orderTime)
-    .toZonedDateTimeISO(Temporal.Now.timeZoneId())
-    .toPlainDate();
-  const deliveryProgress = Temporal.Now.plainDateISO()
+  const orderTime = Temporal.Instant.from(
+    order.orderTime,
+  ).toZonedDateTimeISO(Temporal.Now.timeZoneId());
+  const deliveryProgress = Temporal.Now.zonedDateTimeISO()
     .since(orderTime)
     .total({ unit: 'hours' });
 

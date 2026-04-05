@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'bun:test';
+import { describe, expect, test } from 'vitest';
 import { getURLParams } from 'web/url';
 
 describe.concurrent('getURLParams', () => {

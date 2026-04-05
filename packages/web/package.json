@@ -18,7 +18,7 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@awesome.me/webawesome": "^3.4.0",
+    "@awesome.me/webawesome": "^3.5.0",
     "@preact/signals-core": "catalog:",
     "better-all": "^0.0.7",
     "dompurify": "^3.3.3",
@@ -28,7 +28,7 @@
     "valibot": "catalog:"
   },
   "devDependencies": {
-    "@vitejs/devtools": "^0.1.11",
+    "@vitejs/devtools": "^0.1.13",
     "sonda": "^0.11.1",
     "vite": "^8.0.3",
     "vite-plugin-html-minifier": "^1.0.5",

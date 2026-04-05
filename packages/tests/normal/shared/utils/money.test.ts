@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'bun:test';
 import { formatCurrency } from 'shared/money';
+import { describe, expect, test } from 'vitest';
 
 describe.concurrent('formatCurrency', () => {
   test('converts cents into dollars', () => {

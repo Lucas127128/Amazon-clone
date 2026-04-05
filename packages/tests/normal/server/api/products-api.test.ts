@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'bun:test';
 import { fetchProducts, type Product } from 'shared/products';
+import { describe, expect, test } from 'vitest';
 
 describe.concurrent('products api test', () => {
   test('deliver correct products', async () => {

@@ -16,8 +16,10 @@ const config = {
     'husky',
     '@socketsecurity/bun-security-scanner',
     'vite',
+    'happy-dom',
   ],
+  ignoreBinaries: ['bombardier'],
 };
-// }satisfies KnipConfig;
+// } satisfies KnipConfig;
 
 export default config;

@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'bun:test';
 import correctRawProducts from 'server/rawProducts';
 import {
   fetchProducts,
@@ -8,6 +7,7 @@ import {
 } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
+import { describe, expect, test } from 'vitest';
 
 import correctProducts from '../../products.json';
 

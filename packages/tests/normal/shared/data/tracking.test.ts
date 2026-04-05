@@ -1,8 +1,8 @@
-import { describe, expect, test } from 'bun:test';
 import { getMatchingCart } from 'shared/cart';
 import type { Cart, Order } from 'shared/schema';
 import { getDeliveryProgress } from 'shared/tracking';
 import { checkNullish } from 'shared/typeChecker';
+import { describe, expect, test } from 'vitest';
 
 import order from '../../order.json' with { type: 'json' };
 
@@ -15,6 +15,6 @@ describe.concurrent('test suite: getDeliveryProgress', () => {
       order as Order,
       matchingCart,
     );
-    expect(Math.round(deliveryProgress)).toBe(88);
+    expect(Math.round(deliveryProgress)).toBe(90);
   });
 });

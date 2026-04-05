@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'bun:test';
 import {
   addWeekDays,
   getDeliveryDate,
@@ -7,6 +6,7 @@ import {
   getPriceString,
 } from 'shared/deliveryOption';
 import { Temporal } from 'temporal-polyfill-lite';
+import { describe, expect, test } from 'vitest';
 
 describe.concurrent('Delivery time test', () => {
   test('addWeekDays', () => {
@@ -24,13 +24,13 @@ describe.concurrent('Delivery time test', () => {
 
   test('getDeliveryDateISO', () => {
     expect(getDeliveryDateISO('1')).toEqual(
-      Temporal.PlainDate.from('2026-02-18'),
+      Temporal.PlainDate.from('2026-03-16'),
     );
     expect(getDeliveryDateISO('2')).toEqual(
-      Temporal.PlainDate.from('2026-02-12'),
+      Temporal.PlainDate.from('2026-03-10'),
     );
     expect(getDeliveryDateISO('3')).toEqual(
-      Temporal.PlainDate.from('2026-02-10'),
+      Temporal.PlainDate.from('2026-03-06'),
     );
   });
 });

@@ -1,5 +1,4 @@
 import { Elysia } from 'elysia';
-import { checkNullish } from 'shared/typeChecker';
 import { match, P } from 'ts-pattern';
 
 const glob = new Bun.Glob('**/*');
@@ -76,7 +75,6 @@ await Promise.all(
     const route = fileName.replace('./dist', '');
 
     staticPlugin.get(route, ({ set }) => {
-      checkNullish(contentType);
       set.headers['content-type'] = contentType;
       set.headers['cache-control'] = cacheControl;
       set.headers['content-encoding'] = contentEncoding;

@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test:bun": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test --watch",
-    "test:ci": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test",
-    "test:unit": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./normal/shared ./normal/web",
-    "test:api": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun test ./normal/server/api --watch",
-    "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on",
-    "test:vitest": "vitest ",
-    "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun run --parallel test:vitest test:bun"
+    "test": "bunx --bun vitest",
+    "test:ci": "bun run test -w=false",
+    "test:unit": "bun run test ./normal/shared ./normal/web",
+    "test:api": "bun run test ./normal/server/api --watch",
+    "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on"
   },
   "dependencies": {
     "server": "workspace:*",
@@ -19,10 +17,9 @@
     "web": "workspace:*"
   },
   "devDependencies": {
-    "@happy-dom/global-registrator": "^20.8.9",
-    "@playwright/test": "^1.59.0",
+    "@playwright/test": "^1.59.1",
     "@vitest/browser-preview": "^4.1.2",
-    "playwright": "^1.59.0",
+    "playwright": "^1.59.1",
     "sharp": "^0.34.5",
     "vitest": "^4.1.2"
   }

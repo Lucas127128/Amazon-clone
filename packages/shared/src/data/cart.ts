@@ -14,7 +14,8 @@ import {
 } from '../schema.ts';
 import { checkNullish } from '../utils/typeChecker.ts';
 
-if (import.meta.env.DEV) {
+//eslint-disable-next-line
+if (!globalThis.Bun && import.meta.env.DEV) {
   const { setDebugOptions } = await import('@preact/signals-debug');
   setDebugOptions({ enabled: true, grouped: true });
 }
