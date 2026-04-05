@@ -2,8 +2,9 @@ import type { Cart, Order } from 'shared/schema';
 import { describe, expect, test } from 'vitest';
 import { fetchOrders } from 'web/orders';
 
-const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
-const order = await fetchOrders(cart);
+import cart from '../../cart.json' with { type: 'json' };
+
+const order = await fetchOrders(cart as Cart[]);
 
 const correctOrder = (await Bun.file(
   './normal/order.json',

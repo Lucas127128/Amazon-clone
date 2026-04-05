@@ -10,11 +10,8 @@ describe.concurrent('formatCurrency', () => {
     expect(formatCurrency(0)).toBe('0.00');
   });
 
-  test('round up to nearest cents', () => {
+  test('round up to off cents', () => {
     expect(formatCurrency(2000.5)).toBe('20.01');
-  });
-
-  test('round down to nearest cents', () => {
     expect(formatCurrency(2000.4)).toBe('20.00');
   });
 });

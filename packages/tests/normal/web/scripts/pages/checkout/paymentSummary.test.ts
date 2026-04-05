@@ -1,3 +1,4 @@
+import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { beforeAll, describe, expect, test } from 'vitest';
@@ -11,7 +12,10 @@ beforeAll(async () => {
       <div class="test-container">
         <div class="payment-summary"></div>
       </div>`;
-  await renderPaymentSummary(cartJson);
+  const products = Bun.file('./normal/products.json').json() as Promise<
+    readonly Product[]
+  >;
+  await renderPaymentSummary({ cart: cartJson, products });
 });
 
 describe.concurrent('render payment details', () => {

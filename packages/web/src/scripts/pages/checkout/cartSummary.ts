@@ -8,7 +8,7 @@ import {
   updateDeliveryOption,
 } from 'shared/cart';
 import { CART_CONFIG } from 'shared/constants';
-import { fetchProducts, getMatchingProduct } from 'shared/products';
+import { getMatchingProduct, type Product } from 'shared/products';
 import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
 import {
   checkNullish,
@@ -24,12 +24,15 @@ policy();
 
 const orderSummary = document.querySelector('div.order-summary');
 
-export async function renderOrderSummary(cart: Cart[]) {
-  const products = await fetchProducts();
+export async function renderOrderSummary(params: {
+  cart: Cart[];
+  products: Promise<readonly Product[]>;
+}) {
+  const products = await params.products;
   checkNullish(orderSummary, 'Fail to select HTML element');
   orderSummary.innerHTML = '';
   let cartsSummaryHTML = '';
-  for (const cartItem of cart) {
+  for (const cartItem of params.cart) {
     const matchingProduct = getMatchingProduct(
       products,
       cartItem.productId,
@@ -39,7 +42,7 @@ export async function renderOrderSummary(cart: Cart[]) {
     cartsSummaryHTML += cartSummaryHTML;
   }
   orderSummary.insertAdjacentHTML('beforeend', cartsSummaryHTML);
-  for (const cartItem of cart) {
+  for (const cartItem of params.cart) {
     const deliveryOptionButtonHTML = document.getElementById(
       `${cartItem.deliveryOptionId}-${cartItem.productId}`,
     );

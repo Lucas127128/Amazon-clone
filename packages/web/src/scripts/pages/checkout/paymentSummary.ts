@@ -1,6 +1,6 @@
 import { STORAGE_KEYS } from 'shared/constants';
 import { calculatePrices } from 'shared/payment';
-import { fetchProducts } from 'shared/products';
+import type { Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 
@@ -9,13 +9,16 @@ import { sanitize } from '../../utils/trustedTypes.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
 let controller = new AbortController();
-export async function renderPaymentSummary(cart: Cart[]) {
+export async function renderPaymentSummary(params: {
+  cart: Cart[];
+  products: Promise<readonly Product[]>;
+}) {
   controller.abort();
   controller = new AbortController();
   const { signal } = controller;
 
-  const products = await fetchProducts();
-  const prices = calculatePrices(cart, products);
+  const products = await params.products;
+  const prices = calculatePrices(params.cart, products);
 
   const paymentSummary = document.querySelector('.payment-summary');
   const paymentSummaryHTML = generatePaymentSummary(prices);
@@ -34,7 +37,7 @@ export async function renderPaymentSummary(cart: Cart[]) {
   placeOrderHTML.addEventListener(
     'click',
     () => {
-      fetchOrders(cart)
+      fetchOrders(params.cart)
         .then((order) => {
           checkNullish(order);
           const orders: Order[] = getOrders();

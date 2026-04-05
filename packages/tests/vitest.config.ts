@@ -5,15 +5,40 @@ export default defineConfig({
   test: {
     pool: 'threads',
     maxConcurrency: 100,
-    maxWorkers: 32,
+    maxWorkers: 64,
     projects: [
       {
         test: {
           isolate: true,
-          include: ['./normal/**/*.test.ts'],
-          name: 'happy-dom',
+          sequence: { concurrent: true },
+          include: [
+            './normal/web/**/*.test.ts',
+            './normal/shared/**/*.test.ts',
+          ],
+          name: 'happy-dom-normal',
           environment: 'happy-dom',
           setupFiles: ['./normal/preload.ts'],
+          environmentOptions: {
+            happyDOM: {
+              width: 100,
+              height: 50,
+              settings: {
+                fetch: {
+                  disableStrictSSL: true,
+                  disableSameOriginPolicy: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        test: {
+          isolate: true,
+          sequence: { concurrent: true },
+          include: ['./normal/server/**/*.test.ts'],
+          name: 'happy-dom-api',
+          environment: 'happy-dom',
           environmentOptions: {
             happyDOM: {
               width: 100,

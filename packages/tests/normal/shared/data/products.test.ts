@@ -6,10 +6,9 @@ import {
   Product,
 } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
-import { checkNullish } from 'shared/typeChecker';
 import { describe, expect, test } from 'vitest';
 
-import correctProducts from '../../products.json';
+import products from '../../products.json';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',
@@ -19,8 +18,7 @@ const correctRawProduct: RawProduct = {
   priceCents: 2374,
 };
 describe.concurrent('Get matching item', () => {
-  test('get matching products', async () => {
-    const products = await fetchProducts();
+  test('get matching products', () => {
     const matchingProduct = getMatchingProduct(products, 'sMmsZ');
     const correctProduct = new Product(correctRawProduct, false);
     expect(matchingProduct).toEqual(correctProduct);
@@ -37,14 +35,13 @@ describe.concurrent('Get matching item', () => {
 
 describe.concurrent('fetch products', () => {
   test('fetch correct products', async () => {
-    const products = await fetchProducts();
-    expect(products).toEqual(correctProducts);
+    const fetchedProducts = await fetchProducts();
+    expect(fetchedProducts).toEqual(products);
   });
 
   test('Generate product object', () => {
     const product = new Product(correctRawProduct, false);
-    const correctProduct = getMatchingProduct(correctProducts, 'sMmsZ');
-    checkNullish(correctProduct);
+    const correctProduct = getMatchingProduct(products, 'sMmsZ');
     expect(product).toEqual(correctProduct);
   });
 });

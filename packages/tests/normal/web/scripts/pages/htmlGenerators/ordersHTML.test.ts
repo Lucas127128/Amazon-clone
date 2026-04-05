@@ -1,24 +1,20 @@
 import { getMatchingCart } from 'shared/cart';
-import { getMatchingProduct, type Product } from 'shared/products';
+import { getMatchingProduct } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
-import { checkNullish } from 'shared/typeChecker';
 import { describe, expect, test } from 'vitest';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
 } from 'web/ordersHTML';
 
+import carts from '../../../../cart.json' with { type: 'json' };
+import products from '../../../../products.json' with { type: 'json' };
+
 describe.concurrent('generateOrdersProductHTML', () => {
   test('generate correct html', async () => {
-    const carts = (await Bun.file('./normal/cart.json').json()) as Cart[];
-    const products = (await Bun.file(
-      './normal/products.json',
-    ).json()) as Product[];
-    const cart = getMatchingCart(carts, '59LXo');
+    const cart = getMatchingCart(carts as Cart[], '59LXo');
     const product = getMatchingProduct(products, '59LXo');
-    checkNullish(product);
-    checkNullish(cart);
-    const html = generateOrdersProductHTML(cart, product, 'gsZyI1l')
+    const html = generateOrdersProductHTML(cart!, product!, 'gsZyI1l')
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     const correctHTML = (

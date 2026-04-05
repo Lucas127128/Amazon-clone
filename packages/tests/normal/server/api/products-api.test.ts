@@ -1,12 +1,11 @@
-import { fetchProducts, type Product } from 'shared/products';
+import realProducts from 'server/rawProducts' with { type: 'json' };
+import { app } from 'shared/edenTreaty';
 import { describe, expect, test } from 'vitest';
 
 describe.concurrent('products api test', () => {
   test('deliver correct products', async () => {
-    const products = await fetchProducts();
-    const realProducts = (await Bun.file(
-      './normal/products.json',
-    ).json()) as Product[];
-    expect(products).toEqual(realProducts);
+    const products = await app.api.products.get();
+    if (products.error) throw products.error;
+    expect(products.data).toEqual(realProducts);
   });
 });

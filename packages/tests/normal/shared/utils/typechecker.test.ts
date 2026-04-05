@@ -6,7 +6,7 @@ import {
 import { describe, expect, test } from 'vitest';
 
 describe.concurrent('checkNullish', () => {
-  describe('accept truthy and reject falsy', () => {
+  describe('accept truthy and reject nullish', () => {
     test('accept truthy', () => {
       expect(() => checkNullish(1)).not.toThrow();
       expect(() => checkNullish('foo')).not.toThrow();

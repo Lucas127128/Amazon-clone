@@ -1,29 +1,26 @@
 import { getMatchingCart } from 'shared/cart';
-import { getMatchingProduct, type Product } from 'shared/products';
-import { OrderSchema } from 'shared/schema';
+import { getMatchingProduct } from 'shared/products';
+import type { Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
-import { parse } from 'valibot';
 import { describe, expect, test } from 'vitest';
 import { generateTrackingHTML } from 'web/trackingHTML';
 
+import order from '../../../../order.json' with { type: 'json' };
+import products from '../../../../products.json' with { type: 'json' };
+
 describe.concurrent('test suite: generateTrackingHTML', () => {
   test('generate correct HTML', async () => {
-    const products = (await Bun.file(
-      './normal/products.json',
-    ).json()) as Product[];
-    const order = parse(
-      OrderSchema,
-      await Bun.file('./normal/order.json').json(),
-    );
-
     const matchingProduct = getMatchingProduct(products, '59LXo');
-    const matchingCart = getMatchingCart(order.products, '59LXo');
+    const matchingCart = getMatchingCart(
+      (order as Order).products,
+      '59LXo',
+    );
     checkNullish(matchingProduct);
     checkNullish(matchingCart);
 
     const trackingHTML = generateTrackingHTML(
       matchingProduct,
-      order,
+      order as Order,
       matchingCart,
     )
       .replaceAll('\n', '')

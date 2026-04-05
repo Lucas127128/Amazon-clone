@@ -32,7 +32,7 @@ export function generateOrdersProductHTML(
         >
         <span
           class="buy-again-success buy-again-success-${product.productId}"
-          >✓ Added</span
+          >&#x2713 Added</span
         >
       </button>
     </div>

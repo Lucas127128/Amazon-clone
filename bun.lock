@@ -58,7 +58,6 @@
         "server": "workspace:*",
         "shared": "workspace:*",
         "temporal-polyfill-lite": "catalog:",
-        "valibot": "catalog:",
         "web": "workspace:*",
       },
       "devDependencies": {
