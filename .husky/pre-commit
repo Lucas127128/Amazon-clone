@@ -1,5 +1,5 @@
 bun fmt
 bun lint
-bun audit --ignore 1115969 --prod
+bun audit --prod
 bun run --cwd ./packages/tests test:unit
 bunx knip

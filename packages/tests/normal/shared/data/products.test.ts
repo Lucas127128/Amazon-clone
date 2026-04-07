@@ -8,7 +8,7 @@ import {
 import type { RawProduct } from 'shared/schema';
 import { describe, expect, test } from 'vitest';
 
-import products from '../../products.json';
+import products from '#testData/products.json' with { type: 'json' };
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',
@@ -19,14 +19,17 @@ const correctRawProduct: RawProduct = {
 };
 describe.concurrent('Get matching item', () => {
   test('get matching products', () => {
-    const matchingProduct = getMatchingProduct(products, 'sMmsZ');
+    const matchingProduct = getMatchingProduct(
+      products as Product[],
+      'sMmsZ',
+    );
     const correctProduct = new Product(correctRawProduct, false);
     expect(matchingProduct).toEqual(correctProduct);
   });
 
   test('get matching raw product', () => {
     const matchingProduct = getMatchingRawProduct(
-      correctRawProducts,
+      correctRawProducts as RawProduct[],
       'sMmsZ',
     );
     expect(matchingProduct).toEqual(correctRawProduct);
@@ -41,7 +44,10 @@ describe.concurrent('fetch products', () => {
 
   test('Generate product object', () => {
     const product = new Product(correctRawProduct, false);
-    const correctProduct = getMatchingProduct(products, 'sMmsZ');
+    const correctProduct = getMatchingProduct(
+      products as Product[],
+      'sMmsZ',
+    );
     expect(product).toEqual(correctProduct);
   });
 });

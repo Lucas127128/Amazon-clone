@@ -18,10 +18,10 @@ jobs:
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Install dependency
-        run: bun install
+        run: bun i
 
       - name: Build app
-        run: bun run --filter web build
+        run: bun run build
       - name: Install dependency for https
         run: |
           curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
@@ -30,7 +30,7 @@ jobs:
       - name: Run Bun Server
         uses: JarvusInnovations/background-action@v1
         with:
-          run: FORCE_COLOR=1 bun run --filter server dev
+          run: FORCE_COLOR=1 bun run --cwd ./packages/server dev
           wait-on: https://localhost:8080
       - name: Run tests
-        run: FORCE_COLOR=1 bun run --filter tests test:ci
+        run: FORCE_COLOR=1 bun run --cwd ./packages/tests test:ci

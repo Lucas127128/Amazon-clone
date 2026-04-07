@@ -4,7 +4,8 @@ import { Temporal } from 'temporal-polyfill-lite';
 import { describe, expect, test } from 'vitest';
 import { fetchOrders, getMatchingOrder, getTimeString } from 'web/orders';
 
-const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
+import cart from '#testData/cart.json' with { type: 'json' };
+import orderJson from '#testData/order.json' with { type: 'json' };
 
 describe.concurrent('test suite: getTimeString', () => {
   test('get time string from ISO time', () => {
@@ -18,12 +19,9 @@ describe.concurrent('test suite: getTimeString', () => {
 });
 
 describe.concurrent('test suite: fetchOrders', async () => {
-  const orders = await fetchOrders(cart);
-  test('same totalCostCents', async () => {
-    const ordersJSON = (await Bun.file(
-      './normal/order.json',
-    ).json()) as Order;
-    expect(orders.totalCostCents).toBe(ordersJSON.totalCostCents);
+  const orders = await fetchOrders(cart as Cart[]);
+  test('same totalCostCents', () => {
+    expect(orders.totalCostCents).toBe(orderJson.totalCostCents);
   });
 
   test('same products', () => {

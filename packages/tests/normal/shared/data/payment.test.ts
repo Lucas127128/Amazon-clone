@@ -2,7 +2,7 @@ import clothings from 'server/clothing';
 import rawProducts from 'server/rawProducts';
 import { calculatePrices } from 'shared/payment';
 import { type Product, transformProducts } from 'shared/products';
-import type { Cart } from 'shared/schema';
+import type { Cart, RawProduct } from 'shared/schema';
 import { describe, expect, test } from 'vitest';
 
 describe.concurrent('test suite: calculatePrices', () => {
@@ -11,7 +11,7 @@ describe.concurrent('test suite: calculatePrices', () => {
     { productId: 'Hwme8', quantity: 1, deliveryOptionId: '3' },
   ];
   const products: readonly Product[] = transformProducts(
-    rawProducts,
+    rawProducts as RawProduct[],
     clothings,
   );
   const prices = calculatePrices(cart, products);

@@ -5,8 +5,15 @@ export function policy() {
     createHTML: (inputHTML) => {
       const cleanHTML = DOMPurify.sanitize(inputHTML, {
         RETURN_TRUSTED_TYPE: false,
-        ADD_ATTR: ['fetchpriority', 'load', 'decode', 'from'],
-        ADD_TAGS: ['wa-copy-button'],
+        ADD_ATTR: [
+          'fetchpriority',
+          'load',
+          'decode',
+          'distance',
+          'placement',
+          'for',
+        ],
+        ADD_TAGS: ['wa-tooltip'],
       });
       return cleanHTML;
     },
@@ -17,8 +24,15 @@ export const sanitize = window.trustedTypes?.createPolicy('dompurify', {
   createHTML: (inputHTML) => {
     const cleanHTML = DOMPurify.sanitize(inputHTML, {
       RETURN_TRUSTED_TYPE: false,
-      ADD_ATTR: ['fetchpriority', 'load', 'decode', 'from'],
-      ADD_TAGS: ['wa-copy-button'],
+      ADD_ATTR: [
+        'fetchpriority',
+        'load',
+        'decode',
+        'distance',
+        'placement',
+        'for',
+      ],
+      ADD_TAGS: ['wa-tooltip'],
     });
     return cleanHTML;
   },

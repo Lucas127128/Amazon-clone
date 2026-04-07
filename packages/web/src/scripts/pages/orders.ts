@@ -1,4 +1,4 @@
-import '@awesome.me/webawesome/dist/components/copy-button/copy-button.js';
+import '@awesome.me/webawesome/dist/components/tooltip/tooltip.js';
 
 import { effect } from '@preact/signals-core';
 import { addToCart, cartQuantity } from 'shared/cart';
@@ -52,15 +52,13 @@ async function renderPlacedOrder() {
 
   type Timer = {
     timer: NodeJS.Timeout;
-    key: `${string}-${string}`;
+    key: HTMLElement;
   };
   const timers: Timer[] = [];
 
   function displayBuyAgainMessage(
     buyAgainMessageHTML: HTMLElement,
     buyAgainSuccessHTML: HTMLElement,
-    productId: string,
-    orderId: string,
   ) {
     buyAgainSuccessHTML.style.display = 'block';
     buyAgainSuccessHTML.style.opacity = '1';
@@ -68,7 +66,7 @@ async function renderPlacedOrder() {
     buyAgainMessageHTML.style.opacity = '0';
 
     let matchingTimer = timers.find(
-      (timer) => timer.key === `${productId}-${orderId}`,
+      (timer) => timer.key === buyAgainMessageHTML,
     );
     const timer: Timer = {
       timer: setTimeout(() => {
@@ -77,7 +75,7 @@ async function renderPlacedOrder() {
         buyAgainSuccessHTML.style.display = 'none';
         buyAgainSuccessHTML.style.opacity = '0';
       }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY),
-      key: `${productId}-${orderId}`,
+      key: buyAgainMessageHTML,
     };
     if (matchingTimer) {
       clearTimeout(matchingTimer.timer);
@@ -86,56 +84,53 @@ async function renderPlacedOrder() {
       timers.push(timer);
     }
   }
-  ordersHTML.addEventListener('click', (event) => {
-    let buyAgainButton = event.target;
-    if (!(buyAgainButton instanceof HTMLElement)) return;
-    /*
-    The event target may be the child element inside the buy again button and
-    do not contain the "buy-again-button" class. If this is the situation,
-    I need to set the buyAgainButton to its parent element, which is the
-    actual buy again button element, not the child element of it.
-    */
-    if (
-      !buyAgainButton.classList.contains('buy-again-button') &&
-      !buyAgainButton.parentElement?.classList.contains('buy-again-button')
-    ) {
-      return;
-    } else if (
-      !buyAgainButton.classList.contains('buy-again-button') &&
-      buyAgainButton.parentElement?.classList.contains('buy-again-button')
-    ) {
-      buyAgainButton = buyAgainButton.parentElement;
-      if (!(buyAgainButton instanceof HTMLButtonElement)) return;
-    }
+  const buyAgainButtons = document.querySelectorAll(
+    'button.buy-again-button',
+  );
+  for (const buyAgainButton of buyAgainButtons) {
+    buyAgainButton.addEventListener('click', () => {
+      const { productId } = buyAgainButton.dataset;
+      checkNullish(productId, 'Fail to get productId');
+      addToCart(
+        {
+          productId,
+          quantity: 1,
+          deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+        },
+        true,
+      );
 
-    const { productId, orderId } = buyAgainButton.dataset;
-    const buyAgainSuccessHTML = buyAgainButton.querySelector(
-      `span.buy-again-success-${productId}`,
-    );
-    const buyAgainMessageHTML = buyAgainButton.querySelector(
-      `span.buy-again-message-${productId}`,
-    );
+      const buyAgainSuccessHTML = buyAgainButton.querySelector(
+        `span.buy-again-success`,
+      );
+      const buyAgainMessageHTML = buyAgainButton.querySelector(
+        `span.buy-again-message`,
+      );
+      checkNullish(buyAgainMessageHTML);
+      checkNullish(buyAgainSuccessHTML);
+      displayBuyAgainMessage(buyAgainMessageHTML, buyAgainSuccessHTML);
+    });
+  }
+  const copyButtons = document.querySelectorAll('button.copy-button');
+  for (const copyButton of copyButtons) {
+    copyButton.addEventListener('click', async () => {
+      const tooltip =
+        copyButton.parentElement?.querySelector('wa-tooltip');
+      checkNullish(tooltip);
+      tooltip.textContent = 'copied';
+      const icon = copyButton.querySelector('img');
+      checkNullish(icon);
+      icon.src = '/images/icons/tick.svg';
+      setTimeout(() => {
+        tooltip.textContent = 'copy';
+        icon.src = '/images/icons/copy.svg';
+      }, 1000);
 
-    checkNullish(productId, 'Fail to get productId');
-    addToCart(
-      {
-        productId: productId,
-        quantity: 1,
-        deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
-      },
-      true,
-    );
-
-    checkNullish(buyAgainMessageHTML);
-    checkNullish(buyAgainSuccessHTML);
-    checkNullish(orderId);
-    displayBuyAgainMessage(
-      buyAgainMessageHTML,
-      buyAgainSuccessHTML,
-      productId,
-      orderId,
-    );
-  });
+      const { orderId } = copyButton.dataset;
+      checkNullish(orderId);
+      await navigator.clipboard.writeText(orderId);
+    });
+  }
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
   effect(

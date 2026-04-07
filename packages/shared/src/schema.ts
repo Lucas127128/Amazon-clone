@@ -1,8 +1,8 @@
 import {
   array,
   cache,
-  check,
   type InferOutput,
+  integer,
   isoTimestamp,
   literal,
   maxLength,
@@ -18,17 +18,21 @@ import {
 
 import { CART_CONFIG } from '../config/constants.ts';
 
-const RatingSchema = object({
-  stars: pipe(
-    number(),
-    minValue(0),
-    maxValue(5),
-    check(
-      (val) => (val * 10) % 5 === 0,
-      'Stars must be in 0.5 increments.',
-    ),
-  ),
-  count: number(),
+export const RatingSchema = object({
+  stars: union([
+    literal(0),
+    literal(0.5),
+    literal(1),
+    literal(1.5),
+    literal(2),
+    literal(2.5),
+    literal(3),
+    literal(3.5),
+    literal(4),
+    literal(4.5),
+    literal(5),
+  ]),
+  count: pipe(number(), integer()),
 });
 
 export const PriceCentsSchema = pipe(number(), minValue(0));

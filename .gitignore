@@ -15,3 +15,4 @@ test-results
 *.js.map
 .sonda
 packages/server/api
+packages/tests/html

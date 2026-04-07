@@ -1,5 +1,5 @@
 import { getMatchingCart } from 'shared/cart';
-import { getMatchingProduct } from 'shared/products';
+import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { describe, expect, test } from 'vitest';
 import {
@@ -7,43 +7,36 @@ import {
   generateOrdersProductHTML,
 } from 'web/ordersHTML';
 
-import carts from '../../../../cart.json' with { type: 'json' };
-import products from '../../../../products.json' with { type: 'json' };
+import carts from '#testData/cart.json' with { type: 'json' };
+import order from '#testData/order.json' with { type: 'json' };
+import orderContainerHTML from '#testData/orderContainer.html?raw' with { type: 'text' };
+import orderProductHTML from '#testData/ordersProduct.html?raw' with { type: 'text' };
+import products from '#testData/products.json' with { type: 'json' };
 
 describe.concurrent('generateOrdersProductHTML', () => {
-  test('generate correct html', async () => {
+  test('generate correct html', () => {
     const cart = getMatchingCart(carts as Cart[], '59LXo');
-    const product = getMatchingProduct(products, '59LXo');
+    const product = getMatchingProduct(products as Product[], '59LXo');
     const html = generateOrdersProductHTML(cart!, product!, 'gsZyI1l')
       .replaceAll('\n', '')
       .replaceAll(' ', '');
-    const correctHTML = (
-      await Bun.file('./normal/ordersProduct.html').text()
-    )
-      .replaceAll('\n', '')
-      .replaceAll(' ', '');
-    expect(html).toBe(correctHTML);
+    expect(html).toBe(
+      orderProductHTML.replaceAll('\n', '').replaceAll(' ', ''),
+    );
   });
 });
 
 describe.concurrent('generateOrderContainerHTML', () => {
-  test('generate correct html', async () => {
-    const ordersProductHTML = await Bun.file(
-      './normal/ordersProduct.html',
-    ).text();
-    const order = (await Bun.file('./normal/order.json').json()) as Order;
+  test('generate correct html', () => {
     const html = generateOrderContainerHTML(
-      order,
+      order as Order,
       'Wednesday',
-      ordersProductHTML,
+      orderProductHTML,
     )
       .replaceAll('\n', '')
       .replaceAll(' ', '');
-    const correctHTML = (
-      await Bun.file('./normal/orderContainer.html').text()
-    )
-      .replaceAll('\n', '')
-      .replaceAll(' ', '');
-    expect(html).toBe(correctHTML);
+    expect(html).toBe(
+      orderContainerHTML.replaceAll('\n', '').replaceAll(' ', ''),
+    );
   });
 });

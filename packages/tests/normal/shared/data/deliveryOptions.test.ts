@@ -10,10 +10,16 @@ import { describe, expect, test } from 'vitest';
 
 describe.concurrent('Delivery time test', () => {
   test('addWeekDays', () => {
-    const localNow = Temporal.Now.plainDateISO();
-    expect(addWeekDays(7, localNow).toJSON()).toBe('2026-03-16');
-    expect(addWeekDays(3, localNow).toJSON()).toBe('2026-03-10');
-    expect(addWeekDays(1, localNow).toJSON()).toBe('2026-03-06');
+    const localNow = Temporal.Now.zonedDateTimeISO();
+    expect(addWeekDays(7, localNow).toPlainDate()).toEqual(
+      Temporal.ZonedDateTime.from('2026-03-16[UTC]').toPlainDate(),
+    );
+    expect(addWeekDays(3, localNow).toPlainDate()).toEqual(
+      Temporal.ZonedDateTime.from('2026-03-10[UTC]').toPlainDate(),
+    );
+    expect(addWeekDays(1, localNow).toPlainDate()).toEqual(
+      Temporal.ZonedDateTime.from('2026-03-06[UTC]').toPlainDate(),
+    );
   });
 
   test('getDeliveryDate', () => {
@@ -23,14 +29,14 @@ describe.concurrent('Delivery time test', () => {
   });
 
   test('getDeliveryDateISO', () => {
-    expect(getDeliveryDateISO('1')).toEqual(
-      Temporal.PlainDate.from('2026-03-16'),
+    expect(getDeliveryDateISO('1').toPlainDate()).toEqual(
+      Temporal.ZonedDateTime.from('2026-03-16[UTC]').toPlainDate(),
     );
-    expect(getDeliveryDateISO('2')).toEqual(
-      Temporal.PlainDate.from('2026-03-10'),
+    expect(getDeliveryDateISO('2').toPlainDate()).toEqual(
+      Temporal.ZonedDateTime.from('2026-03-10[UTC]').toPlainDate(),
     );
-    expect(getDeliveryDateISO('3')).toEqual(
-      Temporal.PlainDate.from('2026-03-06'),
+    expect(getDeliveryDateISO('3').toPlainDate()).toEqual(
+      Temporal.ZonedDateTime.from('2026-03-06[UTC]').toPlainDate(),
     );
   });
 });

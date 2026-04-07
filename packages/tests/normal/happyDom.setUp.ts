@@ -2,9 +2,15 @@ import clothing from 'server/clothing' with { type: 'json' };
 import rawProducts from 'server/rawProducts' with { type: 'json' };
 import { GLOBAL_CONFIG } from 'shared/constants';
 import { wrapper } from 'shared/edenTreaty';
+import { Temporal } from 'temporal-polyfill-lite';
 import { afterEach, vi } from 'vitest';
 
-const fakeTime = new Date('2026-03-05T12:00:00.000Z');
+vi.stubEnv('TZ', 'UTC');
+const fakeTime = Temporal.ZonedDateTime.from(
+  '2026-03-05T12:00:00.000[UTC]',
+).toString({
+  timeZoneName: 'never',
+});
 vi.setSystemTime(fakeTime);
 vi.useFakeTimers();
 

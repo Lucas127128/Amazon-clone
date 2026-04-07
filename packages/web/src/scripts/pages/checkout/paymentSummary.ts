@@ -11,7 +11,7 @@ import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts'
 let controller = new AbortController();
 export async function renderPaymentSummary(params: {
   cart: Cart[];
-  products: Promise<readonly Product[]>;
+  products: Promise<readonly Product[]> | Product[];
 }) {
   controller.abort();
   controller = new AbortController();

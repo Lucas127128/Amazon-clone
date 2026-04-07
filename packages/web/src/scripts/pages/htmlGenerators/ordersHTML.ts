@@ -26,14 +26,8 @@ export function generateOrdersProductHTML(
         data-order-id="${orderId}"
       >
         <img class="buy-again-icon" src="images/icons/buy-again.png" />
-        <span
-          class="buy-again-message buy-again-message-${product.productId}"
-          >Buy it again</span
-        >
-        <span
-          class="buy-again-success buy-again-success-${product.productId}"
-          >&#x2713 Added</span
-        >
+        <span class="buy-again-message">Buy it again</span>
+        <span class="buy-again-success">&#x2713; Added</span>
       </button>
     </div>
 
@@ -74,7 +68,8 @@ export function generateOrderContainerHTML(
           <div class="order-header-label">Order ID:</div>
             <div class='order-id-container'>
               <span id="order-id">${order.id}</span>
-              <wa-copy-button tooltip-placement='bottom' from="order-id" class='copy-button'></wa-copy-button>
+              <wa-tooltip class='copy-button-tooltip' for="copy-button-${order.id}" distance='4' placement='top'>Copy</wa-tooltip>
+              <button class='copy-button' id='copy-button-${order.id}' data-order-id='${order.id}'><img src='/images/icons/copy.svg'/></button>
             </div>
         </div>
       </div>

@@ -4,17 +4,17 @@ import { getDeliveryProgress } from 'shared/tracking';
 import { checkNullish } from 'shared/typeChecker';
 import { describe, expect, test } from 'vitest';
 
-import order from '../../order.json' with { type: 'json' };
+import cart from '#testData/cart.json' with { type: 'json' };
+import order from '#testData/order.json' with { type: 'json' };
 
 describe.concurrent('test suite: getDeliveryProgress', () => {
-  test('get correct delivery progress', async () => {
-    const cart = (await Bun.file('./normal/cart.json').json()) as Cart[];
-    const matchingCart = getMatchingCart(cart, '59LXo');
+  test('get correct delivery progress', () => {
+    const matchingCart = getMatchingCart(cart as Cart[], '59LXo');
     checkNullish(matchingCart);
     const deliveryProgress = getDeliveryProgress(
       order as Order,
       matchingCart,
     );
-    expect(Math.round(deliveryProgress)).toBe(90);
+    expect(Math.round(deliveryProgress)).toBe(88);
   });
 });

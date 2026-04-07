@@ -30,7 +30,7 @@
   "devDependencies": {
     "@vitejs/devtools": "^0.1.13",
     "sonda": "^0.11.1",
-    "vite": "^8.0.3",
+    "vite": "catalog:",
     "vite-plugin-html-minifier": "^1.0.5",
     "vite-plugin-purgecss": "^0.2.13"
   }

@@ -233,12 +233,18 @@
 
 .order-id-container {
   display: grid;
-  grid-template-columns: 1.65fr 1fr;
+  grid-template-columns: 1.8fr 1fr;
   align-items: center;
 }
 
-.copy-button::part(tooltip__base__popup) {
+.copy-button {
+  border: none;
+  background-color: inherit;
+}
+
+.copy-button-tooltip::part(body) {
   background-color: black;
   color: white;
   border-radius: 0.375em;
+  font-size: 14px;
 }

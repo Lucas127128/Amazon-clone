@@ -1,9 +1,9 @@
+// import { DevTools } from '@vitejs/devtools';
 import { GLOBAL_CONFIG } from 'shared/constants';
 import Sonda from 'sonda/vite';
 import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import htmlPurge from 'vite-plugin-purgecss';
-// import { DevTools } from '@vitejs/devtools';
 
 export default defineConfig({
   root: './src',
@@ -32,7 +32,7 @@ export default defineConfig({
           ],
         },
       },
-      // devtools: {},
+      // devtools: {}
     },
     target: 'baseline-widely-available',
     assetsInlineLimit: 0,

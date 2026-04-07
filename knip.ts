@@ -16,7 +16,6 @@ const config = {
     'husky',
     '@socketsecurity/bun-security-scanner',
     'vite',
-    'happy-dom',
   ],
   ignoreBinaries: ['bombardier'],
 };

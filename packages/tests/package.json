@@ -2,10 +2,13 @@
   "name": "tests",
   "version": "1.0.0",
   "type": "module",
+  "imports": {
+    "#testData/*": "./testData/*"
+  },
   "scripts": {
-    "test": "bunx --bun vitest",
+    "test": "bunx -b vitest",
     "test:ci": "bun run test -w=false",
-    "test:unit": "bun run test --project happy-dom-normal --exclude '**/*/scripts/data/orders.test.ts' ",
+    "test:unit": "bun run test --project bun --exclude '**/*/scripts/data/orders.test.ts' ",
     "test:api": "bun run test ./normal/server/api --watch",
     "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on"
   },
@@ -17,9 +20,11 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@vitest/browser-preview": "^4.1.2",
+    "@vitest/browser-preview": "^4.1.3",
+    "@vitest/ui": "^4.1.2",
+    "happy-dom": "^20.8.9",
     "playwright": "^1.59.1",
     "sharp": "^0.34.5",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.3"
   }
 }

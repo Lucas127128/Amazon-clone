@@ -1,32 +1,39 @@
 import { defineConfig } from 'vitest/config';
-// import { preview } from '@vitest/browser-preview';
+import { preview } from '@vitest/browser-preview';
 
 export default defineConfig({
   test: {
     pool: 'threads',
     maxConcurrency: 100,
     maxWorkers: 64,
+    clearMocks: true,
+    // reporters: ['html', 'default'],
+    experimental: { fsModuleCache: true, viteModuleRunner: true },
+    env: {
+      NODE_TLS_REJECT_UNAUTHORIZED: '0',
+    },
     projects: [
       {
         test: {
-          isolate: true,
           sequence: { concurrent: true },
           include: [
             './normal/web/**/*.test.ts',
             './normal/shared/**/*.test.ts',
           ],
-          name: 'happy-dom-normal',
+          name: 'happy-dom',
           environment: 'happy-dom',
-          setupFiles: ['./normal/preload.ts'],
+          setupFiles: ['./normal/happyDom.setUp.ts'],
           environmentOptions: {
             happyDOM: {
-              width: 100,
-              height: 50,
+              width: 4,
+              height: 3,
               settings: {
                 fetch: {
                   disableStrictSSL: true,
                   disableSameOriginPolicy: true,
                 },
+                disableCSSFileLoading: true,
+                disableComputedStyleRendering: true,
               },
             },
           },
@@ -34,26 +41,12 @@ export default defineConfig({
       },
       {
         test: {
-          isolate: true,
           sequence: { concurrent: true },
           include: ['./normal/server/**/*.test.ts'],
-          name: 'happy-dom-api',
-          environment: 'happy-dom',
-          environmentOptions: {
-            happyDOM: {
-              width: 100,
-              height: 50,
-              settings: {
-                fetch: {
-                  disableStrictSSL: true,
-                  disableSameOriginPolicy: true,
-                },
-              },
-            },
-          },
+          name: 'bun',
+          environment: 'node',
         },
       },
-      // { test: { isolate: true, name: 'bun', environment: 'node' } },
       // {
       //   test: {
       //     isolate: true,

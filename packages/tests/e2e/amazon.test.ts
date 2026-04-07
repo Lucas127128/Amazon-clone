@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { getMatchingProduct, transformProducts } from 'shared/products';
+import type { RawProduct } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import sharp from 'sharp';
 
@@ -94,7 +95,10 @@ test.describe('ui', () => {
           with: { type: 'json' },
         })
       ).default;
-      const products = transformProducts(rawProducts, clothings);
+      const products = transformProducts(
+        rawProducts as RawProduct[],
+        clothings,
+      );
       const productsId = await Promise.all(
         containers.map(
           async (container) =>

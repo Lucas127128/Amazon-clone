@@ -29,7 +29,7 @@ const getMatchingDeliveryOption = (deliveryOptionId: DeliveryOptionId) =>
 
 export function addWeekDays(
   businessDaysToAdd: number,
-  currentDate: Temporal.PlainDate,
+  currentDate: Temporal.ZonedDateTime,
 ) {
   let currentTime = currentDate;
   let daysAdded = 0;
@@ -51,7 +51,7 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
 } as const;
 
 export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
-  const localNow = Temporal.Now.plainDateISO();
+  const localNow = Temporal.Now.zonedDateTimeISO();
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
   checkNullish(matchingDeliveryOption);
@@ -64,7 +64,7 @@ export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
 }
 
 export function getDeliveryDateISO(deliveryOptionId: DeliveryOptionId) {
-  const localNow = Temporal.Now.plainDateISO();
+  const localNow = Temporal.Now.zonedDateTimeISO();
   const matchingDeliveryOption =
     getMatchingDeliveryOption(deliveryOptionId);
   checkNullish(matchingDeliveryOption);

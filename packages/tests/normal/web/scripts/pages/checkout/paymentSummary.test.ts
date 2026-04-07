@@ -1,10 +1,10 @@
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
-import { checkNullish } from 'shared/typeChecker';
 import { beforeAll, describe, expect, test } from 'vitest';
 import { renderPaymentSummary } from 'web/paymentSummary';
 
-const cartJson = (await Bun.file('./normal/cart.json').json()) as Cart[];
+import cart from '#testData/cart.json' with { type: 'json' };
+import products from '#testData/products.json' with { type: 'json' };
 
 beforeAll(async () => {
   localStorage.clear();
@@ -12,10 +12,10 @@ beforeAll(async () => {
       <div class="test-container">
         <div class="payment-summary"></div>
       </div>`;
-  const products = Bun.file('./normal/products.json').json() as Promise<
-    readonly Product[]
-  >;
-  await renderPaymentSummary({ cart: cartJson, products });
+  await renderPaymentSummary({
+    cart: cart as Cart[],
+    products: products as Product[],
+  });
 });
 
 describe.concurrent('render payment details', () => {
@@ -23,39 +23,33 @@ describe.concurrent('render payment details', () => {
     const totalProductPrice = document.querySelector(
       '.total-products-price',
     );
-    checkNullish(totalProductPrice);
-    expect(totalProductPrice.textContent).toContain('241.38');
+    expect(totalProductPrice!.textContent).toContain('241.38');
   });
 
   test('correct total delivery fee', () => {
     const totalDeliveryFee = document.querySelector('.total-delivery-fee');
-    checkNullish(totalDeliveryFee);
-    expect(totalDeliveryFee.textContent).toContain('14.98');
+    expect(totalDeliveryFee!.textContent).toContain('14.98');
   });
 
   test('correct cart quantity', () => {
     const cartQuantity = document.querySelector('.cart-item-quantity');
-    checkNullish(cartQuantity);
-    expect(cartQuantity.textContent).toContain('11');
+    expect(cartQuantity!.textContent).toContain('11');
   });
 
   test('correct total price before tax', () => {
     const totalPriceBeforeTax = document.querySelector(
       '.total-price-before-tax',
     );
-    checkNullish(totalPriceBeforeTax);
-    expect(totalPriceBeforeTax.textContent).toContain('256.36');
+    expect(totalPriceBeforeTax!.textContent).toContain('256.36');
   });
 
   test('correct total tax', () => {
     const totalTax = document.querySelector('.total-tax');
-    checkNullish(totalTax);
-    expect(totalTax.textContent).toContain('25.64');
+    expect(totalTax!.textContent).toContain('25.64');
   });
 
   test('correct total order price', () => {
     const totalOrderPrice = document.querySelector('.total-cost');
-    checkNullish(totalOrderPrice);
-    expect(totalOrderPrice.textContent).toContain('282.00');
+    expect(totalOrderPrice!.textContent).toContain('282.00');
   });
 });

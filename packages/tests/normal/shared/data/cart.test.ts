@@ -9,7 +9,7 @@ import {
 import type { Cart } from 'shared/schema';
 import { beforeEach, describe, expect, test } from 'vitest';
 
-import cartJson from '../../cart.json';
+import cartJson from '#testData/cart.json';
 
 beforeEach(() => {
   cart.value = [cartJson[0], cartJson[1], cartJson[2]] as Cart[];
@@ -56,10 +56,7 @@ describe.concurrent('updateDeliveryOption', () => {
 });
 
 describe.concurrent('calculateCartQuantity', () => {
-  test('display cart quantity', async () => {
-    const cartJson = (await Bun.file(
-      './normal/cart.json',
-    ).json()) as Cart[];
+  test('display cart quantity', () => {
     cart.value = [cartJson[0], cartJson[1], cartJson[2]] as Cart[];
     expect(cartQuantity.value).toBe(7);
   });

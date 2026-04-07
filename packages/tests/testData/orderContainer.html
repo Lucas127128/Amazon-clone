@@ -1,5 +1,5 @@
 <div class="order-container order-container-gsZyI1l">
-    <div class="order-header">
+      <div class="order-header">
         <div class="order-header-left-section">
           <div class="order-date">
             <div class="order-header-label">Order Placed: Wednesday</div>
@@ -15,7 +15,8 @@
           <div class="order-header-label">Order ID:</div>
             <div class='order-id-container'>
               <span id="order-id">gsZyI1l</span>
-              <wa-copy-button tooltip-placement='bottom' from="order-id" class='copy-button'></wa-copy-button>
+              <wa-tooltip class='copy-button-tooltip' for="copy-button-gsZyI1l" distance='4' placement='top'>Copy</wa-tooltip>
+              <button class='copy-button' id='copy-button-gsZyI1l' data-order-id='gsZyI1l'><img src='/images/icons/copy.svg'/></button>
             </div>
         </div>
       </div>
@@ -35,12 +36,12 @@
       >
         <img class="buy-again-icon" src="images/icons/buy-again.png" />
         <span
-          class="buy-again-message buy-again-message-59LXo"
+          class="buy-again-message"
           >Buy it again</span
         >
         <span
-          class="buy-again-success buy-again-success-59LXo"
-          >&#x2713 Added</span
+          class="buy-again-success"
+          >&#x2713; Added</span
         >
       </button>
     </div>
