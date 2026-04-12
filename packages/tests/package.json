@@ -8,7 +8,7 @@
   "scripts": {
     "test": "bunx -b vitest",
     "test:ci": "bun run test -w=false",
-    "test:unit": "bun run test --project bun --exclude '**/*/scripts/data/orders.test.ts' ",
+    "test:unit": "bun run test --project happy-dom --exclude '**/*/scripts/data/orders.test.ts' ",
     "test:api": "bun run test ./normal/server/api --watch",
     "test:e2e": "NODE_TLS_REJECT_UNAUTHORIZED=0 playwright test --trace on"
   },

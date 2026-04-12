@@ -1,5 +1,6 @@
 import correctRawProducts from 'server/rawProducts';
 import {
+  fetchMatchingProduct,
   fetchProducts,
   getMatchingProduct,
   getMatchingRawProduct,
@@ -49,5 +50,14 @@ describe.concurrent('fetch products', () => {
       'sMmsZ',
     );
     expect(product).toEqual(correctProduct);
+  });
+});
+
+describe.concurrent('fetchMatchingProduct', () => {
+  test('return correct matching product', async () => {
+    const product = await fetchMatchingProduct('sMmsZ');
+    expect(product).toEqual(
+      getMatchingProduct(products as Product[], 'sMmsZ'),
+    );
   });
 });

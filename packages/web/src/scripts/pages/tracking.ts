@@ -1,6 +1,6 @@
 import { getMatchingCart } from 'shared/cart';
 import { STORAGE_KEYS } from 'shared/constants';
-import { fetchProducts, getMatchingProduct } from 'shared/products';
+import { fetchMatchingProduct } from 'shared/products';
 import { OrderSchemaArray } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
@@ -17,9 +17,7 @@ async function renderTrackingSummary() {
   checkNullish(orderId);
   checkNullish(productId);
 
-  const products = await fetchProducts();
-  const matchingProducts = getMatchingProduct(products, productId);
-  checkNullish(matchingProducts);
+  const product = await fetchMatchingProduct(productId);
 
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   checkNullish(savedOrders);
@@ -32,13 +30,11 @@ async function renderTrackingSummary() {
   checkNullish(matchingCart);
 
   const trackingHTML = generateTrackingHTML(
-    matchingProducts,
+    product,
     matchingOrder,
     matchingCart,
   );
   const backToOrderLink = document.querySelector('.back-to-orders-link');
-  // const trustedTrackingHTML = policy?.createHTML(trackingHTML);
-  // checkNullish(trustedTrackingHTML);
   backToOrderLink?.insertAdjacentHTML('afterend', trackingHTML);
 }
 

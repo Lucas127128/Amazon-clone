@@ -2,6 +2,8 @@ import clothing from 'server/clothing' with { type: 'json' };
 import rawProducts from 'server/rawProducts' with { type: 'json' };
 import { GLOBAL_CONFIG } from 'shared/constants';
 import { wrapper } from 'shared/edenTreaty';
+import { getMatchingRawProduct } from 'shared/products';
+import type { RawProduct } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { afterEach, vi } from 'vitest';
 
@@ -26,6 +28,13 @@ vi.spyOn(wrapper, 'cachedFetch').mockImplementation(
       return Response.json(rawProducts);
     } else if (url === `${GLOBAL_CONFIG.API_URL}/api/clothingList`) {
       return Response.json(clothing);
+    } else if (
+      url ===
+      `${GLOBAL_CONFIG.API_URL}/api/matchingProduct?productId=sMmsZ`
+    ) {
+      return Response.json(
+        getMatchingRawProduct(rawProducts as RawProduct[], 'sMmsZ'),
+      );
     } else {
       return await fetch(input, init);
     }

@@ -1,7 +1,13 @@
 import { Elysia } from 'elysia';
 import { evlog } from 'evlog/elysia';
-import { ClothingListSchema, RawProductSchemaArray } from 'shared/schema';
-import { parse } from 'valibot';
+import { getMatchingRawProduct } from 'shared/products';
+import {
+  ClothingListSchema,
+  RawProductSchema,
+  RawProductSchemaArray,
+} from 'shared/schema';
+import { checkNullish } from 'shared/typeChecker';
+import { object, parse } from 'valibot';
 
 const products = parse(
   RawProductSchemaArray,
@@ -25,6 +31,26 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
       response: RawProductSchemaArray,
       detail: {
         description: 'Return an array of products',
+      },
+    },
+  )
+  .get(
+    '/matchingProduct',
+    ({ server, request, log, query }) => {
+      const clientIP = server?.requestIP(request)?.address;
+      log.set({ clientIp: clientIP });
+      const matchingProduct = getMatchingRawProduct(
+        products,
+        query.productId,
+      );
+      checkNullish(matchingProduct);
+      return matchingProduct;
+    },
+    {
+      response: RawProductSchema,
+      query: object({ productId: RawProductSchema.entries.id }),
+      detail: {
+        description: 'Return an matching product id from query',
       },
     },
   )

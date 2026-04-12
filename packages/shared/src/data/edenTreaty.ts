@@ -10,9 +10,9 @@ type CacheData = {
   time: Temporal.InstantLike;
 };
 type CacheKey = `${HttpMethods}:${string}:${string}`;
-const cacheMap = new Map<CacheKey, CacheData>();
+export const cacheMap = new Map<CacheKey, CacheData>();
 
-//wrap the function in a wrapper object to perform mocking in test
+// wrap the function in a wrapper object to perform mocking in test
 export const wrapper = {
   cachedFetch: async (
     input: string | URL | Request,
