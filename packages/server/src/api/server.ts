@@ -14,6 +14,13 @@ import { staticPlugin } from './static.ts';
 initEvlog();
 
 export const app = new Elysia({ precompile: true, aot: true })
+  .onError({ as: 'global' }, ({ code, error, set }) => {
+    if (code === 'VALIDATION') {
+      set.status = 422;
+      return Bun.env.PROD ? error.messageValue?.message : error;
+    }
+    return error;
+  })
   .onBeforeHandle(({ set }) => {
     set.headers['content-type'] = 'application/json';
     set.headers['cache-control'] = 'public, max-age=86400';

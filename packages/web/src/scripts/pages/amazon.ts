@@ -1,9 +1,9 @@
-import { effect } from '@preact/signals-core';
 import { all } from 'better-all';
 import { cartQuantity } from 'shared/cart';
 import { fetchProducts } from 'shared/products';
 import { checkNullish } from 'shared/typeChecker';
 
+import { subscribe } from '../utils/store.ts';
 import { getURLParams } from '../utils/url.ts';
 import { renderProducts } from './amazon/products.ts';
 import { handleSortSelect } from './amazon/sort.ts';
@@ -12,12 +12,9 @@ import { handleSearch, handleSearchInput } from './header.ts';
 function renderAmazonHomePage() {
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  effect(
-    () => {
-      returnToHomeLink.textContent = `${cartQuantity.value}`;
-    },
-    { name: 'update cart quantity in dom' },
-  );
+  subscribe(cartQuantity, (cartQuantity) => {
+    returnToHomeLink.textContent = `${cartQuantity}`;
+  });
 }
 
 await all(

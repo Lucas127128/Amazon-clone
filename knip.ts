@@ -17,7 +17,7 @@ const config = {
     '@socketsecurity/bun-security-scanner',
     'vite',
   ],
-  ignoreBinaries: ['bombardier'],
+  ignoreBinaries: ['bombardier', 'codesign'],
 };
 // } satisfies KnipConfig;
 

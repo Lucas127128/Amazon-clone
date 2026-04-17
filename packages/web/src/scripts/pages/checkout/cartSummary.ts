@@ -1,6 +1,5 @@
 import 'typed-query-selector';
 
-import { effect } from '@preact/signals-core';
 import {
   addToCart,
   cartQuantity,
@@ -17,6 +16,7 @@ import {
 } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
+import { subscribe } from '../../utils/store.ts';
 import { policy } from '../../utils/trustedTypes.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 
@@ -56,12 +56,9 @@ export async function renderOrderSummary(params: {
 
 const returnToHomeLink = document.querySelector('.return-to-home-link');
 checkNullish(returnToHomeLink);
-effect(
-  () => {
-    returnToHomeLink.textContent = `${cartQuantity.value} items`;
-  },
-  { name: 'update cart quantity in dom' },
-);
+subscribe(cartQuantity, (cartQuantity) => {
+  returnToHomeLink.textContent = `${cartQuantity} items`;
+});
 
 function handleUpdateQuantity(target: HTMLElement, productId: string) {
   const quantityInputHTML = target.parentElement?.querySelector(

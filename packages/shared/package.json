@@ -20,8 +20,7 @@
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.9",
-    "@preact/signals-core": "catalog:",
-    "@preact/signals-debug": "^1.4.2",
+    "@tanstack/store": "catalog:",
     "fp-ts": "^2.16.11",
     "server": "workspace:*",
     "temporal-polyfill-lite": "catalog:",

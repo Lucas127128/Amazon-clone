@@ -1,17 +1,15 @@
-import { effect } from '@preact/signals-core';
-import { cart } from 'shared/cart';
+import { cartStore } from 'shared/cart';
 import { fetchProducts } from 'shared/products';
+import type { Cart } from 'shared/schema';
 
+import { subscribe } from '../utils/store.ts';
 import { renderOrderSummary } from './checkout/cartSummary.ts';
 import { renderPaymentSummary } from './checkout/paymentSummary.ts';
 
-effect(
-  () => {
-    const products = fetchProducts();
-    Promise.allSettled([
-      renderOrderSummary({ cart: cart.value, products }),
-      renderPaymentSummary({ cart: cart.value, products }),
-    ]).catch((err: unknown) => console.error(err));
-  },
-  { name: 'render checkout page fully' },
-);
+subscribe(cartStore, async (cart: Cart[]) => {
+  const products = fetchProducts();
+  await Promise.allSettled([
+    renderOrderSummary({ cart: cart, products }),
+    renderPaymentSummary({ cart: cart, products }),
+  ]);
+});

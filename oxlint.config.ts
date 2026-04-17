@@ -2,11 +2,7 @@ import { defineConfig } from 'oxlint';
 
 export default defineConfig({
   categories: {},
-  jsPlugins: [
-    'eslint-plugin-depend',
-    '@preact/eslint-plugin-signals',
-    'eslint-plugin-simple-import-sort',
-  ],
+  jsPlugins: ['eslint-plugin-depend', 'eslint-plugin-simple-import-sort'],
   plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'promise', 'import'],
   rules: {
     'no-unused-expressions': ['warn', { allowTernary: true }],
@@ -97,11 +93,6 @@ export default defineConfig({
     ],
     'typescript/switch-exhaustiveness-check': 'error',
     'typescript/use-unknown-in-catch-callback-variable': 'error',
-    '@preact/signals/no-signal-write-in-computed': 'error',
-    '@preact/signals/no-value-after-await': 'error',
-    '@preact/signals/no-signal-truthiness': 'warn',
-    '@preact/signals/no-signal-in-component-body': 'error',
-    '@preact/signals/no-conditional-value-read': 'error',
     'promise/always-return': ['warn', { ignoreLastCallback: true }],
     'promise/catch-or-return': 'error',
     'promise/no-nesting': 'error',

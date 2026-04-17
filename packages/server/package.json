@@ -11,7 +11,8 @@
   "scripts": {
     "remove-build-cache": " find . -name '*.bun-build' -type f -delete ",
     "exec-api": "PROD=true ./api",
-    "start": "PROD=true bun run ./bun-build.ts && bun run --parallel exec-api remove-build-cache",
+    "code-sign": "codesign --remove-signature ./api && codesign --force --sign - ./api",
+    "start": "bun run ./bun-build.ts && bun run code-sign && bun run --parallel exec-api remove-build-cache",
     "dev": "DEV=true bun run --watch ./src/api/server.ts",
     "load-test": "bombardier --insecure -c 1200 -n 500000 -t 0.5s -l https://localhost:8080/index.html"
   },
@@ -22,7 +23,7 @@
     "@valibot/to-json-schema": "^1.6.0",
     "elysia": "^1.4.28",
     "elysia-local-https": "^1.0.2",
-    "evlog": "^2.11.0",
+    "evlog": "^2.12.0",
     "nanoid": "^5.1.7",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",

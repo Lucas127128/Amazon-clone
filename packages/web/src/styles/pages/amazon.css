@@ -13,7 +13,7 @@
   border: 0.4px solid #dedddd;
 
   display: grid;
-  grid-template-rows: 1fr 0.29fr 0.15fr 0.15fr 0.15fr 0.15fr 0.14fr 0.07fr;
+  grid-template-rows: 1fr 0.29fr 0.15fr 0.15fr 0.15fr 0.15fr 0.14fr 0.09fr;
   grid-template-areas:
     'image'
     'name'

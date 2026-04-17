@@ -11,7 +11,8 @@
     "./trackingHTML": "./src/scripts/pages/htmlGenerators/trackingHTML.ts",
     "./cartSummaryHTML": "./src/scripts/pages/htmlGenerators/cartSummaryHTML.ts",
     "./url": "./src/scripts/utils/url.ts",
-    "./orders": "./src/scripts/data/orders.ts"
+    "./orders": "./src/scripts/data/orders.ts",
+    "./store": "./src/scripts/utils/store.ts"
   },
   "scripts": {
     "build": "bunx --bun vite build",
@@ -19,9 +20,9 @@
   },
   "dependencies": {
     "@awesome.me/webawesome": "^3.5.0",
-    "@preact/signals-core": "catalog:",
+    "@tanstack/store": "catalog:",
     "better-all": "^0.0.7",
-    "dompurify": "^3.3.3",
+    "dompurify": "^3.4.0",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "typed-query-selector": "^2.12.1",

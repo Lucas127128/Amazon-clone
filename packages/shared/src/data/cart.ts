@@ -1,9 +1,4 @@
-import {
-  computed,
-  effect,
-  type Signal,
-  signal,
-} from '@preact/signals-core';
+import { createStore } from '@tanstack/store';
 import { parse } from 'valibot';
 
 import { STORAGE_KEYS } from '../../config/constants.ts';
@@ -14,48 +9,38 @@ import {
 } from '../schema.ts';
 import { checkNullish } from '../utils/typeChecker.ts';
 
-//eslint-disable-next-line
-if (!globalThis.Bun && import.meta.env.DEV) {
-  const { setDebugOptions } = await import('@preact/signals-debug');
-  setDebugOptions({ enabled: true, grouped: true });
-}
-
-export const cart: Signal<Cart[]> = signal(
+export const cartStore = createStore(
   parse(
     CartSchemaArray,
     JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_STATE) ?? '[]'),
   ),
-  { name: 'cart' },
 );
 
-effect(
-  () => {
-    localStorage.setItem(
-      STORAGE_KEYS.CART_STATE,
-      JSON.stringify(cart.value),
-    );
-  },
-  { name: 'persistent cart state' },
-);
+cartStore.subscribe((cart) => {
+  localStorage.setItem(STORAGE_KEYS.CART_STATE, JSON.stringify(cart));
+});
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
 export function addToCart(cartItem: Cart, increment: boolean = false) {
-  const newCart = structuredClone(cart.value);
-  const matchingCart = getMatchingCart(newCart, cartItem.productId);
-  matchingCart
-    ? increment
-      ? (matchingCart.quantity += cartItem.quantity)
-      : (matchingCart.quantity = cartItem.quantity)
-    : newCart.push(cartItem);
-  const parsedNewCart = parse(CartSchemaArray, newCart);
-  cart.value = parsedNewCart;
+  cartStore.setState(() => {
+    const newCart = cartStore.get();
+    const matchingCart = getMatchingCart(newCart, cartItem.productId);
+    matchingCart
+      ? increment
+        ? (matchingCart.quantity += cartItem.quantity)
+        : (matchingCart.quantity = cartItem.quantity)
+      : newCart.push(cartItem);
+    return parse(CartSchemaArray, newCart);
+  });
 }
 
 export function removeFromCart(productId: string) {
-  cart.value = cart.value.filter(
-    (cartItem: Cart) => cartItem.productId !== productId,
+  cartStore.setState(() =>
+    cartStore
+      .get()
+      .filter((cartItem: Cart) => cartItem.productId !== productId),
   );
 }
 
@@ -63,20 +48,19 @@ export function updateDeliveryOption(
   productId: string,
   deliveryOptionId: DeliveryOptionId,
 ) {
-  const newCart = structuredClone(cart.value);
-  const matchingItem = getMatchingCart(newCart, productId);
-  checkNullish(matchingItem, 'The product id is not valid.');
-  matchingItem.deliveryOptionId = deliveryOptionId;
-  cart.value = parse(CartSchemaArray, newCart);
+  cartStore.setState(() => {
+    const newCart = cartStore.get();
+    const matchingItem = getMatchingCart(newCart, productId);
+    checkNullish(matchingItem, 'The product id is not valid.');
+    matchingItem.deliveryOptionId = deliveryOptionId;
+    return parse(CartSchemaArray, newCart);
+  });
 }
 
-export const cartQuantity = computed(
-  () => {
-    let tempCartQuantity = 0;
-    for (const cartItem of cart.value) {
-      tempCartQuantity += cartItem.quantity;
-    }
-    return tempCartQuantity;
-  },
-  { name: 'cart quantity' },
-);
+export const cartQuantity = createStore(() => {
+  let tempCartQuantity = 0;
+  for (const cartItem of cartStore.get()) {
+    tempCartQuantity += cartItem.quantity;
+  }
+  return tempCartQuantity;
+});

@@ -16,3 +16,4 @@ test-results
 .sonda
 packages/server/api
 packages/tests/html
+.env

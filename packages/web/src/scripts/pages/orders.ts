@@ -1,6 +1,5 @@
 import '@awesome.me/webawesome/dist/components/tooltip/tooltip.js';
 
-import { effect } from '@preact/signals-core';
 import { cartQuantity } from 'shared/cart';
 import { GLOBAL_CONFIG, STORAGE_KEYS } from 'shared/constants';
 import { app, cacheMap } from 'shared/edenTreaty';
@@ -10,6 +9,7 @@ import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
 import { getTimeString } from '../data/orders.ts';
+import { subscribe } from '../utils/store.ts';
 import { policy } from '../utils/trustedTypes.ts';
 import { handleSearchInput } from './header.ts';
 import {
@@ -80,12 +80,9 @@ async function renderPlacedOrder() {
   }
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  effect(
-    () => {
-      returnToHomeLink.textContent = `${cartQuantity.value}`;
-    },
-    { name: 'update cart quantity in dom' },
-  );
+  subscribe(cartQuantity, (cartQuantity) => {
+    returnToHomeLink.textContent = `${cartQuantity}`;
+  });
 }
 
 await renderPlacedOrder();
