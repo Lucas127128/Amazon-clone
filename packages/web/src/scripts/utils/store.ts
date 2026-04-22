@@ -1,5 +1,4 @@
 import type { ReadonlyStore, Store } from '@tanstack/store';
-import { cartStore } from 'shared/cart';
 
 /** Run Tanstack store observer callback immediately */
 export function subscribe<T>(
@@ -9,5 +8,3 @@ export function subscribe<T>(
   fn(store.get());
   store.subscribe(fn);
 }
-
-subscribe(cartStore, () => {});

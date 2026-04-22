@@ -1,11 +1,5 @@
 import 'typed-query-selector';
 
-import {
-  addToCart,
-  cartQuantity,
-  removeFromCart,
-  updateDeliveryOption,
-} from 'shared/cart';
 import { CART_CONFIG } from 'shared/constants';
 import { getMatchingProduct, type Product } from 'shared/products';
 import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
@@ -16,6 +10,12 @@ import {
 } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
+import {
+  addToCart,
+  cartQuantity,
+  removeFromCart,
+  updateDeliveryOption,
+} from '../../data/cart.ts';
 import { subscribe } from '../../utils/store.ts';
 import { policy } from '../../utils/trustedTypes.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
@@ -42,16 +42,6 @@ export async function renderOrderSummary(params: {
     cartsSummaryHTML += cartSummaryHTML;
   }
   orderSummary.insertAdjacentHTML('beforeend', cartsSummaryHTML);
-  for (const cartItem of params.cart) {
-    const deliveryOptionButtonHTML = document.getElementById(
-      `${cartItem.deliveryOptionId}-${cartItem.productId}`,
-    );
-    isHTMLInputElement(
-      deliveryOptionButtonHTML,
-      'Fail to get the HTML element',
-    );
-    deliveryOptionButtonHTML.checked = true;
-  }
 }
 
 const returnToHomeLink = document.querySelector('.return-to-home-link');

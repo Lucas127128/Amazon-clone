@@ -15,10 +15,11 @@ jobs:
             ./node_modules
             **/*/node_modules
             ./packages/server/certs
+            ~/.bun
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Install dependency
-        run: bun i
+        run: bun i --frozen-lockfile
 
       - name: Build app
         run: bun run build

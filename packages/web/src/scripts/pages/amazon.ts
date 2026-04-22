@@ -1,8 +1,8 @@
 import { all } from 'better-all';
-import { cartQuantity } from 'shared/cart';
 import { fetchProducts } from 'shared/products';
 import { checkNullish } from 'shared/typeChecker';
 
+import { cartQuantity } from '../data/cart.ts';
 import { subscribe } from '../utils/store.ts';
 import { getURLParams } from '../utils/url.ts';
 import { renderProducts } from './amazon/products.ts';

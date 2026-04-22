@@ -4,11 +4,13 @@ import {
   getPriceString,
 } from 'shared/deliveryOption';
 import type { Product } from 'shared/products';
-import type { Cart } from 'shared/schema';
+import type { Cart, DeliveryOptionId } from 'shared/schema';
 
 const html = String.raw;
 
-export function deliveryOptionsHTML(matchingProductId: string) {
+export function deliveryOptionsHTML(
+  checkedDeliveryOptionId: DeliveryOptionId,
+) {
   let deliveryOptionsHTML = '';
   for (const deliveryOption of deliveryOptions) {
     const deliveryDate = getDeliveryDate(deliveryOption.id);
@@ -19,7 +21,7 @@ export function deliveryOptionsHTML(matchingProductId: string) {
           type="radio"
           class="delivery-option-input"
           data-delivery-choice-id="${deliveryOption.id}"
-          id="${deliveryOption.id}-${matchingProductId}"
+          ${checkedDeliveryOptionId === deliveryOption.id ? 'checked' : ''}
         />
         <div>
           <div class="delivery-option-date">${deliveryDate}</div>
@@ -82,7 +84,7 @@ export function generateCartSummary(
           <div class="delivery-options-title">
             Choose a delivery option:
           </div>
-          ${deliveryOptionsHTML(matchingProduct.id)}
+          ${deliveryOptionsHTML(cartItem.deliveryOptionId)}
         </div>
       </div>
     </div>

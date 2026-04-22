@@ -1,10 +1,10 @@
-import { getMatchingCart } from 'shared/cart';
 import { STORAGE_KEYS } from 'shared/constants';
 import { fetchMatchingProduct } from 'shared/products';
 import { OrderSchemaArray } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
+import { getMatchingCart } from '../data/cart.ts';
 import { getMatchingOrder } from '../data/orders.ts';
 import { policy } from '../utils/trustedTypes.ts';
 import { getURLParams } from '../utils/url.ts';

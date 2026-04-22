@@ -13,7 +13,7 @@
   border: 0.4px solid #dedddd;
 
   display: grid;
-  grid-template-rows: 1fr 0.29fr 0.15fr 0.15fr 0.15fr 0.15fr 0.14fr 0.09fr;
+  grid-template-rows: 1fr 0.3fr 0.15fr 0.15fr 0.15fr 0.15fr 0.14fr 0.09fr;
   grid-template-areas:
     'image'
     'name'
@@ -88,6 +88,7 @@
 }
 
 .add-to-cart-button {
+  font-size: 13.5px;
   padding: 8px;
   border-radius: 50px;
 
@@ -95,6 +96,7 @@
 }
 
 .size-chart-container {
+  min-height: 20px;
   grid-area: size-chart;
 }
 

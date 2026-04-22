@@ -1,8 +1,8 @@
-import { getMatchingCart } from 'shared/cart';
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { describe, expect, test } from 'vitest';
+import { getMatchingCart } from 'web/cart';
 import { generateTrackingHTML } from 'web/trackingHTML';
 
 import order from '#testData/order.json' with { type: 'json' };

@@ -1,8 +1,8 @@
-import { addToCart } from 'shared/cart';
 import { CART_CONFIG, FETCH_CONFIG, UI_TIMEOUTS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import { checkNullish, isHTMLElement } from 'shared/typeChecker';
 
+import { addToCart } from '../../data/cart.ts';
 import { policy } from '../../utils/trustedTypes.ts';
 import { generateAmazonHTML } from '../htmlGenerators/amazonHTML.ts';
 

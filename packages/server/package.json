@@ -23,12 +23,12 @@
     "@valibot/to-json-schema": "^1.6.0",
     "elysia": "^1.4.28",
     "elysia-local-https": "^1.0.2",
-    "evlog": "^2.12.0",
-    "nanoid": "^5.1.7",
+    "evlog": "^2.13.0",
+    "nanoid": "^5.1.9",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "ts-pattern": "^5.9.0",
-    "type-fest": "^5.5.0",
+    "type-fest": "^5.6.0",
     "valibot": "catalog:"
   }
 }

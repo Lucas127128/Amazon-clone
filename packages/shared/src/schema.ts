@@ -81,15 +81,6 @@ export const ClothingListSchema = cache(
   array(RawProductSchema.entries.id),
 );
 
-export type HttpMethods =
-  | 'GET'
-  | 'DELETE'
-  | 'OPTIONS'
-  | 'POST'
-  | 'PUT'
-  | 'PATCH'
-  | 'QUERY';
-
 export const SearchResultSchema = object({
   id: RawProductSchema.entries.id,
   name: RawProductSchema.entries.name,

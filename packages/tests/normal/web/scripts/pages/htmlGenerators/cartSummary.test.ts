@@ -1,7 +1,7 @@
-import { getMatchingCart } from 'shared/cart';
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
 import { describe, expect, test } from 'vitest';
+import { getMatchingCart } from 'web/cart';
 import {
   deliveryOptionsHTML,
   generateCartSummary,
@@ -14,7 +14,7 @@ import products from '#testData/products.json' with { type: 'json' };
 
 describe.concurrent('deliveryOptionsHTML', () => {
   test('generate correct html', () => {
-    const html = deliveryOptionsHTML('7nDww')
+    const html = deliveryOptionsHTML('1')
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     expect(html).toBe(

@@ -1,6 +1,7 @@
-import { addToCart } from 'shared/cart';
 import { CART_CONFIG, UI_TIMEOUTS } from 'shared/constants';
 import { checkNullish } from 'shared/typeChecker';
+
+import { addToCart } from '../../data/cart.ts';
 
 type Timer = {
   timer: NodeJS.Timeout;

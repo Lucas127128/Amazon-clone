@@ -1,13 +1,12 @@
 import { createStore } from '@tanstack/store';
-import { parse } from 'valibot';
-
-import { STORAGE_KEYS } from '../../config/constants.ts';
+import { STORAGE_KEYS } from 'shared/constants';
 import {
   type Cart,
   CartSchemaArray,
   type DeliveryOptionId,
-} from '../schema.ts';
-import { checkNullish } from '../utils/typeChecker.ts';
+} from 'shared/schema';
+import { checkNullish } from 'shared/typeChecker';
+import { parse } from 'valibot';
 
 export const cartStore = createStore(
   parse(

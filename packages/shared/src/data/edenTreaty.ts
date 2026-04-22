@@ -3,14 +3,12 @@ import type { App } from 'server';
 import { Temporal } from 'temporal-polyfill-lite';
 
 import { FETCH_CONFIG, GLOBAL_CONFIG } from '../../config/constants.ts';
-import type { HttpMethods } from '../schema.ts';
 
 type CacheData = {
   body: string;
   time: Temporal.InstantLike;
 };
-type CacheKey = `${HttpMethods}:${string}:${string}`;
-export const cacheMap = new Map<CacheKey, CacheData>();
+export const cacheMap = new Map<string, CacheData>();
 
 // wrap the function in a wrapper object to perform mocking in test
 export const wrapper = {
@@ -21,20 +19,18 @@ export const wrapper = {
     // eslint-disable-next-line
     if (globalThis.Bun && Bun.env.NODE_ENV === 'test')
       return await fetch(input, init);
+    const method =
+      init?.method ?? (input instanceof Request ? input.method : 'GET');
+    if (method !== 'GET') return await fetch(input, init);
     const url =
       typeof input === 'string'
         ? input
         : input instanceof URL
           ? input.toString()
           : input.url;
-    const method = (init?.method ??
-      (input instanceof Request ? input.method : 'GET')) as HttpMethods;
-    const body = JSON.stringify(init?.body);
-    const cacheKey = `${method}:${url}:${body}` satisfies CacheKey;
-
     const now = Temporal.Now.instant();
 
-    const cacheData = cacheMap.get(cacheKey);
+    const cacheData = cacheMap.get(url);
     if (
       cacheData &&
       now.since(cacheData.time).subtract(FETCH_CONFIG.CACHE_TTL).seconds <
@@ -51,7 +47,7 @@ export const wrapper = {
           body: await response.clone().text(),
           time: now.toJSON(),
         };
-        cacheMap.set(cacheKey, cacheData);
+        cacheMap.set(url, cacheData);
       })
       .catch((err: unknown) => console.error(err));
     return response;

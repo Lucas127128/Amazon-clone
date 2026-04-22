@@ -8,7 +8,6 @@
   },
   "exports": {
     "./schema": "./src/schema.ts",
-    "./cart": "./src/data/cart.ts",
     "./products": "./src/data/products.ts",
     "./deliveryOption": "./src/data/deliveryOption.ts",
     "./typeChecker": "./src/utils/typeChecker.ts",
@@ -20,7 +19,6 @@
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.9",
-    "@tanstack/store": "catalog:",
     "fp-ts": "^2.16.11",
     "server": "workspace:*",
     "temporal-polyfill-lite": "catalog:",

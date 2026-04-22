@@ -12,17 +12,30 @@ export default defineConfig({
     env: {
       NODE_TLS_REJECT_UNAUTHORIZED: '0',
     },
+    sequence: { concurrent: true },
     projects: [
       {
         test: {
-          sequence: { concurrent: true },
           include: [
-            './normal/web/**/*.test.ts',
-            './normal/shared/**/*.test.ts',
+            './normal/web/scripts/utils/**/*.test.ts',
+            './normal/shared/data/**/*.test.ts',
+            './normal/shared/utils/money.test.ts',
+          ],
+          name: 'bun',
+          environment: 'node',
+          setupFiles: ['./normal/vitest.setUp.ts'],
+        },
+      },
+      {
+        test: {
+          include: [
+            './normal/web/scripts/pages/**/*.test.ts',
+            './normal/web/scripts/data/**/*.test.ts',
+            './normal/shared/utils/typechecker.test.ts',
           ],
           name: 'happy-dom',
           environment: 'happy-dom',
-          setupFiles: ['./normal/happyDom.setUp.ts'],
+          setupFiles: ['./normal/vitest.setUp.ts'],
           environmentOptions: {
             happyDOM: {
               width: 4,
@@ -41,9 +54,8 @@ export default defineConfig({
       },
       {
         test: {
-          sequence: { concurrent: true },
           include: ['./normal/server/**/*.test.ts'],
-          name: 'bun',
+          name: 'api',
           environment: 'node',
         },
       },

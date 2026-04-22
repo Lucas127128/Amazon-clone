@@ -1,3 +1,5 @@
+import type { Cart } from 'shared/schema';
+import { beforeEach, describe, expect, test } from 'vitest';
 import {
   addToCart,
   cartQuantity,
@@ -5,9 +7,7 @@ import {
   getMatchingCart,
   removeFromCart,
   updateDeliveryOption,
-} from 'shared/cart';
-import type { Cart } from 'shared/schema';
-import { beforeEach, describe, expect, test } from 'vitest';
+} from 'web/cart';
 
 import cartJson from '#testData/cart.json';
 

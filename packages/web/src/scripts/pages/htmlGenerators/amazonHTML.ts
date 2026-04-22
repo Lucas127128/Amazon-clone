@@ -14,7 +14,7 @@ export function generateAmazonHTML(
             src="${product.image}">
         </div>
 
-        <div class="product-name limit-text-to-2-lines">
+        <div class="product-name">
             ${product.name}
         </div>
 

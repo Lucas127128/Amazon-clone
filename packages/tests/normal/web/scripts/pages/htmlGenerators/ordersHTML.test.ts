@@ -1,7 +1,7 @@
-import { getMatchingCart } from 'shared/cart';
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { describe, expect, test } from 'vitest';
+import { getMatchingCart } from 'web/cart';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,

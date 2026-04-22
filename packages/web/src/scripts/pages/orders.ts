@@ -1,6 +1,5 @@
 import '@awesome.me/webawesome/dist/components/tooltip/tooltip.js';
 
-import { cartQuantity } from 'shared/cart';
 import { GLOBAL_CONFIG, STORAGE_KEYS } from 'shared/constants';
 import { app, cacheMap } from 'shared/edenTreaty';
 import { fetchMatchingProduct } from 'shared/products';
@@ -8,6 +7,7 @@ import { OrderSchemaArray } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
+import { cartQuantity } from '../data/cart.ts';
 import { getTimeString } from '../data/orders.ts';
 import { subscribe } from '../utils/store.ts';
 import { policy } from '../utils/trustedTypes.ts';

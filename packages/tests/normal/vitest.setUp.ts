@@ -5,7 +5,7 @@ import { wrapper } from 'shared/edenTreaty';
 import { getMatchingRawProduct } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
-import { afterEach, vi } from 'vitest';
+import { vi } from 'vitest';
 
 vi.stubEnv('TZ', 'UTC');
 const fakeTime = Temporal.ZonedDateTime.from(
@@ -40,7 +40,3 @@ vi.spyOn(wrapper, 'cachedFetch').mockImplementation(
     }
   },
 );
-
-afterEach(() => {
-  localStorage.clear();
-});

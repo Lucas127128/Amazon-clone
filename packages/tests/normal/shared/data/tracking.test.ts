@@ -1,4 +1,3 @@
-import { getMatchingCart } from 'shared/cart';
 import type { Cart, Order } from 'shared/schema';
 import { getDeliveryProgress } from 'shared/tracking';
 import { checkNullish } from 'shared/typeChecker';
@@ -9,7 +8,9 @@ import order from '#testData/order.json' with { type: 'json' };
 
 describe.concurrent('test suite: getDeliveryProgress', () => {
   test('get correct delivery progress', () => {
-    const matchingCart = getMatchingCart(cart as Cart[], '59LXo');
+    const matchingCart = cart.find(
+      (cartItem) => cartItem.productId === '59LXo',
+    ) as Cart;
     checkNullish(matchingCart);
     const deliveryProgress = getDeliveryProgress(
       order as Order,
