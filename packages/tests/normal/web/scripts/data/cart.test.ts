@@ -12,9 +12,7 @@ import {
 import cartJson from '#testData/cart.json';
 
 beforeEach(() => {
-  cartStore.setState(
-    () => [cartJson[0], cartJson[1], cartJson[2]] as Cart[],
-  );
+  cartStore.set(() => [cartJson[0], cartJson[1], cartJson[2]] as Cart[]);
 });
 
 describe.concurrent('addToCart', () => {
@@ -23,9 +21,7 @@ describe.concurrent('addToCart', () => {
     expect(cartStore.get().length).toBe(4);
   });
   test('incrementally add an existing product to cart', () => {
-    cartStore.setState(
-      () => [cartJson[0], cartJson[1], cartJson[2]] as Cart[],
-    );
+    cartStore.set(() => [cartJson[0], cartJson[1], cartJson[2]] as Cart[]);
     addToCart({ ...cartStore.get()[2], quantity: 1 }, true);
     expect(cartStore.get().length).toBe(3);
     expect(cartStore.get()[2].productId).toBe('acmQY');

@@ -1,4 +1,4 @@
-import { createStore } from '@tanstack/store';
+import { createAtom } from '@tanstack/store';
 import { STORAGE_KEYS } from 'shared/constants';
 import {
   type Cart,
@@ -8,7 +8,7 @@ import {
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
-export const cartStore = createStore(
+export const cartStore = createAtom(
   parse(
     CartSchemaArray,
     JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_STATE) ?? '[]'),
@@ -23,7 +23,7 @@ export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
 export function addToCart(cartItem: Cart, increment: boolean = false) {
-  cartStore.setState(() => {
+  cartStore.set(() => {
     const newCart = cartStore.get();
     const matchingCart = getMatchingCart(newCart, cartItem.productId);
     matchingCart
@@ -36,7 +36,7 @@ export function addToCart(cartItem: Cart, increment: boolean = false) {
 }
 
 export function removeFromCart(productId: string) {
-  cartStore.setState(() =>
+  cartStore.set(() =>
     cartStore
       .get()
       .filter((cartItem: Cart) => cartItem.productId !== productId),
@@ -47,7 +47,7 @@ export function updateDeliveryOption(
   productId: string,
   deliveryOptionId: DeliveryOptionId,
 ) {
-  cartStore.setState(() => {
+  cartStore.set(() => {
     const newCart = cartStore.get();
     const matchingItem = getMatchingCart(newCart, productId);
     checkNullish(matchingItem, 'The product id is not valid.');
@@ -56,7 +56,7 @@ export function updateDeliveryOption(
   });
 }
 
-export const cartQuantity = createStore(() => {
+export const cartQuantity = createAtom(() => {
   let tempCartQuantity = 0;
   for (const cartItem of cartStore.get()) {
     tempCartQuantity += cartItem.quantity;
