@@ -6,13 +6,13 @@ import { parse } from 'valibot';
 
 import { getMatchingCart } from '../data/cart.ts';
 import { getMatchingOrder } from '../data/orders.ts';
-import { policy } from '../utils/trustedTypes.ts';
+import { sanitizeAll } from '../utils/trustedTypes.ts';
 import { getURLParams } from '../utils/url.ts';
 import { handleSearchInput } from './header';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
 
 async function renderTrackingSummary() {
-  policy();
+  sanitizeAll();
   const { orderId, productId } = getURLParams();
   checkNullish(orderId);
   checkNullish(productId);

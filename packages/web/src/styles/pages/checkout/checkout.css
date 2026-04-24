@@ -215,3 +215,7 @@
 .save-quantity-link {
   display: none;
 }
+
+.update-quantity-link {
+  contain: strict;
+}

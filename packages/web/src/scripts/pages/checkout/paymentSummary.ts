@@ -5,7 +5,7 @@ import type { Cart, Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 
 import { fetchOrders, getOrders } from '../../data/orders.ts';
-import { sanitize } from '../../utils/trustedTypes.ts';
+import { sanitizer } from '../../utils/trustedTypes.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
 let controller = new AbortController();
@@ -26,7 +26,7 @@ export async function renderPaymentSummary(params: {
   if (!window.trustedTypes) {
     paymentSummary.innerHTML = paymentSummaryHTML;
   } else {
-    paymentSummary.innerHTML = sanitize?.createHTML(
+    paymentSummary.innerHTML = sanitizer?.createHTML(
       paymentSummaryHTML,
     ) as unknown as string;
   }

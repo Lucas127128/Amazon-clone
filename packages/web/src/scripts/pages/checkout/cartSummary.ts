@@ -17,10 +17,10 @@ import {
   updateDeliveryOption,
 } from '../../data/cart.ts';
 import { subscribe } from '../../utils/store.ts';
-import { policy } from '../../utils/trustedTypes.ts';
+import { sanitizeAll } from '../../utils/trustedTypes.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 
-policy();
+sanitizeAll();
 
 const orderSummary = document.querySelector('div.order-summary');
 

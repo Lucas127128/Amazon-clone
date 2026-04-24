@@ -12,11 +12,6 @@
     "skipLibCheck": true,
     "types": ["@types/trusted-types", "vite/client"],
     "forceConsistentCasingInFileNames": true,
-    "plugins": [
-      {
-        "transform": "typia/lib/transform"
-      }
-    ],
     "strictNullChecks": true
   }
 }

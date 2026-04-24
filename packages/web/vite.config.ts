@@ -47,6 +47,13 @@ export default defineConfig({
   ],
   css: {
     transformer: 'lightningcss',
+    lightningcss: {
+      targets: {
+        safari: 15,
+        chrome: 100,
+        firefox: 100,
+      },
+    },
   },
   server: {
     port: 5174,
@@ -55,7 +62,6 @@ export default defineConfig({
     warmup: {
       clientFiles: [
         '../../shared/src/schema.ts',
-        '../../shared/src/data/cart.ts',
         '../../shared/src/data/products.ts',
         './scripts/pages/amazon/products.ts',
         './scripts/pages/amazon/sort.ts',

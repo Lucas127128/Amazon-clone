@@ -12,7 +12,7 @@ import {
 import cartJson from '#testData/cart.json';
 
 beforeEach(() => {
-  cartStore.set(() => [cartJson[0], cartJson[1], cartJson[2]] as Cart[]);
+  cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
 });
 
 describe.concurrent('addToCart', () => {
@@ -21,11 +21,19 @@ describe.concurrent('addToCart', () => {
     expect(cartStore.get().length).toBe(4);
   });
   test('incrementally add an existing product to cart', () => {
-    cartStore.set(() => [cartJson[0], cartJson[1], cartJson[2]] as Cart[]);
+    cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
     addToCart({ ...cartStore.get()[2], quantity: 1 }, true);
     expect(cartStore.get().length).toBe(3);
     expect(cartStore.get()[2].productId).toBe('acmQY');
     expect(cartStore.get()[2].quantity).toBe(6);
+    expect(cartStore.get()[2].deliveryOptionId).toBe('1');
+  });
+  test('not incrementally add an existing product to cart', () => {
+    cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
+    addToCart({ ...cartStore.get()[2], quantity: 1 }, false);
+    expect(cartStore.get().length).toBe(3);
+    expect(cartStore.get()[2].productId).toBe('acmQY');
+    expect(cartStore.get()[2].quantity).toBe(1);
     expect(cartStore.get()[2].deliveryOptionId).toBe('1');
   });
 });
@@ -56,7 +64,11 @@ describe.concurrent('updateDeliveryOption', () => {
 });
 
 describe.concurrent('calculateCartQuantity', () => {
-  test('display cart quantity', () => {
+  test('display cart quantity', async () => {
+    const cartJson = (await Bun.file(
+      './testData/cart.json',
+    ).json()) as Cart[];
+    cartStore.set(() => cartJson.slice(0, 3));
     expect(cartQuantity.get()).toBe(7);
   });
 });

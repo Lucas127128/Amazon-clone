@@ -1,4 +1,4 @@
-import { createStore } from '@tanstack/store';
+import { createAtom, createStore } from '@tanstack/store';
 import { describe, expect, expectTypeOf, test } from 'vitest';
 import { subscribe } from 'web/store';
 
@@ -24,6 +24,12 @@ describe.concurrent('subscribe', () => {
   test('infer type from store', () => {
     const sampleStore = createStore(0);
     subscribe(sampleStore, (data) => {
+      expectTypeOf(data).toBeNumber();
+    });
+  });
+  test('infer type from atom', () => {
+    const sampleAtom = createAtom(0);
+    subscribe(sampleAtom, (data) => {
       expectTypeOf(data).toBeNumber();
     });
   });

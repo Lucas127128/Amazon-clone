@@ -1,12 +1,15 @@
+import 'typed-query-selector';
+
 import { CART_CONFIG, FETCH_CONFIG, UI_TIMEOUTS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import { checkNullish, isHTMLElement } from 'shared/typeChecker';
 
 import { addToCart } from '../../data/cart.ts';
-import { policy } from '../../utils/trustedTypes.ts';
+import { sanitizeAll } from '../../utils/trustedTypes.ts';
+import { getURLParams } from '../../utils/url.ts';
 import { generateAmazonHTML } from '../htmlGenerators/amazonHTML.ts';
 
-policy();
+sanitizeAll();
 
 const timers: { timer: NodeJS.Timeout; productId: string }[] = [];
 function displayAdded(productId: string) {
@@ -86,8 +89,9 @@ export function renderProducts(products: readonly Product[]) {
     },
     { signal },
   );
-  const url = new URL(location.href);
-  if (url.searchParams.has('q')) {
+  const { q } = getURLParams();
+  if (q !== null) {
+    const url = new URL(location.href);
     url.searchParams.delete('q');
     history.replaceState(null, '', url.toString());
   }

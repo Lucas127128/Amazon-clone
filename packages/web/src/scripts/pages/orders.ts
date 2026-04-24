@@ -11,7 +11,7 @@ import { parse } from 'valibot';
 import { cartQuantity } from '../data/cart.ts';
 import { getTimeString } from '../data/orders.ts';
 import { subscribe } from '../utils/store.ts';
-import { policy } from '../utils/trustedTypes.ts';
+import { sanitizeAll } from '../utils/trustedTypes.ts';
 import { handleSearchInput } from './header.ts';
 import {
   generateOrderContainerHTML,
@@ -20,7 +20,7 @@ import {
 import { handleBuyAgainBtn } from './orders/handleBuyAgain.ts';
 
 async function renderPlacedOrder() {
-  policy();
+  sanitizeAll();
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   checkNullish(savedOrders);
   const orders = parse(OrderSchemaArray, JSON.parse(savedOrders));
