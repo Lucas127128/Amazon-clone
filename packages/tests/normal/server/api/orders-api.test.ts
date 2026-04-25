@@ -8,7 +8,7 @@ import correctOrder from '#testData/order.json' with { type: 'json' };
 const order = await fetchOrders(cart as Cart[]);
 
 describe.concurrent('order api test', () => {
-  test('Return right totalCostCents ', () => {
+  test('Return right totalCostCents', () => {
     expect(order.totalCostCents).toBe(correctOrder.totalCostCents);
   });
 

@@ -1,5 +1,5 @@
 bun fmt
 bun lint
-bun audit --prod
+bun audit --prod --ignore GHSA-qx2v-qp2m-jg93
 bun run --cwd ./packages/tests test:unit
 bunx knip

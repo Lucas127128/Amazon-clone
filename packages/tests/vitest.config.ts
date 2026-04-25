@@ -1,14 +1,14 @@
+// import { preview } from '@vitest/browser-preview';
 import { defineConfig } from 'vitest/config';
-import { preview } from '@vitest/browser-preview';
 
 export default defineConfig({
   test: {
     pool: 'threads',
-    maxConcurrency: 100,
-    maxWorkers: 64,
+    maxConcurrency: 150,
+    maxWorkers: 30,
     clearMocks: true,
     // reporters: ['html', 'default'],
-    experimental: { fsModuleCache: true, viteModuleRunner: true },
+    experimental: { fsModuleCache: true },
     env: {
       NODE_TLS_REJECT_UNAUTHORIZED: '0',
     },
@@ -16,24 +16,26 @@ export default defineConfig({
     projects: [
       {
         test: {
+          name: 'bun',
           include: [
             './normal/web/scripts/utils/**/*.test.ts',
             './normal/shared/data/**/*.test.ts',
             './normal/shared/utils/money.test.ts',
+            './normal/web/scripts/data/orders.test.ts',
+            './normal/web/scripts/pages/htmlGenerators/**/*.test.ts',
           ],
-          name: 'bun',
           environment: 'node',
           setupFiles: ['./normal/vitest.setUp.ts'],
         },
       },
       {
         test: {
+          name: 'happy-dom',
           include: [
-            './normal/web/scripts/pages/**/*.test.ts',
-            './normal/web/scripts/data/**/*.test.ts',
+            './normal/web/scripts/pages/checkout/**/*.test.ts',
+            './normal/web/scripts/data/cart.test.ts',
             './normal/shared/utils/typechecker.test.ts',
           ],
-          name: 'happy-dom',
           environment: 'happy-dom',
           setupFiles: ['./normal/vitest.setUp.ts'],
           environmentOptions: {

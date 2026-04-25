@@ -1,47 +1,50 @@
 import clothings from 'server/clothing';
 import rawProducts from 'server/rawProducts';
-import { calculatePrices } from 'shared/payment';
+import { calculatePrices, type Prices } from 'shared/payment';
 import { type Product, transformProducts } from 'shared/products';
 import type { Cart, RawProduct } from 'shared/schema';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
-describe.concurrent('test suite: calculatePrices', () => {
-  const cart: Cart[] = [
-    { productId: '59LXo', quantity: 1, deliveryOptionId: '2' },
-    { productId: 'Hwme8', quantity: 1, deliveryOptionId: '3' },
-  ];
+import cartJson from '#testData/cart.json';
+
+describe.concurrent('calculatePrices', () => {
+  const cart = cartJson.slice(0, 2) as Cart[];
   const products: readonly Product[] = transformProducts(
     rawProducts as RawProduct[],
     clothings,
   );
   const prices = calculatePrices(cart, products);
 
-  test('calculate totalProductPrice', () => {
+  it('have right type', () => {
+    expectTypeOf(prices).toEqualTypeOf<Prices>();
+  });
+
+  it('calculate totalProductPrice', () => {
     const { totalProductPrice } = prices;
     expect(totalProductPrice).toBe(6289);
   });
 
-  test('calculate totalDeliveryFee', () => {
+  it('calculate totalDeliveryFee', () => {
     const { totalDeliveryFee } = prices;
     expect(totalDeliveryFee).toBe(1498);
   });
 
-  test('calculate cartQuantity', () => {
+  it('calculate cartQuantity', () => {
     const { cartQuantity } = prices;
     expect(cartQuantity).toBe(2);
   });
 
-  test('calculate totalPriceBeforeTax', () => {
+  it('calculate totalPriceBeforeTax', () => {
     const { totalPriceBeforeTax } = prices;
     expect(totalPriceBeforeTax).toBe(7787);
   });
 
-  test('calculate totalTax', () => {
+  it('calculate totalTax', () => {
     const { totalTax } = prices;
     expect(totalTax).toBe(778.7);
   });
 
-  test('calculate totalOrderPrice', () => {
+  it('calculate totalOrderPrice', () => {
     const { totalOrderPrice } = prices;
     expect(totalOrderPrice).toBe(8565.7);
   });

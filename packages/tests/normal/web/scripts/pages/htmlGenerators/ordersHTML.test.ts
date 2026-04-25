@@ -1,7 +1,6 @@
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { describe, expect, test } from 'vitest';
-import { getMatchingCart } from 'web/cart';
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
@@ -15,9 +14,9 @@ import products from '#testData/products.json' with { type: 'json' };
 
 describe.concurrent('generateOrdersProductHTML', () => {
   test('generate correct html', () => {
-    const cart = getMatchingCart(carts as Cart[], '59LXo');
+    const cart = carts.find((cart) => cart.productId === '59LXo') as Cart;
     const product = getMatchingProduct(products as Product[], '59LXo');
-    const html = generateOrdersProductHTML(cart!, product!, 'gsZyI1l')
+    const html = generateOrdersProductHTML(cart, product!, 'gsZyI1l')
       .replaceAll('\n', '')
       .replaceAll(' ', '');
     expect(html).toBe(

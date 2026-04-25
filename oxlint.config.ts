@@ -3,7 +3,15 @@ import { defineConfig } from 'oxlint';
 export default defineConfig({
   categories: {},
   jsPlugins: ['eslint-plugin-depend', 'eslint-plugin-simple-import-sort'],
-  plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'promise', 'import'],
+  plugins: [
+    'eslint',
+    'typescript',
+    'unicorn',
+    'oxc',
+    'promise',
+    'import',
+    'vitest',
+  ],
   rules: {
     'no-unused-expressions': ['warn', { allowTernary: true }],
     'no-param-reassign': 'error',
@@ -98,6 +106,12 @@ export default defineConfig({
     'promise/no-nesting': 'error',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'vitest/max-nested-describe': ['error', { max: 3 }],
+    'vitest/valid-describe-callback': 'allow',
+    'vitest/consistent-test-filename': 'error',
+    // 'vitest/consistent-test-it': 'error',
+    'vitest/consistent-vitest-vi': 'error',
+    'vitest/no-alias-methods': 'error',
   },
   settings: {
     vitest: {
@@ -107,9 +121,6 @@ export default defineConfig({
   env: {
     builtin: true,
   },
-  ignorePatterns: [
-    'packages/tests/practice.bench.ts',
-    'packages/tests/vitest.config.ts',
-  ],
+  ignorePatterns: ['packages/tests/practice.bench.ts'],
   options: { typeCheck: true, typeAware: true },
 });

@@ -22,16 +22,21 @@ cartStore.subscribe((cart) => {
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
-export function addToCart(cartItem: Cart, increment: boolean = false) {
-  cartStore.set(() => {
-    const newCart = cartStore.get();
+export function addToCart(
+  cartItem: Cart,
+  increment: boolean = false,
+  cart = cartStore,
+) {
+  cart.set(() => {
+    const newCart = cart.get();
     const matchingCart = getMatchingCart(newCart, cartItem.productId);
     matchingCart
       ? increment
         ? (matchingCart.quantity += cartItem.quantity)
         : (matchingCart.quantity = cartItem.quantity)
       : newCart.push(cartItem);
-    return parse(CartSchemaArray, newCart);
+    parse(CartSchemaArray, newCart);
+    return newCart;
   });
 }
 

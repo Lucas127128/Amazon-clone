@@ -16,8 +16,12 @@ describe.concurrent('checkNullish', () => {
       expect(() => checkNullish(0)).not.toThrow();
     });
     test('reject nullish', () => {
-      expect(() => checkNullish(null)).toThrow();
-      expect(() => checkNullish(undefined)).toThrow();
+      expect(() => checkNullish(null)).toThrow(
+        'Error: The value of null is falsy',
+      );
+      expect(() => checkNullish(undefined)).toThrow(
+        'Error: The value of undefined is falsy',
+      );
     });
   });
 
@@ -42,7 +46,9 @@ describe.concurrent('isHTMLInputElement', () => {
   });
   test('reject other html element', () => {
     const divElement = document.createElement('div');
-    expect(() => isHTMLInputElement(divElement)).toThrow();
+    expect(() => isHTMLInputElement(divElement)).toThrow(
+      'Error: variable <div></div> is not HTMLInputElement',
+    );
   });
 });
 
@@ -53,6 +59,8 @@ describe.concurrent('isHTMLElement', () => {
   });
   test('reject event target', () => {
     const eventTarget = new EventTarget();
-    expect(() => isHTMLElement(eventTarget, 'eventTarget')).toThrow();
+    expect(() => isHTMLElement(eventTarget, 'eventTarget')).toThrow(
+      'Error: variable eventTarget is not HTMLElement',
+    );
   });
 });

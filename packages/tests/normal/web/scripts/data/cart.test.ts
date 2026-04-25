@@ -1,5 +1,7 @@
+import { createAtom } from '@tanstack/store';
+import { CART_CONFIG } from 'shared/constants';
 import type { Cart } from 'shared/schema';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, it, test } from 'vitest';
 import {
   addToCart,
   cartQuantity,
@@ -36,6 +38,22 @@ describe.concurrent('addToCart', () => {
     expect(cartStore.get()[2].quantity).toBe(1);
     expect(cartStore.get()[2].deliveryOptionId).toBe('1');
   });
+  it('throw if quantity is bigger than max quantity', async () => {
+    const cartJson = (await Bun.file(
+      './testData/cart.json',
+    ).json()) as Cart[];
+    const cart = createAtom(cartJson.slice(0, 3));
+    expect(() =>
+      addToCart(
+        {
+          ...cart.get()[2],
+          quantity: CART_CONFIG.MAX_QUANTITY_PER_ITEM + 1,
+        },
+        false,
+        cart,
+      ),
+    ).toThrow('Invalid value: Expected <=10 but received 11');
+  });
 });
 
 describe.concurrent('getMatchingCart', () => {
@@ -54,6 +72,8 @@ describe.concurrent('removeFromCart', () => {
 
 describe.concurrent('updateDeliveryOption', () => {
   test('update delivery option', () => {
+    // console.log(cartStore.get());
+    cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
     updateDeliveryOption('Hwme8', '3');
     const deliveryOptionId = getMatchingCart(
       cartStore.get(),

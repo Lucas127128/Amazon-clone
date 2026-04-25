@@ -1,15 +1,17 @@
 import { getMatchingProduct, type Product } from 'shared/products';
-import type { Order } from 'shared/schema';
+import type { Cart, Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { describe, expect, test } from 'vitest';
-import { getMatchingCart } from 'web/cart';
 import { generateTrackingHTML } from 'web/trackingHTML';
 
 import order from '#testData/order.json' with { type: 'json' };
 import products from '#testData/products.json' with { type: 'json' };
 import correctTrackingHTML from '#testData/trackingHTML.html?raw' with { type: 'text' };
 
-describe.concurrent('test suite: generateTrackingHTML', () => {
+const getMatchingCart = (cart: Cart[], productId: string) =>
+  cart.find((cartItem) => cartItem.productId === productId);
+
+describe.concurrent('generateTrackingHTML', () => {
   test('generate correct HTML', () => {
     const matchingProduct = getMatchingProduct(
       products as Product[],

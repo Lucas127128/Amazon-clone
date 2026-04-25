@@ -4,7 +4,7 @@ export function checkNullish<T extends unknown>(
 ): asserts variable is NonNullable<T> {
   if (variable == null)
     throw new Error(
-      `${customMessage}: The value of ${typeof variable} is falsy`,
+      `${customMessage}: The value of ${variable as string} is falsy`,
     );
 }
 
