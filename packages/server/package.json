@@ -9,10 +9,7 @@
     "./clothing": "./src/api/clothing.json"
   },
   "scripts": {
-    "remove-build-cache": " find . -name '*.bun-build' -type f -delete ",
-    "exec-api": "PROD=true ./api",
-    "code-sign": "codesign --remove-signature ./api && codesign --force --sign - ./api",
-    "start": "bun run ./bun-build.ts && bun run code-sign && bun run --parallel exec-api remove-build-cache",
+    "start": "bun ./start-server.ts",
     "dev": "DEV=true bun run --watch ./src/api/server.ts",
     "load-test": "bombardier --insecure -c 1200 -n 500000 -t 0.5s -l https://localhost:8080/index.html"
   },

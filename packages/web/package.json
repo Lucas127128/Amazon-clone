@@ -16,7 +16,7 @@
     "./cart": "./src/scripts/data/cart.ts"
   },
   "scripts": {
-    "build": "bunx --bun vite build",
+    "build": "bunx -b vite build",
     "dev": "vite"
   },
   "dependencies": {
