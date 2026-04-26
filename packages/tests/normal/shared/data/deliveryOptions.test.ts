@@ -6,10 +6,10 @@ import {
   getPriceString,
 } from 'shared/deliveryOption';
 import { Temporal } from 'temporal-polyfill-lite';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 describe.concurrent('Delivery time test', () => {
-  test('addWeekDays', () => {
+  it('addWeekDays', () => {
     const localNow = Temporal.Now.zonedDateTimeISO();
     expect(addWeekDays(7, localNow).toPlainDate()).toEqual(
       Temporal.ZonedDateTime.from('2026-03-16[UTC]').toPlainDate(),
@@ -22,13 +22,13 @@ describe.concurrent('Delivery time test', () => {
     );
   });
 
-  test('getDeliveryDate', () => {
+  it('getDeliveryDate', () => {
     expect(getDeliveryDate('1')).toBe('Monday, March 16');
     expect(getDeliveryDate('2')).toBe('Tuesday, March 10');
     expect(getDeliveryDate('3')).toBe('Friday, March 6');
   });
 
-  test('getDeliveryDateISO', () => {
+  it('getDeliveryDateISO', () => {
     expect(getDeliveryDateISO('1').toPlainDate()).toEqual(
       Temporal.ZonedDateTime.from('2026-03-16[UTC]').toPlainDate(),
     );
@@ -42,13 +42,13 @@ describe.concurrent('Delivery time test', () => {
 });
 
 describe.concurrent('Delivery price test', () => {
-  test('getPriceString', () => {
+  it('getPriceString', () => {
     expect(getPriceString(0)).toBe('FREE - ');
     expect(getPriceString(499)).toBe('$4.99 - ');
     expect(getPriceString(999)).toBe('$9.99 - ');
   });
 
-  test('getDeliveryPriceCents', () => {
+  it('getDeliveryPriceCents', () => {
     expect(getDeliveryPriceCents('1')).toBe(0);
     expect(getDeliveryPriceCents('2')).toBe(499);
     expect(getDeliveryPriceCents('3')).toBe(999);

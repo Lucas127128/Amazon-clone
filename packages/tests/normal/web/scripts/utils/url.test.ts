@@ -1,8 +1,8 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { getURLParams } from 'web/url';
 
 describe.concurrent('getURLParams', () => {
-  test('get correct params', () => {
+  it('get correct params', () => {
     const url = new URL('https://example.com');
     url.searchParams.set('q', 'water');
     url.searchParams.set('orderId', 'ab12345');

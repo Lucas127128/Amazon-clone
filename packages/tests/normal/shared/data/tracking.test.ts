@@ -1,13 +1,13 @@
 import type { Cart, Order } from 'shared/schema';
 import { getDeliveryProgress } from 'shared/tracking';
 import { checkNullish } from 'shared/typeChecker';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import cart from '#testData/cart.json' with { type: 'json' };
 import order from '#testData/order.json' with { type: 'json' };
 
 describe.concurrent('test suite: getDeliveryProgress', () => {
-  test('get correct delivery progress', () => {
+  it('get correct delivery progress', () => {
     const matchingCart = cart.find(
       (cartItem) => cartItem.productId === '59LXo',
     ) as Cart;

@@ -1,3 +1,5 @@
+import 'bun-storage/auto';
+
 import clothing from 'server/clothing' with { type: 'json' };
 import rawProducts from 'server/rawProducts' with { type: 'json' };
 import { GLOBAL_CONFIG } from 'shared/constants';

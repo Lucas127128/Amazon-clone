@@ -1,6 +1,6 @@
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
   deliveryOptionsHTML,
   generateCartSummary,
@@ -15,7 +15,7 @@ const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
 describe.concurrent('deliveryOptionsHTML', () => {
-  test('generate correct html', () => {
+  it('generate correct html', () => {
     const html = deliveryOptionsHTML('1')
       .replaceAll('\n', '')
       .replaceAll(' ', '');
@@ -26,7 +26,7 @@ describe.concurrent('deliveryOptionsHTML', () => {
 });
 
 describe.concurrent('generateCartSummary', () => {
-  test('generate correct html', () => {
+  it('generate correct html', () => {
     const html = generateCartSummary(
       getMatchingProduct(products as Product[], '59LXo')!,
       getMatchingCart(cart as Cart[], '59LXo')!,

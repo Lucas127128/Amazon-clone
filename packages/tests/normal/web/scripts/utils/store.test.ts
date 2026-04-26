@@ -1,9 +1,9 @@
 import { createAtom, createStore } from '@tanstack/store';
-import { describe, expect, expectTypeOf, test } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 import { subscribe } from 'web/store';
 
 describe.concurrent('subscribe', () => {
-  test('execute once defined', () => {
+  it('execute once defined', () => {
     const sampleStore = createStore(0);
     let count = 0;
     subscribe(sampleStore, () => {
@@ -11,7 +11,7 @@ describe.concurrent('subscribe', () => {
     });
     expect(count).toBe(1);
   });
-  test('subscribe to state change', () => {
+  it('subscribe to state change', () => {
     const sampleStore = createStore(0);
     let count = 0;
     subscribe(sampleStore, () => {
@@ -21,13 +21,13 @@ describe.concurrent('subscribe', () => {
     sampleStore.setState(() => 1);
     expect(count).toBe(2);
   });
-  test('infer type from store', () => {
+  it('infer type from store', () => {
     const sampleStore = createStore(0);
     subscribe(sampleStore, (data) => {
       expectTypeOf(data).toBeNumber();
     });
   });
-  test('infer type from atom', () => {
+  it('infer type from atom', () => {
     const sampleAtom = createAtom(0);
     subscribe(sampleAtom, (data) => {
       expectTypeOf(data).toBeNumber();

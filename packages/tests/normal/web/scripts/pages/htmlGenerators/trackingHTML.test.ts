@@ -1,7 +1,7 @@
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { generateTrackingHTML } from 'web/trackingHTML';
 
 import order from '#testData/order.json' with { type: 'json' };
@@ -12,7 +12,7 @@ const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
 describe.concurrent('generateTrackingHTML', () => {
-  test('generate correct HTML', () => {
+  it('generate correct HTML', () => {
     const matchingProduct = getMatchingProduct(
       products as Product[],
       '59LXo',

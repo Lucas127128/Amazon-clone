@@ -13,6 +13,7 @@ export default defineConfig({
       NODE_TLS_REJECT_UNAUTHORIZED: '0',
     },
     sequence: { concurrent: true },
+    typecheck: { enabled: true },
     projects: [
       {
         test: {
@@ -23,6 +24,7 @@ export default defineConfig({
             './normal/shared/utils/money.test.ts',
             './normal/web/scripts/data/orders.test.ts',
             './normal/web/scripts/pages/htmlGenerators/**/*.test.ts',
+            './normal/web/scripts/data/cart.test.ts',
           ],
           environment: 'node',
           setupFiles: ['./normal/vitest.setUp.ts'],
@@ -33,7 +35,6 @@ export default defineConfig({
           name: 'happy-dom',
           include: [
             './normal/web/scripts/pages/checkout/**/*.test.ts',
-            './normal/web/scripts/data/cart.test.ts',
             './normal/shared/utils/typechecker.test.ts',
           ],
           environment: 'happy-dom',

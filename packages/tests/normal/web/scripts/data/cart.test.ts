@@ -1,7 +1,7 @@
 import { createAtom } from '@tanstack/store';
 import { CART_CONFIG } from 'shared/constants';
 import type { Cart } from 'shared/schema';
-import { beforeEach, describe, expect, it, test } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import {
   addToCart,
   cartQuantity,
@@ -18,11 +18,11 @@ beforeEach(() => {
 });
 
 describe.concurrent('addToCart', () => {
-  test('add a new product to cart', () => {
+  it('add a new product to cart', () => {
     addToCart(cartJson[3] as Cart);
     expect(cartStore.get().length).toBe(4);
   });
-  test('incrementally add an existing product to cart', () => {
+  it('incrementally add an existing product to cart', () => {
     cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
     addToCart({ ...cartStore.get()[2], quantity: 1 }, true);
     expect(cartStore.get().length).toBe(3);
@@ -30,7 +30,7 @@ describe.concurrent('addToCart', () => {
     expect(cartStore.get()[2].quantity).toBe(6);
     expect(cartStore.get()[2].deliveryOptionId).toBe('1');
   });
-  test('not incrementally add an existing product to cart', () => {
+  it('not incrementally add an existing product to cart', () => {
     cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
     addToCart({ ...cartStore.get()[2], quantity: 1 }, false);
     expect(cartStore.get().length).toBe(3);
@@ -57,21 +57,21 @@ describe.concurrent('addToCart', () => {
 });
 
 describe.concurrent('getMatchingCart', () => {
-  test('get matching cart', () => {
+  it('get matching cart', () => {
     const matchingCart = getMatchingCart(cartStore.get(), '59LXo');
     expect(matchingCart).toEqual(cartStore.get()[0]);
   });
 });
 
 describe.concurrent('removeFromCart', () => {
-  test('remove cartItem', () => {
+  it('remove cartItem', () => {
     removeFromCart('59LXo');
     expect(cartStore.get()[0]).toEqual(cartJson[1] as Cart);
   });
 });
 
 describe.concurrent('updateDeliveryOption', () => {
-  test('update delivery option', () => {
+  it('update delivery option', () => {
     // console.log(cartStore.get());
     cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
     updateDeliveryOption('Hwme8', '3');
@@ -84,7 +84,7 @@ describe.concurrent('updateDeliveryOption', () => {
 });
 
 describe.concurrent('calculateCartQuantity', () => {
-  test('display cart quantity', async () => {
+  it('display cart quantity', async () => {
     const cartJson = (await Bun.file(
       './testData/cart.json',
     ).json()) as Cart[];

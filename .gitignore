@@ -17,3 +17,4 @@ test-results
 packages/server/api
 packages/tests/html
 .env
+**/.bun-storage

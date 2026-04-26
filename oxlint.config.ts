@@ -109,7 +109,7 @@ export default defineConfig({
     'vitest/max-nested-describe': ['error', { max: 3 }],
     'vitest/valid-describe-callback': 'allow',
     'vitest/consistent-test-filename': 'error',
-    // 'vitest/consistent-test-it': 'error',
+    'vitest/consistent-test-it': 'error',
     'vitest/consistent-vitest-vi': 'error',
     'vitest/no-alias-methods': 'error',
   },

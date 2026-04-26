@@ -3,19 +3,19 @@ import {
   isHTMLElement,
   isHTMLInputElement,
 } from 'shared/typeChecker';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 describe.concurrent('checkNullish', () => {
   describe('accept truthy and reject nullish', () => {
-    test('accept truthy', () => {
+    it('accept truthy', () => {
       expect(() => checkNullish(1)).not.toThrow();
       expect(() => checkNullish('foo')).not.toThrow();
     });
-    test('accept falsy', () => {
+    it('accept falsy', () => {
       expect(() => checkNullish('')).not.toThrow();
       expect(() => checkNullish(0)).not.toThrow();
     });
-    test('reject nullish', () => {
+    it('reject nullish', () => {
       expect(() => checkNullish(null)).toThrow(
         'Error: The value of null is falsy',
       );
@@ -26,12 +26,12 @@ describe.concurrent('checkNullish', () => {
   });
 
   describe('throw custom message', () => {
-    test('throw custom message when falsy', () => {
+    it('throw custom message when falsy', () => {
       expect(() => checkNullish(undefined, 'success throw')).toThrow(
         `success throw: The value of undefined is falsy`,
       );
     });
-    test('throw default error', () => {
+    it('throw default error', () => {
       expect(() => checkNullish(undefined)).toThrow(
         'Error: The value of undefined is falsy',
       );
@@ -40,11 +40,11 @@ describe.concurrent('checkNullish', () => {
 });
 
 describe.concurrent('isHTMLInputElement', () => {
-  test('accept HTMLInputElement', () => {
+  it('accept HTMLInputElement', () => {
     const inputElement = document.createElement('input');
     expect(() => isHTMLInputElement(inputElement)).not.toThrow();
   });
-  test('reject other html element', () => {
+  it('reject other html element', () => {
     const divElement = document.createElement('div');
     expect(() => isHTMLInputElement(divElement)).toThrow(
       'Error: variable <div></div> is not HTMLInputElement',
@@ -53,11 +53,11 @@ describe.concurrent('isHTMLInputElement', () => {
 });
 
 describe.concurrent('isHTMLElement', () => {
-  test('accept HTMLElement', () => {
+  it('accept HTMLElement', () => {
     const htmlElement = document.createElement('div');
     expect(() => isHTMLElement(htmlElement, 'htmlElement')).not.toThrow();
   });
-  test('reject event target', () => {
+  it('reject event target', () => {
     const eventTarget = new EventTarget();
     expect(() => isHTMLElement(eventTarget, 'eventTarget')).toThrow(
       'Error: variable eventTarget is not HTMLElement',
