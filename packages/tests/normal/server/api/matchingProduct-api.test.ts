@@ -15,4 +15,12 @@ describe('matching product api test', () => {
     );
     expect(result.data).toEqual(matchingProduct);
   });
+  it('returns 404 error if productId is invalid', async () => {
+    const result = await app.api.matchingProduct.get({
+      query: { productId: 'abcde' },
+    });
+    expect(result.error).toBeTruthy();
+    expect(result.error?.status).toBe(404);
+    expect(result.error?.value.message).toBe('Product not found');
+  });
 });

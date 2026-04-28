@@ -10,51 +10,46 @@ type CacheData = {
 };
 export const cacheMap = new Map<string, CacheData>();
 
-// wrap the function in a wrapper object to perform mocking in test
-export const wrapper = {
-  cachedFetch: async (
-    input: string | URL | Request,
-    init?: RequestInit,
-  ) => {
-    // eslint-disable-next-line
-    if (globalThis.Bun && Bun.env.NODE_ENV === 'test')
-      return await fetch(input, init);
-    const method =
-      init?.method ?? (input instanceof Request ? input.method : 'GET');
-    if (method !== 'GET') return await fetch(input, init);
-    const url =
-      typeof input === 'string'
-        ? input
-        : input instanceof URL
-          ? input.toString()
-          : input.url;
-    const now = Temporal.Now.instant();
+const cachedFetch = async (
+  input: string | URL | Request,
+  init?: RequestInit,
+) => {
+  // eslint-disable-next-line
+  if (globalThis.Bun && Bun.env.NODE_ENV === 'test')
+    return await fetch(input, init);
+  const method =
+    init?.method ?? (input instanceof Request ? input.method : 'GET');
+  if (method !== 'GET') return await fetch(input, init);
+  const url =
+    typeof input === 'string'
+      ? input
+      : input instanceof URL
+        ? input.toString()
+        : input.url;
+  const now = Temporal.Now.instant();
 
-    const cacheData = cacheMap.get(url);
-    if (
-      cacheData &&
-      now.since(cacheData.time).subtract(FETCH_CONFIG.CACHE_TTL).seconds <
-        0
-    )
-      return new Response(cacheData.body);
+  const cacheData = cacheMap.get(url);
+  if (
+    cacheData &&
+    now.since(cacheData.time).subtract(FETCH_CONFIG.CACHE_TTL).seconds < 0
+  )
+    return new Response(cacheData.body);
 
-    const response = await fetch(input, init);
+  const response = await fetch(input, init);
 
-    Promise.resolve()
-      .then(async () => {
-        if (!response.ok) return;
-        const cacheData = {
-          body: await response.clone().text(),
-          time: now.toJSON(),
-        };
-        cacheMap.set(url, cacheData);
-      })
-      .catch((err: unknown) => console.error(err));
-    return response;
-  },
+  Promise.resolve()
+    .then(async () => {
+      if (!response.ok) return;
+      const cacheData = {
+        body: await response.clone().text(),
+        time: now.toJSON(),
+      };
+      cacheMap.set(url, cacheData);
+    })
+    .catch((err: unknown) => console.error(err));
+  return response;
 };
 
 export const app = treaty<App>(GLOBAL_CONFIG.API_URL, {
-  fetcher: (async (input, init) =>
-    await wrapper.cachedFetch(input, init)) as typeof fetch,
+  fetcher: cachedFetch as typeof fetch,
 });

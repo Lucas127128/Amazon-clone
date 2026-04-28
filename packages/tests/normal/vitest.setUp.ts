@@ -1,24 +1,24 @@
-import 'bun-storage/auto';
-
 import clothing from 'server/clothing' with { type: 'json' };
 import rawProducts from 'server/rawProducts' with { type: 'json' };
 import { GLOBAL_CONFIG } from 'shared/constants';
-import { wrapper } from 'shared/edenTreaty';
 import { getMatchingRawProduct } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { vi } from 'vitest';
 
 vi.stubEnv('TZ', 'UTC');
-const fakeTime = Temporal.ZonedDateTime.from(
-  '2026-03-05T12:00:00.000[UTC]',
-).toString({
-  timeZoneName: 'never',
-});
+const fakeTime = Temporal.ZonedDateTime.from({
+  year: 2026,
+  month: 3,
+  day: 5,
+  hour: 12,
+  timeZone: 'UTC',
+}).toString({ timeZoneName: 'never' });
 vi.setSystemTime(fakeTime);
 vi.useFakeTimers();
 
-vi.spyOn(wrapper, 'cachedFetch').mockImplementation(
+const realFetch = fetch;
+vi.spyOn(globalThis, 'fetch').mockImplementation(
   async (input: string | URL | Request, init?: RequestInit) => {
     const url =
       typeof input === 'string'
@@ -38,7 +38,7 @@ vi.spyOn(wrapper, 'cachedFetch').mockImplementation(
         getMatchingRawProduct(rawProducts as RawProduct[], 'sMmsZ'),
       );
     } else {
-      return await fetch(input, init);
+      return await realFetch(input, init);
     }
   },
 );

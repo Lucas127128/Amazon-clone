@@ -6,8 +6,7 @@ import {
   RawProductSchema,
   RawProductSchemaArray,
 } from 'shared/schema';
-import { checkNullish } from 'shared/typeChecker';
-import { object, parse } from 'valibot';
+import { object, parse, string } from 'valibot';
 
 const products = parse(
   RawProductSchemaArray,
@@ -36,21 +35,27 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
   )
   .get(
     '/matchingProduct',
-    ({ server, request, log, query }) => {
+    ({ server, request, log, query, status }) => {
       const clientIP = server?.requestIP(request)?.address;
       log.set({ clientIp: clientIP });
       const matchingProduct = getMatchingRawProduct(
         products,
         query.productId,
       );
-      checkNullish(matchingProduct);
+      if (!matchingProduct) {
+        return status('Not Found', { message: 'Product not found' });
+      }
       return matchingProduct;
     },
     {
-      response: RawProductSchema,
+      response: {
+        200: RawProductSchema,
+        404: object({ message: string() }),
+      },
       query: object({ productId: RawProductSchema.entries.id }),
+
       detail: {
-        description: 'Return an matching product id from query',
+        description: 'Return a matching product from query',
       },
     },
   )
