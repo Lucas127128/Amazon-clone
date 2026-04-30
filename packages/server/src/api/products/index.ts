@@ -1,21 +1,13 @@
 import { Elysia } from 'elysia';
 import { evlog } from 'evlog/elysia';
-import { getMatchingRawProduct } from 'shared/products';
 import {
   ClothingListSchema,
   RawProductSchema,
   RawProductSchemaArray,
 } from 'shared/schema';
-import { object, parse, string } from 'valibot';
+import { object, string } from 'valibot';
 
-const products = parse(
-  RawProductSchemaArray,
-  await Bun.file('./src/api/rawProducts.json').json(),
-);
-const clothings = parse(
-  ClothingListSchema,
-  await Bun.file('./src/api/clothing.json').json(),
-);
+import { Service } from './service';
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
   .use(evlog())
@@ -24,7 +16,7 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
     ({ server, request, log }) => {
       const clientIP = server?.requestIP(request)?.address;
       log.set({ clientIp: clientIP });
-      return products;
+      return Service.getProducts();
     },
     {
       response: RawProductSchemaArray,
@@ -35,17 +27,10 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
   )
   .get(
     '/matchingProduct',
-    ({ server, request, log, query, status }) => {
+    ({ server, request, log, query }) => {
       const clientIP = server?.requestIP(request)?.address;
       log.set({ clientIp: clientIP });
-      const matchingProduct = getMatchingRawProduct(
-        products,
-        query.productId,
-      );
-      if (!matchingProduct) {
-        return status('Not Found', { message: 'Product not found' });
-      }
-      return matchingProduct;
+      return Service.getMatchingProduct(query.productId);
     },
     {
       response: {
@@ -64,7 +49,7 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
     ({ server, request, log }) => {
       const clientIP = server?.requestIP(request)?.address;
       log.set({ clientIp: clientIP });
-      return clothings;
+      return Service.getClothingList();
     },
     {
       response: ClothingListSchema,

@@ -6,18 +6,24 @@ import { localHttps } from 'elysia-local-https';
 import { GLOBAL_CONFIG } from 'shared/constants';
 
 import { initEvlog } from '../utils/logger.ts';
-import { orderPlugin } from './orders.ts';
-import { productsPlugin } from './products.ts';
-import { searchPlugin } from './search.ts';
+import { orderPlugin } from './orders/index.ts';
+import { productsPlugin } from './products/index.ts';
+import { searchPlugin } from './search/index.ts';
 import { staticPlugin } from './static.ts';
 
 initEvlog();
 
 export const app = new Elysia({ precompile: true, aot: true })
-  .onError({ as: 'global' }, ({ code, error, set }) => {
+  .onError({ as: 'global' }, ({ code, error, status }) => {
     if (code === 'VALIDATION') {
-      set.status = 422;
-      return Bun.env.PROD ? error.messageValue?.message : error;
+      return Bun.env.PROD
+        ? status(422, error.messageValue?.message)
+        : status(422, error);
+    }
+    if (code === 'PARSE') {
+      return Bun.env.PROD
+        ? status(400, error.message)
+        : status(400, error);
     }
     return error;
   })

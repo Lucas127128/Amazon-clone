@@ -13,7 +13,8 @@ describe.concurrent('calculatePrices', () => {
     rawProducts as RawProduct[],
     clothings,
   );
-  const prices = calculatePrices(cart, products);
+  const { data: prices, error } = calculatePrices(cart, products);
+  if (error) throw new Error(error.message);
 
   it('have right type', () => {
     expectTypeOf(prices).toEqualTypeOf<Prices>();

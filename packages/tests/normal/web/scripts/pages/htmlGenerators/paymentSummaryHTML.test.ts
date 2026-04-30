@@ -1,4 +1,4 @@
-import { calculatePrices, type Prices } from 'shared/payment';
+import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
 import { describe, expect, it } from 'vitest';
@@ -10,10 +10,11 @@ import products from '#testData/products.json' with { type: 'json' };
 
 describe.concurrent('generatePaymentSummary', () => {
   it('generate correct HTML', () => {
-    const price: Prices = calculatePrices(
+    const { data: price, error } = calculatePrices(
       cart as Cart[],
       products as Product[],
     );
+    if (error) throw new Error(error.message);
     const html = generatePaymentSummary(price)
       .replaceAll('\n', '')
       .replaceAll(' ', '');

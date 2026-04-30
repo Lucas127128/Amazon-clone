@@ -5,8 +5,8 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/api/server.ts",
-    "./rawProducts": "./src/api/rawProducts.json",
-    "./clothing": "./src/api/clothing.json"
+    "./rawProducts": "./rawData/rawProducts.json",
+    "./clothing": "./rawData/clothing.json"
   },
   "scripts": {
     "start": "bun ./start-server.ts",
@@ -25,7 +25,6 @@
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "ts-pattern": "^5.9.0",
-    "type-fest": "^5.6.0",
     "valibot": "catalog:"
   }
 }

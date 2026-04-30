@@ -18,7 +18,8 @@ export async function renderPaymentSummary(params: {
   const { signal } = controller;
 
   const products = await params.products;
-  const prices = calculatePrices(params.cart, products);
+  const { data: prices, error } = calculatePrices(params.cart, products);
+  if (error) throw new Error(error.message);
 
   const paymentSummary = document.querySelector('.payment-summary');
   const paymentSummaryHTML = generatePaymentSummary(prices);

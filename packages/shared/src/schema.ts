@@ -11,9 +11,12 @@ import {
   minValue,
   number,
   object,
+  optional,
   pipe,
   string,
+  undefined as Undefined,
   union,
+  unknown,
 } from 'valibot';
 
 import { CART_CONFIG } from '../config/constants.ts';
@@ -96,3 +99,16 @@ export const ProductSortOptionsSchema = union([
   literal('most-expensive'),
   literal('least-expensive'),
 ]);
+
+export const ElysiaValidationErrorSchema = object({
+  status: literal(422),
+  value: object({
+    type: literal('validation'),
+    on: string(),
+    summary: optional(union([string(), Undefined()])),
+    message: optional(union([string(), Undefined()])),
+    found: optional(unknown()),
+    property: optional(union([string(), Undefined()])),
+    expected: optional(union([string(), Undefined()])),
+  }),
+});

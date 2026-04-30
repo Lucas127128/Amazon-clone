@@ -1,5 +1,4 @@
 import type { Cart } from '../schema.ts';
-import { checkNullish } from '../utils/typeChecker.ts';
 import { getDeliveryPriceCents } from './deliveryOption.ts';
 import { getMatchingProduct, type Product } from './products.ts';
 
@@ -15,13 +14,28 @@ export type Prices = {
 export function calculatePrices(
   cart: Cart[],
   products: readonly Product[],
-) {
+):
+  | { data: Prices; error: null }
+  | {
+      data: null;
+      error: {
+        message: 'Fail to get matching product';
+        productId: string;
+      };
+    } {
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
   for (const cartItem of cart) {
     const product = getMatchingProduct(products, cartItem.productId);
-    checkNullish(product, 'Fail to get matching product');
+    if (!product)
+      return {
+        data: null,
+        error: {
+          message: 'Fail to get matching product',
+          productId: cartItem.productId,
+        },
+      };
     const totalPrice = product.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.quantity;
@@ -34,11 +48,14 @@ export function calculatePrices(
   const totalTax = totalPriceBeforeTax / 10;
   const totalOrderPrice = totalPriceBeforeTax + totalTax;
   return {
-    totalProductPrice,
-    totalDeliveryFee,
-    cartQuantity,
-    totalPriceBeforeTax,
-    totalTax,
-    totalOrderPrice,
-  } satisfies Prices;
+    data: {
+      totalProductPrice,
+      totalDeliveryFee,
+      cartQuantity,
+      totalPriceBeforeTax,
+      totalTax,
+      totalOrderPrice,
+    },
+    error: null,
+  };
 }

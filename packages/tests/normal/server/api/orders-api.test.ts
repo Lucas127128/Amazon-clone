@@ -1,3 +1,4 @@
+import { app } from 'shared/edenTreaty';
 import type { Cart } from 'shared/schema';
 import { describe, expect, it } from 'vitest';
 import { fetchOrders } from 'web/orders';
@@ -5,14 +6,38 @@ import { fetchOrders } from 'web/orders';
 import cart from '#testData/cart.json' with { type: 'json' };
 import correctOrder from '#testData/order.json' with { type: 'json' };
 
-const order = await fetchOrders(cart as Cart[]);
+describe.concurrent('order api test', async () => {
+  const order = await fetchOrders(cart as Cart[]);
 
-describe.concurrent('order api test', () => {
   it('Return right totalCostCents', () => {
     expect(order.totalCostCents).toBe(correctOrder.totalCostCents);
   });
-
   it('Return right products', () => {
     expect(order.products).toEqual(correctOrder.products);
+  });
+
+  it('returns 422 if productId not found', async () => {
+    const result = await app.api.orders.post([
+      { productId: 'abcde', quantity: 3, deliveryOptionId: '1' },
+    ]);
+    expect(result.error?.status).toBe(422);
+    if (result.error?.status === 422)
+      // eslint-disable-next-line
+      expect(result.error.value.value.message).toBe(
+        'productId is not found',
+      );
+  });
+
+  it('returns 400 if productId structurally invalid', async () => {
+    const result = await app.api.orders.post([
+      { productId: 'a', quantity: 3, deliveryOptionId: '1' },
+    ]);
+    // return 400 because the productId length is not 5 and body cannot be parsed
+    expect(result.error?.status).toBe(400);
+  });
+
+  it('returns 400 if body length is 0', async () => {
+    const result = await app.api.orders.post([]);
+    expect(result.error?.status).toBe(400);
   });
 });
