@@ -1,0 +1,14 @@
+{
+  "id": "gsZyI1l",
+  "orderTime": "2026-02-09T16:00:00.000Z",
+  "totalCostCents": 28199.6,
+  "products": [
+    { "productId": "59LXo", "quantity": 1, "deliveryOptionId": "2" },
+    { "productId": "Hwme8", "quantity": 1, "deliveryOptionId": "3" },
+    { "productId": "acmQY", "quantity": 5, "deliveryOptionId": "1" },
+    { "productId": "z_MJt", "quantity": 1, "deliveryOptionId": "1" },
+    { "productId": "ISs-Z", "quantity": 1, "deliveryOptionId": "1" },
+    { "productId": "B8WQz", "quantity": 1, "deliveryOptionId": "1" },
+    { "productId": "ADSpL", "quantity": 1, "deliveryOptionId": "1" }
+  ]
+}

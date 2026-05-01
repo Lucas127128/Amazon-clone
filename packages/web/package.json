@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "sideEffects": false,
+  "imports": {
+    "#testData/*": "./tests/testData/*"
+  },
   "exports": {
     "./paymentSummary": "./src/scripts/pages/checkout/paymentSummary.ts",
     "./amazonHTML": "./src/scripts/pages/htmlGenerators/amazonHTML.ts",
@@ -12,7 +15,6 @@
     "./cartSummaryHTML": "./src/scripts/pages/htmlGenerators/cartSummaryHTML.ts",
     "./url": "./src/scripts/utils/url.ts",
     "./orders": "./src/scripts/data/orders.ts",
-    "./store": "./src/scripts/utils/store.ts",
     "./cart": "./src/scripts/data/cart.ts"
   },
   "scripts": {
@@ -31,9 +33,14 @@
   },
   "devDependencies": {
     "@vitejs/devtools": "^0.1.15",
+    "@vitest/browser-preview": "^4.1.5",
+    "@vitest/ui": "^4.1.5",
+    "happy-dom": "^20.9.0",
+    "server": "workspace:*",
     "sonda": "^0.11.1",
     "vite": "catalog:",
     "vite-plugin-html-minifier": "^1.0.5",
-    "vite-plugin-purgecss": "^0.2.13"
+    "vite-plugin-purgecss": "^0.2.13",
+    "vitest": "^4.1.5"
   }
 }

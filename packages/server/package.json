@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "sideEffects": false,
+  "imports": {
+    "#testData/*": "./tests/testData/*"
+  },
   "exports": {
     ".": "./src/api/server.ts",
     "./rawProducts": "./rawData/rawProducts.json",
@@ -28,5 +31,10 @@
     "temporal-polyfill-lite": "catalog:",
     "ts-pattern": "^5.9.0",
     "valibot": "catalog:"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^4.1.5",
+    "happy-dom": "^20.9.0",
+    "vitest": "^4.1.5"
   }
 }

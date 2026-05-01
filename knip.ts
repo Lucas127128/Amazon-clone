@@ -1,5 +1,5 @@
-// import type { KnipConfig } from 'knip';
-const config = {
+import type { KnipConfig } from 'knip';
+const config: KnipConfig = {
   workspaces: {
     'packages/server': {
       entry: ['src/api/index.ts'],
@@ -15,10 +15,9 @@ const config = {
     '@types/trusted-types',
     'husky',
     '@socketsecurity/bun-security-scanner',
-    'vite',
   ],
+  ignoreFiles: ['.agents/skills/**'],
   ignoreBinaries: ['bombardier', 'codesign'],
 };
-// } satisfies KnipConfig;
 
 export default config;

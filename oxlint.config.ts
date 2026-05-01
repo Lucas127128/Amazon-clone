@@ -121,6 +121,6 @@ export default defineConfig({
   env: {
     builtin: true,
   },
-  ignorePatterns: ['packages/tests/practice.bench.ts'],
+  ignorePatterns: ['.agents/skills/**/*.ts'],
   options: { typeCheck: true, typeAware: true },
 });

@@ -14,11 +14,17 @@
     }
   },
   "type": "module",
+  "imports": {
+    "#testData/*": "./testData/*"
+  },
   "scripts": {
     "lint": "bunx -b oxlint -c ./oxlint.config.ts",
     "fmt": "oxfmt",
     "dev": "bun run --parallel --elide-lines 10000 -F '*' dev",
-    "test": "bun run --cwd ./packages/tests test",
+    "test": "bunx -b vitest",
+    "test:ci": "bun run test -w=false",
+    "test:unit": "bun run test -w false --project happy-dom --project bun --exclude '**/*/scripts/data/orders.test.ts' ",
+    "test:api": "bun run test ./normal/server/api --watch",
     "start": "bun run --cwd ./packages/server start",
     "build": "bun run --cwd ./packages/web build"
   },
@@ -28,11 +34,16 @@
     "@types/trusted-types": "^2.0.7",
     "eslint-plugin-depend": "^1.5.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
+    "happy-dom": "^20.9.0",
     "husky": "^9.1.7",
     "knip": "^6.6.3",
     "oxfmt": "^0.47.0",
     "oxlint": "^1.62.0",
     "oxlint-tsgolint": "^0.22.1",
-    "vite": "catalog:"
+    "server": "workspace:*",
+    "shared": "workspace:*",
+    "temporal-polyfill-lite": "catalog:",
+    "vite": "catalog:",
+    "vitest": "^4.1.5"
   }
 }
