@@ -8,13 +8,13 @@ import { Service } from './service';
 export const searchPlugin = new Elysia({ prefix: '/api/search' })
   .use(evlog())
   .use(Service)
+  .onBeforeHandle(({ request, server, log, query }) => {
+    const clientIP = server?.requestIP(request)?.address;
+    log.set({ clientIp: clientIP, query: query.q });
+  })
   .get(
     '/products',
-    async ({ query, log, server, request, Search }) => {
-      const clientIP = server?.requestIP(request)?.address;
-      log.set({ clientIp: clientIP });
-      return await Search.searchProducts(query.q);
-    },
+    async ({ query, Search }) => await Search.searchProducts(query.q),
     {
       response: array(SearchResultSchema),
       query: object({ q: string() }),

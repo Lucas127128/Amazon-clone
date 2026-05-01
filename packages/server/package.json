@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/api/server.ts",
     "./rawProducts": "./rawData/rawProducts.json",
-    "./clothing": "./rawData/clothing.json"
+    "./clothing": "./rawData/clothing.json",
+    "./orderService": "./src/api/orders/service.ts",
+    "./productService": "./src/api/products/service.ts"
   },
   "scripts": {
     "start": "bun ./start-server.ts",

@@ -11,52 +11,35 @@ import { Service } from './service';
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
   .use(evlog())
-  .get(
-    '/products',
-    ({ server, request, log }) => {
-      const clientIP = server?.requestIP(request)?.address;
-      log.set({ clientIp: clientIP });
-      return Service.getProducts();
+  .onBeforeHandle(({ request, server, log }) => {
+    const clientIP = server?.requestIP(request)?.address;
+    log.set({ clientIp: clientIP });
+  })
+  .get('/products', () => Service.getProducts(), {
+    response: RawProductSchemaArray,
+    detail: {
+      description: 'Return an array of products',
     },
-    {
-      response: RawProductSchemaArray,
-      detail: {
-        description: 'Return an array of products',
-      },
-    },
-  )
+  })
   .get(
     '/matchingProduct',
-    ({ server, request, log, query }) => {
-      const clientIP = server?.requestIP(request)?.address;
-      log.set({ clientIp: clientIP });
-      return Service.getMatchingProduct(query.productId);
-    },
+    ({ query }) => Service.getMatchingProduct(query.productId),
     {
       response: {
         200: RawProductSchema,
         404: object({ message: string() }),
       },
       query: object({ productId: RawProductSchema.entries.id }),
-
       detail: {
         description: 'Return a matching product from query',
       },
     },
   )
-  .get(
-    '/clothingList',
-    ({ server, request, log }) => {
-      const clientIP = server?.requestIP(request)?.address;
-      log.set({ clientIp: clientIP });
-      return Service.getClothingList();
+  .get('/clothingList', () => Service.getClothingList(), {
+    response: ClothingListSchema,
+    detail: {
+      description: 'Return a list of product ids that are clothing',
     },
-    {
-      response: ClothingListSchema,
-      detail: {
-        description: 'Return a list of product ids that are clothing',
-      },
-    },
-  );
+  });
 
 console.log('Products api service starts');

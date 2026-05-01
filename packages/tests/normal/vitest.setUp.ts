@@ -42,3 +42,16 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
     }
   },
 );
+
+const bunFile = Bun.file;
+vi.spyOn(Bun, 'file').mockImplementation(((
+  path: string | URL,
+  options?: BlobPropertyBag,
+) => {
+  if (path === './rawData/clothing.json') {
+    return bunFile('../server/rawData/clothing.json');
+  } else if (path === './rawData/rawProducts.json') {
+    return bunFile('../server/rawData/rawProducts.json');
+  }
+  return bunFile(path, options);
+}) as typeof bunFile);

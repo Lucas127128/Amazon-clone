@@ -1,10 +1,10 @@
-import { Elysia, status } from 'elysia';
+import { status } from 'elysia';
 import { nanoid } from 'nanoid';
 import { calculatePrices } from 'shared/payment';
 import { transformProducts } from 'shared/products';
 import {
   type Cart,
-  type Order as OrderType,
+  type Order,
   RawProductSchemaArray,
 } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
@@ -20,12 +20,12 @@ const clothings = parse(
 );
 const products = transformProducts(rawProducts, clothings);
 
-function createOrder(cart: Cart[]) {
+export function createOrder(cart: Cart[]) {
   const { data: prices, error } = calculatePrices(cart, products);
   if (error) {
     return { data: null, error };
   } else {
-    const order: OrderType = {
+    const order: Order = {
       id: nanoid(7),
       orderTime: Temporal.Now.instant().toJSON(),
       products: cart,
@@ -35,11 +35,11 @@ function createOrder(cart: Cart[]) {
   }
 }
 
-export const Service = new Elysia().decorate('Order', {
+export const OrderService = {
   createOrder: (cart: Cart[]) => {
     const { data: order, error } = createOrder(cart);
     if (error) {
-      return status(422, {
+      return status('Unprocessable Content', {
         status: 422,
         value: {
           type: 'validation',
@@ -50,6 +50,6 @@ export const Service = new Elysia().decorate('Order', {
         },
       });
     }
-    return order;
+    return status('OK', order);
   },
-});
+};

@@ -24,6 +24,7 @@ export default defineConfig({
             './normal/shared/utils/money.test.ts',
             './normal/web/scripts/data/orders.test.ts',
             './normal/web/scripts/pages/htmlGenerators/**/*.test.ts',
+            './normal/server/src/**/*.test.ts',
           ],
           environment: 'node',
           setupFiles: ['./normal/vitest.setUp.ts'],
@@ -57,7 +58,7 @@ export default defineConfig({
       },
       {
         test: {
-          include: ['./normal/server/**/*.test.ts'],
+          include: ['./normal/server/api/*.test.ts'],
           name: 'api',
           environment: 'node',
         },
