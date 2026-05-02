@@ -8,7 +8,7 @@ import orderJson from '#testData/order.json' with { type: 'json' };
 import {
   createOrder,
   OrderService,
-} from '../../../../src/api/orders/service';
+} from '../../../../src/api/orders/service.ts';
 
 describe.concurrent('createOrder', () => {
   it('return right order if success', () => {
