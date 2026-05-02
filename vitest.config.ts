@@ -6,7 +6,7 @@ export default defineConfig({
     alias: [
       {
         find: /^#testData(\/.*)?$/,
-        replacement: path.resolve(__dirname, 'testData') + '$1',
+        replacement: `${path.resolve(__dirname, 'testData')}$1`,
       },
     ],
   },
