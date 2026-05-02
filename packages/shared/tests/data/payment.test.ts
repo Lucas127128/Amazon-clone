@@ -1,13 +1,7 @@
 import clothings from 'server/clothing';
 import rawProducts from 'server/rawProducts';
-import {
-  calculatePrices,
-  type Prices,
-} from 'shared/payment';
-import {
-  type Product,
-  transformProducts,
-} from 'shared/products';
+import { calculatePrices, type Prices } from 'shared/payment';
+import { type Product, transformProducts } from 'shared/products';
 import type { Cart, RawProduct } from 'shared/schema';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
