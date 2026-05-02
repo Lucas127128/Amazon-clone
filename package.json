@@ -17,9 +17,6 @@
     }
   },
   "type": "module",
-  "imports": {
-    "#testData/*": "./testData/*"
-  },
   "scripts": {
     "lint": "bunx -b oxlint -c ./oxlint.config.ts",
     "fmt": "oxfmt",

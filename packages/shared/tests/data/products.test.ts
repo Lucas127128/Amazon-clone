@@ -7,9 +7,8 @@ import {
   Product,
 } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
+import { productsJson as products } from 'testdata';
 import { describe, expect, it } from 'vitest';
-
-import products from '#testData/products.json' with { type: 'json' };
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',

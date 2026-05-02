@@ -4,7 +4,6 @@
   "type": "module",
   "sideEffects": false,
   "imports": {
-    "#testData/*": "./tests/testData/*",
     "#pages/*": "./src/scripts/pages/*",
     "#utils/*": "./src/scripts/utils/*",
     "#data/*": "./src/scripts/data/*"
@@ -28,6 +27,7 @@
     "@vitest/ui": "catalog:",
     "happy-dom": "catalog:",
     "sonda": "^0.11.1",
+    "testdata": "workspace:*",
     "vite": "catalog:",
     "vite-plugin-html-minifier": "^1.0.5",
     "vite-plugin-purgecss": "^0.2.13",

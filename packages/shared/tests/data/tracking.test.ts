@@ -1,10 +1,8 @@
 import type { Cart, Order } from 'shared/schema';
 import { getDeliveryProgress } from 'shared/tracking';
 import { checkNullish } from 'shared/typeChecker';
+import { cartJson as cart, orderJson as order } from 'testdata';
 import { describe, expect, it } from 'vitest';
-
-import cart from '#testData/cart.json' with { type: 'json' };
-import order from '#testData/order.json' with { type: 'json' };
 
 describe.concurrent('test suite: getDeliveryProgress', () => {
   it('get correct delivery progress', () => {

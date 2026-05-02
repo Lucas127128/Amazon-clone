@@ -43,6 +43,7 @@
       "devDependencies": {
         "@vitest/ui": "catalog:",
         "happy-dom": "catalog:",
+        "testdata": "workspace:",
         "vitest": "catalog:",
       },
     },
@@ -59,8 +60,13 @@
       "devDependencies": {
         "@vitest/ui": "catalog:",
         "happy-dom": "catalog:",
+        "testdata": "workspace:",
         "vitest": "catalog:",
       },
+    },
+    "packages/testData": {
+      "name": "testdata",
+      "version": "1.0.0",
     },
     "packages/web": {
       "name": "web",
@@ -80,6 +86,7 @@
         "@vitest/ui": "catalog:",
         "happy-dom": "catalog:",
         "sonda": "^0.11.1",
+        "testdata": "workspace:*",
         "vite": "catalog:",
         "vite-plugin-html-minifier": "^1.0.5",
         "vite-plugin-purgecss": "^0.2.13",
@@ -1106,6 +1113,8 @@
     "temporal-polyfill-lite": ["temporal-polyfill-lite@0.3.5", "", {}, "sha512-np3EcFbuGJrJ8fp3rKTwpvfvPlkh54IY873Xh+5133Pq1QQy1mkNXrDmJjjZ35dhQkrJpVx8RwaNWt0189iDfg=="],
 
     "terser": ["terser@5.46.2", "", { "dependencies": { "@jridgewell/source-map": "^0.3.3", "acorn": "^8.15.0", "commander": "^2.20.0", "source-map-support": "~0.5.20" }, "bin": { "terser": "bin/terser" } }, "sha512-uxfo9fPcSgLDYob/w1FuL0c99MWiJDnv+5qXSQc5+Ki5NjVNsYi66INnMFBjf6uFz6OnX12piJQPF4IpjJTNTw=="],
+
+    "testdata": ["testdata@workspace:packages/testData"],
 
     "thenify": ["thenify@3.3.1", "", { "dependencies": { "any-promise": "^1.0.0" } }, "sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw=="],
 

@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "sideEffects": false,
-  "imports": {
-    "#testData/*": "./tests/testData/*"
-  },
   "exports": {
     ".": "./src/api/server.ts",
     "./rawProducts": "./rawData/rawProducts.json",
@@ -33,6 +30,7 @@
   "devDependencies": {
     "@vitest/ui": "catalog:",
     "happy-dom": "catalog:",
+    "testdata": "workspace:",
     "vitest": "catalog:"
   }
 }

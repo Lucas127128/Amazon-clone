@@ -1,9 +1,7 @@
 import { CART_CONFIG } from 'shared/constants';
 import type { Cart } from 'shared/schema';
+import { cartJson as cart, orderJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
-
-import cart from '#testData/cart.json' with { type: 'json' };
-import orderJson from '#testData/order.json' with { type: 'json' };
 
 import {
   createOrder,

@@ -1,5 +1,6 @@
 import { CART_CONFIG } from 'shared/constants';
 import type { Cart } from 'shared/schema';
+import { cartJson } from 'testdata';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
@@ -10,7 +11,6 @@ import {
   removeFromCart,
   updateDeliveryOption,
 } from '#data/cart.ts';
-import cartJson from '#testData/cart.json';
 
 beforeEach(() => {
   cartStore.set(() => cartJson.slice(0, 3) as Cart[]);

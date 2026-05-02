@@ -1,12 +1,14 @@
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
+import {
+  orderJson as order,
+  productsJson as products,
+  trackingHTML as correctTrackingHTML,
+} from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import { generateTrackingHTML } from '#pages/htmlGenerators/trackingHTML.ts';
-import order from '#testData/order.json' with { type: 'json' };
-import products from '#testData/products.json' with { type: 'json' };
-import correctTrackingHTML from '#testData/trackingHTML.html?raw' with { type: 'text' };
 
 const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);

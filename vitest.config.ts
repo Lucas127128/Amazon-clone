@@ -1,15 +1,6 @@
-import path from 'path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  resolve: {
-    alias: [
-      {
-        find: /^#testData(\/.*)?$/,
-        replacement: `${path.resolve(__dirname, 'testData')}$1`,
-      },
-    ],
-  },
   test: {
     pool: 'threads',
     maxConcurrency: 150,

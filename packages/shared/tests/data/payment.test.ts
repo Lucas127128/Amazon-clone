@@ -3,9 +3,8 @@ import rawProducts from 'server/rawProducts';
 import { calculatePrices, type Prices } from 'shared/payment';
 import { type Product, transformProducts } from 'shared/products';
 import type { Cart, RawProduct } from 'shared/schema';
+import { cartJson } from 'testdata';
 import { describe, expect, expectTypeOf, it } from 'vitest';
-
-import cartJson from '#testData/cart.json';
 
 describe.concurrent('calculatePrices', () => {
   const cart = cartJson.slice(0, 2) as Cart[];

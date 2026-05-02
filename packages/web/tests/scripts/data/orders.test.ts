@@ -1,6 +1,7 @@
 import { dateFormatOption } from 'shared/deliveryOption';
 import type { Cart, Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
+import { cartJson as cart, orderJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -8,8 +9,6 @@ import {
   getMatchingOrder,
   getTimeString,
 } from '#data/orders.ts';
-import cart from '#testData/cart.json' with { type: 'json' };
-import orderJson from '#testData/order.json' with { type: 'json' };
 
 describe.concurrent('getTimeString', () => {
   it('get time string from ISO time', () => {

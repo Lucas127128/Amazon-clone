@@ -1,10 +1,9 @@
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
+import { cartJson as cart, productsJson as products } from 'testdata';
 import { beforeAll, describe, expect, it } from 'vitest';
 
 import { renderPaymentSummary } from '#pages/checkout/paymentSummary.ts';
-import cart from '#testData/cart.json' with { type: 'json' };
-import products from '#testData/products.json' with { type: 'json' };
 
 beforeAll(async () => {
   localStorage.clear();

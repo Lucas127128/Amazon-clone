@@ -1,15 +1,17 @@
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
+import {
+  cartJson as cart,
+  cartSummaryHTML,
+  deliveryOptionsHTML as deliveryOptionsHTMLText,
+  productsJson as products,
+} from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import {
   deliveryOptionsHTML,
   generateCartSummary,
 } from '#pages/htmlGenerators/cartSummaryHTML.ts';
-import cart from '#testData/cart.json' with { type: 'json' };
-import cartSummaryHTML from '#testData/cartSummaryHTML.html?raw' with { type: 'text' };
-import deliveryOptionsHTMLText from '#testData/deliveryOptionsHTML.html?raw' with { type: 'text' };
-import products from '#testData/products.json' with { type: 'json' };
 
 const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);

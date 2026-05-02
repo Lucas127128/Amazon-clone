@@ -1,12 +1,14 @@
 import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
+import {
+  cartJson as cart,
+  paymentSummaryHTML,
+  productsJson as products,
+} from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import { generatePaymentSummary } from '#pages/htmlGenerators/paymentSummaryHTML.ts';
-import cart from '#testData/cart.json' with { type: 'json' };
-import paymentSummaryHTML from '#testData/paymentSummaryHTML.html?raw' with { type: 'text' };
-import products from '#testData/products.json' with { type: 'json' };
 
 describe.concurrent('generatePaymentSummary', () => {
   it('generate correct HTML', () => {

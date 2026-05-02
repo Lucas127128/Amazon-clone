@@ -1,16 +1,18 @@
 import { getMatchingProduct, type Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
+import {
+  cartJson as carts,
+  orderContainerHTML,
+  orderJson as order,
+  ordersProductHTML as orderProductHTML,
+  productsJson as products,
+} from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import {
   generateOrderContainerHTML,
   generateOrdersProductHTML,
 } from '#pages/htmlGenerators/ordersHTML.ts';
-import carts from '#testData/cart.json' with { type: 'json' };
-import order from '#testData/order.json' with { type: 'json' };
-import orderContainerHTML from '#testData/orderContainer.html?raw' with { type: 'text' };
-import orderProductHTML from '#testData/ordersProduct.html?raw' with { type: 'text' };
-import products from '#testData/products.json' with { type: 'json' };
 
 describe.concurrent('generateOrdersProductHTML', () => {
   it('generate correct html', () => {

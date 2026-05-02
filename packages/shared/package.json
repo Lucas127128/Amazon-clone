@@ -4,8 +4,7 @@
   "type": "module",
   "sideEffects": false,
   "imports": {
-    "#utils/*": "./src/utils/*",
-    "#testData/*": "./tests/testData/*"
+    "#utils/*": "./src/utils/*"
   },
   "exports": {
     "./schema": "./src/schema.ts",
@@ -28,6 +27,7 @@
   "devDependencies": {
     "@vitest/ui": "catalog:",
     "happy-dom": "catalog:",
+    "testdata": "workspace:",
     "vitest": "catalog:"
   }
 }
