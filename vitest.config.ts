@@ -7,7 +7,7 @@ export default defineConfig({
     maxWorkers: 30,
     clearMocks: true,
     // reporters: ['html', 'default'],
-    experimental: { fsModuleCache: true },
+    // experimental: { fsModuleCache: true },
     env: {
       NODE_TLS_REJECT_UNAUTHORIZED: '0',
     },

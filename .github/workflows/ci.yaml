@@ -3,19 +3,19 @@ on: [push]
 jobs:
   test:
     name: test app
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cache
-        uses: actions/cache@v4
-        with:
-          key: the-key
-          path: |
-            ./node_modules
-            **/*/node_modules
-            ./packages/server/certs
-            ~/.bun
+      # - name: Cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     key: the-key
+      #     path: |
+      #       ./node_modules
+      #       **/*/node_modules
+      #       ./packages/server/certs
+      #       ~/.bun
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Install dependency
