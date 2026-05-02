@@ -33,4 +33,4 @@ jobs:
           run: FORCE_COLOR=1 bun run --cwd ./packages/server dev
           wait-on: https://localhost:8080
       - name: Run tests
-        run: FORCE_COLOR=1 bun run --cwd ./packages/tests test:ci
+        run: FORCE_COLOR=1 bun run test:ci
