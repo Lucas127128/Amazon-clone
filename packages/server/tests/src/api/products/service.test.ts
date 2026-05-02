@@ -1,7 +1,8 @@
 import clothingListJson from 'server/clothing' with { type: 'json' };
-import { Service } from 'server/productService';
 import rawProductsJson from 'server/rawProducts' with { type: 'json' };
 import { describe, expect, it } from 'vitest';
+
+import { Service } from '../../../../src/api/products/service.ts';
 
 describe.concurrent('Service', () => {
   describe.concurrent('getProducts', () => {

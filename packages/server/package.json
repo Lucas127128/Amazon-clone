@@ -9,9 +9,7 @@
   "exports": {
     ".": "./src/api/server.ts",
     "./rawProducts": "./rawData/rawProducts.json",
-    "./clothing": "./rawData/clothing.json",
-    "./orderService": "./src/api/orders/service.ts",
-    "./productService": "./src/api/products/service.ts"
+    "./clothing": "./rawData/clothing.json"
   },
   "scripts": {
     "start": "bun ./start-server.ts",
@@ -33,8 +31,8 @@
     "valibot": "catalog:"
   },
   "devDependencies": {
-    "@vitest/ui": "^4.1.5",
-    "happy-dom": "^20.9.0",
-    "vitest": "^4.1.5"
+    "@vitest/ui": "catalog:",
+    "happy-dom": "catalog:",
+    "vitest": "catalog:"
   }
 }

@@ -16,7 +16,6 @@ const config: KnipConfig = {
     'husky',
     '@socketsecurity/bun-security-scanner',
   ],
-  ignoreFiles: ['.agents/skills/**'],
   ignoreBinaries: ['bombardier', 'codesign'],
 };
 

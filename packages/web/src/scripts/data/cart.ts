@@ -28,7 +28,7 @@ export function addToCart(
   cart = cartStore,
 ) {
   cart.set(() => {
-    const newCart = cart.get();
+    const newCart = structuredClone(cart.get());
     const matchingCart = getMatchingCart(newCart, cartItem.productId);
     matchingCart
       ? increment

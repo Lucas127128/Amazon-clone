@@ -20,17 +20,14 @@
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.9",
-    "@tanstack/store": "catalog:",
     "fp-ts": "^2.16.11",
     "server": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "valibot": "catalog:"
   },
   "devDependencies": {
-    "@vitest/browser-preview": "^4.1.5",
-    "@vitest/ui": "^4.1.5",
-    "happy-dom": "^20.9.0",
-    "vitest": "^4.1.5",
-    "web": "workspace:*"
+    "@vitest/ui": "catalog:",
+    "happy-dom": "catalog:",
+    "vitest": "catalog:"
   }
 }
