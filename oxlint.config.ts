@@ -121,6 +121,10 @@ export default defineConfig({
   env: {
     builtin: true,
   },
-  ignorePatterns: ['.agents/skills/**/*.ts'],
+  ignorePatterns: [
+    '.agents/skills/**/*.ts',
+    'packages/web/dist/**/*.ts',
+    'node_modules/**/*.ts',
+  ],
   options: { typeCheck: true, typeAware: true },
 });
