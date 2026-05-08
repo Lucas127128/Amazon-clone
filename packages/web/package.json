@@ -13,17 +13,17 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@awesome.me/webawesome": "^3.5.0",
+    "@awesome.me/webawesome": "^3.6.0",
     "@tanstack/store": "catalog:",
     "better-all": "^0.0.7",
-    "dompurify": "^3.4.1",
+    "dompurify": "^3.4.2",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "typed-query-selector": "^2.12.1",
     "valibot": "catalog:"
   },
   "devDependencies": {
-    "@vitejs/devtools": "^0.1.15",
+    "@vitejs/devtools": "^0.1.18",
     "@vitest/ui": "catalog:",
     "happy-dom": "catalog:",
     "sonda": "^0.11.1",

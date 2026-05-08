@@ -1,6 +1,5 @@
 import { cors } from '@elysiajs/cors';
 import { fromTypes, openapi } from '@elysiajs/openapi';
-import { toJsonSchema } from '@valibot/to-json-schema';
 import { Elysia } from 'elysia';
 import { localHttps } from 'elysia-local-https';
 import { GLOBAL_CONFIG } from 'shared/constants';
@@ -45,9 +44,6 @@ export const app = new Elysia({ precompile: true, aot: true })
   .use(
     openapi({
       references: fromTypes('src/api/server.ts'),
-      mapJsonSchema: {
-        valibot: toJsonSchema,
-      },
     }),
   )
   .use(staticPlugin)
