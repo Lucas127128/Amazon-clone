@@ -8,9 +8,6 @@
     "#utils/*": "./src/scripts/utils/*",
     "#data/*": "./src/scripts/data/*"
   },
-  "exports": {
-    "./viteConfig": "./vite.config.ts"
-  },
   "scripts": {
     "build": "bunx -b vite build",
     "dev": "vite"

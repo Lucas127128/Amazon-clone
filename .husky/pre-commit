@@ -3,4 +3,4 @@ bun lint
 bun audit --prod
 bun run test:unit
 bunx knip
-bun i --frozen-lockfile 
+bun i --frozen-lockfile
