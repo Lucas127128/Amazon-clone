@@ -1,10 +1,10 @@
 import { cors } from '@elysiajs/cors';
-import { fromTypes, openapi } from '@elysiajs/openapi';
 import { Elysia } from 'elysia';
 import { localHttps } from 'elysia-local-https';
 import { GLOBAL_CONFIG } from 'shared/constants';
 
 import { initEvlog } from '../utils/logger.ts';
+import { openApi } from '../utils/openApi.ts';
 import { orderPlugin } from './orders/index.ts';
 import { productsPlugin } from './products/index.ts';
 import { searchPlugin } from './search/index.ts';
@@ -41,11 +41,7 @@ export const app = new Elysia({ precompile: true, aot: true })
       allowedHeaders: ['Content-Type'],
     }),
   )
-  .use(
-    openapi({
-      references: fromTypes('src/api/server.ts'),
-    }),
-  )
+  .use(openApi())
   .use(staticPlugin)
   .use(productsPlugin)
   .use(orderPlugin)

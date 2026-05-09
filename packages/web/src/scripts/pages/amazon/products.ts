@@ -1,5 +1,6 @@
 import 'typed-query-selector';
 
+import { comptime } from 'comptime';
 import { CART_CONFIG, FETCH_CONFIG, UI_TIMEOUTS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import { checkNullish, isHTMLElement } from 'shared/typeChecker';
@@ -11,29 +12,18 @@ import { generateAmazonHTML } from '../htmlGenerators/amazonHTML.ts';
 
 sanitizeAll();
 
-const timers: { timer: NodeJS.Timeout; productId: string }[] = [];
 function displayAdded(productId: string) {
   const addedToCart = document.querySelector(
     `div.added-to-cart-${productId}`,
   );
   checkNullish(addedToCart, 'Fail to select HTML element');
   addedToCart.style.opacity = '1';
-
-  let matchingTimer = timers.find(
-    (timer) => timer.productId === productId,
-  );
-  const timer = {
-    timer: setTimeout(() => {
+  setTimeout(
+    () => {
       addedToCart.style.opacity = '0';
-    }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY),
-    productId: productId,
-  };
-  if (matchingTimer) {
-    clearTimeout(matchingTimer.timer);
-    matchingTimer = timer;
-  } else {
-    timers.push(timer);
-  }
+    },
+    comptime(() => UI_TIMEOUTS.ADDED_TO_CART_DISPLAY),
+  );
 }
 
 let controller = new AbortController();
@@ -48,7 +38,9 @@ export function renderProducts(products: readonly Product[]) {
   let productsHTML = '';
   for (const [index, product] of products.entries()) {
     const highFetchPriority =
-      index <= FETCH_CONFIG.HIGH_PRIORITY_THRESHOLD ? true : false;
+      index <= comptime(() => FETCH_CONFIG.HIGH_PRIORITY_THRESHOLD)
+        ? true
+        : false;
     productsHTML += generateAmazonHTML(product, highFetchPriority);
   }
   const trustedProductsHTML = productsHTML;
@@ -81,7 +73,9 @@ export function renderProducts(products: readonly Product[]) {
         {
           productId: productId,
           quantity: quantityToAdd,
-          deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+          deliveryOptionId: comptime(
+            () => CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+          ),
         },
         true,
       );

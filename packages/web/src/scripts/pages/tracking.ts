@@ -1,6 +1,7 @@
+import { comptime } from 'comptime';
 import { STORAGE_KEYS } from 'shared/constants';
 import { fetchMatchingProduct } from 'shared/products';
-import { OrderSchemaArray } from 'shared/schema';
+import { OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
@@ -19,9 +20,11 @@ async function renderTrackingSummary() {
 
   const product = await fetchMatchingProduct(productId);
 
-  const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
+  const savedOrders = localStorage.getItem(
+    comptime(() => STORAGE_KEYS.ORDER),
+  );
   checkNullish(savedOrders);
-  const orders = parse(OrderSchemaArray, JSON.parse(savedOrders));
+  const orders = parse(OrdersSchema, JSON.parse(savedOrders));
   const matchingOrder = getMatchingOrder(orders, orderId);
   checkNullish(matchingOrder);
 

@@ -5,7 +5,6 @@ export const UI_TIMEOUTS = {
 } as const;
 
 export const FETCH_CONFIG = {
-  // First 14 products get high fetch priority
   HIGH_PRIORITY_THRESHOLD: 14,
   CACHE_TTL: Temporal.Duration.from({ hours: 24 }),
 } as const;

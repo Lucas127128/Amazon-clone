@@ -1,10 +1,10 @@
 import { status } from 'elysia';
 import { getMatchingRawProduct } from 'shared/products';
-import { ClothingListSchema, RawProductSchemaArray } from 'shared/schema';
+import { ClothingListSchema, RawProductsSchema } from 'shared/schema';
 import { parse } from 'valibot';
 
 const products = parse(
-  RawProductSchemaArray,
+  RawProductsSchema,
   await Bun.file('./rawData/rawProducts.json').json(),
 );
 const clothings = parse(

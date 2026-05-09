@@ -1,12 +1,12 @@
 import { create, insertMultiple, search } from '@orama/orama';
 import { Elysia } from 'elysia';
 import { FETCH_CONFIG } from 'shared/constants';
-import { RawProductSchemaArray, type SearchResult } from 'shared/schema';
+import { RawProductsSchema, type SearchResult } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { parse } from 'valibot';
 
 const products = parse(
-  RawProductSchemaArray,
+  RawProductsSchema,
   await Bun.file('./rawData/rawProducts.json').json(),
 );
 

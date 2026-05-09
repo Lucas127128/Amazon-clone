@@ -2,16 +2,12 @@ import { status } from 'elysia';
 import { nanoid } from 'nanoid';
 import { calculatePrices } from 'shared/payment';
 import { transformProducts } from 'shared/products';
-import {
-  type Cart,
-  type Order,
-  RawProductSchemaArray,
-} from 'shared/schema';
+import { type Cart, type Order, RawProductsSchema } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { array, parse, string } from 'valibot';
 
 const rawProducts = parse(
-  RawProductSchemaArray,
+  RawProductsSchema,
   await Bun.file('./rawData/rawProducts.json').json(),
 );
 const clothings = parse(

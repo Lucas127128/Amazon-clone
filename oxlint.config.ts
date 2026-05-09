@@ -112,6 +112,7 @@ export default defineConfig({
     'vitest/consistent-test-it': 'error',
     'vitest/consistent-vitest-vi': 'error',
     'vitest/no-alias-methods': 'error',
+    'unicorn/prefer-array-find': 'error',
   },
   settings: {
     vitest: {

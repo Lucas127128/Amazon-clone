@@ -1,3 +1,4 @@
+import { comptime } from 'comptime';
 import { STORAGE_KEYS } from 'shared/constants';
 import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
@@ -43,8 +44,11 @@ export async function renderPaymentSummary(params: {
           checkNullish(order);
           const orders: Order[] = getOrders();
           orders.unshift(order);
-          localStorage.setItem(STORAGE_KEYS.ORDER, JSON.stringify(orders));
-          localStorage.removeItem(STORAGE_KEYS.CART_STATE);
+          localStorage.setItem(
+            comptime(() => STORAGE_KEYS.ORDER),
+            JSON.stringify(orders),
+          );
+          localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
           location.href = '/orders.html';
         })
         .catch((err: unknown) => console.error(err));

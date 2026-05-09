@@ -49,7 +49,7 @@ export const RawProductSchema = cache(
     priceCents: PriceCentsSchema,
   }),
 );
-export const RawProductSchemaArray = array(RawProductSchema);
+export const RawProductsSchema = array(RawProductSchema);
 export type RawProduct = InferOutput<typeof RawProductSchema>;
 
 export const DeliveryOptionIdSchema = union([
@@ -68,7 +68,7 @@ export const CartSchema = object({
   ),
   deliveryOptionId: DeliveryOptionIdSchema,
 });
-export const CartSchemaArray = array(CartSchema);
+export const CartsSchema = array(CartSchema);
 export type Cart = InferOutput<typeof CartSchema>;
 
 export const OrderSchema = object({
@@ -77,7 +77,7 @@ export const OrderSchema = object({
   totalCostCents: pipe(number(), minValue(0)),
   products: array(CartSchema),
 });
-export const OrderSchemaArray = array(OrderSchema);
+export const OrdersSchema = array(OrderSchema);
 export type Order = InferOutput<typeof OrderSchema>;
 
 export const ClothingListSchema = cache(

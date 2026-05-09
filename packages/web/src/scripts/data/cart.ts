@@ -2,7 +2,7 @@ import { createAtom } from '@tanstack/store';
 import { STORAGE_KEYS } from 'shared/constants';
 import {
   type Cart,
-  CartSchemaArray,
+  CartsSchema,
   type DeliveryOptionId,
 } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
@@ -10,7 +10,7 @@ import { parse } from 'valibot';
 
 export const cartStore = createAtom(
   parse(
-    CartSchemaArray,
+    CartsSchema,
     JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_STATE) ?? '[]'),
   ),
 );
@@ -22,21 +22,16 @@ cartStore.subscribe((cart) => {
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
-export function addToCart(
-  cartItem: Cart,
-  increment: boolean = false,
-  cart = cartStore,
-) {
-  cart.set(() => {
-    const newCart = structuredClone(cart.get());
+export function addToCart(cartItem: Cart, increment: boolean = false) {
+  cartStore.set((cart) => {
+    const newCart = structuredClone(cart);
     const matchingCart = getMatchingCart(newCart, cartItem.productId);
     matchingCart
       ? increment
         ? (matchingCart.quantity += cartItem.quantity)
         : (matchingCart.quantity = cartItem.quantity)
       : newCart.push(cartItem);
-    parse(CartSchemaArray, newCart);
-    return newCart;
+    return parse(CartsSchema, newCart);
   });
 }
 
@@ -57,7 +52,7 @@ export function updateDeliveryOption(
     const matchingItem = getMatchingCart(newCart, productId);
     checkNullish(matchingItem, 'The product id is not valid.');
     matchingItem.deliveryOptionId = deliveryOptionId;
-    return parse(CartSchemaArray, newCart);
+    return parse(CartsSchema, newCart);
   });
 }
 

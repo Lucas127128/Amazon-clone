@@ -66,7 +66,6 @@ describe.concurrent('removeFromCart', () => {
 
 describe.concurrent('updateDeliveryOption', () => {
   it('update delivery option', () => {
-    // console.log(cartStore.get());
     cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
     updateDeliveryOption('Hwme8', '3');
     const deliveryOptionId = getMatchingCart(

@@ -3,7 +3,7 @@ import '@awesome.me/webawesome/dist/components/tooltip/tooltip.js';
 import { GLOBAL_CONFIG, STORAGE_KEYS } from 'shared/constants';
 import { app, cacheMap } from 'shared/edenTreaty';
 import { fetchMatchingProduct } from 'shared/products';
-import { OrderSchemaArray } from 'shared/schema';
+import { OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { Temporal } from 'temporal-polyfill-lite';
 import { parse } from 'valibot';
@@ -23,7 +23,7 @@ async function renderPlacedOrder() {
   sanitizeAll();
   const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
   checkNullish(savedOrders);
-  const orders = parse(OrderSchemaArray, JSON.parse(savedOrders));
+  const orders = parse(OrdersSchema, JSON.parse(savedOrders));
   const ordersHTML = document.querySelector('div.orders-grid');
   checkNullish(ordersHTML);
   // cache the clothings first to avoid duplicated fetches

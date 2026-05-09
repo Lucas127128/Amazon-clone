@@ -1,4 +1,5 @@
 // import { DevTools } from '@vitejs/devtools';
+import { comptime } from 'comptime/vite';
 import { GLOBAL_CONFIG } from 'shared/constants';
 import Sonda from 'sonda/vite';
 import { defineConfig } from 'vite';
@@ -43,6 +44,7 @@ export default defineConfig({
     htmlMinifier({ minify: true }),
     htmlPurge({}),
     Sonda({ open: false }),
+    comptime(),
     // DevTools(),
   ],
   css: {
@@ -59,15 +61,5 @@ export default defineConfig({
     port: 5174,
     allowedHosts: [GLOBAL_CONFIG.PREVIEW_URL.replace('https://', '')],
     forwardConsole: true,
-    warmup: {
-      clientFiles: [
-        '../../shared/src/schema.ts',
-        '../../shared/src/data/products.ts',
-        './scripts/pages/amazon/products.ts',
-        './scripts/pages/amazon/sort.ts',
-        '../../shared/src/data/deliveryOption.ts',
-        '../../shared/src/data/tracking.ts',
-      ],
-    },
   },
 });

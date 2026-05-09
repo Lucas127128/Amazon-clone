@@ -8,6 +8,7 @@
       "rm *": "deny",
       "chmod *": "deny",
       "grep *": "allow",
+      "Grep *": "allow",
       "ls *": "allow",
       "cd *": "allow",
       "bun *": "allow",

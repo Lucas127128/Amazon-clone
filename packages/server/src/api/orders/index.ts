@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { evlog } from 'evlog/elysia';
 import {
-  CartSchemaArray,
+  CartsSchema,
   ElysiaValidationErrorSchema,
   OrderSchema,
 } from 'shared/schema';
@@ -17,7 +17,7 @@ export const orderPlugin = new Elysia({ prefix: '/api' })
   })
   .post('/orders', ({ body }) => OrderService.createOrder(body), {
     response: { 200: OrderSchema, 422: ElysiaValidationErrorSchema },
-    body: pipe(CartSchemaArray, minLength(1)),
+    body: pipe(CartsSchema, minLength(1)),
     detail: {
       description:
         'generate order from a cart(No actual database involved, only for demo)',

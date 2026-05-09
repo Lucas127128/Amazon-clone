@@ -1,14 +1,9 @@
+import { comptime } from 'comptime';
 import { CART_CONFIG, UI_TIMEOUTS } from 'shared/constants';
 import { checkNullish } from 'shared/typeChecker';
 
 import { addToCart } from '../../data/cart.ts';
 
-type Timer = {
-  timer: NodeJS.Timeout;
-  key: HTMLElement;
-};
-
-const timers: Timer[] = [];
 function displayBuyAgainMessage(
   buyAgainMessageHTML: HTMLElement,
   buyAgainSuccessHTML: HTMLElement,
@@ -17,25 +12,15 @@ function displayBuyAgainMessage(
   buyAgainSuccessHTML.style.opacity = '1';
   buyAgainMessageHTML.style.display = 'none';
   buyAgainMessageHTML.style.opacity = '0';
-
-  let matchingTimer = timers.find(
-    (timer) => timer.key === buyAgainMessageHTML,
-  );
-  const timer: Timer = {
-    timer: setTimeout(() => {
+  setTimeout(
+    () => {
       buyAgainMessageHTML.style.display = 'block';
       buyAgainMessageHTML.style.opacity = '1';
       buyAgainSuccessHTML.style.display = 'none';
       buyAgainSuccessHTML.style.opacity = '0';
-    }, UI_TIMEOUTS.ADDED_TO_CART_DISPLAY),
-    key: buyAgainMessageHTML,
-  };
-  if (matchingTimer) {
-    clearTimeout(matchingTimer.timer);
-    matchingTimer = timer;
-  } else {
-    timers.push(timer);
-  }
+    },
+    comptime(() => UI_TIMEOUTS.ADDED_TO_CART_DISPLAY),
+  );
 }
 
 export function handleBuyAgainBtn() {
@@ -50,7 +35,9 @@ export function handleBuyAgainBtn() {
         {
           productId,
           quantity: 1,
-          deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+          deliveryOptionId: comptime(
+            () => CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+          ),
         },
         true,
       );

@@ -3,7 +3,7 @@ import { evlog } from 'evlog/elysia';
 import {
   ClothingListSchema,
   RawProductSchema,
-  RawProductSchemaArray,
+  RawProductsSchema,
 } from 'shared/schema';
 import { object, string } from 'valibot';
 
@@ -16,7 +16,7 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
     log.set({ clientIp: clientIP });
   })
   .get('/products', () => Service.getProducts(), {
-    response: RawProductSchemaArray,
+    response: RawProductsSchema,
     detail: {
       description: 'Return an array of products',
     },

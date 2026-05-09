@@ -1,5 +1,6 @@
 import 'typed-query-selector';
 
+import { comptime } from 'comptime';
 import { CART_CONFIG } from 'shared/constants';
 import { getMatchingProduct, type Product } from 'shared/products';
 import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
@@ -75,7 +76,9 @@ function handleSaveQuantity(
     {
       productId: productId,
       quantity: Number(quantityInput.value),
-      deliveryOptionId: CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+      deliveryOptionId: comptime(
+        () => CART_CONFIG.DEFAULT_DELIVERY_OPTION,
+      ),
     },
     false,
   );
