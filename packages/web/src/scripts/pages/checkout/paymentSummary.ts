@@ -41,8 +41,7 @@ export async function renderPaymentSummary(params: {
     'click',
     () => {
       fetchOrders(params.cart)
-        .then((order) => {
-          checkNullish(order);
+        .then((response) => {
           const savedOrders = localStorage.getItem(
             comptime(() => STORAGE_KEYS.ORDER),
           );
@@ -50,6 +49,8 @@ export async function renderPaymentSummary(params: {
             OrdersSchema,
             JSON.parse(savedOrders ?? '[]'),
           );
+          const { data: order, error } = response;
+          if (error) throw error;
           orders.unshift(order);
           localStorage.setItem(
             comptime(() => STORAGE_KEYS.ORDER),

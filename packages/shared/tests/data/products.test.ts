@@ -1,7 +1,8 @@
+import type { Product } from 'shared/products';
 import {
+  createProduct,
   getMatchingProduct,
   getMatchingRawProduct,
-  Product,
 } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { productsJson as products, rawProductsJson } from 'testdata';
@@ -21,7 +22,7 @@ describe.concurrent('Get matching item', () => {
         products as Product[],
         'sMmsZ',
       );
-      const correctProduct = new Product(correctRawProduct, false);
+      const correctProduct = createProduct(correctRawProduct, false);
       expect(matchingProduct).toEqual(correctProduct);
     });
     it('return undefined if productId is invalid', () => {

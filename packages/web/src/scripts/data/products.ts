@@ -1,5 +1,5 @@
 import { app } from 'api-client';
-import { Product, transformProducts } from 'shared/products';
+import { createProduct, transformProducts } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 
 export async function fetchProducts(
@@ -29,5 +29,5 @@ export async function fetchMatchingProduct(productId: string) {
   if (clothingsError) throw clothingsError;
   if (productError) throw productError;
   const isClothing = clothings.includes(rawProduct.id);
-  return new Product(rawProduct, isClothing);
+  return createProduct(rawProduct, isClothing);
 }

@@ -25,13 +25,21 @@ describe.concurrent('getTimeString', () => {
 });
 
 describe.concurrent('fetchOrders', async () => {
-  const orders = await fetchOrders(cart as Cart[]);
+  const { data: orders } = await fetchOrders(cart as Cart[]);
+
   it('return same totalCostCents', () => {
-    expect(orders.totalCostCents).toBe(orderJson.totalCostCents);
+    expect(orders?.totalCostCents).toBe(orderJson.totalCostCents);
   });
 
   it('return same products', () => {
-    expect(orders.products).toBe(orders.products);
+    expect(orders?.products).toBe(orders?.products);
+  });
+
+  it('returns 400 if productId structurally invalid', async () => {
+    const { error } = await fetchOrders([
+      { productId: 'abc', quantity: 1, deliveryOptionId: '1' },
+    ] as Cart[]);
+    expect(error?.status).toBe(400);
   });
 });
 

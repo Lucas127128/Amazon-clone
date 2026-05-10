@@ -14,9 +14,6 @@ export const getMatchingOrder = (orders: Order[], orderId: string) =>
 
 export async function fetchOrders(cart: Cart[]) {
   const { data, error } = await app.api.orders.post(cart);
-  if (error) {
-    alert('Unexpected network issue. Please try again later.');
-    throw error;
-  }
-  return data;
+  if (error) return { data: null, error };
+  return { data, error: null };
 }

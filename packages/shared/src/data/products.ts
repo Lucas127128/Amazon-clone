@@ -2,6 +2,25 @@ import { formatCurrency } from '#utils/money.ts';
 
 import type { RawProduct } from '../schema.ts';
 
+export function createProduct(
+  rawProduct: RawProduct,
+  isClothing: boolean,
+) {
+  return {
+    id: rawProduct.id,
+    image: rawProduct.image,
+    name: rawProduct.name,
+    ratingCount: rawProduct.rating.count,
+    ratingStars: rawProduct.rating.stars,
+    priceCents: rawProduct.priceCents,
+    starsUrl: `/images/ratings/rating-${rawProduct.rating.stars * 10}.png`,
+    price: formatCurrency(rawProduct.priceCents),
+    isClothing: isClothing,
+  };
+}
+
+export type Product = ReturnType<typeof createProduct>;
+
 export const getMatchingProduct = (
   products: readonly Product[],
   productId: string,
@@ -11,29 +30,6 @@ export const getMatchingRawProduct = (
   products: RawProduct[],
   productId: string,
 ) => products.find((product) => product.id === productId);
-
-export class Product {
-  constructor(productDetails: RawProduct, isClothing: boolean) {
-    this.id = productDetails.id;
-    this.image = productDetails.image;
-    this.name = productDetails.name;
-    this.ratingCount = productDetails.rating.count;
-    this.priceCents = productDetails.priceCents;
-    this.ratingStars = productDetails.rating.stars;
-    this.starsUrl = `/images/ratings/rating-${productDetails.rating.stars * 10}.png`;
-    this.price = formatCurrency(productDetails.priceCents);
-    this.isClothing = isClothing;
-  }
-  id;
-  image;
-  name;
-  ratingCount;
-  ratingStars;
-  priceCents;
-  starsUrl;
-  price;
-  isClothing;
-}
 
 export function transformProducts(
   rawProducts: RawProduct[],
@@ -49,7 +45,7 @@ export function transformProducts(
     .toSorted((a, b) => compareFn(a, b))
     .map((product) => {
       const isClothing = clothings.includes(product.id);
-      return new Product(product, isClothing);
+      return createProduct(product, isClothing);
     });
   return products;
 }

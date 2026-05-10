@@ -13,9 +13,6 @@ const cachedFetch = async (
   input: string | URL | Request,
   init?: RequestInit,
 ) => {
-  // eslint-disable-next-line
-  if (globalThis.Bun && Bun.env.NODE_ENV === 'test')
-    return await fetch(input, init);
   const method =
     init?.method ?? (input instanceof Request ? input.method : 'GET');
   if (method !== 'GET') return await fetch(input, init);

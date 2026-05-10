@@ -17,6 +17,6 @@ test-results
 packages/server/api
 packages/tests/html
 .env
-.agents
+.agents/skills
 .turbo
 coverage

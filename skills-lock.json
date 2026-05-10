@@ -18,6 +18,12 @@
       "skillPath": "elysia/SKILL.md",
       "computedHash": "55268e69a2c766ed67e56a0db57544f60cc52dba0c7f024a974baf965e525e1b"
     },
+    "opencode-ensemble": {
+      "source": "hueyexe/opencode-ensemble",
+      "sourceType": "github",
+      "skillPath": "skills/opencode-ensemble/SKILL.md",
+      "computedHash": "00a4f12864f4156c8fd3edd36ef6d97a04a702ff2c1b49e37c363d768ee6e227"
+    },
     "review-logging-patterns": {
       "source": "evlog.dev",
       "sourceType": "well-known",

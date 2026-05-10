@@ -31,7 +31,7 @@ export default defineConfig({
             'packages/server/tests/src/**/*.test.ts',
           ],
           environment: 'node',
-          setupFiles: ['./vitest.setup.ts'],
+          setupFiles: ['./config/vitest.setup.ts'],
         },
       },
       {
@@ -43,7 +43,7 @@ export default defineConfig({
             'packages/web/tests/scripts/data/cart.test.ts',
           ],
           environment: 'happy-dom',
-          setupFiles: ['./vitest.setup.ts'],
+          setupFiles: ['./config/vitest.setup.ts'],
           environmentOptions: {
             happyDOM: {
               width: 4,

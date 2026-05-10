@@ -1,4 +1,5 @@
-import amazonHTML from './testData/amazonHTML.html?raw';
+import amazonHTML1 from './testData/amazonHTML1.html?raw';
+import amazonHTML2 from './testData/amazonHTML2.html?raw';
 import cartJson from './testData/cart.json' with { type: 'json' };
 import cartSummaryHTML from './testData/cartSummaryHTML.html?raw';
 import clothingsJson from './testData/clothing.json' with { type: 'json' };
@@ -12,7 +13,8 @@ import rawProductsJson from './testData/rawProducts.json' with { type: 'json' };
 import trackingHTML from './testData/trackingHTML.html?raw';
 
 export {
-  amazonHTML,
+  amazonHTML1,
+  amazonHTML2,
   cartJson,
   cartSummaryHTML,
   clothingsJson,

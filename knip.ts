@@ -11,6 +11,9 @@ const config: KnipConfig = {
       entry: ['**/*.test.ts'],
     },
   },
+  vitest: {
+    config: ['./config/vitest.config.ts'],
+  },
   ignoreDependencies: [
     '@types/trusted-types',
     'husky',
