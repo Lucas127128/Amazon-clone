@@ -13,6 +13,10 @@ export default defineConfig({
     },
     sequence: { concurrent: true },
     typecheck: { enabled: true },
+    coverage: {
+      provider: 'istanbul',
+      exclude: ['./packages/web/src/scripts/utils/trustedTypes.ts'],
+    },
     projects: [
       {
         test: {

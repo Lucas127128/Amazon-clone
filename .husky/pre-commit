@@ -1,6 +1,5 @@
 bun fmt
-bunx turbo lint
 bun audit --prod
-bunx turbo test:unit
-bunx turbo knip
+bun pre-commit
+bunx turbo boundaries
 bun i --frozen-lockfile

@@ -1,10 +1,7 @@
 import { app } from 'api-client';
-import { comptime } from 'comptime';
-import { STORAGE_KEYS } from 'shared/constants';
 import { dateFormatOption } from 'shared/deliveryOption';
-import { type Cart, type Order, OrdersSchema } from 'shared/schema';
+import type { Cart, Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
-import { parse } from 'valibot';
 
 export function getTimeString(ISOOrderTime: string) {
   return Temporal.Instant.from(ISOOrderTime)
@@ -22,13 +19,4 @@ export async function fetchOrders(cart: Cart[]) {
     throw error;
   }
   return data;
-}
-
-export function getOrders() {
-  const savedOrders = localStorage.getItem(
-    comptime(() => STORAGE_KEYS.ORDER),
-  );
-
-  const orders = parse(OrdersSchema, JSON.parse(savedOrders ?? '[]'));
-  return orders;
 }

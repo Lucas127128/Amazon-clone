@@ -1,11 +1,10 @@
-import correctRawProducts from 'server/rawProducts';
 import {
   getMatchingProduct,
   getMatchingRawProduct,
   Product,
 } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
-import { productsJson as products } from 'testdata';
+import { productsJson as products, rawProductsJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 const correctRawProduct: RawProduct = {
@@ -35,14 +34,14 @@ describe.concurrent('Get matching item', () => {
   describe.concurrent('getMatchingRawProduct', () => {
     it('get matching raw product', () => {
       const matchingProduct = getMatchingRawProduct(
-        correctRawProducts as RawProduct[],
+        rawProductsJson as RawProduct[],
         'sMmsZ',
       );
       expect(matchingProduct).toEqual(correctRawProduct);
     });
     it('return undefined if productId is invalid', () => {
       expect(
-        getMatchingRawProduct(correctRawProducts as RawProduct[], 'abc'),
+        getMatchingRawProduct(rawProductsJson as RawProduct[], 'abc'),
       ).toBeUndefined();
     });
   });

@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "fp-ts": "^2.16.11",
+    "temporal-polyfill-lite": "catalog:",
     "valibot": "catalog:"
   },
   "devDependencies": {

@@ -2,7 +2,11 @@ import { defineConfig } from 'oxlint';
 
 export default defineConfig({
   categories: {},
-  jsPlugins: ['eslint-plugin-depend', 'eslint-plugin-simple-import-sort'],
+  jsPlugins: [
+    'eslint-plugin-depend',
+    'eslint-plugin-simple-import-sort',
+    'eslint-plugin-turbo',
+  ],
   plugins: [
     'eslint',
     'typescript',
@@ -113,6 +117,7 @@ export default defineConfig({
     'vitest/consistent-vitest-vi': 'error',
     'vitest/no-alias-methods': 'error',
     'unicorn/prefer-array-find': 'error',
+    'turbo/no-undeclared-env-vars': 'error',
   },
   settings: {
     vitest: {

@@ -2,10 +2,11 @@ import { comptime } from 'comptime';
 import { STORAGE_KEYS } from 'shared/constants';
 import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
-import type { Cart, Order } from 'shared/schema';
+import { type Cart, OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
+import { parse } from 'valibot';
 
-import { fetchOrders, getOrders } from '../../data/orders.ts';
+import { fetchOrders } from '../../data/orders.ts';
 import { sanitizer } from '../../utils/trustedTypes.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
@@ -42,7 +43,13 @@ export async function renderPaymentSummary(params: {
       fetchOrders(params.cart)
         .then((order) => {
           checkNullish(order);
-          const orders: Order[] = getOrders();
+          const savedOrders = localStorage.getItem(
+            comptime(() => STORAGE_KEYS.ORDER),
+          );
+          const orders = parse(
+            OrdersSchema,
+            JSON.parse(savedOrders ?? '[]'),
+          );
           orders.unshift(order);
           localStorage.setItem(
             comptime(() => STORAGE_KEYS.ORDER),

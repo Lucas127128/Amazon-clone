@@ -19,3 +19,4 @@ packages/tests/html
 .env
 .agents
 .turbo
+coverage

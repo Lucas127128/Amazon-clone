@@ -1,16 +1,14 @@
-import clothings from 'server/clothing';
-import rawProducts from 'server/rawProducts';
 import { calculatePrices, type Prices } from 'shared/payment';
 import { type Product, transformProducts } from 'shared/products';
 import type { Cart, RawProduct } from 'shared/schema';
-import { cartJson } from 'testdata';
+import { cartJson, clothingsJson, rawProductsJson } from 'testdata';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
 describe.concurrent('calculatePrices', () => {
   const cart = cartJson.slice(0, 2) as Cart[];
   const products: readonly Product[] = transformProducts(
-    rawProducts as RawProduct[],
-    clothings,
+    rawProductsJson as RawProduct[],
+    clothingsJson,
   );
   const { data: prices, error } = calculatePrices(cart, products);
   if (error) throw new Error(error.message);
