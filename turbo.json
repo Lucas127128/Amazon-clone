@@ -1,0 +1,28 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "tasks": {
+    "//#lint": {
+      "inputs": [
+        "**/*.ts",
+        "!.agents/skills/**/*.ts",
+        "!packages/web/dist/**/*.ts",
+        "!node_modules/**/*.ts",
+        "!packages/web/dist/**/*.ts"
+      ],
+      "cache": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": ["./dist/**/*"]
+    },
+    "server#dev:ci": {
+      // "dependsOn": ["^server#dev"],
+      "cache": false
+    },
+    "//#test:ci": {
+      "dependsOn": ["server#dev:ci"],
+      "cache": true
+    }
+  }
+}

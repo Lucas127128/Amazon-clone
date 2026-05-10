@@ -1,6 +1,7 @@
 import { all } from 'better-all';
-import { fetchProducts } from 'shared/products';
 import { checkNullish } from 'shared/typeChecker';
+
+import { fetchProducts } from '#data/products.ts';
 
 import { cartQuantity } from '../data/cart.ts';
 import { subscribe } from '../utils/store.ts';

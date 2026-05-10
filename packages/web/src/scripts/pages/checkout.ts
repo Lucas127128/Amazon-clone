@@ -1,5 +1,6 @@
-import { fetchProducts } from 'shared/products';
 import type { Cart } from 'shared/schema';
+
+import { fetchProducts } from '#data/products.ts';
 
 import { cartStore } from '../data/cart.ts';
 import { subscribe } from '../utils/store.ts';

@@ -1,12 +1,13 @@
 import '@awesome.me/webawesome/dist/components/tooltip/tooltip.js';
 
+import { app, cacheMap } from 'api-client';
 import { GLOBAL_CONFIG, STORAGE_KEYS } from 'shared/constants';
-import { app, cacheMap } from 'shared/edenTreaty';
-import { fetchMatchingProduct } from 'shared/products';
 import { OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { Temporal } from 'temporal-polyfill-lite';
 import { parse } from 'valibot';
+
+import { fetchMatchingProduct } from '#data/products.ts';
 
 import { cartQuantity } from '../data/cart.ts';
 import { getTimeString } from '../data/orders.ts';

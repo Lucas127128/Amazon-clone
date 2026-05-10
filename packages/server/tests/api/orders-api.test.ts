@@ -1,7 +1,8 @@
-import { app } from 'shared/edenTreaty';
 import type { Cart } from 'shared/schema';
 import { cartJson as cart, orderJson as correctOrder } from 'testdata';
 import { describe, expect, it } from 'vitest';
+
+import { app } from '../../src/utils/edenTreaty.ts';
 
 describe.concurrent('order api test', async () => {
   const { data: order, error } = await app.api.orders.post(cart as Cart[]);

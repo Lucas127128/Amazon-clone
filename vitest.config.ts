@@ -22,6 +22,7 @@ export default defineConfig({
             'packages/shared/tests/data/**/*.test.ts',
             'packages/shared/tests/utils/money.test.ts',
             'packages/web/tests/scripts/data/orders.test.ts',
+            'packages/web/tests/scripts/data/products.test.ts',
             'packages/web/tests/scripts/pages/htmlGenerators/**/*.test.ts',
             'packages/server/tests/src/**/*.test.ts',
           ],

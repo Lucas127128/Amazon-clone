@@ -1,9 +1,10 @@
 import { comptime } from 'comptime';
 import { STORAGE_KEYS } from 'shared/constants';
-import { fetchMatchingProduct } from 'shared/products';
 import { OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
+
+import { fetchMatchingProduct } from '#data/products.ts';
 
 import { getMatchingCart } from '../data/cart.ts';
 import { getMatchingOrder } from '../data/orders.ts';

@@ -1,9 +1,9 @@
-import { app } from 'shared/edenTreaty';
 import { getMatchingRawProduct } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { describe, expect, it } from 'vitest';
 
 import products from '../../rawData/rawProducts.json' with { type: 'json' };
+import { app } from '../../src/utils/edenTreaty.ts';
 
 describe('matching product api test', () => {
   it('return right matching product', async () => {

@@ -1,8 +1,7 @@
 import { treaty } from '@elysiajs/eden';
 import type { App } from 'server';
+import { FETCH_CONFIG, GLOBAL_CONFIG } from 'shared/constants';
 import { Temporal } from 'temporal-polyfill-lite';
-
-import { FETCH_CONFIG, GLOBAL_CONFIG } from '../../config/constants.ts';
 
 type CacheData = {
   body: string;

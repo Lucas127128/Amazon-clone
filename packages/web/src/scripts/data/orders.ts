@@ -1,7 +1,7 @@
+import { app } from 'api-client';
 import { comptime } from 'comptime';
 import { STORAGE_KEYS } from 'shared/constants';
 import { dateFormatOption } from 'shared/deliveryOption';
-import { app } from 'shared/edenTreaty';
 import { type Cart, type Order, OrdersSchema } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { parse } from 'valibot';

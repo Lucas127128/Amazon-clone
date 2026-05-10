@@ -15,6 +15,7 @@
   "dependencies": {
     "@awesome.me/webawesome": "^3.6.0",
     "@tanstack/store": "catalog:",
+    "api-client": "workspace:*",
     "better-all": "^0.0.7",
     "dompurify": "^3.4.2",
     "shared": "workspace:*",

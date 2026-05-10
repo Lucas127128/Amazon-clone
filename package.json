@@ -43,7 +43,9 @@
     "server": "workspace:*",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
+    "turbo": "^2.9.12",
     "vite": "catalog:",
     "vitest": "catalog:"
-  }
+  },
+  "packageManager": "bun@1.3.13"
 }

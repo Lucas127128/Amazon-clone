@@ -14,14 +14,10 @@
     "./constants": "./config/constants.ts",
     "./payment": "./src/data/payment.ts",
     "./tracking": "./src/data/tracking.ts",
-    "./money": "./src/utils/money.ts",
-    "./edenTreaty": "./src/data/edenTreaty.ts"
+    "./money": "./src/utils/money.ts"
   },
   "dependencies": {
-    "@elysiajs/eden": "^1.4.9",
     "fp-ts": "^2.16.11",
-    "server": "workspace:*",
-    "temporal-polyfill-lite": "catalog:",
     "valibot": "catalog:"
   },
   "devDependencies": {

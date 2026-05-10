@@ -1,7 +1,5 @@
 import correctRawProducts from 'server/rawProducts';
 import {
-  fetchMatchingProduct,
-  fetchProducts,
   getMatchingProduct,
   getMatchingRawProduct,
   Product,
@@ -47,30 +45,5 @@ describe.concurrent('Get matching item', () => {
         getMatchingRawProduct(correctRawProducts as RawProduct[], 'abc'),
       ).toBeUndefined();
     });
-  });
-});
-
-describe.concurrent('fetch products', () => {
-  it('fetch correct products', async () => {
-    const fetchedProducts = await fetchProducts();
-    expect(fetchedProducts).toEqual(products);
-  });
-
-  it('Generate product object', () => {
-    const product = new Product(correctRawProduct, false);
-    const correctProduct = getMatchingProduct(
-      products as Product[],
-      'sMmsZ',
-    );
-    expect(product).toEqual(correctProduct);
-  });
-});
-
-describe.concurrent('fetchMatchingProduct', () => {
-  it('return correct matching product', async () => {
-    const product = await fetchMatchingProduct('sMmsZ');
-    expect(product).toEqual(
-      getMatchingProduct(products as Product[], 'sMmsZ'),
-    );
   });
 });
