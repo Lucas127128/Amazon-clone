@@ -1,6 +1,6 @@
 bun fmt
-bun lint
+bunx turbo lint
 bun audit --prod
-bun run test:unit
-bunx knip
+bunx turbo test:unit
+bunx turbo knip
 bun i --frozen-lockfile

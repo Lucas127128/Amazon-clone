@@ -16,12 +16,10 @@
       "cache": true,
       "outputs": ["./dist/**/*"]
     },
-    "server#dev:ci": {
-      // "dependsOn": ["^server#dev"],
-      "cache": false
+    "//#test:unit": {
+      "cache": true
     },
-    "//#test:ci": {
-      "dependsOn": ["server#dev:ci"],
+    "//#knip": {
       "cache": true
     }
   }

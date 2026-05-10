@@ -11,7 +11,6 @@
   "scripts": {
     "start": "bun ./start-server.ts",
     "dev": "DEV=true bun run --watch ./src/api/server.ts",
-    "dev:ci": "DEV=true pm2 start bun -- ./src/api/server.ts --name 'server'",
     "load-test": "bombardier --insecure -c 1200 -n 500000 -t 0.5s -l https://localhost:8080/index.html"
   },
   "dependencies": {
@@ -23,7 +22,6 @@
     "elysia-local-https": "^1.0.2",
     "evlog": "^2.16.0",
     "nanoid": "^5.1.11",
-    "pm2": "^7.0.1",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "ts-pattern": "^5.9.0",
