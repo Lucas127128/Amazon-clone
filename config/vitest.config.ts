@@ -15,7 +15,14 @@ export default defineConfig({
     typecheck: { enabled: true },
     coverage: {
       provider: 'istanbul',
+      // not possible to test trustedTypes.ts since happy dom doesn't support trusted types
       exclude: ['./packages/web/src/scripts/utils/trustedTypes.ts'],
+      thresholds: {
+        statements: 90,
+        branches: 80,
+        functions: 90,
+        lines: 90,
+      },
     },
     projects: [
       {
@@ -29,6 +36,7 @@ export default defineConfig({
             'packages/web/tests/scripts/data/products.test.ts',
             'packages/web/tests/scripts/pages/htmlGenerators/**/*.test.ts',
             'packages/server/tests/src/**/*.test.ts',
+            'packages/api-client/tests/**/*.test.ts',
           ],
           environment: 'node',
           setupFiles: ['./config/vitest.setup.ts'],

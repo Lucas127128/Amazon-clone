@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
 import { cartJson as cart, productsJson as products } from 'testdata';
@@ -50,5 +51,25 @@ describe.concurrent('render payment details', () => {
   it('correct total order price', () => {
     const totalOrderPrice = document.querySelector('.total-cost');
     expect(totalOrderPrice!.textContent).toContain('282.00');
+  });
+});
+
+describe.concurrent('place order', () => {
+  it('navigate to order page', async () => {
+    const placeOrderButton = document.querySelector(
+      'button.place-order-button',
+    );
+    placeOrderButton?.click();
+    await Bun.sleep(25);
+    expect(location.href).toContain('/orders.html');
+  });
+  it('saves orders to local storage', async () => {
+    const placeOrderButton = document.querySelector(
+      'button.place-order-button',
+    );
+    placeOrderButton?.click();
+    await Bun.sleep(25);
+    const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
+    expect(savedOrders).not.toBeNull();
   });
 });

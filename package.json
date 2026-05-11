@@ -23,7 +23,6 @@
     "dev": "bun run --parallel --elide-lines 10000 -F '*' dev",
     "test": "bunx -b vitest -c ./config/vitest.config.ts",
     "test:coverage": "bun run test --coverage -w false",
-    "test:ci": "bun run test -w=false",
     "test:unit": "bun run test -w false --project happy-dom --project bun --exclude '**/*/scripts/data/orders.test.ts' ",
     "test:api": "bun run test ./normal/server/api --watch",
     "start": "bun run --cwd ./packages/server start",

@@ -36,6 +36,10 @@
         "shared": "workspace:*",
         "temporal-polyfill-lite": "catalog:",
       },
+      "devDependencies": {
+        "testdata": "workspace:*",
+        "vitest": "catalog:",
+      },
     },
     "packages/server": {
       "name": "server",

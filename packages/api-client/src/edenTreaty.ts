@@ -9,7 +9,7 @@ type CacheData = {
 };
 export const cacheMap = new Map<string, CacheData>();
 
-const cachedFetch = async (
+export const cachedFetch = async (
   input: string | URL | Request,
   init?: RequestInit,
 ) => {
