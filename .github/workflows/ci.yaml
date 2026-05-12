@@ -20,6 +20,7 @@ jobs:
             **/.turbo
             **/*/.turbo
             /usr/local/bin/mkcert
+            ./coverage
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Install dependency
@@ -32,9 +33,9 @@ jobs:
           chmod +x mkcert-v*-linux-amd64
           sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
       - name: Run Bun Server
-        uses: JarvusInnovations/background-action@v1
+        uses: step-security/background-action@v1
         with:
-          run: FORCE_COLOR=1 bun run --cwd ./packages/server dev
+          run: bun run --cwd ./packages/server dev
           wait-on: https://localhost:8080
       - name: Run tests
-        run: FORCE_COLOR=1 bun run test:coverage
+        run: bun run test:coverage
