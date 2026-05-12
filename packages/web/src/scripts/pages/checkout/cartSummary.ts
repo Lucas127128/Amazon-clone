@@ -17,7 +17,6 @@ import {
   removeFromCart,
   updateDeliveryOption,
 } from '../../data/cart.ts';
-import { subscribe } from '../../utils/store.ts';
 import { sanitizeAll } from '../../utils/trustedTypes.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
 
@@ -47,7 +46,7 @@ export async function renderOrderSummary(params: {
 
 const returnToHomeLink = document.querySelector('.return-to-home-link');
 checkNullish(returnToHomeLink);
-subscribe(cartQuantity, (cartQuantity) => {
+cartQuantity.subscribe((cartQuantity) => {
   returnToHomeLink.textContent = `${cartQuantity} items`;
 });
 

@@ -11,7 +11,6 @@ import { fetchMatchingProduct } from '#data/products.ts';
 
 import { cartQuantity } from '../data/cart.ts';
 import { getTimeString } from '../data/orders.ts';
-import { subscribe } from '../utils/store.ts';
 import { sanitizeAll } from '../utils/trustedTypes.ts';
 import { handleSearchInput } from './header.ts';
 import {
@@ -82,7 +81,7 @@ async function renderPlacedOrder() {
   }
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  subscribe(cartQuantity, (cartQuantity) => {
+  cartQuantity.subscribe((cartQuantity) => {
     returnToHomeLink.textContent = `${cartQuantity}`;
   });
 }

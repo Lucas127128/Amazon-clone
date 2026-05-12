@@ -11,12 +11,14 @@
       ],
       "cache": true
     },
-    "build": {
-      "dependsOn": ["^build"],
+    "web#build": {
       "cache": true,
       "outputs": ["./dist/**/*"]
     },
     "//#test:unit": {
+      "cache": true
+    },
+    "//#test:coverage": {
       "cache": true
     },
     "//#knip": {

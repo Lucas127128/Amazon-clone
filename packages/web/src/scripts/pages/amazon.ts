@@ -4,7 +4,6 @@ import { checkNullish } from 'shared/typeChecker';
 import { fetchProducts } from '#data/products.ts';
 
 import { cartQuantity } from '../data/cart.ts';
-import { subscribe } from '../utils/store.ts';
 import { getURLParams } from '../utils/url.ts';
 import { renderProducts } from './amazon/products.ts';
 import { handleSortSelect } from './amazon/sort.ts';
@@ -13,7 +12,7 @@ import { handleSearch, handleSearchInput } from './header.ts';
 function renderAmazonHomePage() {
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  subscribe(cartQuantity, (cartQuantity) => {
+  cartQuantity.subscribe((cartQuantity) => {
     returnToHomeLink.textContent = `${cartQuantity}`;
   });
 }

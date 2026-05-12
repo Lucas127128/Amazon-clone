@@ -1,7 +1,11 @@
+import {
+  cleanTestStorage,
+  useTestStorageEngine,
+} from '@nanostores/persistent';
 import { CART_CONFIG } from 'shared/constants';
 import type { Cart } from 'shared/schema';
 import { cartJson } from 'testdata';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import {
   addToCart,
@@ -13,7 +17,12 @@ import {
 } from '#data/cart.ts';
 
 beforeEach(() => {
-  cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
+  cartStore.set(cartJson.slice(0, 3) as Cart[]);
+  useTestStorageEngine();
+});
+
+afterEach(() => {
+  cleanTestStorage();
 });
 
 describe.concurrent('addToCart', () => {
@@ -22,7 +31,7 @@ describe.concurrent('addToCart', () => {
     expect(cartStore.get().length).toBe(4);
   });
   it('incrementally add an existing product to cart', () => {
-    cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
+    cartStore.set(cartJson.slice(0, 3) as Cart[]);
     addToCart({ ...cartStore.get()[2], quantity: 1 }, true);
     expect(cartStore.get().length).toBe(3);
     expect(cartStore.get()[2].productId).toBe('acmQY');
@@ -30,7 +39,7 @@ describe.concurrent('addToCart', () => {
     expect(cartStore.get()[2].deliveryOptionId).toBe('1');
   });
   it('not incrementally add an existing product to cart', () => {
-    cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
+    cartStore.set(cartJson.slice(0, 3) as Cart[]);
     addToCart({ ...cartStore.get()[2], quantity: 1 }, false);
     expect(cartStore.get().length).toBe(3);
     expect(cartStore.get()[2].productId).toBe('acmQY');
@@ -66,7 +75,7 @@ describe.concurrent('removeFromCart', () => {
 
 describe.concurrent('updateDeliveryOption', () => {
   it('update delivery option', () => {
-    cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
+    cartStore.set(cartJson.slice(0, 3) as Cart[]);
     updateDeliveryOption('Hwme8', '3');
     const deliveryOptionId = getMatchingCart(
       cartStore.get(),
@@ -78,7 +87,7 @@ describe.concurrent('updateDeliveryOption', () => {
 
 describe.concurrent('calculateCartQuantity', () => {
   it('display cart quantity', () => {
-    cartStore.set(() => cartJson.slice(0, 3) as Cart[]);
+    cartStore.set(cartJson.slice(0, 3) as Cart[]);
     expect(cartQuantity.get()).toBe(7);
   });
 });

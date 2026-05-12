@@ -32,8 +32,7 @@ export default defineConfig({
             'packages/web/tests/scripts/utils/**/*.test.ts',
             'packages/shared/tests/data/**/*.test.ts',
             'packages/shared/tests/utils/money.test.ts',
-            'packages/web/tests/scripts/data/orders.test.ts',
-            'packages/web/tests/scripts/data/products.test.ts',
+            'packages/web/tests/scripts/data/**/*.test.ts',
             'packages/web/tests/scripts/pages/htmlGenerators/**/*.test.ts',
             'packages/server/tests/src/**/*.test.ts',
             'packages/api-client/tests/**/*.test.ts',
@@ -48,7 +47,6 @@ export default defineConfig({
           include: [
             'packages/web/tests/scripts/pages/checkout/**/*.test.ts',
             'packages/shared/tests/utils/typechecker.test.ts',
-            'packages/web/tests/scripts/data/cart.test.ts',
           ],
           environment: 'happy-dom',
           setupFiles: ['./config/vitest.setup.ts'],
