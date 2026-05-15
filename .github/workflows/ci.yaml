@@ -33,7 +33,7 @@ jobs:
           chmod +x mkcert-v*-linux-amd64
           sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
       - name: Run Bun Server
-        uses: JarvusInnovations/background-action@v1
+        uses: Lucas127128/background-action@v1
         with:
           run: bun run --cwd ./packages/server dev
           wait-on: https://localhost:8080
