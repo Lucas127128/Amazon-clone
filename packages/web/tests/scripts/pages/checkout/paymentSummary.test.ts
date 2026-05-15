@@ -1,3 +1,4 @@
+import { fireEvent } from '@testing-library/dom';
 import { STORAGE_KEYS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
@@ -59,16 +60,16 @@ describe.concurrent('place order', () => {
     const placeOrderButton = document.querySelector(
       'button.place-order-button',
     );
-    placeOrderButton?.click();
-    await Bun.sleep(25);
+    fireEvent.click(placeOrderButton!);
+    await Bun.sleep(35);
     expect(location.href).toContain('/orders.html');
   });
   it('saves orders to local storage', async () => {
     const placeOrderButton = document.querySelector(
       'button.place-order-button',
     );
-    placeOrderButton?.click();
-    await Bun.sleep(25);
+    fireEvent.click(placeOrderButton!);
+    await Bun.sleep(35);
     const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
     expect(savedOrders).not.toBeNull();
   });
