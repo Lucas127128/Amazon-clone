@@ -10,6 +10,9 @@ import { object, string } from 'valibot';
 import { Service } from './service';
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
+  .onStart(() => {
+    console.log('Products api service starts');
+  })
   .use(evlog())
   .onBeforeHandle(({ request, server, log }) => {
     const clientIP = server?.requestIP(request)?.address;
@@ -41,5 +44,3 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
       description: 'Return a list of product ids that are clothing',
     },
   });
-
-console.log('Products api service starts');

@@ -50,5 +50,8 @@
     "vite": "catalog:",
     "vitest": "catalog:"
   },
-  "packageManager": "bun@1.3.13"
+  "packageManager": "bun@1.3.13",
+  "patchedDependencies": {
+    "comptime@0.1.0": "patches/comptime@0.1.0.patch"
+  }
 }

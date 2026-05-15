@@ -10,6 +10,9 @@ import { minLength, pipe } from 'valibot';
 import { OrderService } from './service';
 
 export const orderPlugin = new Elysia({ prefix: '/api' })
+  .onStart(() => {
+    console.log('Orders api service starts');
+  })
   .use(evlog())
   .onBeforeHandle(({ request, server, log }) => {
     const clientIP = server?.requestIP(request)?.address;
@@ -23,4 +26,3 @@ export const orderPlugin = new Elysia({ prefix: '/api' })
         'generate order from a cart(No actual database involved, only for demo)',
     },
   });
-console.log('Orders api service starts');

@@ -6,6 +6,9 @@ import { array, object, string } from 'valibot';
 import { Service } from './service';
 
 export const searchPlugin = new Elysia({ prefix: '/api/search' })
+  .onStart(() => {
+    console.log('Search api service starts');
+  })
   .use(evlog())
   .use(Service)
   .onBeforeHandle(({ request, server, log, query }) => {
@@ -20,7 +23,7 @@ export const searchPlugin = new Elysia({ prefix: '/api/search' })
       query: object({ q: string() }),
       detail: {
         description:
-          'Get the search query using path params and return the search result.',
+          'Get the search query using query params and return the search result.',
       },
     },
   );

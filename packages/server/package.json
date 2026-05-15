@@ -11,7 +11,7 @@
   "scripts": {
     "start": "bun ./start-server.ts",
     "dev": "DEV=true bun run --watch ./src/api/server.ts",
-    "load-test": "bombardier --insecure -c 1200 -n 500000 -t 0.5s -l https://localhost:8080/index.html"
+    "load-test": "bombardier --insecure -c 5000 -n 50000 -t 0.5s -l https://localhost:8080/api/products"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",

@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index 110f16da08f73d50a3c1dbc37de4057d03027aab..9d8f963fd8c2a4993da38409cf408a478ca9ec6e 100644
+--- a/package.json
++++ b/package.json
+@@ -50,7 +50,7 @@
+     "test": "bun test src/*.test.ts"
+   },
+   "dependencies": {
+-    "devalue": "^5.5.0",
++    "devalue": "^5.5.1",
+     "magic-string": "^0.30.19"
+   },
+   "devDependencies": {

@@ -13,6 +13,11 @@ import { staticPlugin } from './static.ts';
 initEvlog();
 
 export const app = new Elysia({ precompile: true, aot: true })
+  .onStart(({ server }) => {
+    console.log(
+      `🦊 Elysia is running at ${server?.hostname}:${server?.port} on pid: ${process.pid}`,
+    );
+  })
   .onError({ as: 'global' }, ({ code, error, status }) => {
     if (code === 'VALIDATION') {
       return Bun.env.PROD
@@ -33,7 +38,6 @@ export const app = new Elysia({ precompile: true, aot: true })
   .use(
     cors({
       origin: [
-        'http://localhost:63315',
         GLOBAL_CONFIG.API_URL,
         GLOBAL_CONFIG.PREVIEW_URL,
         GLOBAL_CONFIG.CADDY_URL,
@@ -46,10 +50,6 @@ export const app = new Elysia({ precompile: true, aot: true })
   .use(productsPlugin)
   .use(orderPlugin)
   .use(searchPlugin)
-  .listen(localHttps({ port: 8080 }));
-
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port} on pid: ${process.pid}`,
-);
+  .listen(localHttps({ port: Bun.env.PORT ?? 8080 }));
 
 export type App = typeof app;
