@@ -1,5 +1,4 @@
 bun fmt
-bun audit --prod
 bun pre-commit
 bunx turbo boundaries
 bun i --frozen-lockfile

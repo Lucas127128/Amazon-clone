@@ -25,7 +25,7 @@
     "valibot": "catalog:"
   },
   "devDependencies": {
-    "@vitejs/devtools": "^0.1.18",
+    "@vitejs/devtools": "^0.1.22",
     "@vitest/ui": "catalog:",
     "comptime": "^0.1.0",
     "happy-dom": "catalog:",

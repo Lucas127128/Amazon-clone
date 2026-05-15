@@ -39,3 +39,25 @@ jobs:
           wait-on: https://localhost:8080
       - name: Run tests
         run: bun run test:coverage
+
+  audit:
+    name: audit app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Cache
+        uses: actions/cache@v5
+        with:
+          key: the-key
+          path: |
+            ./node_modules
+            **/*/node_modules
+            **/node_modules
+            ~/.bun
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependency
+        run: bun i --frozen-lockfile
+      - name: Audit
+        run: bun audit --prod
