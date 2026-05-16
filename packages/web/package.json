@@ -9,15 +9,14 @@
     "#data/*": "./src/scripts/data/*"
   },
   "scripts": {
-    "build": "bunx -b vite build",
+    "build": "NODE_TLS_REJECT_UNAUTHORIZED=0 bunx -b vite build",
     "dev": "vite"
   },
   "dependencies": {
-    "@awesome.me/webawesome": "^3.6.0",
+    "@awesome.me/webawesome": "^3.7.0",
     "@nanostores/persistent": "^1.3.4",
     "api-client": "workspace:*",
-    "better-all": "^0.0.7",
-    "dompurify": "^3.4.2",
+    "dompurify": "^3.4.3",
     "nanostores": "^1.3.0",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",

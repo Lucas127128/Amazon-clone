@@ -1,4 +1,3 @@
-import { all } from 'better-all';
 import { checkNullish } from 'shared/typeChecker';
 
 import { fetchProducts } from '#data/products.ts';
@@ -17,26 +16,15 @@ function renderAmazonHomePage() {
   });
 }
 
-await all(
-  {
-    handleSearch() {
-      return handleSearchInput();
-    },
-    renderHomePage() {
-      return renderAmazonHomePage();
-    },
-    async products() {
-      const { q: searchQuery } = getURLParams();
-      return searchQuery === null
-        ? await fetchProducts()
-        : await handleSearch(searchQuery);
-    },
-    async renderProducts() {
-      return renderProducts(await this.$.products);
-    },
-    async handleSortSelect() {
-      return handleSortSelect(await this.$.products);
-    },
-  },
-  { debug: true },
-);
+const products = await fetchProducts();
+
+renderProducts(products);
+handleSortSelect(products);
+handleSearchInput();
+renderAmazonHomePage();
+
+const { q: searchQuery } = getURLParams();
+if (searchQuery !== null) {
+  const searchResults = await handleSearch(searchQuery);
+  renderProducts(searchResults);
+}

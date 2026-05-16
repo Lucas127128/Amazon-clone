@@ -1,10 +1,7 @@
 import { app } from 'api-client';
 import { createProduct, transformProducts } from 'shared/products';
-import type { RawProduct } from 'shared/schema';
 
-export async function fetchProducts(
-  compareFn?: (a: RawProduct, b: RawProduct) => number,
-) {
+export async function fetchProducts() {
   const [
     { data: clothings, error: clothingsError },
     { data: rawProducts, error: productsError },
@@ -14,8 +11,7 @@ export async function fetchProducts(
   ]);
   if (clothingsError) throw clothingsError;
   if (productsError) throw productsError;
-
-  return transformProducts(rawProducts, clothings, compareFn);
+  return transformProducts(rawProducts, clothings);
 }
 
 export async function fetchMatchingProduct(productId: string) {

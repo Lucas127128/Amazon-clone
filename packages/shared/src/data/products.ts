@@ -34,15 +34,12 @@ export const getMatchingRawProduct = (
 export function transformProducts(
   rawProducts: RawProduct[],
   clothings: string[],
-  compareFn: (a: RawProduct, b: RawProduct) => number = (a, b) => {
-    if (a.rating.stars === b.rating.stars) {
-      return b.rating.count - a.rating.count;
-    }
-    return b.rating.stars - a.rating.stars;
-  },
 ) {
   const products: readonly Product[] = rawProducts
-    .toSorted((a, b) => compareFn(a, b))
+    .toSorted(
+      (a, b) =>
+        b.rating.stars - a.rating.stars || b.rating.count - a.rating.count,
+    )
     .map((product) => {
       const isClothing = clothings.includes(product.id);
       return createProduct(product, isClothing);

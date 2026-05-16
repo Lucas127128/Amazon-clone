@@ -78,13 +78,6 @@ await Promise.all(
       set.headers['content-type'] = contentType;
       set.headers['cache-control'] = cacheControl;
       set.headers['content-encoding'] = contentEncoding;
-      set.headers['strict-transport-security'] =
-        'max-age=31536000; includeSubDomains; preload';
-      set.headers['cross-origin-opener-policy'] =
-        'same-origin-allow-popups';
-      set.headers['content-security-policy'] =
-        "default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' data:; frame-ancestors 'none'; require-trusted-types-for 'script';";
-      set.headers['Speculation-Rules'] = '"/speculationRules.json"';
       return file;
     });
   }),
