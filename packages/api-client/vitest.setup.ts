@@ -1,9 +1,11 @@
-import clothing from 'server/clothing' with { type: 'json' };
-import rawProducts from 'server/rawProducts' with { type: 'json' };
 import { GLOBAL_CONFIG } from 'shared/constants';
 import { getMatchingRawProduct } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
+import {
+  clothingsJson,
+  rawProductsJson,
+} from 'testdata' with { type: 'json' };
 import { vi } from 'vitest';
 
 vi.stubEnv('TZ', 'UTC');
@@ -27,15 +29,15 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
           ? input.toString()
           : input.url;
     if (url === `${GLOBAL_CONFIG.API_URL}/api/products`) {
-      return Response.json(rawProducts);
+      return Response.json(rawProductsJson);
     } else if (url === `${GLOBAL_CONFIG.API_URL}/api/clothingList`) {
-      return Response.json(clothing);
+      return Response.json(clothingsJson);
     } else if (
       url ===
       `${GLOBAL_CONFIG.API_URL}/api/matchingProduct?productId=sMmsZ`
     ) {
       return Response.json(
-        getMatchingRawProduct(rawProducts as RawProduct[], 'sMmsZ'),
+        getMatchingRawProduct(rawProductsJson as RawProduct[], 'sMmsZ'),
       );
     } else {
       return await realFetch(input, init);

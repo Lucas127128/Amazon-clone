@@ -32,7 +32,6 @@
     "@vitest/ui": "catalog:",
     "comptime": "^0.1.0",
     "happy-dom": "catalog:",
-    "server": "workspace:*",
     "sonda": "^0.11.1",
     "testdata": "workspace:*",
     "vite": "catalog:",

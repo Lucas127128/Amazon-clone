@@ -2,8 +2,10 @@ import { GLOBAL_CONFIG } from 'shared/constants';
 import { getMatchingRawProduct } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
-import { rawProductsJson } from 'testdata' with { type: 'json' };
-import { clothingsJson } from 'testdata' with { type: 'json' };
+import {
+  clothingsJson,
+  rawProductsJson,
+} from 'testdata' with { type: 'json' };
 import { vi } from 'vitest';
 
 vi.stubEnv('TZ', 'UTC');
