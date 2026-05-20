@@ -6,6 +6,11 @@
   "exports": {
     ".": "./src/edenTreaty.ts"
   },
+  "scripts": {
+    "test": "bunx -b vitest -w false",
+    "test:watch": "bunx -b vitest -w",
+    "test:coverage": "bunx -b vitest -w false --coverage"
+  },
   "dependencies": {
     "@elysiajs/eden": "^1.4.9",
     "server": "workspace:*",

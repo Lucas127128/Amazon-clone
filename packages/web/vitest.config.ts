@@ -15,30 +15,20 @@ export default defineConfig({
     typecheck: { enabled: true },
     coverage: {
       provider: 'istanbul',
-      // not possible to test trustedTypes.ts since happy dom doesn't support trusted types
-      exclude: ['./packages/web/src/scripts/utils/trustedTypes.ts'],
-      thresholds: {
-        statements: 90,
-        branches: 80,
-        functions: 90,
-        lines: 90,
-      },
+      reporter: ['json'],
+      reportsDirectory: '../../coverage/web',
     },
     projects: [
       {
         test: {
           name: 'bun',
           include: [
-            'packages/web/tests/scripts/utils/**/*.test.ts',
-            'packages/shared/tests/data/**/*.test.ts',
-            'packages/shared/tests/utils/money.test.ts',
-            'packages/web/tests/scripts/data/**/*.test.ts',
-            'packages/web/tests/scripts/pages/htmlGenerators/**/*.test.ts',
-            'packages/server/tests/src/**/*.test.ts',
-            'packages/api-client/tests/**/*.test.ts',
+            'tests/scripts/utils/**/*.test.ts',
+            'tests/scripts/data/**/*.test.ts',
+            'tests/scripts/pages/htmlGenerators/**/*.test.ts',
           ],
           environment: 'node',
-          setupFiles: ['./config/vitest.setup.ts'],
+          setupFiles: ['./vitest.setup.ts'],
         },
       },
       {
@@ -46,10 +36,9 @@ export default defineConfig({
           name: 'happy-dom',
           include: [
             'packages/web/tests/scripts/pages/checkout/**/*.test.ts',
-            'packages/shared/tests/utils/typechecker.test.ts',
           ],
+          setupFiles: ['./vitest.setup.ts'],
           environment: 'happy-dom',
-          setupFiles: ['./config/vitest.setup.ts'],
           environmentOptions: {
             happyDOM: {
               width: 4,
@@ -64,13 +53,6 @@ export default defineConfig({
               },
             },
           },
-        },
-      },
-      {
-        test: {
-          include: ['packages/server/tests/api/*.test.ts'],
-          name: 'api',
-          environment: 'node',
         },
       },
     ],

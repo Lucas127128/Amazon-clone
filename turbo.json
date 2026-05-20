@@ -18,10 +18,25 @@
     "//#test:unit": {
       "cache": true
     },
-    "//#test:coverage": {
+    "//#knip": {
       "cache": true
     },
-    "//#knip": {
+    "test": {
+      "dependsOn": ["^test"],
+      "cache": true
+    },
+    "//#test:coverage": {
+      "outputs": ["./coverage"],
+      "cache": true
+    },
+    "//#test:merge-coverage": {
+      "dependsOn": ["//#test:coverage"],
+      "inputs": ["./coverage"],
+      "outputs": ["./coverage-merged"],
+      "cache": true
+    },
+    "//#test:check-coverage": {
+      "dependsOn": ["test:merge-coverage"],
       "cache": true
     }
   }

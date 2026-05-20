@@ -16,6 +16,11 @@
     "./tracking": "./src/data/tracking.ts",
     "./money": "./src/utils/money.ts"
   },
+  "scripts": {
+    "test": "bunx -b vitest -w false",
+    "test:watch": "bunx -b vitest -w",
+    "test:coverage": "bunx -b vitest -w false --coverage"
+  },
   "dependencies": {
     "fp-ts": "^2.16.11",
     "temporal-polyfill-lite": "catalog:",
