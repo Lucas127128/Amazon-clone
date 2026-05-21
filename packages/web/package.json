@@ -16,10 +16,9 @@
     "test:coverage": "bunx -b vitest -w false --coverage"
   },
   "dependencies": {
-    "@awesome.me/webawesome": "^3.7.0",
     "@nanostores/persistent": "^1.3.4",
     "api-client": "workspace:*",
-    "dompurify": "^3.4.3",
+    "dompurify": "^3.4.5",
     "nanostores": "^1.3.0",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",

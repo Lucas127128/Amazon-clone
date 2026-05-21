@@ -5,7 +5,7 @@ import {
   RawProductSchema,
   RawProductsSchema,
 } from 'shared/schema';
-import { object, string } from 'valibot';
+import { array, object, string } from 'valibot';
 
 import { Service } from './service';
 
@@ -35,6 +35,20 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
       query: object({ productId: RawProductSchema.entries.id }),
       detail: {
         description: 'Return a matching product from query',
+      },
+    },
+  )
+  .post(
+    '/matchingProducts',
+    ({ body }) => Service.getMatchingProducts(body),
+    {
+      response: {
+        200: RawProductsSchema,
+        404: object({ message: string() }),
+      },
+      body: array(RawProductSchema.entries.id),
+      detail: {
+        description: 'Return matching products from requested product ids',
       },
     },
   )

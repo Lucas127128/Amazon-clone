@@ -1,13 +1,15 @@
 import { app } from 'api-client';
 import { createProduct, transformProducts } from 'shared/products';
 
-export async function fetchProducts() {
+export async function fetchProducts(productIds?: string[]) {
   const [
     { data: clothings, error: clothingsError },
     { data: rawProducts, error: productsError },
   ] = await Promise.all([
     app.api.clothingList.get(),
-    app.api.products.get(),
+    productIds
+      ? app.api.matchingProducts.post(productIds)
+      : app.api.products.get(),
   ]);
   if (clothingsError) throw clothingsError;
   if (productsError) throw productsError;

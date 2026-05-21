@@ -5,8 +5,8 @@ import { renderOrderSummary } from './checkout/cartSummary.ts';
 import { renderPaymentSummary } from './checkout/paymentSummary.ts';
 
 cartStore.subscribe(async (cartData) => {
-  const products = fetchProducts();
   const cart = [...cartData];
+  const products = fetchProducts(cart.map((item) => item.productId));
   await Promise.allSettled([
     renderOrderSummary({ cart: cart, products }),
     renderPaymentSummary({ cart: cart, products }),

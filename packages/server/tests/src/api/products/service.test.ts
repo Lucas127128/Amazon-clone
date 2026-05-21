@@ -29,7 +29,23 @@ describe.concurrent('Service', () => {
       const rawProduct = Service.getMatchingProduct('abcde');
       expect(rawProduct.code).toBe(404);
       expect(rawProduct.response).toEqual({
-        message: 'Product not found',
+        message: 'Product abcde not found',
+      });
+    });
+  });
+  describe.concurrent('getMatchingProducts', () => {
+    it('returns right raw products', () => {
+      const rawProducts = Service.getMatchingProducts(['sMmsZ']);
+      expect(rawProducts.code).toBe(200);
+      expect(rawProducts.response).toEqual([
+        rawProductsJson.find((product) => product.id === 'sMmsZ'),
+      ]);
+    });
+    it('returns 404 error if productId is invalid', () => {
+      const rawProducts = Service.getMatchingProducts(['abcde']);
+      expect(rawProducts.code).toBe(404);
+      expect(rawProducts.response).toEqual({
+        message: 'Product abcde not found',
       });
     });
   });

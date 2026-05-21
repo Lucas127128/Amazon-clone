@@ -1,4 +1,4 @@
-import { persistentJSON } from '@nanostores/persistent';
+import { persistentAtom } from '@nanostores/persistent';
 import { computed } from 'nanostores';
 import { STORAGE_KEYS } from 'shared/constants';
 import {
@@ -9,9 +9,23 @@ import {
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
-export const cartStore = persistentJSON<Cart[]>(
+export const cartStore = persistentAtom<Cart[]>(
   STORAGE_KEYS.CART_STATE,
   [],
+  {
+    encode(value) {
+      return JSON.stringify(value);
+    },
+    decode(value) {
+      let decoded: any;
+      if (!value) {
+        decoded = [];
+      } else {
+        decoded = JSON.parse(value) as unknown;
+      }
+      return parse(CartsSchema, decoded);
+    },
+  },
 );
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>

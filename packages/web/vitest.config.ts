@@ -15,7 +15,7 @@ export default defineConfig({
     typecheck: { enabled: true },
     coverage: {
       provider: 'istanbul',
-      reporter: ['json'],
+      reporter: ['json', 'text'],
       reportsDirectory: '../../coverage/web',
     },
     projects: [

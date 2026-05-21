@@ -68,7 +68,6 @@ export function generateOrderContainerHTML(
           <div class="order-header-label">Order ID:</div>
             <div class='order-id-container'>
               <span id="order-id">${order.id}</span>
-              <wa-tooltip class='copy-button-tooltip' for="copy-button-${order.id}" distance='4' placement='top'>Copy</wa-tooltip>
               <button class='copy-button' id='copy-button-${order.id}' data-order-id='${order.id}'><img src='/images/icons/copy.svg'/></button>
             </div>
         </div>

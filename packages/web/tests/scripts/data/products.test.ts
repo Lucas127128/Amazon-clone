@@ -8,6 +8,12 @@ describe.concurrent('fetch products', () => {
     const fetchedProducts = await fetchProducts();
     expect(fetchedProducts).toEqual(productsJson);
   });
+  it('fetch matching products', async () => {
+    const fetchedProducts = await fetchProducts(['sMmsZ']);
+    expect(fetchedProducts).toEqual([
+      getMatchingProduct(productsJson as Product[], 'sMmsZ'),
+    ]);
+  });
 });
 
 describe.concurrent('fetchMatchingProduct', () => {

@@ -1,13 +1,11 @@
-import '@awesome.me/webawesome/dist/components/tooltip/tooltip.js';
-
-import { app, cacheMap } from 'api-client';
-import { GLOBAL_CONFIG, STORAGE_KEYS } from 'shared/constants';
+import { comptime } from 'comptime';
+import { STORAGE_KEYS } from 'shared/constants';
+import { getMatchingProduct } from 'shared/products';
 import { OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
-import { Temporal } from 'temporal-polyfill-lite';
 import { parse } from 'valibot';
 
-import { fetchMatchingProduct } from '#data/products.ts';
+import { fetchProducts } from '#data/products.ts';
 
 import { cartQuantity } from '../data/cart.ts';
 import { getTimeString } from '../data/orders.ts';
@@ -21,58 +19,50 @@ import { handleBuyAgainBtn } from './orders/handleBuyAgain.ts';
 
 async function renderPlacedOrder() {
   sanitizeAll();
-  const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
+  const savedOrders = localStorage.getItem(
+    comptime(() => STORAGE_KEYS.ORDER),
+  );
   checkNullish(savedOrders);
   const orders = parse(OrdersSchema, JSON.parse(savedOrders));
   const ordersHTML = document.querySelector('div.orders-grid');
   checkNullish(ordersHTML);
-  // cache the clothings first to avoid duplicated fetches
-  const { data: clothingList, error } = await app.api.clothingList.get();
-  if (error) throw error;
-  cacheMap.set(`GET:${GLOBAL_CONFIG.API_URL}/api/clothingList:undefined`, {
-    body: JSON.stringify(clothingList),
-    time: Temporal.Now.instant().toJSON(),
-  });
-  await Promise.all(
-    orders.map(async (order) => {
-      let placedOrderHTML = '';
-      await Promise.all(
-        order.products.map(async (product) => {
-          const matchingProduct = await fetchMatchingProduct(
-            product.productId,
-          );
-          placedOrderHTML += generateOrdersProductHTML(
-            product,
-            matchingProduct,
-            order.id,
-          );
-        }),
-      );
 
-      const orderTime = getTimeString(order.orderTime);
-      const placedOrderContainerHTML = generateOrderContainerHTML(
-        order,
-        orderTime,
-        placedOrderHTML,
-      );
-      ordersHTML.insertAdjacentHTML('beforeend', placedOrderContainerHTML);
-    }),
+  const products = await fetchProducts(
+    orders.flatMap((order) =>
+      order.products.map((product) => product.productId),
+    ),
   );
+  let placedOrderContainerHTML = '';
+  for (const order of orders) {
+    let placedOrderHTML = '';
+    for (const product of order.products) {
+      const matchingProduct = getMatchingProduct(
+        products,
+        product.productId,
+      );
+      checkNullish(matchingProduct);
+      placedOrderHTML += generateOrdersProductHTML(
+        product,
+        matchingProduct,
+        order.id,
+      );
+    }
+    const orderTime = getTimeString(order.orderTime);
+    placedOrderContainerHTML += generateOrderContainerHTML(
+      order,
+      orderTime,
+      placedOrderHTML,
+    );
+  }
+
+  ordersHTML.insertAdjacentHTML('beforeend', placedOrderContainerHTML);
 
   const copyButtons = document.querySelectorAll('button.copy-button');
   for (const copyButton of copyButtons) {
     copyButton.addEventListener('click', async () => {
-      const tooltip =
-        copyButton.parentElement?.querySelector('wa-tooltip');
-      checkNullish(tooltip);
-      tooltip.textContent = 'copied';
       const icon = copyButton.querySelector('img');
       checkNullish(icon);
       icon.src = '/images/icons/tick.svg';
-      setTimeout(() => {
-        tooltip.textContent = 'copy';
-        icon.src = '/images/icons/copy.svg';
-      }, 1000);
 
       const { orderId } = copyButton.dataset;
       checkNullish(orderId);
@@ -82,10 +72,11 @@ async function renderPlacedOrder() {
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
   cartQuantity.subscribe((cartQuantity) => {
-    returnToHomeLink.textContent = `${cartQuantity}`;
+    returnToHomeLink.textContent = cartQuantity.toString();
   });
 }
 
 await renderPlacedOrder();
+
 handleSearchInput();
 handleBuyAgainBtn();

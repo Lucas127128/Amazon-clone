@@ -16,12 +16,15 @@ function renderAmazonHomePage() {
   });
 }
 
-const products = await fetchProducts();
+const products = fetchProducts();
 
-renderProducts(products);
-handleSortSelect(products);
-handleSearchInput();
 renderAmazonHomePage();
+
+await Promise.all([
+  Promise.resolve().then(async () => renderProducts(await products)),
+  Promise.resolve().then(async () => handleSortSelect(await products)),
+]);
+handleSearchInput();
 
 const { q: searchQuery } = getURLParams();
 if (searchQuery !== null) {

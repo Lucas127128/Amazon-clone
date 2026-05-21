@@ -241,10 +241,3 @@
   border: none;
   background-color: inherit;
 }
-
-.copy-button-tooltip::part(body) {
-  background-color: black;
-  color: white;
-  border-radius: 0.375em;
-  font-size: 14px;
-}
