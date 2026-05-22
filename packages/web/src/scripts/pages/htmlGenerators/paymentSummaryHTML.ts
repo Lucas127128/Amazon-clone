@@ -4,7 +4,6 @@ import type { Prices } from 'shared/payment';
 export function generatePaymentSummary(prices: Prices): string {
   const html = String.raw;
   const paymentSummaryHTML = html`
-    <div class="payment-summary-title">Order Summary</div>
     <div class="payment-summary-row">
       <div class="cart-item-quantity">Items (${prices.cartQuantity}):</div>
       <div class="payment-summary-money total-products-price">
@@ -39,10 +38,6 @@ export function generatePaymentSummary(prices: Prices): string {
         $${formatCurrency(prices.totalOrderPrice)}
       </div>
     </div>
-
-    <button class="place-order-button button-primary">
-      Place your order
-    </button>
   `;
   return paymentSummaryHTML;
 }

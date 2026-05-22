@@ -39,6 +39,17 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
       return Response.json(
         getMatchingRawProduct(rawProductsJson as RawProduct[], 'sMmsZ'),
       );
+    } else if (url === `${GLOBAL_CONFIG.API_URL}/api/matchingProducts`) {
+      // prettier-ignore
+      const match = (JSON.parse(init?.body as string) as string[])[0] === "sMmsZ"
+      return match
+        ? Response.json([
+            getMatchingRawProduct(
+              rawProductsJson as RawProduct[],
+              'sMmsZ',
+            ),
+          ])
+        : await realFetch(input, init);
     } else {
       return await realFetch(input, init);
     }

@@ -17,10 +17,8 @@ import {
   removeFromCart,
   updateDeliveryOption,
 } from '../../data/cart.ts';
-import { sanitizeAll } from '../../utils/trustedTypes.ts';
+import { sanitizer } from '../../utils/trustedTypes.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
-
-sanitizeAll();
 
 const orderSummary = document.querySelector('div.order-summary');
 
@@ -30,7 +28,8 @@ export async function renderOrderSummary(params: {
 }) {
   const products = await params.products;
   checkNullish(orderSummary, 'Fail to select HTML element');
-  orderSummary.innerHTML = '';
+  orderSummary.innerHTML = window.trustedTypes
+    ?.emptyHTML as unknown as string;
   let cartsSummaryHTML = '';
   for (const cartItem of params.cart) {
     const matchingProduct = getMatchingProduct(
@@ -41,7 +40,11 @@ export async function renderOrderSummary(params: {
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
     cartsSummaryHTML += cartSummaryHTML;
   }
-  orderSummary.insertAdjacentHTML('beforeend', cartsSummaryHTML);
+  const trustedHTML = sanitizer?.createHTML(cartsSummaryHTML);
+  orderSummary.insertAdjacentHTML(
+    'beforeend',
+    trustedHTML as unknown as string,
+  );
 }
 
 const returnToHomeLink = document.querySelector('.return-to-home-link');

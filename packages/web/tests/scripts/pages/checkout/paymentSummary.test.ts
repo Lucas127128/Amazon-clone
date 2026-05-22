@@ -11,7 +11,7 @@ beforeAll(async () => {
   localStorage.clear();
   document.body.innerHTML = `
       <div class="test-container">
-        <div class="payment-summary"></div>
+        <div class="payment-summary-body"></div>
       </div>`;
   await renderPaymentSummary({
     cart: cart as Cart[],

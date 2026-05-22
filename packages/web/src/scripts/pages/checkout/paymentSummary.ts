@@ -6,24 +6,21 @@ import { type Cart, OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { parse } from 'valibot';
 
+import { cartStore } from '#data/cart.ts';
+
 import { fetchOrders } from '../../data/orders.ts';
 import { sanitizer } from '../../utils/trustedTypes.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
-let controller = new AbortController();
 export async function renderPaymentSummary(params: {
   cart: Cart[];
   products: Promise<readonly Product[]> | Product[];
 }) {
-  controller.abort();
-  controller = new AbortController();
-  const { signal } = controller;
-
   const products = await params.products;
   const { data: prices, error } = calculatePrices(params.cart, products);
   if (error) throw new Error(error.message);
 
-  const paymentSummary = document.querySelector('.payment-summary');
+  const paymentSummary = document.querySelector('.payment-summary-body');
   const paymentSummaryHTML = generatePaymentSummary(prices);
   checkNullish(paymentSummary, 'Fail to select HTML element');
   if (!window.trustedTypes) {
@@ -33,28 +30,23 @@ export async function renderPaymentSummary(params: {
       paymentSummaryHTML,
     ) as unknown as string;
   }
-
-  const placeOrderHTML = document.querySelector('.place-order-button');
-  checkNullish(placeOrderHTML, 'Fail to get the HTML element');
-
-  placeOrderHTML.addEventListener(
-    'click',
-    async () => {
-      const response = await fetchOrders(params.cart);
-      const savedOrders = localStorage.getItem(
-        comptime(() => STORAGE_KEYS.ORDER),
-      );
-      const orders = parse(OrdersSchema, JSON.parse(savedOrders ?? '[]'));
-      const { data: order, error } = response;
-      if (error) throw error;
-      orders.unshift(order);
-      localStorage.setItem(
-        comptime(() => STORAGE_KEYS.ORDER),
-        JSON.stringify(orders),
-      );
-      localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
-      location.href = '/orders.html';
-    },
-    { signal },
-  );
 }
+
+document
+  .querySelector('.place-order-button')
+  ?.addEventListener('click', async () => {
+    const response = await fetchOrders(cartStore.get());
+    const savedOrders = localStorage.getItem(
+      comptime(() => STORAGE_KEYS.ORDER),
+    );
+    const orders = parse(OrdersSchema, JSON.parse(savedOrders ?? '[]'));
+    const { data: order, error } = response;
+    if (error) throw error;
+    orders.unshift(order);
+    localStorage.setItem(
+      comptime(() => STORAGE_KEYS.ORDER),
+      JSON.stringify(orders),
+    );
+    localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
+    location.href = '/orders.html';
+  });

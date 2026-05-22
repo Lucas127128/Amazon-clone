@@ -24,7 +24,6 @@ export default defineConfig({
           name: 'bun',
           include: ['tests/src/**/*.test.ts'],
           environment: 'node',
-          setupFiles: ['./vitest.setup.ts'],
         },
       },
       {

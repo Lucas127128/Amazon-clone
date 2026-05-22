@@ -8,13 +8,12 @@ import { fetchMatchingProduct } from '#data/products.ts';
 
 import { getMatchingCart } from '../data/cart.ts';
 import { getMatchingOrder } from '../data/orders.ts';
-import { sanitizeAll } from '../utils/trustedTypes.ts';
+import { sanitizer } from '../utils/trustedTypes.ts';
 import { getURLParams } from '../utils/url.ts';
 import { handleSearchInput } from './header';
 import { generateTrackingHTML } from './htmlGenerators/trackingHTML';
 
 async function renderTrackingSummary() {
-  sanitizeAll();
   const { orderId, productId } = getURLParams();
   checkNullish(orderId);
   checkNullish(productId);
@@ -39,7 +38,12 @@ async function renderTrackingSummary() {
     matchingCart,
   );
   const backToOrderLink = document.querySelector('.back-to-orders-link');
-  backToOrderLink?.insertAdjacentHTML('afterend', trackingHTML);
+  const trustedHTML = sanitizer?.createHTML(trackingHTML);
+  checkNullish(trustedHTML);
+  backToOrderLink?.insertAdjacentHTML(
+    'afterend',
+    trustedHTML as unknown as string,
+  );
 }
 
 await renderTrackingSummary();

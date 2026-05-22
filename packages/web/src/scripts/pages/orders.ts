@@ -9,7 +9,7 @@ import { fetchProducts } from '#data/products.ts';
 
 import { cartQuantity } from '../data/cart.ts';
 import { getTimeString } from '../data/orders.ts';
-import { sanitizeAll } from '../utils/trustedTypes.ts';
+import { sanitizer } from '../utils/trustedTypes.ts';
 import { handleSearchInput } from './header.ts';
 import {
   generateOrderContainerHTML,
@@ -18,7 +18,6 @@ import {
 import { handleBuyAgainBtn } from './orders/handleBuyAgain.ts';
 
 async function renderPlacedOrder() {
-  sanitizeAll();
   const savedOrders = localStorage.getItem(
     comptime(() => STORAGE_KEYS.ORDER),
   );
@@ -55,7 +54,12 @@ async function renderPlacedOrder() {
     );
   }
 
-  ordersHTML.insertAdjacentHTML('beforeend', placedOrderContainerHTML);
+  const trustedHTML = sanitizer?.createHTML(placedOrderContainerHTML);
+  checkNullish(trustedHTML);
+  ordersHTML.insertAdjacentHTML(
+    'beforeend',
+    trustedHTML as unknown as string,
+  );
 
   const copyButtons = document.querySelectorAll('button.copy-button');
   for (const copyButton of copyButtons) {

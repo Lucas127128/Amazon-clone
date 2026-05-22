@@ -19,7 +19,8 @@
   "scripts": {
     "test": "bunx -b vitest -w false",
     "test:watch": "bunx -b vitest -w",
-    "test:coverage": "bunx -b vitest -w false --coverage"
+    "test:coverage": "bunx -b vitest -w false --coverage",
+    "test:unit": "bun run test"
   },
   "dependencies": {
     "fp-ts": "^2.16.11",

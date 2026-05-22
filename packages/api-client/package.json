@@ -9,7 +9,8 @@
   "scripts": {
     "test": "bunx -b vitest -w false",
     "test:watch": "bunx -b vitest -w",
-    "test:coverage": "bunx -b vitest -w false --coverage"
+    "test:coverage": "bunx -b vitest -w false --coverage",
+    "test:unit": "bun run test"
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.9",

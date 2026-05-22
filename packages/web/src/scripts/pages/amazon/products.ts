@@ -6,11 +6,9 @@ import type { Product } from 'shared/products';
 import { checkNullish, isHTMLElement } from 'shared/typeChecker';
 
 import { addToCart } from '../../data/cart.ts';
-import { sanitizeAll } from '../../utils/trustedTypes.ts';
+import { sanitizer } from '../../utils/trustedTypes.ts';
 import { getURLParams } from '../../utils/url.ts';
 import { generateAmazonHTML } from '../htmlGenerators/amazonHTML.ts';
-
-sanitizeAll();
 
 function displayAdded(productId: string) {
   const addedToCart = document.querySelector(
@@ -43,10 +41,14 @@ export function renderProducts(products: readonly Product[]) {
         : false;
     productsHTML += generateAmazonHTML(product, highFetchPriority);
   }
-  const trustedProductsHTML = productsHTML;
+  const trustedProductsHTML = sanitizer?.createHTML(productsHTML);
   checkNullish(trustedProductsHTML);
-  productsGrid.innerHTML = '';
-  productsGrid.insertAdjacentHTML('beforeend', trustedProductsHTML as any);
+  productsGrid.innerHTML = window.trustedTypes
+    ?.emptyHTML as unknown as string;
+  productsGrid.insertAdjacentHTML(
+    'beforeend',
+    trustedProductsHTML as unknown as string,
+  );
 
   productsGrid.addEventListener(
     'click',

@@ -5,7 +5,7 @@ const config: KnipConfig = {
       entry: ['vitest.setup.ts'],
     },
     'packages/server': {
-      entry: ['src/api/index.ts', 'vitest.setup.ts'],
+      entry: ['src/api/index.ts'],
     },
     'packages/shared': {
       entry: ['vitest.setup.ts'],

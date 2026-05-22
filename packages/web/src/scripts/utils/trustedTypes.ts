@@ -16,12 +16,6 @@ const sanitizeHTML = (inputHTML: string) => {
   return cleanHTML;
 };
 
-export function sanitizeAll() {
-  window.trustedTypes?.createPolicy('default', {
-    createHTML: sanitizeHTML,
-  });
-}
-
 export const sanitizer = window.trustedTypes?.createPolicy('dompurify', {
   createHTML: sanitizeHTML,
 });
