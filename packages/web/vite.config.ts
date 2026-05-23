@@ -19,20 +19,6 @@ export default defineConfig({
         orders: 'orders.html',
         tracking: 'tracking.html',
       },
-      output: {
-        codeSplitting: {
-          groups: [
-            {
-              test: /node_modules\/temporal-polyfill-lite/,
-              name: 'temporal',
-            },
-            {
-              test: /node_modules\/dompurify/,
-              name: 'dompurify',
-            },
-          ],
-        },
-      },
       // devtools: {}
     },
     target: 'baseline-widely-available',

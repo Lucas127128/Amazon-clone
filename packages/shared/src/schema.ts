@@ -84,9 +84,10 @@ export const ClothingListSchema = cache(
   array(RawProductSchema.entries.id),
 );
 
-export const SearchResultSchema = object({
-  id: RawProductSchema.entries.id,
-  name: RawProductSchema.entries.name,
+export const SearchResultSchema = array(RawProductSchema.entries.id);
+export const SearchOptionsSchema = object({
+  q: string(),
+  limit: optional(number()),
 });
 
 export type SearchResult = InferOutput<typeof SearchResultSchema>;

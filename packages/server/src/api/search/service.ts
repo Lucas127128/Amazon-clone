@@ -12,15 +12,15 @@ const products = parse(
 
 const productsSearch = create({
   schema: {
-    name: 'string',
     id: 'string',
+    name: 'string',
   },
 });
 await insertMultiple(productsSearch, products);
 
 const cachedSearches = new Map<
   { q: string; time: Temporal.ZonedDateTime },
-  SearchResult[]
+  SearchResult
 >();
 
 export const Service = new Elysia()
@@ -37,19 +37,16 @@ export const Service = new Elysia()
     }
   })
   .decorate('Search', {
-    async searchProducts(query: string) {
+    async searchProducts(query: string, limit?: number) {
       const results = (
         await search(productsSearch, {
           term: query,
           properties: ['name'],
-          tolerance: 2,
+          tolerance: 1.5,
+          limit,
         })
       ).hits.map((result) => {
-        const name = result.document.name.replaceAll(
-          query,
-          `<em>${query}</em>`,
-        );
-        return Object.assign(result.document, { name: name });
+        return result.document.id;
       });
       return cachedSearches.getOrInsert(
         { q: query, time: Temporal.Now.zonedDateTimeISO() },

@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia';
 import { evlog } from 'evlog/elysia';
 import { SearchResultSchema } from 'shared/schema';
-import { array, object, string } from 'valibot';
+import { SearchOptionsSchema } from 'shared/schema';
 
 import { Service } from './service';
 
@@ -15,15 +15,16 @@ export const searchPlugin = new Elysia({ prefix: '/api/search' })
     const clientIP = server?.requestIP(request)?.address;
     log.set({ clientIp: clientIP, query: query.q });
   })
-  .get(
+  .post(
     '/products',
-    async ({ query, Search }) => await Search.searchProducts(query.q),
+    async ({ body, Search }) =>
+      await Search.searchProducts(body.q, body.limit),
     {
-      response: array(SearchResultSchema),
-      query: object({ q: string() }),
+      response: SearchResultSchema,
+      body: SearchOptionsSchema,
       detail: {
         description:
-          'Get the search query using query params and return the search result.',
+          'Get the search query with body and return the search result.',
       },
     },
   );

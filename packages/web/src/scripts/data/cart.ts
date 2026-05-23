@@ -17,12 +17,7 @@ export const cartStore = persistentAtom<Cart[]>(
       return JSON.stringify(value);
     },
     decode(value) {
-      let decoded: any;
-      if (!value) {
-        decoded = [];
-      } else {
-        decoded = JSON.parse(value) as unknown;
-      }
+      const decoded = value ? (JSON.parse(value) as unknown) : [];
       return parse(CartsSchema, decoded);
     },
   },
@@ -44,9 +39,7 @@ export function addToCart(cartItem: Cart, increment: boolean = false) {
 
 export function removeFromCart(productId: string) {
   cartStore.set(
-    cartStore
-      .get()
-      .filter((cartItem: Cart) => cartItem.productId !== productId),
+    cartStore.get().filter((cartItem) => cartItem.productId !== productId),
   );
 }
 

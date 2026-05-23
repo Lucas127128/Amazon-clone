@@ -16,18 +16,13 @@ function renderAmazonHomePage() {
   });
 }
 
-const products = fetchProducts();
-
-renderAmazonHomePage();
-
-await Promise.all([
-  Promise.resolve().then(async () => renderProducts(await products)),
-  Promise.resolve().then(async () => handleSortSelect(await products)),
-]);
-handleSearchInput();
-
 const { q: searchQuery } = getURLParams();
-if (searchQuery !== null) {
-  const searchResults = await handleSearch(searchQuery);
-  renderProducts(searchResults);
-}
+const products =
+  searchQuery === null
+    ? await fetchProducts()
+    : await handleSearch(searchQuery);
+
+renderProducts(products);
+renderAmazonHomePage();
+handleSortSelect(products);
+handleSearchInput();
