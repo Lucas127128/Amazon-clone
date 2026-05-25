@@ -20,11 +20,11 @@ bun run build
 
 - [ ] Add accounts and auth
 
-- [ ] Use my own code in copy button in orders page
+- [x] Use my own code in copy button in orders page
 
 - [ ] Use db instead of json files for products
 
 **Acknowledgement:**
 
-The Amazon project in this repo is mainly follow the following youtube tutorial:
-https://www.youtube.com/watch?v=EerdGm-ehJQ
+This repo originally follows the following youtube tutorial:
+[link](https://www.youtube.com/watch?v=EerdGm-ehJQ)
