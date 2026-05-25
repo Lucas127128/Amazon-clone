@@ -1,4 +1,5 @@
 import { initLogger } from 'evlog';
+import { createFsDrain } from 'evlog/fs';
 
 export function initEvlog() {
   if (Bun.env.DEV) {
@@ -6,7 +7,8 @@ export function initEvlog() {
   } else if (Bun.env.PROD) {
     initLogger({
       env: { service: 'api' },
-      sampling: { rates: { info: 0, debug: 0, warn: 0, error: 100 } },
+      drain: createFsDrain({ pretty: true }),
+      silent: true,
     });
   }
 }

@@ -1,5 +1,6 @@
 import { file } from 'bun';
 import { status } from 'elysia';
+import { useLogger } from 'evlog/elysia';
 import { nanoid } from 'nanoid';
 import { calculatePrices } from 'shared/payment';
 import { transformProducts } from 'shared/products';
@@ -36,6 +37,8 @@ export const OrderService = {
   createOrder: (cart: Cart[]) => {
     const { data: order, error } = createOrder(cart);
     if (error) {
+      const log = Bun.env.NODE_ENV === 'test' ? undefined : useLogger();
+      log?.error(error.message);
       return status('Unprocessable Content', {
         status: 422,
         value: {

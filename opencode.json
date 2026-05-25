@@ -21,6 +21,7 @@
       "tail *": "allow",
       "sort *": "allow"
     },
+    "skill": "allow",
     "edit": "allow",
     "glob": "allow",
     "read": "allow",

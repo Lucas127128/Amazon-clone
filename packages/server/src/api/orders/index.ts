@@ -1,4 +1,5 @@
 import { Elysia } from 'elysia';
+import { log } from 'evlog';
 import { evlog } from 'evlog/elysia';
 import {
   CartsSchema,
@@ -11,7 +12,7 @@ import { OrderService } from './service';
 
 export const orderPlugin = new Elysia({ prefix: '/api' })
   .onStart(() => {
-    console.log('Orders api service starts');
+    log.info('api', 'Orders api service starts');
   })
   .use(evlog())
   .onBeforeHandle(({ request, server, log }) => {

@@ -1,4 +1,5 @@
 import { status } from 'elysia';
+import { useLogger } from 'evlog/elysia';
 import { getMatchingRawProduct } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 import { ClothingListSchema, RawProductsSchema } from 'shared/schema';
@@ -17,17 +18,21 @@ export const Service = {
   getProducts: () => products,
   getClothingList: () => clothings,
   getMatchingProduct(productId: string) {
+    const log = Bun.env.NODE_ENV === 'test' ? undefined : useLogger();
     const matchingProduct = getMatchingRawProduct(products, productId);
     if (!matchingProduct) {
+      log?.error(`Product ${productId} not found`);
       return status(404, { message: `Product ${productId} not found` });
     }
     return status(200, matchingProduct);
   },
   getMatchingProducts(productIds: string[]) {
+    const log = Bun.env.NODE_ENV === 'test' ? undefined : useLogger();
     const matchingProducts: RawProduct[] = [];
     for (const productId of productIds) {
       const rawProduct = getMatchingRawProduct(products, productId);
       if (!rawProduct) {
+        log?.error(`Product ${productId} not found`);
         return status(404, {
           message: `Product ${productId} not found`,
         });

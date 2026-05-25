@@ -21,3 +21,4 @@ packages/tests/html
 .turbo
 coverage
 coverage-merged
+packages/server/.evlog

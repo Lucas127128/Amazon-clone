@@ -1,4 +1,5 @@
 import { Elysia } from 'elysia';
+import { log } from 'evlog';
 import { evlog } from 'evlog/elysia';
 import {
   ClothingListSchema,
@@ -10,10 +11,10 @@ import { array, object, string } from 'valibot';
 import { Service } from './service';
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
-  .onStart(() => {
-    console.log('Products api service starts');
-  })
   .use(evlog())
+  .onStart(() => {
+    log.info('api', 'Products api service starts');
+  })
   .onBeforeHandle(({ request, server, log }) => {
     const clientIP = server?.requestIP(request)?.address;
     log.set({ clientIp: clientIP });

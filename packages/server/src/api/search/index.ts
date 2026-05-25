@@ -1,4 +1,5 @@
 import { Elysia } from 'elysia';
+import { log } from 'evlog';
 import { evlog } from 'evlog/elysia';
 import { SearchResultSchema } from 'shared/schema';
 import { SearchOptionsSchema } from 'shared/schema';
@@ -7,7 +8,7 @@ import { Service } from './service';
 
 export const searchPlugin = new Elysia({ prefix: '/api/search' })
   .onStart(() => {
-    console.log('Search api service starts');
+    log.info('api', 'Search api service starts');
   })
   .use(evlog())
   .use(Service)

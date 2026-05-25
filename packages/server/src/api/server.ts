@@ -1,6 +1,7 @@
 import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { localHttps } from 'elysia-local-https';
+import { log } from 'evlog';
 import { GLOBAL_CONFIG } from 'shared/constants';
 import { ValiError } from 'valibot';
 
@@ -19,7 +20,8 @@ export const app = new Elysia({
   serve: { http3: true, http1: true },
 })
   .onStart(({ server }) => {
-    console.log(
+    log.info(
+      'api',
       `🦊 Elysia is running at ${server?.hostname}:${server?.port} on pid: ${process.pid}`,
     );
   })
