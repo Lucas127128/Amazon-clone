@@ -40,7 +40,6 @@ export const app = new Elysia({
     return error;
   })
   .onBeforeHandle(({ set }) => {
-    set.headers['content-type'] = 'application/json';
     set.headers['cache-control'] = 'public, max-age=86400';
     set.headers['strict-transport-security'] =
       'max-age=31536000; includeSubDomains; preload';

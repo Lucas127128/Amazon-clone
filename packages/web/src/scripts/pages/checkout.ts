@@ -2,7 +2,10 @@ import { fetchProducts } from '#data/products.ts';
 
 import { cartStore } from '../data/cart.ts';
 import { renderOrderSummary } from './checkout/cartSummary.ts';
-import { renderPaymentSummary } from './checkout/paymentSummary.ts';
+import {
+  handlePlaceOrder,
+  renderPaymentSummary,
+} from './checkout/paymentSummary.ts';
 
 cartStore.subscribe(async (cartData) => {
   const cart = [...cartData];
@@ -11,4 +14,5 @@ cartStore.subscribe(async (cartData) => {
     renderOrderSummary({ cart: cart, products }),
     renderPaymentSummary({ cart: cart, products }),
   ]);
+  handlePlaceOrder();
 });

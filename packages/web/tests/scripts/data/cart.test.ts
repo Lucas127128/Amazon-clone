@@ -55,7 +55,9 @@ describe.concurrent('addToCart', () => {
         },
         false,
       ),
-    ).toThrow('Invalid value: Expected <=10 but received 11');
+    ).toThrow(
+      `Invalid value: Expected <=${CART_CONFIG.MAX_QUANTITY_PER_ITEM} but received ${CART_CONFIG.MAX_QUANTITY_PER_ITEM + 1}`,
+    );
   });
 });
 

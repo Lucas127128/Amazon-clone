@@ -8,7 +8,11 @@ import {
 } from 'shared/schema';
 import { minLength, pipe } from 'valibot';
 
-import { OrderService } from './service';
+import { createProdDataProvider } from '#utils/dataProvider.ts';
+
+import { createOrdersService } from './service.ts';
+
+const OrderService = createOrdersService(await createProdDataProvider());
 
 export const orderPlugin = new Elysia({ prefix: '/api' })
   .onStart(() => {

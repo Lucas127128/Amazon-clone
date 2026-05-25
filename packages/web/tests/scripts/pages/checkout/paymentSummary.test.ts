@@ -3,20 +3,27 @@ import { STORAGE_KEYS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
 import { cartJson as cart, productsJson as products } from 'testdata';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { renderPaymentSummary } from '#pages/checkout/paymentSummary.ts';
+import { cartStore } from '#data/cart.ts';
+import {
+  handlePlaceOrder,
+  renderPaymentSummary,
+} from '#pages/checkout/paymentSummary.ts';
 
 beforeAll(async () => {
   localStorage.clear();
   document.body.innerHTML = `
       <div class="test-container">
         <div class="payment-summary-body"></div>
+        <button class="place-order-button"></button>
       </div>`;
   await renderPaymentSummary({
     cart: cart as Cart[],
     products: products as Product[],
   });
+  handlePlaceOrder();
+  cartStore.set(cart as Cart[]);
 });
 
 describe.concurrent('render payment details', () => {
@@ -55,13 +62,21 @@ describe.concurrent('render payment details', () => {
   });
 });
 
-describe.concurrent('place order', () => {
+describe('place order', () => {
   it('navigate to order page', async () => {
     const placeOrderButton = document.querySelector(
       'button.place-order-button',
     );
     fireEvent.click(placeOrderButton!);
-    await Bun.sleep(35);
+    await vi.waitFor(
+      () => {
+        const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
+        if (savedOrders === null) {
+          throw new Error('Orders not saved to local storage');
+        }
+      },
+      { timeout: 100, interval: 8 },
+    );
     expect(location.href).toContain('/orders.html');
   });
   it('saves orders to local storage', async () => {
@@ -69,7 +84,15 @@ describe.concurrent('place order', () => {
       'button.place-order-button',
     );
     fireEvent.click(placeOrderButton!);
-    await Bun.sleep(35);
+    await vi.waitFor(
+      () => {
+        const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
+        if (savedOrders === null) {
+          throw new Error('Orders not saved to local storage');
+        }
+      },
+      { timeout: 100, interval: 8 },
+    );
     const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
     expect(savedOrders).not.toBeNull();
   });

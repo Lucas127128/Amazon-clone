@@ -1,8 +1,17 @@
 import clothingListJson from 'server/clothing' with { type: 'json' };
 import rawProductsJson from 'server/rawProducts' with { type: 'json' };
+import type { RawProduct } from 'shared/schema';
 import { describe, expect, it } from 'vitest';
 
-import { Service } from '../../../../src/api/products/service.ts';
+import type { DataProvider } from '#utils/dataProvider.ts';
+
+import { createProductsService } from '../../../../src/api/products/service.ts';
+
+const Service = createProductsService({
+  rawProducts: rawProductsJson as RawProduct[],
+  clothings: clothingListJson,
+  error: undefined,
+} satisfies DataProvider);
 
 describe.concurrent('Service', () => {
   describe.concurrent('getProducts', () => {

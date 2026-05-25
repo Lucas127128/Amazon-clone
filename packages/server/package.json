@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "sideEffects": false,
+  "imports": {
+    "#utils/*": "./src/utils/*"
+  },
   "exports": {
     ".": "./src/api/server.ts",
     "./rawProducts": "./rawData/rawProducts.json",

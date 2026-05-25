@@ -8,7 +8,11 @@ import {
 } from 'shared/schema';
 import { array, object, string } from 'valibot';
 
-import { Service } from './service';
+import { createProdDataProvider } from '#utils/dataProvider.ts';
+
+import { createProductsService } from './service.ts';
+
+const Service = createProductsService(await createProdDataProvider());
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
   .use(evlog())

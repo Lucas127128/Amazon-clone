@@ -1,10 +1,13 @@
 import { Elysia } from 'elysia';
 import { log } from 'evlog';
 import { evlog } from 'evlog/elysia';
-import { SearchResultSchema } from 'shared/schema';
-import { SearchOptionsSchema } from 'shared/schema';
+import { SearchOptionsSchema, SearchResultSchema } from 'shared/schema';
 
-import { Service } from './service';
+import { createProdDataProvider } from '#utils/dataProvider.ts';
+
+import { createSearchService } from './service.ts';
+
+const Service = await createSearchService(await createProdDataProvider());
 
 export const searchPlugin = new Elysia({ prefix: '/api/search' })
   .onStart(() => {

@@ -23,21 +23,21 @@ const debouncedSearch = liteDebounce(
     const { data: searchResults, error } =
       await app.api.search.products.post({
         q: searchTerm,
-        limit: 1,
+        limit: 3,
       });
     if (error) throw error;
     const products = await fetchProducts(searchResults);
     const searchSuggestions = document.querySelector(
       'datalist#search-suggestions',
     );
+    searchSuggestions?.replaceChildren();
     for (const product of products) {
       const option = document.createElement('option');
       option.value = product.name;
-      searchSuggestions?.replaceChildren();
       searchSuggestions?.insertAdjacentElement('beforeend', option);
     }
   },
-  { wait: 450 },
+  { wait: 400 },
 );
 
 export function handleSearchInput() {

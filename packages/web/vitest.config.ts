@@ -1,4 +1,7 @@
+import { comptime } from 'comptime/vite';
 import { defineConfig } from 'vitest/config';
+
+const plugins = [comptime()];
 
 export default defineConfig({
   test: {
@@ -6,7 +9,6 @@ export default defineConfig({
     maxConcurrency: 150,
     maxWorkers: 30,
     clearMocks: true,
-    // reporters: ['html', 'default'],
     experimental: { fsModuleCache: true },
     env: {
       NODE_TLS_REJECT_UNAUTHORIZED: '0',
@@ -20,6 +22,7 @@ export default defineConfig({
     },
     projects: [
       {
+        plugins,
         test: {
           name: 'bun',
           include: [
@@ -32,11 +35,10 @@ export default defineConfig({
         },
       },
       {
+        plugins,
         test: {
           name: 'happy-dom',
-          include: [
-            'packages/web/tests/scripts/pages/checkout/**/*.test.ts',
-          ],
+          include: ['tests/scripts/pages/checkout/**/*.test.ts'],
           setupFiles: ['./vitest.setup.ts'],
           environment: 'happy-dom',
           environmentOptions: {
