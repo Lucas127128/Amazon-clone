@@ -1,3 +1,4 @@
+import { file } from 'bun';
 import { status } from 'elysia';
 import { nanoid } from 'nanoid';
 import { calculatePrices } from 'shared/payment';
@@ -8,11 +9,11 @@ import { array, parse, string } from 'valibot';
 
 const rawProducts = parse(
   RawProductsSchema,
-  await Bun.file('./rawData/rawProducts.json').json(),
+  await file('./rawData/rawProducts.json').json(),
 );
 const clothings = parse(
   array(string()),
-  await Bun.file('./rawData/clothing.json').json(),
+  await file('./rawData/clothing.json').json(),
 );
 const products = transformProducts(rawProducts, clothings);
 

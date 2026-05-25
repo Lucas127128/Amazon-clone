@@ -9,7 +9,7 @@ export function generateAmazonHTML(
         <div class="product-image-container">
             <img class="product-image"
             fetchpriority=${highFetchPriority ? 'high' : 'auto'}
-            load=${highFetchPriority ? 'eager' : 'lazy'}
+            loading=${highFetchPriority ? 'eager' : 'lazy'}
             decode=${highFetchPriority ? 'sync' : 'async'}
             src="${product.image}">
         </div>
@@ -58,7 +58,7 @@ export function generateAmazonHTML(
                 </a>`
               : ''
           }
-          
+
         </div>
 
           <div class="added-to-cart added-to-cart-${product.id}">

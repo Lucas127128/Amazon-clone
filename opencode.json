@@ -17,10 +17,13 @@
       "bunx *": "allow",
       "cat *": "allow",
       "find *": "allow",
-      "head *": "allow"
+      "head *": "allow",
+      "tail *": "allow",
+      "sort *": "allow"
     },
     "edit": "allow",
     "glob": "allow",
-    "read": "allow"
+    "read": "allow",
+    "todowrite": "allow"
   }
 }

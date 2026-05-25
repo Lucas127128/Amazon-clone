@@ -8,6 +8,11 @@ import { renderProducts } from './amazon/products.ts';
 import { handleSortSelect } from './amazon/sort.ts';
 import { handleSearch, handleSearchInput } from './header.ts';
 
+const a = new Image();
+a.src = '/images/products/electric-glass-and-steel-hot-water-kettle.webp';
+a.fetchPriority = 'high';
+a.loading = 'eager';
+
 function renderAmazonHomePage() {
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
