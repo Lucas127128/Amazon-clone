@@ -73,9 +73,7 @@ exports[`generateOrdersProductHTML > generate correct html 1`] = `
         data-product-id="59LXo"
         data-order-id="gsZyI1l"
       >
-        <img class="buy-again-icon" src="images/icons/buy-again.png" />
-        <span class="buy-again-message">Buy it again</span>
-        <span class="buy-again-success">&#x2713; Added</span>
+        <img class="buy-again-icon" src="images/icons/buy-again.png"> <span class="buy-again-message">Buy it again</span> <span class="buy-again-success">&#x2713; Added</span>
       </button>
     </div>
 

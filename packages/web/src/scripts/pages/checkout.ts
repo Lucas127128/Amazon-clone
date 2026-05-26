@@ -14,5 +14,6 @@ cartStore.subscribe(async (cartData) => {
     renderOrderSummary({ cart: cart, products }),
     renderPaymentSummary({ cart: cart, products }),
   ]);
-  handlePlaceOrder();
 });
+
+handlePlaceOrder();

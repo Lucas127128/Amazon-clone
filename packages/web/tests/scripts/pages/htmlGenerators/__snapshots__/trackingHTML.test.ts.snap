@@ -12,11 +12,7 @@ exports[`generateTrackingHTML > generate correct HTML 1`] = `
 
     <img class="product-image" src="/images/products/liquid-laundry-detergent-plain.webp" />
 
-    <div class="progress-labels-container">
-      <div class="progress-label">Preparing</div>
-      <div class="progress-label current-status">Shipped</div>
-      <div class="progress-label">Delivered</div>
-    </div>
+    <div class="progress-labels-container"><div class="progress-label">Preparing</div><div class="progress-label current-status">Shipped</div><div class="progress-label">Delivered</div></div>
 
     <div class="progress-bar-container">
       <div

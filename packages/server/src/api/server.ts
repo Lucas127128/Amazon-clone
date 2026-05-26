@@ -1,3 +1,4 @@
+import { serverTiming } from '@elysia/server-timing';
 import { cors } from '@elysiajs/cors';
 import { Elysia } from 'elysia';
 import { localHttps } from 'elysia-local-https';
@@ -58,6 +59,7 @@ export const app = new Elysia({
       allowedHeaders: ['Content-Type'],
     }),
   )
+  .use(Bun.env.DEV ? serverTiming() : undefined)
   .use(openApi())
   .use(staticPlugin)
   .use(productsPlugin)

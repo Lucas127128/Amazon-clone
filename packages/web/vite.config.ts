@@ -6,46 +6,50 @@ import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import htmlPurge from 'vite-plugin-purgecss';
 
-export default defineConfig({
-  root: './src',
-  publicDir: '../public',
-  build: {
-    outDir: '../dist',
-    emptyOutDir: true,
-    rolldownOptions: {
-      input: {
-        main: 'index.html',
-        checkout: 'checkout.html',
-        orders: 'orders.html',
-        tracking: 'tracking.html',
+export default defineConfig(({ command }) => {
+  const isBuild = command === 'build';
+
+  return {
+    root: './src',
+    publicDir: '../public',
+    build: {
+      outDir: '../dist',
+      emptyOutDir: true,
+      rolldownOptions: {
+        input: {
+          main: 'index.html',
+          checkout: 'checkout.html',
+          orders: 'orders.html',
+          tracking: 'tracking.html',
+        },
+        // devtools: {}
       },
-      // devtools: {}
+      target: 'baseline-widely-available',
+      assetsInlineLimit: 0,
+      // sourcemap: true,
     },
-    target: 'baseline-widely-available',
-    assetsInlineLimit: 0,
-    // sourcemap: true,
-  },
-  // experimental: { bundledDev: true },
-  plugins: [
-    htmlMinifier({ minify: true }),
-    htmlPurge({}),
-    Sonda({ open: false }),
-    comptime(),
-    // DevTools(),
-  ],
-  css: {
-    transformer: 'lightningcss',
-    lightningcss: {
-      targets: {
-        safari: 15,
-        chrome: 100,
-        firefox: 100,
+    // experimental: { bundledDev: true },
+    plugins: [
+      isBuild && htmlMinifier({ minify: true }),
+      isBuild && htmlPurge({}),
+      isBuild && Sonda({ open: false }),
+      comptime(),
+      // DevTools(),
+    ],
+    css: {
+      transformer: 'lightningcss',
+      lightningcss: {
+        targets: {
+          safari: 15,
+          chrome: 100,
+          firefox: 100,
+        },
       },
     },
-  },
-  server: {
-    port: 5174,
-    allowedHosts: [GLOBAL_CONFIG.PREVIEW_URL.replace('https://', '')],
-    forwardConsole: true,
-  },
+    server: {
+      port: 5174,
+      allowedHosts: [new URL(GLOBAL_CONFIG.PREVIEW_URL).hostname],
+      forwardConsole: true,
+    },
+  };
 });

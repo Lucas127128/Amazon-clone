@@ -4,7 +4,7 @@ import { fetchProducts } from '#data/products.ts';
 
 import { cartQuantity } from '../data/cart.ts';
 import { getURLParams } from '../utils/url.ts';
-import { renderProducts } from './amazon/products.ts';
+import { handleAddToCart, renderProducts } from './amazon/products.ts';
 import { handleSortSelect } from './amazon/sort.ts';
 import { handleSearch, handleSearchInput } from './header.ts';
 
@@ -29,5 +29,12 @@ const products =
 
 renderProducts(products);
 renderAmazonHomePage();
+handleAddToCart();
 handleSortSelect(products);
 handleSearchInput();
+
+if (searchQuery !== null) {
+  const url = new URL(location.href);
+  url.searchParams.delete('q');
+  history.replaceState(null, '', url.toString());
+}

@@ -1,3 +1,5 @@
+import { comptime } from 'comptime';
+import { minify } from 'html-minifier-next';
 import type { Product } from 'shared/products';
 export function generateAmazonHTML(
   product: Product,
@@ -30,22 +32,25 @@ export function generateAmazonHTML(
         <div class="product-price">
           $${product.price}
         </div>
-
-        <div class="product-quantity-container">
-          <select class = "ProductQuantitySelector">
-            <option selected value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </div>
-
+${comptime(async () => {
+  return await minify(
+    `<div class="product-quantity-container">
+    <select class="ProductQuantitySelector">
+      <option selected value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+  </div>`,
+    { noNewlinesBeforeTagClose: true, collapseWhitespace: true },
+  );
+})}
         <div class='size-chart-container'>
           ${
             product.isClothing

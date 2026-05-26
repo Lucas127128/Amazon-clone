@@ -1,3 +1,5 @@
+import { comptime } from 'comptime';
+import { minify } from 'html-minifier-next';
 import { getDeliveryDate } from 'shared/deliveryOption';
 import type { Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
@@ -24,11 +26,17 @@ export function generateTrackingHTML(
 
     <img class="product-image" src="${matchingProduct.image}" />
 
-    <div class="progress-labels-container">
-      <div class="progress-label">Preparing</div>
-      <div class="progress-label current-status">Shipped</div>
-      <div class="progress-label">Delivered</div>
-    </div>
+    ${comptime(
+      async () =>
+        await minify(
+          `<div class="progress-labels-container">
+              <div class="progress-label">Preparing</div>
+              <div class="progress-label current-status">Shipped</div>
+              <div class="progress-label">Delivered</div>
+          </div>`,
+          { collapseWhitespace: true },
+        ),
+    )}
 
     <div class="progress-bar-container">
       <div

@@ -1,3 +1,5 @@
+import { comptime } from 'comptime';
+import { minify } from 'html-minifier-next';
 import { getDeliveryDate } from 'shared/deliveryOption';
 import { formatCurrency } from 'shared/money';
 import type { Product } from 'shared/products';
@@ -25,9 +27,14 @@ export function generateOrdersProductHTML(
         data-product-id="${product.productId}"
         data-order-id="${orderId}"
       >
-        <img class="buy-again-icon" src="images/icons/buy-again.png" />
-        <span class="buy-again-message">Buy it again</span>
-        <span class="buy-again-success">&#x2713; Added</span>
+        ${comptime(async () => {
+          return await minify(
+            `<img class="buy-again-icon" src="images/icons/buy-again.png" />
+            <span class="buy-again-message">Buy it again</span>
+            <span class="buy-again-success">&#x2713; Added</span>`,
+            { noNewlinesBeforeTagClose: true, collapseWhitespace: true },
+          );
+        })}
       </button>
     </div>
 

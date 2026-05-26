@@ -3,6 +3,7 @@
   "plugin": ["@hueyexe/opencode-ensemble@0.14.1"],
   "instructions": [".agents/*.md"],
   "lsp": true,
+  "formatter": {},
   "permission": {
     "*": "ask",
     "bash": {
@@ -27,6 +28,8 @@
     "edit": "allow",
     "glob": "allow",
     "read": "allow",
-    "todowrite": "allow"
+    "todowrite": "allow",
+    "grep": "allow",
+    "webfetch": "allow"
   }
 }
