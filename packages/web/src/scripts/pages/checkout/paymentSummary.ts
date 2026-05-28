@@ -14,7 +14,7 @@ import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts'
 
 export async function renderPaymentSummary(params: {
   cart: Cart[];
-  products: Promise<readonly Product[]> | Product[];
+  products: Promise<readonly Product[]> | readonly Product[];
 }) {
   const products = await params.products;
   const { data: prices, error } = calculatePrices(params.cart, products);

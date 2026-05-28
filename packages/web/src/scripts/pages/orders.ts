@@ -26,11 +26,12 @@ async function renderPlacedOrder() {
   const ordersHTML = document.querySelector('div.orders-grid');
   checkNullish(ordersHTML);
 
-  const products = await fetchProducts(
+  const { data: products, error } = await fetchProducts(
     orders.flatMap((order) =>
       order.products.map((product) => product.productId),
     ),
   );
+  if (error) throw error;
   let placedOrderContainerHTML = '';
   for (const order of orders) {
     let placedOrderHTML = '';

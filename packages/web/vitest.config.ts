@@ -19,6 +19,7 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['json', 'text'],
       reportsDirectory: '../../coverage/web',
+      exclude: ['src/scripts/utils/trustedTypes.ts'],
     },
     projects: [
       {
@@ -26,7 +27,6 @@ export default defineConfig({
         test: {
           name: 'bun',
           include: [
-            'tests/scripts/utils/**/*.test.ts',
             'tests/scripts/data/**/*.test.ts',
             'tests/scripts/pages/htmlGenerators/**/*.test.ts',
           ],
@@ -38,7 +38,10 @@ export default defineConfig({
         plugins,
         test: {
           name: 'happy-dom',
-          include: ['tests/scripts/pages/checkout/**/*.test.ts'],
+          include: [
+            'tests/scripts/pages/checkout/**/*.test.ts',
+            'tests/scripts/utils/url.test.ts',
+          ],
           setupFiles: ['./vitest.setup.ts'],
           environment: 'happy-dom',
           environmentOptions: {

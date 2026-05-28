@@ -22,15 +22,19 @@ function renderAmazonHomePage() {
 }
 
 const { q: searchQuery } = getURLParams();
-const products =
-  searchQuery === null
-    ? await fetchProducts()
-    : await handleSearch(searchQuery);
 
-renderProducts(products);
+if (searchQuery === null) {
+  const { data: products, error } = await fetchProducts();
+  if (error) throw error;
+  renderProducts(products);
+  handleSortSelect(products);
+} else {
+  const products = await handleSearch(searchQuery);
+  renderProducts(products);
+  handleSortSelect(products);
+}
 renderAmazonHomePage();
 handleAddToCart();
-handleSortSelect(products);
 handleSearchInput();
 
 if (searchQuery !== null) {

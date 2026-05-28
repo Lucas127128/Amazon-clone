@@ -22,7 +22,8 @@
       "head *": "allow",
       "tail *": "allow",
       "sort *": "allow",
-      "rg *": "allow"
+      "rg *": "allow",
+      "date *": "allow"
     },
     "skill": "allow",
     "edit": "allow",

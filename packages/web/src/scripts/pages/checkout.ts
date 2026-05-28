@@ -9,7 +9,10 @@ import {
 
 cartStore.subscribe(async (cartData) => {
   const cart = [...cartData];
-  const products = fetchProducts(cart.map((item) => item.productId));
+  const { data: products, error } = await fetchProducts(
+    cart.map((item) => item.productId),
+  );
+  if (error) throw error;
   await Promise.allSettled([
     renderOrderSummary({ cart: cart, products }),
     renderPaymentSummary({ cart: cart, products }),

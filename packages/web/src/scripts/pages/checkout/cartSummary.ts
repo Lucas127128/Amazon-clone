@@ -24,7 +24,7 @@ const orderSummary = document.querySelector('div.order-summary');
 
 export async function renderOrderSummary(params: {
   cart: Cart[];
-  products: Promise<readonly Product[]>;
+  products: Promise<readonly Product[]> | readonly Product[];
 }) {
   const products = await params.products;
   checkNullish(orderSummary, 'Fail to select HTML element');

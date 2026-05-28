@@ -50,6 +50,16 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
             ),
           ])
         : await realFetch(input, init);
+    } else if (url === `${GLOBAL_CONFIG.API_URL}/api/search/products`) {
+      const body = JSON.parse(init?.body as string) as {
+        q: string;
+        limit: number;
+      };
+      const match =
+        body.q === '2 Slot Toaster - Black' && body.limit === 3;
+      return match
+        ? Response.json(['7nDww', '6IxpJ', 'I2PJ7'])
+        : await realFetch(input, init);
     } else {
       return await realFetch(input, init);
     }

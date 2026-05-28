@@ -11,9 +11,9 @@ export async function fetchProducts(productIds?: string[]) {
       ? app.api.matchingProducts.post(productIds)
       : app.api.products.get(),
   ]);
-  if (clothingsError) throw clothingsError;
-  if (productsError) throw productsError;
-  return transformProducts(rawProducts, clothings);
+  if (clothingsError) return { data: null, error: clothingsError };
+  if (productsError) return { data: null, error: productsError };
+  return { data: transformProducts(rawProducts, clothings), error: null };
 }
 
 export async function fetchMatchingProduct(productId: string) {
@@ -24,8 +24,8 @@ export async function fetchMatchingProduct(productId: string) {
     app.api.clothingList.get(),
     app.api.matchingProduct.get({ query: { productId } }),
   ]);
-  if (clothingsError) throw clothingsError;
-  if (productError) throw productError;
+  if (clothingsError) return { data: null, error: clothingsError };
+  if (productError) return { data: null, error: productError };
   const isClothing = clothings.includes(rawProduct.id);
-  return createProduct(rawProduct, isClothing);
+  return { data: createProduct(rawProduct, isClothing), error: null };
 }

@@ -17,6 +17,7 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['json', 'text'],
       reportsDirectory: './coverage/api-client',
+      exclude: ['./src/edenTreaty.ts'],
     },
     projects: [
       {

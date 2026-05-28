@@ -18,8 +18,9 @@ async function renderTrackingSummary() {
   checkNullish(orderId);
   checkNullish(productId);
 
-  const product = await fetchMatchingProduct(productId);
-
+  const { data: product, error: productError } =
+    await fetchMatchingProduct(productId);
+  if (productError) throw productError;
   const savedOrders = localStorage.getItem(
     comptime(() => STORAGE_KEYS.ORDER),
   );
