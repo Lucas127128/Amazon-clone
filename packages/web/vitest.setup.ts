@@ -41,7 +41,18 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
       );
     } else if (url === `${GLOBAL_CONFIG.API_URL}/api/matchingProducts`) {
       // prettier-ignore
-      const match = (JSON.parse(init?.body as string) as string[])[0] === "sMmsZ"
+      const ids = JSON.parse(init?.body as string) as string[];
+      if (ids[0] === 'FETCH_ERROR') {
+        return Response.json(
+          {
+            message: 'Product FETCH_ERROR not found',
+          },
+          {
+            status: 404,
+          },
+        );
+      }
+      const match = ids[0] === 'sMmsZ';
       return match
         ? Response.json([
             getMatchingRawProduct(
@@ -55,6 +66,12 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
         q: string;
         limit: number;
       };
+      if (body.q === 'SEARCH_ERROR') {
+        return Response.json({ message: 'Search error' }, { status: 500 });
+      }
+      if (body.q === 'FETCH_ERROR') {
+        return Response.json(['FETCH_ERROR']);
+      }
       const match =
         body.q === '2 Slot Toaster - Black' && body.limit === 3;
       return match

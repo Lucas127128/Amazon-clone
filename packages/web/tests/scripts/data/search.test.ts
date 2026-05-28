@@ -1,4 +1,3 @@
-// import { GLOBAL_CONFIG } from 'shared/constants';
 import type { Product } from 'shared/products';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -31,6 +30,16 @@ describe.concurrent('searchProducts', () => {
     ).toBe(true);
     expect(result.length).toBe(4);
   });
+  it('throws on search API error', async () => {
+    await expect(searchProducts('SEARCH_ERROR')).rejects.toThrow(
+      '[object Object]',
+    );
+  });
+  it('throws on fetchProducts error', async () => {
+    await expect(searchProducts('FETCH_ERROR')).rejects.toThrow(
+      '[object Object]',
+    );
+  });
 });
 
 describe('searchProductsSuggestions', { concurrent: false }, () => {
@@ -47,5 +56,19 @@ describe('searchProductsSuggestions', { concurrent: false }, () => {
       interval: 5,
     });
     expect(productsArg.length).toBe(3);
+  });
+  it('handles search API error', () => {
+    const fn = vi.fn<() => void>();
+    process.on('unhandledRejection', async () => await Promise.resolve());
+    searchProductsSuggestions.maybeExecute('SEARCH_ERROR', fn);
+    searchProductsSuggestions.flush();
+    expect(fn).not.toHaveBeenCalled();
+  });
+  it('handles fetchProducts error', () => {
+    const fn = vi.fn<() => void>();
+    process.on('unhandledRejection', async () => await Promise.resolve());
+    searchProductsSuggestions.maybeExecute('FETCH_ERROR', fn);
+    searchProductsSuggestions.flush();
+    expect(fn).not.toHaveBeenCalled();
   });
 });
