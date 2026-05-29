@@ -5,14 +5,13 @@ import { describe, expect, it } from 'vitest';
 import { app } from '../../src/utils/edenTreaty.ts';
 
 describe.concurrent('order api test', async () => {
-  const { data: order, error } = await app.api.orders.post(cart as Cart[]);
-  if (error) throw error;
+  const { data: order } = await app.api.orders.post(cart as Cart[]);
 
   it('Return right totalCostCents', () => {
-    expect(order.totalCostCents).toBe(correctOrder.totalCostCents);
+    expect(order?.totalCostCents).toBe(correctOrder.totalCostCents);
   });
   it('Return right products', () => {
-    expect(order.products).toEqual(correctOrder.products);
+    expect(order?.products).toEqual(correctOrder.products);
   });
 
   it('returns 422 if productId not found', async () => {

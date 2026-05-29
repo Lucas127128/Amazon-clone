@@ -1,6 +1,5 @@
 import { Elysia } from 'elysia';
 import { log } from 'evlog';
-import { evlog } from 'evlog/elysia';
 import {
   ClothingListSchema,
   RawProductSchema,
@@ -9,15 +8,16 @@ import {
 import { array, object, string } from 'valibot';
 
 import { createProdDataProvider } from '#utils/dataProvider.ts';
+import { createEvlogMiddleware } from '#utils/logger.ts';
 
 import { createProductsService } from './service.ts';
 
 const Service = createProductsService(await createProdDataProvider());
 
 export const productsPlugin = new Elysia({ prefix: '/api' })
-  .use(evlog())
+  .use(createEvlogMiddleware())
   .onStart(() => {
-    log.info('api', 'Products api service starts');
+    log.info({ event: 'service.start', service: 'products' });
   })
   .onBeforeHandle(({ request, server, log }) => {
     const clientIP = server?.requestIP(request)?.address;

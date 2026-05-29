@@ -1,6 +1,5 @@
 import { Elysia } from 'elysia';
 import { log } from 'evlog';
-import { evlog } from 'evlog/elysia';
 import {
   CartsSchema,
   ElysiaValidationErrorSchema,
@@ -9,6 +8,7 @@ import {
 import { minLength, pipe } from 'valibot';
 
 import { createProdDataProvider } from '#utils/dataProvider.ts';
+import { createEvlogMiddleware } from '#utils/logger.ts';
 
 import { createOrdersService } from './service.ts';
 
@@ -16,9 +16,9 @@ const OrderService = createOrdersService(await createProdDataProvider());
 
 export const orderPlugin = new Elysia({ prefix: '/api' })
   .onStart(() => {
-    log.info('api', 'Orders api service starts');
+    log.info({ event: 'service.start', service: 'orders' });
   })
-  .use(evlog())
+  .use(createEvlogMiddleware())
   .onBeforeHandle(({ request, server, log }) => {
     const clientIP = server?.requestIP(request)?.address;
     log.set({ clientIp: clientIP });

@@ -1,4 +1,5 @@
 import { Elysia } from 'elysia';
+import { log } from 'evlog';
 import { match, P } from 'ts-pattern';
 
 const glob = new Bun.Glob('**/*');
@@ -78,6 +79,7 @@ await Promise.all(
       set.headers['content-type'] = contentType;
       set.headers['cache-control'] = cacheControl;
       set.headers['content-encoding'] = contentEncoding;
+      log.info({ event: 'static.serve', route });
       return file;
     });
   }),

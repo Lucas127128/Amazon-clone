@@ -21,10 +21,12 @@ export const app = new Elysia({
   serve: { http3: true, http1: true },
 })
   .onStart(({ server }) => {
-    log.info(
-      'api',
-      `🦊 Elysia is running at ${server?.hostname}:${server?.port} on pid: ${process.pid}`,
-    );
+    log.info({
+      event: 'server.start',
+      host: server?.hostname,
+      port: server?.port,
+      pid: process.pid,
+    });
   })
   .error({ ValiError })
   .onError({ as: 'global' }, ({ code, error, status }) => {

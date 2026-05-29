@@ -1,9 +1,9 @@
 import { Elysia } from 'elysia';
 import { log } from 'evlog';
-import { evlog } from 'evlog/elysia';
 import { SearchOptionsSchema, SearchResultSchema } from 'shared/schema';
 
 import { createProdDataProvider } from '#utils/dataProvider.ts';
+import { createEvlogMiddleware } from '#utils/logger.ts';
 
 import { createSearchService } from './service.ts';
 
@@ -11,9 +11,9 @@ const Service = await createSearchService(await createProdDataProvider());
 
 export const searchPlugin = new Elysia({ prefix: '/api/search' })
   .onStart(() => {
-    log.info('api', 'Search api service starts');
+    log.info({ event: 'service.start', service: 'search' });
   })
-  .use(evlog())
+  .use(createEvlogMiddleware())
   .use(Service)
   .onBeforeHandle(({ request, server, log, query }) => {
     const clientIP = server?.requestIP(request)?.address;

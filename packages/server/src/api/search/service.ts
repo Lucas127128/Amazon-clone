@@ -5,10 +5,11 @@ import type { SearchResult } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 
 import type { DataProvider } from '#utils/dataProvider.ts';
+import { createLogger } from '#utils/logger.ts';
 
 export async function createSearchService(provider: DataProvider) {
   const { error, rawProducts } = provider;
-  if (error) throw error;
+  if (error) throw new Error(error.message as string);
 
   const productsSearch = create({
     schema: {
@@ -37,6 +38,7 @@ export async function createSearchService(provider: DataProvider) {
     })
     .decorate('Search', {
       async searchProducts(query: string, limit: number = 5) {
+        const log = createLogger();
         const results = (
           await search(productsSearch, {
             term: query,
@@ -46,6 +48,7 @@ export async function createSearchService(provider: DataProvider) {
         ).hits.map((result) => {
           return result.document.id;
         });
+        log?.set({ query, resultCount: results.length });
         return cachedSearches.getOrInsert(
           { q: query, time: Temporal.Now.zonedDateTimeISO() },
           results,
