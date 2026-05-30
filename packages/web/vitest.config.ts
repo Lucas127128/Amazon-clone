@@ -21,6 +21,7 @@ export default defineConfig({
       reportsDirectory: '../../coverage/web',
       exclude: ['src/scripts/utils/trustedTypes.ts'],
     },
+    detectAsyncLeaks: true,
     projects: [
       {
         plugins,

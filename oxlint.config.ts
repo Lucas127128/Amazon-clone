@@ -29,7 +29,7 @@ export default defineConfig({
     'prefer-destructuring': 'warn',
     'prefer-template': 'warn',
     'no-eval': 'error',
-    'import/no-cycle': ['error', { maxDepth: 3 }],
+    'import/no-cycle': 'error',
     'no-useless-escape': 'warn',
     'no-loop-func': 'warn',
     'prefer-rest-params': 'warn',
@@ -120,6 +120,7 @@ export default defineConfig({
     'vitest/no-alias-methods': 'error',
     'unicorn/prefer-array-find': 'error',
     'turbo/no-undeclared-env-vars': 'error',
+    'unicorn/import-style': 'error',
   },
   settings: {
     vitest: {

@@ -12,6 +12,18 @@
       "skillPath": "skills/antfu/SKILL.md",
       "computedHash": "e6629200b1f033c78150985fb1b1ec2aa848a378c0637f9a850cb33f650bce19"
     },
+    "bun-api": {
+      "source": "dmythro/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/bun-api/SKILL.md",
+      "computedHash": "ce5d829b5628bfc1abb00596ebf07c2a61dc8c119397ca1199ee0e822337c565"
+    },
+    "bun-cli": {
+      "source": "dmythro/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/bun-cli/SKILL.md",
+      "computedHash": "e623399d9ab77a77353e4d45998e317a9e8bb505381454b20674fdf9d6f80021"
+    },
     "diagnose": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -28,7 +40,7 @@
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
-      "computedHash": "a5c65e76275008b469962f7bee8b34866f1c9b0709f4886e71c8e731735640e4"
+      "computedHash": "eb0e91e84277283dc2b23ed544399e53afd6b5287e5b6929f25fe8aa608e164b"
     },
     "handoff": {
       "source": "mattpocock/skills",
@@ -46,7 +58,7 @@
       "source": "GoogleChrome/modern-web-guidance",
       "sourceType": "github",
       "skillPath": "skills/modern-web-guidance/SKILL.md",
-      "computedHash": "9f19aa0e3b554d33b2709c66bb16ad342403e323761f62d6665fbb424c23148d"
+      "computedHash": "5ba7a1367448fb7892112f0b629e9e23d1ba73eda5193aa0cadade6e8d2a83ba"
     },
     "opencode-ensemble": {
       "source": "hueyexe/opencode-ensemble",

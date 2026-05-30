@@ -1,7 +1,5 @@
 import 'typed-query-selector';
 
-import { comptime } from 'comptime';
-import { CART_CONFIG } from 'shared/constants';
 import { getMatchingProduct, type Product } from 'shared/products';
 import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
 import {
@@ -14,6 +12,8 @@ import { parse } from 'valibot';
 import {
   addToCart,
   cartQuantity,
+  cartStore,
+  getMatchingCart,
   removeFromCart,
   updateDeliveryOption,
 } from '../../data/cart.ts';
@@ -74,13 +74,12 @@ function handleSaveQuantity(
     'input.quantity-input',
   );
   checkNullish(quantityInput);
+  const cart = getMatchingCart(cartStore.get(), productId);
+  checkNullish(cart, 'Fail to get matching cart');
   addToCart(
     {
-      productId: productId,
+      ...cart,
       quantity: Number(quantityInput.value),
-      deliveryOptionId: comptime(
-        () => CART_CONFIG.DEFAULT_DELIVERY_OPTION,
-      ),
     },
     false,
   );

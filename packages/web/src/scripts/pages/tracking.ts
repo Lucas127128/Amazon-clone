@@ -39,9 +39,10 @@ async function renderTrackingSummary() {
     matchingCart,
   );
   const backToOrderLink = document.querySelector('.back-to-orders-link');
+  checkNullish(backToOrderLink);
   const trustedHTML = sanitizer?.createHTML(trackingHTML);
   checkNullish(trustedHTML);
-  backToOrderLink?.insertAdjacentHTML(
+  backToOrderLink.insertAdjacentHTML(
     'afterend',
     trustedHTML as unknown as string,
   );

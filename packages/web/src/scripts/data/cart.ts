@@ -29,11 +29,16 @@ export const getMatchingCart = (cart: Cart[], productId: string) =>
 export function addToCart(cartItem: Cart, increment: boolean = false) {
   const newCart = structuredClone(cartStore.get());
   const matchingCart = getMatchingCart(newCart, cartItem.productId);
-  matchingCart
-    ? increment
-      ? (matchingCart.quantity += cartItem.quantity)
-      : (matchingCart.quantity = cartItem.quantity)
-    : newCart.push(cartItem);
+  if (matchingCart) {
+    matchingCart.deliveryOptionId = cartItem.deliveryOptionId;
+    if (increment) {
+      matchingCart.quantity += cartItem.quantity;
+    } else {
+      matchingCart.quantity = cartItem.quantity;
+    }
+  } else {
+    newCart.push(cartItem);
+  }
   cartStore.set(parse(CartsSchema, newCart));
 }
 
@@ -47,7 +52,7 @@ export function updateDeliveryOption(
   productId: string,
   deliveryOptionId: DeliveryOptionId,
 ) {
-  const newCart = cartStore.get();
+  const newCart = structuredClone(cartStore.get());
   const matchingItem = getMatchingCart(newCart, productId);
   checkNullish(matchingItem, 'The product id is not valid.');
   matchingItem.deliveryOptionId = deliveryOptionId;

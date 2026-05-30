@@ -20,39 +20,44 @@ export async function createSearchService(provider: DataProvider) {
   await insertMultiple(productsSearch, rawProducts);
 
   const cachedSearches = new Map<
-    { q: string; time: Temporal.ZonedDateTime },
-    SearchResult
+    `${string}:${number}`,
+    { results: SearchResult; time: Temporal.ZonedDateTime }
   >();
 
-  return new Elysia()
-    .onAfterResponse(() => {
-      if (cachedSearches.size > 2000) {
-        const now = Temporal.Now.zonedDateTimeISO();
-        for (const key of cachedSearches.keys()) {
-          const expirationTime = key.time.add(FETCH_CONFIG.CACHE_TTL);
-          if (Temporal.ZonedDateTime.compare(now, expirationTime) > 0) {
-            cachedSearches.delete(key);
-          }
+  Bun.cron('10 * * * *', () => {
+    setTimeout(() => {
+      const now = Temporal.Now.zonedDateTimeISO();
+      for (const [key, value] of cachedSearches) {
+        const expirationTime = value.time.add(FETCH_CONFIG.CACHE_TTL);
+        if (Temporal.ZonedDateTime.compare(now, expirationTime) > 0) {
+          cachedSearches.delete(key);
         }
       }
-    })
-    .decorate('Search', {
-      async searchProducts(query: string, limit: number = 5) {
-        const log = createLogger();
-        const results = (
-          await search(productsSearch, {
-            term: query,
-            properties: ['name'],
-            limit,
-          })
-        ).hits.map((result) => {
-          return result.document.id;
-        });
-        log?.set({ query, resultCount: results.length });
-        return cachedSearches.getOrInsert(
-          { q: query, time: Temporal.Now.zonedDateTimeISO() },
+    }, 0);
+  });
+  return new Elysia().decorate('Search', {
+    async searchProducts(query: string, limit: number = 5) {
+      const log = createLogger();
+      const cachedResult = cachedSearches.get(`${query}:${limit}`);
+      if (cachedResult) return cachedResult.results;
+
+      const results = (
+        await search(productsSearch, {
+          term: query,
+          properties: ['name'],
+          limit,
+        })
+      ).hits.map((result) => {
+        return result.document.id;
+      });
+      log?.set({ query, resultCount: results.length });
+      setTimeout(() => {
+        cachedSearches.set(`${query}:${limit}`, {
           results,
-        );
-      },
-    });
+          time: Temporal.Now.zonedDateTimeISO(),
+        });
+      }, 0);
+      return results;
+    },
+  });
 }

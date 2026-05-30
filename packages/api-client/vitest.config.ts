@@ -19,6 +19,7 @@ export default defineConfig({
       reportsDirectory: './coverage/api-client',
       exclude: ['./src/edenTreaty.ts'],
     },
+    detectAsyncLeaks: true,
     projects: [
       {
         test: {

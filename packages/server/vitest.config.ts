@@ -18,6 +18,7 @@ export default defineConfig({
       reporter: ['json', 'text'],
       reportsDirectory: '../../coverage/server',
     },
+    detectAsyncLeaks: true,
     projects: [
       {
         test: {

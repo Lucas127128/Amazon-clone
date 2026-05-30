@@ -1,3 +1,4 @@
+import { PRICE_CONFIG } from '../../config/constants.ts';
 import type { Cart } from '../schema.ts';
 import { getDeliveryPriceCents } from './deliveryOption.ts';
 import { getMatchingProduct, type Product } from './products.ts';
@@ -45,7 +46,7 @@ export function calculatePrices(
   }
 
   const totalPriceBeforeTax = totalDeliveryFee + totalProductPrice;
-  const totalTax = totalPriceBeforeTax / 10;
+  const totalTax = totalPriceBeforeTax * PRICE_CONFIG.TAX_RATE;
   const totalOrderPrice = totalPriceBeforeTax + totalTax;
   return {
     data: {
