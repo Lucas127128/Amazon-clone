@@ -17,7 +17,7 @@ export const cartStore = persistentAtom<Cart[]>(
       return JSON.stringify(value);
     },
     decode(value) {
-      const decoded = value ? (JSON.parse(value) as unknown) : [];
+      const decoded = value ? JSON.parse(value) : [];
       return parse(CartsSchema, decoded);
     },
   },

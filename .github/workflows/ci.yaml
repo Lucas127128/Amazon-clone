@@ -26,7 +26,7 @@ jobs:
       - name: Install dependency
         run: bun i --frozen-lockfile
       - name: Build app
-        run: bunx turbo web#build
+        run: bun run build
       - name: Install dependency for https
         run: |
           curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
@@ -38,7 +38,7 @@ jobs:
           run: bun run --cwd ./packages/server dev
           wait-on: https://localhost:8080
       - name: Run tests
-        run: bunx turbo test
+        run: bunx turbo run test
 
   audit:
     name: audit app

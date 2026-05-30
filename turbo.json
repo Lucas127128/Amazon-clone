@@ -6,39 +6,42 @@
       "inputs": [
         "**/*.ts",
         "!.agents/skills/**/*.ts",
-        "!packages/web/dist/**/*.ts",
-        "!node_modules/**/*.ts",
-        "!packages/web/dist/**/*.ts"
+        "!packages/web/dist/**/*.js",
+        "!node_modules/**/*.ts"
       ],
       "cache": true
     },
-    "web#build": {
-      "cache": true,
-      "outputs": ["./dist/**/*"]
-    },
-    "//#test:unit": {
+    "//#knip": {
       "cache": true
     },
-    "//#knip": {
+    "test:coverage": {
+      "cache": true
+    },
+    "//#test:merge-coverage": {
+      "dependsOn": ["^test:coverage"],
+      "inputs": ["./coverage"],
+      "outputs": ["./coverage-merged"],
+      "cache": true
+    },
+    "//#test:check-coverage": {
+      "dependsOn": ["//#test:merge-coverage"],
+      "cache": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
       "cache": true
     },
     "test": {
       "dependsOn": ["^test"],
       "cache": true
     },
-    "//#test:coverage": {
-      "outputs": ["./coverage"],
+    "test:unit": {
       "cache": true
     },
-    "//#test:merge-coverage": {
-      "dependsOn": ["//#test:coverage"],
-      "inputs": ["./coverage"],
-      "outputs": ["./coverage-merged"],
-      "cache": true
-    },
-    "//#test:check-coverage": {
-      "dependsOn": ["test:merge-coverage"],
-      "cache": true
+    "web#build": {
+      "cache": true,
+      "outputs": ["./dist/**/*"]
     }
   }
 }

@@ -11,8 +11,8 @@ import { createDrainPipeline } from 'evlog/pipeline';
 export function createEvlogMiddleware() {
   return evlog({
     enrich: (ctx) => {
-      createUserAgentEnricher()(ctx);
       createRequestSizeEnricher()(ctx);
+      createUserAgentEnricher()(ctx);
     },
   });
 }

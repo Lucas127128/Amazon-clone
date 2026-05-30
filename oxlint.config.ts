@@ -6,6 +6,7 @@ export default defineConfig({
     'eslint-plugin-depend',
     'eslint-plugin-simple-import-sort',
     'eslint-plugin-turbo',
+    'eslint-plugin-typed-rocks',
   ],
   plugins: [
     'eslint',
@@ -121,6 +122,7 @@ export default defineConfig({
     'unicorn/prefer-array-find': 'error',
     'turbo/no-undeclared-env-vars': 'error',
     'unicorn/import-style': 'error',
+    'typed-rocks/max-depth': 'warn',
   },
   settings: {
     vitest: {

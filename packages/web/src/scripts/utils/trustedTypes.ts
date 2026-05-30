@@ -11,7 +11,6 @@ const sanitizeHTML = (inputHTML: string) => {
       'placement',
       'for',
     ],
-    ADD_TAGS: ['wa-tooltip'],
   });
   return cleanHTML;
 };
