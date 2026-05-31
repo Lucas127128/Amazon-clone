@@ -1,3 +1,4 @@
+import { effect } from 'alien-signals';
 import { comptime } from 'comptime';
 import { STORAGE_KEYS } from 'shared/constants';
 import { getMatchingProduct } from 'shared/products';
@@ -76,8 +77,8 @@ async function renderPlacedOrder() {
   }
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  cartQuantity.subscribe((cartQuantity) => {
-    returnToHomeLink.textContent = cartQuantity.toString();
+  effect(() => {
+    returnToHomeLink.textContent = cartQuantity().toString();
   });
 }
 

@@ -2,6 +2,7 @@ import { Elysia } from 'elysia';
 import { log } from 'evlog';
 import {
   ClothingListSchema,
+  ProductIdSchema,
   RawProductSchema,
   RawProductsSchema,
 } from 'shared/schema';
@@ -37,7 +38,7 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
         200: RawProductSchema,
         404: object({ message: string() }),
       },
-      query: object({ productId: RawProductSchema.entries.id }),
+      query: object({ productId: ProductIdSchema }),
       detail: {
         description: 'Return a matching product from query',
       },
@@ -51,7 +52,7 @@ export const productsPlugin = new Elysia({ prefix: '/api' })
         200: RawProductsSchema,
         404: object({ message: string() }),
       },
-      body: array(RawProductSchema.entries.id),
+      body: array(ProductIdSchema),
       detail: {
         description: 'Return matching products from requested product ids',
       },

@@ -37,7 +37,6 @@
   "devDependencies": {
     "@elysiajs/eden": "^1.4.9",
     "@vitest/ui": "catalog:",
-    "happy-dom": "catalog:",
     "testdata": "workspace:",
     "vitest": "catalog:"
   }

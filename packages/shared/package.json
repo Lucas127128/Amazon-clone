@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@vitest/ui": "catalog:",
-    "happy-dom": "catalog:",
     "testdata": "workspace:",
     "vitest": "catalog:"
   }

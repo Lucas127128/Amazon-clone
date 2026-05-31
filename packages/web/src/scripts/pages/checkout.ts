@@ -1,3 +1,5 @@
+import { effect } from 'alien-signals';
+
 import { fetchProducts } from '#data/products.ts';
 
 import { cartStore } from '../data/cart.ts';
@@ -7,16 +9,20 @@ import {
   renderPaymentSummary,
 } from './checkout/paymentSummary.ts';
 
-cartStore.subscribe(async (cartData) => {
-  const cart = [...cartData];
-  const { data: products, error } = await fetchProducts(
-    cart.map((item) => item.productId),
-  );
-  if (error) throw error;
-  await Promise.allSettled([
-    renderOrderSummary({ cart: cart, products }),
-    renderPaymentSummary({ cart: cart, products }),
-  ]);
+effect(() => {
+  fetchProducts(cartStore().map((item) => item.productId))
+    .then(({ data: products, error }) => {
+      if (error) throw error;
+      return products;
+    })
+    .then(
+      async (products) =>
+        await Promise.allSettled([
+          renderOrderSummary({ cart: cartStore(), products }),
+          renderPaymentSummary({ cart: cartStore(), products }),
+        ]),
+    )
+    .catch((err) => console.error(err));
 });
 
 handlePlaceOrder();

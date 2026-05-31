@@ -36,7 +36,7 @@ export function handlePlaceOrder() {
   document
     .querySelector('.place-order-button')
     ?.addEventListener('click', async () => {
-      const response = await fetchOrders(cartStore.get());
+      const response = await fetchOrders(cartStore());
       const savedOrders = localStorage.getItem(
         comptime(() => STORAGE_KEYS.ORDER),
       );

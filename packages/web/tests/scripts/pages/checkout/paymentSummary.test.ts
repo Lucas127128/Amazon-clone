@@ -3,7 +3,7 @@ import { STORAGE_KEYS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
 import { cartJson as cart, productsJson as products } from 'testdata';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { cartStore } from '#data/cart.ts';
 import {
@@ -23,7 +23,10 @@ beforeAll(async () => {
     products: products as Product[],
   });
   handlePlaceOrder();
-  cartStore.set(cart as Cart[]);
+});
+
+beforeEach(() => {
+  cartStore(cart as Cart[]);
 });
 
 describe.concurrent('render payment details', () => {

@@ -39,10 +39,11 @@ export const RatingSchema = object({
 });
 
 export const PriceCentsSchema = pipe(number(), minValue(0));
+export const ProductIdSchema = pipe(string(), minLength(5), maxLength(5));
 
 export const RawProductSchema = cache(
   object({
-    id: pipe(string(), minLength(5), maxLength(5)),
+    id: ProductIdSchema,
     image: pipe(string(), minLength(1)),
     name: pipe(string(), minLength(1)),
     rating: RatingSchema,
@@ -60,7 +61,7 @@ export const DeliveryOptionIdSchema = union([
 export type DeliveryOptionId = InferOutput<typeof DeliveryOptionIdSchema>;
 
 export const CartSchema = object({
-  productId: RawProductSchema.entries.id,
+  productId: ProductIdSchema,
   quantity: pipe(
     number(),
     minValue(1),
@@ -80,11 +81,9 @@ export const OrderSchema = object({
 export const OrdersSchema = array(OrderSchema);
 export type Order = InferOutput<typeof OrderSchema>;
 
-export const ClothingListSchema = cache(
-  array(RawProductSchema.entries.id),
-);
+export const ClothingListSchema = cache(array(ProductIdSchema));
 
-export const SearchResultSchema = array(RawProductSchema.entries.id);
+export const SearchResultSchema = array(ProductIdSchema);
 export const SearchOptionsSchema = object({
   q: string(),
   limit: optional(number()),

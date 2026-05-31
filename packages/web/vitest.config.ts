@@ -28,7 +28,9 @@ export default defineConfig({
         test: {
           name: 'bun',
           include: [
-            'tests/scripts/data/**/*.test.ts',
+            'tests/scripts/data/orders.test.ts',
+            'tests/scripts/data/products.test.ts',
+            'tests/scripts/data/search.test.ts',
             'tests/scripts/pages/htmlGenerators/**/*.test.ts',
           ],
           environment: 'node',
@@ -42,6 +44,7 @@ export default defineConfig({
           include: [
             'tests/scripts/pages/checkout/**/*.test.ts',
             'tests/scripts/utils/url.test.ts',
+            'tests/scripts/data/cart.test.ts',
           ],
           setupFiles: ['./vitest.setup.ts'],
           environment: 'happy-dom',

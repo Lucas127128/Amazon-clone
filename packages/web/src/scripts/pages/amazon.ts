@@ -1,3 +1,4 @@
+import { effect } from 'alien-signals';
 import { checkNullish } from 'shared/typeChecker';
 
 import { fetchProducts } from '#data/products.ts';
@@ -16,8 +17,8 @@ a.loading = 'eager';
 function renderAmazonHomePage() {
   const returnToHomeLink = document.querySelector('.cart-quantity');
   checkNullish(returnToHomeLink);
-  cartQuantity.subscribe((cartQuantity) => {
-    returnToHomeLink.textContent = `${cartQuantity}`;
+  effect(() => {
+    returnToHomeLink.textContent = `${cartQuantity()}`;
   });
 }
 

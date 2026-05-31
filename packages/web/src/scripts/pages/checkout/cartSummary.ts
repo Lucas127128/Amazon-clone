@@ -1,5 +1,6 @@
 import 'typed-query-selector';
 
+import { effect } from 'alien-signals';
 import { getMatchingProduct, type Product } from 'shared/products';
 import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
 import {
@@ -49,8 +50,8 @@ export async function renderOrderSummary(params: {
 
 const returnToHomeLink = document.querySelector('.return-to-home-link');
 checkNullish(returnToHomeLink);
-cartQuantity.subscribe((cartQuantity) => {
-  returnToHomeLink.textContent = `${cartQuantity} items`;
+effect(() => {
+  returnToHomeLink.textContent = `${cartQuantity()} items`;
 });
 
 function handleUpdateQuantity(target: HTMLElement, productId: string) {
@@ -74,7 +75,7 @@ function handleSaveQuantity(
     'input.quantity-input',
   );
   checkNullish(quantityInput);
-  const cart = getMatchingCart(cartStore.get(), productId);
+  const cart = getMatchingCart(cartStore(), productId);
   checkNullish(cart, 'Fail to get matching cart');
   addToCart(
     {
