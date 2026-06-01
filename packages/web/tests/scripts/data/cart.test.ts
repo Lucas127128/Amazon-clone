@@ -9,7 +9,6 @@ import {
   cartStore,
   getMatchingCart,
   removeFromCart,
-  updateDeliveryOption,
 } from '#data/cart.ts';
 
 beforeEach(() => {
@@ -66,18 +65,6 @@ describe.concurrent('removeFromCart', () => {
   it('remove cartItem', () => {
     removeFromCart('59LXo');
     expect(cartStore()[0]).toEqual(cartJson[1] as Cart);
-  });
-});
-
-describe.concurrent('updateDeliveryOption', () => {
-  it('update delivery option', () => {
-    cartStore(cartJson.slice(0, 3) as Cart[]);
-    updateDeliveryOption('Hwme8', '3');
-    const deliveryOptionId = getMatchingCart(
-      cartStore(),
-      'Hwme8',
-    )?.deliveryOptionId;
-    expect(deliveryOptionId).toBe('3');
   });
 });
 

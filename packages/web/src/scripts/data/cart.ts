@@ -1,11 +1,6 @@
 import { computed, effect, signal } from 'alien-signals';
 import { STORAGE_KEYS } from 'shared/constants';
-import {
-  type Cart,
-  CartsSchema,
-  type DeliveryOptionId,
-} from 'shared/schema';
-import { checkNullish } from 'shared/typeChecker';
+import { type Cart, CartsSchema } from 'shared/schema';
 import { parse } from 'valibot';
 
 export const cartStore = signal<Cart[]>(
@@ -45,17 +40,6 @@ export function removeFromCart(productId: string) {
   cartStore(
     cartStore().filter((cartItem) => cartItem.productId !== productId),
   );
-}
-
-export function updateDeliveryOption(
-  productId: string,
-  deliveryOptionId: DeliveryOptionId,
-) {
-  const newCart = structuredClone(cartStore());
-  const matchingItem = getMatchingCart(newCart, productId);
-  checkNullish(matchingItem, 'The product id is not valid.');
-  matchingItem.deliveryOptionId = deliveryOptionId;
-  cartStore(parse(CartsSchema, newCart));
 }
 
 export const cartQuantity = computed(() => {

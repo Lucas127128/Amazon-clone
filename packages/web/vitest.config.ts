@@ -31,6 +31,7 @@ export default defineConfig({
             'tests/scripts/data/orders.test.ts',
             'tests/scripts/data/products.test.ts',
             'tests/scripts/data/search.test.ts',
+            'tests/scripts/data/tracking.test.ts',
             'tests/scripts/pages/htmlGenerators/**/*.test.ts',
           ],
           environment: 'node',

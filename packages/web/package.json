@@ -22,6 +22,7 @@
     "alien-signals": "^3.2.1",
     "api-client": "workspace:*",
     "dompurify": "^3.4.7",
+    "effect": "catalog:",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "typed-query-selector": "^2.12.1",

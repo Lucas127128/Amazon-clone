@@ -13,7 +13,6 @@
     "./typeChecker": "./src/utils/typeChecker.ts",
     "./constants": "./config/constants.ts",
     "./payment": "./src/data/payment.ts",
-    "./tracking": "./src/data/tracking.ts",
     "./money": "./src/utils/money.ts"
   },
   "scripts": {
@@ -23,7 +22,6 @@
     "test:unit": "bun run test"
   },
   "dependencies": {
-    "fp-ts": "^2.16.11",
     "temporal-polyfill-lite": "catalog:",
     "valibot": "catalog:"
   },

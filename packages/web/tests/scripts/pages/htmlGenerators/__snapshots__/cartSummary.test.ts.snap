@@ -85,6 +85,7 @@ exports[`generateCartSummary > generate correct html 1`] = `
             >
               Delete
             </span>
+            <span class="invalid-quantity-warning"> </span>
           </div>
         </div>
         <div class="delivery-options">

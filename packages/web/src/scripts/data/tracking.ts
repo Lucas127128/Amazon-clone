@@ -1,9 +1,7 @@
-import { pipe } from 'fp-ts/function';
+import { pipe } from 'effect';
+import { getDeliveryDateISO } from 'shared/deliveryOption';
+import type { Cart, Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
-
-import type { Cart } from '../schema';
-import type { Order } from '../schema';
-import { getDeliveryDateISO } from './deliveryOption';
 
 export function getDeliveryProgress(order: Order, matchingCart: Cart) {
   const orderTime = Temporal.Instant.from(

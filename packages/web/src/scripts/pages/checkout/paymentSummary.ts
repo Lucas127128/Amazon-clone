@@ -33,22 +33,25 @@ export async function renderPaymentSummary(params: {
 }
 
 export function handlePlaceOrder() {
-  document
-    .querySelector('.place-order-button')
-    ?.addEventListener('click', async () => {
-      const response = await fetchOrders(cartStore());
-      const savedOrders = localStorage.getItem(
-        comptime(() => STORAGE_KEYS.ORDER),
-      );
-      const orders = parse(OrdersSchema, JSON.parse(savedOrders ?? '[]'));
-      const { data: order, error } = response;
-      if (error) throw error;
-      orders.unshift(order);
-      localStorage.setItem(
-        comptime(() => STORAGE_KEYS.ORDER),
-        JSON.stringify(orders),
-      );
-      localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
-      location.href = '/orders.html';
-    });
+  const placeOrderButton = document.querySelector(
+    'button.place-order-button',
+  );
+  checkNullish(placeOrderButton, 'Fail to select HTML element');
+  placeOrderButton.addEventListener('click', async () => {
+    placeOrderButton.disabled = true;
+    const response = await fetchOrders(cartStore());
+    const savedOrders = localStorage.getItem(
+      comptime(() => STORAGE_KEYS.ORDER),
+    );
+    const orders = parse(OrdersSchema, JSON.parse(savedOrders ?? '[]'));
+    const { data: order, error } = response;
+    if (error) throw error;
+    orders.unshift(order);
+    localStorage.setItem(
+      comptime(() => STORAGE_KEYS.ORDER),
+      JSON.stringify(orders),
+    );
+    localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
+    location.href = '/orders.html';
+  });
 }

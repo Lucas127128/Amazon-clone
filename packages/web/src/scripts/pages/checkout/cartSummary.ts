@@ -1,6 +1,7 @@
 import 'typed-query-selector';
 
 import { effect } from 'alien-signals';
+import { CART_CONFIG } from 'shared/constants';
 import { getMatchingProduct, type Product } from 'shared/products';
 import { type Cart, DeliveryOptionIdSchema } from 'shared/schema';
 import {
@@ -16,7 +17,6 @@ import {
   cartStore,
   getMatchingCart,
   removeFromCart,
-  updateDeliveryOption,
 } from '../../data/cart.ts';
 import { sanitizer } from '../../utils/trustedTypes.ts';
 import { generateCartSummary } from '../htmlGenerators/cartSummaryHTML.ts';
@@ -55,6 +55,12 @@ effect(() => {
 });
 
 function handleUpdateQuantity(target: HTMLElement, productId: string) {
+  const deleteQuantity = target.parentElement?.querySelector(
+    'span.delete-quantity-link',
+  );
+  checkNullish(deleteQuantity, 'Fail to select HTML element');
+  deleteQuantity.style.display = 'none';
+
   const quantityInputHTML = target.parentElement?.querySelector(
     `input.quantity-input-${productId}`,
   );
@@ -84,6 +90,25 @@ function handleSaveQuantity(
     },
     false,
   );
+}
+
+function handleCheckInvalidQuantity(cartItemContainer: HTMLElement) {
+  const quantityInput = cartItemContainer.querySelector(
+    'input.quantity-input',
+  );
+  checkNullish(quantityInput);
+  const quantity = Number(quantityInput.value);
+  const invalidQuantityWarning = cartItemContainer.querySelector(
+    'span.invalid-quantity-warning',
+  );
+  checkNullish(invalidQuantityWarning, 'Fail to select HTML element');
+  if (quantity > CART_CONFIG.MAX_QUANTITY_PER_ITEM) {
+    quantityInput.classList.add('quantity-input-warning');
+    invalidQuantityWarning.textContent = `Expected quantity to be <=${CART_CONFIG.MAX_QUANTITY_PER_ITEM}`;
+  } else {
+    quantityInput.classList.remove('quantity-input-warning');
+    invalidQuantityWarning.textContent = '';
+  }
 }
 
 function handleOrderEvent(element: HTMLElement) {
@@ -118,8 +143,13 @@ orderSummary?.addEventListener('keyup', (event: KeyboardEvent) => {
   isHTMLElement(target, 'target');
   const { classList, productId, cartItemContainer } =
     handleOrderEvent(target);
-  if (classList.includes('quantity-input') && event.key === 'Enter')
-    handleSaveQuantity(cartItemContainer, productId);
+  if (classList.includes('quantity-input')) {
+    if (event.key === 'Enter') {
+      handleSaveQuantity(cartItemContainer, productId);
+    } else {
+      handleCheckInvalidQuantity(cartItemContainer);
+    }
+  }
 });
 
 orderSummary?.addEventListener('change', (event) => {
@@ -129,8 +159,13 @@ orderSummary?.addEventListener('change', (event) => {
   isHTMLInputElement(target);
   if (!classList.includes('delivery-option-input')) return;
   const { deliveryChoiceId } = target.dataset;
-  updateDeliveryOption(
-    productId,
-    parse(DeliveryOptionIdSchema, deliveryChoiceId),
+  const cart = getMatchingCart(cartStore(), productId);
+  checkNullish(cart, 'The product id is not valid.');
+  addToCart(
+    {
+      ...cart,
+      deliveryOptionId: parse(DeliveryOptionIdSchema, deliveryChoiceId),
+    },
+    false,
   );
 });

@@ -78,6 +78,7 @@ export function generateCartSummary(
             >
               Delete
             </span>
+            <span class="invalid-quantity-warning"> </span>
           </div>
         </div>
         <div class="delivery-options">

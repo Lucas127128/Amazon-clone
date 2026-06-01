@@ -3,7 +3,8 @@ import { minify } from 'html-minifier-next';
 import { getDeliveryDate } from 'shared/deliveryOption';
 import type { Product } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
-import { getDeliveryProgress } from 'shared/tracking';
+
+import { getDeliveryProgress } from '#data/tracking.ts';
 
 export function generateTrackingHTML(
   matchingProduct: Product,
