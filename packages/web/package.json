@@ -6,7 +6,8 @@
   "imports": {
     "#pages/*": "./src/scripts/pages/*",
     "#utils/*": "./src/scripts/utils/*",
-    "#data/*": "./src/scripts/data/*"
+    "#data/*": "./src/scripts/data/*",
+    "#viewModels/*": "./src/scripts/viewModels/*"
   },
   "scripts": {
     "build": "NODE_TLS_REJECT_UNAUTHORIZED=0 bunx -b vite build",
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
-    "@vitejs/devtools": "^0.2.0",
+    "@vitejs/devtools": "^0.3.1",
     "@vitest/ui": "catalog:",
     "comptime": "^0.1.0",
     "happy-dom": "catalog:",

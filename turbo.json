@@ -42,6 +42,14 @@
     "web#build": {
       "cache": true,
       "outputs": ["./dist/**/*"]
+    },
+    "web#dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "server#dev": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

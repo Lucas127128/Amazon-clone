@@ -1,6 +1,5 @@
-import { app } from 'api-client';
 import { dateFormatOption } from 'shared/deliveryOption';
-import type { Cart, Order } from 'shared/schema';
+import type { Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 
 export function getTimeString(ISOOrderTime: string) {
@@ -11,9 +10,3 @@ export function getTimeString(ISOOrderTime: string) {
 
 export const getMatchingOrder = (orders: Order[], orderId: string) =>
   orders.find((order) => order.id === orderId);
-
-export async function fetchOrders(cart: Cart[]) {
-  const { data, error } = await app.api.orders.post(cart);
-  if (error) return { data: null, error };
-  return { data, error: null };
-}

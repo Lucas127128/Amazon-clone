@@ -1,14 +1,15 @@
+import { app } from 'api-client';
 import { comptime } from 'comptime';
+import * as Effect from 'effect/Effect';
 import { STORAGE_KEYS } from 'shared/constants';
 import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
 import { type Cart, OrdersSchema } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
-import { parse } from 'valibot';
+import { safeParse } from 'valibot';
 
 import { cartStore } from '#data/cart.ts';
 
-import { fetchOrders } from '../../data/orders.ts';
 import { sanitizer } from '../../utils/trustedTypes.ts';
 import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts';
 
@@ -32,6 +33,16 @@ export async function renderPaymentSummary(params: {
   }
 }
 
+export function fetchOrders(cart: Cart[]) {
+  // eslint-disable-next-line
+  return Effect.promise(() => app.api.orders.post(cart)).pipe(
+    Effect.andThen(({ data, error }) => {
+      if (error) return Effect.fail(error.value.value);
+      return Effect.succeed(data);
+    }),
+  );
+}
+
 export function handlePlaceOrder() {
   const placeOrderButton = document.querySelector(
     'button.place-order-button',
@@ -39,19 +50,40 @@ export function handlePlaceOrder() {
   checkNullish(placeOrderButton, 'Fail to select HTML element');
   placeOrderButton.addEventListener('click', async () => {
     placeOrderButton.disabled = true;
-    const response = await fetchOrders(cartStore());
-    const savedOrders = localStorage.getItem(
-      comptime(() => STORAGE_KEYS.ORDER),
+    const result = Effect.gen(function* () {
+      const response = yield* fetchOrders(cartStore());
+      const savedOrders = localStorage.getItem(
+        comptime(() => STORAGE_KEYS.ORDER),
+      );
+      const orders = Effect.try(() => JSON.parse(savedOrders ?? '[]'));
+      const parsedOrders = yield* orders;
+      const validatedOrders = safeParse(OrdersSchema, parsedOrders);
+      if (validatedOrders.success) {
+        validatedOrders.output.unshift(response);
+      } else {
+        yield* Effect.fail('Failed to parse orders from localStorage');
+      }
+      localStorage.setItem(
+        comptime(() => STORAGE_KEYS.ORDER),
+        JSON.stringify(validatedOrders.output),
+      );
+      localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
+    });
+
+    await Effect.runPromise(
+      Effect.match(result, {
+        onFailure: (error) => {
+          const dialog = document.querySelector(
+            'dialog.general-error-dialog',
+          );
+          checkNullish(dialog);
+          dialog.showModal();
+          console.log(error);
+        },
+        onSuccess: () => {
+          location.href = '/orders.html';
+        },
+      }),
     );
-    const orders = parse(OrdersSchema, JSON.parse(savedOrders ?? '[]'));
-    const { data: order, error } = response;
-    if (error) throw error;
-    orders.unshift(order);
-    localStorage.setItem(
-      comptime(() => STORAGE_KEYS.ORDER),
-      JSON.stringify(orders),
-    );
-    localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
-    location.href = '/orders.html';
   });
 }

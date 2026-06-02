@@ -22,3 +22,4 @@ packages/tests/html
 coverage
 coverage-merged
 packages/server/.evlog
+report.html

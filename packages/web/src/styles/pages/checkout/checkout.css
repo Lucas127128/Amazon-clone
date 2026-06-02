@@ -230,3 +230,31 @@
   color: red;
   font-size: 0.9em;
 }
+
+.general-error-dialog-container {
+  width: 15em;
+  padding: 0.6em;
+  border: 2px solid red;
+  border-radius: 1em;
+  background-color: white;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 1em;
+}
+
+.general-error-dialog {
+  border: none;
+  background-color: inherit;
+}
+
+.close-button {
+  background-color: green;
+  color: white;
+
+  border: none;
+  border-radius: 0.8em;
+  overflow: hidden;
+  padding: 0.5em 1em;
+}

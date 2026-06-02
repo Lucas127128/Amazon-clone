@@ -20,7 +20,7 @@
   "scripts": {
     "lint": "bunx -b oxlint -c ./oxlint.config.ts",
     "fmt": "oxfmt",
-    "dev": "bun run --parallel --elide-lines 10000 -F '*' dev",
+    "dev": "turbo run web#dev server#dev --ui tui",
     "test": "bun run --parallel --elide-lines 10000 -F '*' test:watch",
     "test:coverage": "turbo run test:coverage",
     "test:merge-coverage": "vitest-coverage-merge coverage/* -o coverage-merged",
@@ -40,7 +40,7 @@
     "@vitest/coverage-istanbul": "4.1.7",
     "eslint-plugin-depend": "^1.5.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
-    "eslint-plugin-turbo": "^2.9.15",
+    "eslint-plugin-turbo": "^2.9.16",
     "eslint-plugin-typed-rocks": "^1.0.8",
     "husky": "^9.1.7",
     "knip": "^6.14.2",
@@ -48,7 +48,7 @@
     "oxfmt": "^0.52.0",
     "oxlint": "^1.67.0",
     "oxlint-tsgolint": "^0.23.0",
-    "turbo": "^2.9.15",
+    "turbo": "^2.9.16",
     "vite": "^8.0.14",
     "vitest-coverage-merge": "^0.2.0"
   },

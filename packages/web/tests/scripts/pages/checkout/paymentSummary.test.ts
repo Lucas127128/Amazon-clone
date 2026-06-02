@@ -1,12 +1,18 @@
 import { fireEvent } from '@testing-library/dom';
+import * as Effect from 'effect/Effect';
 import { STORAGE_KEYS } from 'shared/constants';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
-import { cartJson as cart, productsJson as products } from 'testdata';
+import {
+  cartJson as cart,
+  orderJson,
+  productsJson as products,
+} from 'testdata';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { cartStore } from '#data/cart.ts';
 import {
+  fetchOrders,
   handlePlaceOrder,
   renderPaymentSummary,
 } from '#pages/checkout/paymentSummary.ts';
@@ -98,5 +104,26 @@ describe('place order', () => {
     );
     const savedOrders = localStorage.getItem(STORAGE_KEYS.ORDER);
     expect(savedOrders).not.toBeNull();
+  });
+});
+
+describe.concurrent('fetchOrders', async () => {
+  const orders = await Effect.runPromise(fetchOrders(cart as Cart[]));
+
+  it('return same totalCostCents', () => {
+    expect(orders.totalCostCents).toBe(orderJson.totalCostCents);
+  });
+
+  it('return same products', () => {
+    expect(orders.products).toBe(orders.products);
+  });
+
+  it('returns 400 if productId structurally invalid', async () => {
+    const error = await Effect.runPromiseExit(
+      fetchOrders([
+        { productId: 'abc', quantity: 1, deliveryOptionId: '1' },
+      ] as Cart[]),
+    );
+    expect(error._tag).toBe('Failure');
   });
 });

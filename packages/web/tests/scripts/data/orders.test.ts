@@ -1,14 +1,9 @@
 import { dateFormatOption } from 'shared/deliveryOption';
-import type { Cart, Order } from 'shared/schema';
+import type { Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
-import { cartJson as cart, orderJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
-import {
-  fetchOrders,
-  getMatchingOrder,
-  getTimeString,
-} from '#data/orders.ts';
+import { getMatchingOrder, getTimeString } from '#data/orders.ts';
 
 describe.concurrent('getTimeString', () => {
   it('get time string from ISO time', () => {
@@ -21,25 +16,6 @@ describe.concurrent('getTimeString', () => {
   });
   it('throw if iso time invalid', () => {
     expect(() => getTimeString('abc')).toThrow('parse error');
-  });
-});
-
-describe.concurrent('fetchOrders', async () => {
-  const { data: orders } = await fetchOrders(cart as Cart[]);
-
-  it('return same totalCostCents', () => {
-    expect(orders?.totalCostCents).toBe(orderJson.totalCostCents);
-  });
-
-  it('return same products', () => {
-    expect(orders?.products).toBe(orders?.products);
-  });
-
-  it('returns 400 if productId structurally invalid', async () => {
-    const { error } = await fetchOrders([
-      { productId: 'abc', quantity: 1, deliveryOptionId: '1' },
-    ] as Cart[]);
-    expect(error?.status).toBe(400);
   });
 });
 
