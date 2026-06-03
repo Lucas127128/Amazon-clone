@@ -1,10 +1,17 @@
 import { app } from 'api-client';
 import { comptime } from 'comptime';
+import { Console } from 'effect';
 import * as Effect from 'effect/Effect';
 import { STORAGE_KEYS } from 'shared/constants';
 import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
 import { type Cart, OrdersSchema } from 'shared/schema';
+import {
+  EdenTreatyValidationError,
+  JsonParseError,
+  UnexpectedNetworkError,
+  ValidationError,
+} from 'shared/taggedError';
 import { checkNullish } from 'shared/typeChecker';
 import { safeParse } from 'valibot';
 
@@ -33,16 +40,6 @@ export async function renderPaymentSummary(params: {
   }
 }
 
-export function fetchOrders(cart: Cart[]) {
-  // eslint-disable-next-line
-  return Effect.promise(() => app.api.orders.post(cart)).pipe(
-    Effect.andThen(({ data, error }) => {
-      if (error) return Effect.fail(error.value.value);
-      return Effect.succeed(data);
-    }),
-  );
-}
-
 export function handlePlaceOrder() {
   const placeOrderButton = document.querySelector(
     'button.place-order-button',
@@ -51,23 +48,42 @@ export function handlePlaceOrder() {
   placeOrderButton.addEventListener('click', async () => {
     placeOrderButton.disabled = true;
     const result = Effect.gen(function* () {
-      const response = yield* fetchOrders(cartStore());
+      const { data, error } = yield* Effect.tryPromise({
+        // eslint-disable-next-line
+        try: async () => await app.api.orders.post(cartStore()),
+        catch: () => new UnexpectedNetworkError(),
+      });
+
+      const response = error
+        ? Effect.fail(new EdenTreatyValidationError(error.value.value))
+        : Effect.succeed(data);
+
       const savedOrders = localStorage.getItem(
         comptime(() => STORAGE_KEYS.ORDER),
       );
-      const orders = Effect.try(() => JSON.parse(savedOrders ?? '[]'));
+      const orders = Effect.try({
+        try: () => JSON.parse(savedOrders ?? '[]'),
+        catch: () =>
+          new JsonParseError('Failed to parse orders from localStorage'),
+      });
       const parsedOrders = yield* orders;
       const validatedOrders = safeParse(OrdersSchema, parsedOrders);
       if (validatedOrders.success) {
-        validatedOrders.output.unshift(response);
+        validatedOrders.output.unshift(yield* response);
+        localStorage.setItem(
+          comptime(() => STORAGE_KEYS.ORDER),
+          JSON.stringify(validatedOrders.output),
+        );
+        localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
       } else {
-        yield* Effect.fail('Failed to parse orders from localStorage');
+        yield* Effect.fail(
+          new ValidationError({
+            message: 'Failed to parse orders from localStorage',
+            expected: validatedOrders.issues[0].expected,
+            received: validatedOrders.issues[0].received,
+          }),
+        );
       }
-      localStorage.setItem(
-        comptime(() => STORAGE_KEYS.ORDER),
-        JSON.stringify(validatedOrders.output),
-      );
-      localStorage.removeItem(comptime(() => STORAGE_KEYS.CART_STATE));
     });
 
     await Effect.runPromise(
@@ -78,7 +94,7 @@ export function handlePlaceOrder() {
           );
           checkNullish(dialog);
           dialog.showModal();
-          console.log(error);
+          Console.error(error);
         },
         onSuccess: () => {
           location.href = '/orders.html';

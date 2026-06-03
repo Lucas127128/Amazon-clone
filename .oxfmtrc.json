@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "printWidth": 75,
+  "printWidth": 77,
   "singleQuote": true,
   "ignorePatterns": ["packages/testData/**/*.html"]
 }

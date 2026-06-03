@@ -31,14 +31,10 @@ export const app = new Elysia({
   .error({ ValiError })
   .onError({ as: 'global' }, ({ code, error, status }) => {
     if (code === 'ValiError') {
-      return Bun.env.PROD
-        ? status(422, error.message)
-        : status(422, error);
+      return Bun.env.PROD ? status(422, error.message) : status(422, error);
     }
     if (code === 'PARSE') {
-      return Bun.env.PROD
-        ? status(400, error.message)
-        : status(400, error);
+      return Bun.env.PROD ? status(400, error.message) : status(400, error);
     }
     return error;
   })

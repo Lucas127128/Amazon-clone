@@ -11,10 +11,7 @@ export const cartStore = signal<Cart[]>(
 );
 
 effect(() => {
-  localStorage.setItem(
-    STORAGE_KEYS.CART_STATE,
-    JSON.stringify(cartStore()),
-  );
+  localStorage.setItem(STORAGE_KEYS.CART_STATE, JSON.stringify(cartStore()));
 });
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>

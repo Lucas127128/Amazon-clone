@@ -6,10 +6,7 @@ import type { Product } from 'shared/products';
 import { fetchProducts } from '#data/products.ts';
 
 export const searchProductsSuggestions = new LiteDebouncer(
-  async (
-    searchTerm: string,
-    fn: (products: readonly Product[]) => void,
-  ) => {
+  async (searchTerm: string, fn: (products: readonly Product[]) => void) => {
     const { data: searchResults, error } =
       await app.api.search.products.post({
         q: searchTerm,
@@ -29,8 +26,10 @@ export async function searchProducts(
   limit: number = 5,
   highlight: boolean = true,
 ) {
-  const { data: searchResults, error } =
-    await app.api.search.products.post({ q: query, limit });
+  const { data: searchResults, error } = await app.api.search.products.post({
+    q: query,
+    limit,
+  });
   if (error) throw error;
   const { data: products, error: fetchError } =
     await fetchProducts(searchResults);

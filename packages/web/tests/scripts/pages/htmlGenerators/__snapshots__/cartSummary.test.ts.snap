@@ -89,9 +89,7 @@ exports[`generateCartSummary > generate correct html 1`] = `
           </div>
         </div>
         <div class="delivery-options">
-          <div class="delivery-options-title">
-            Choose a delivery option:
-          </div>
+          <div class="delivery-options-title">Choose a delivery option:</div>
           
       <div>
         <input

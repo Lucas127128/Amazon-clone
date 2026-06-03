@@ -13,10 +13,7 @@ export function createProductsService(provider: DataProvider) {
     getClothingList: (): string[] => clothings,
     getMatchingProduct(productId: string) {
       const log = createLogger();
-      const matchingProduct = getMatchingRawProduct(
-        rawProducts,
-        productId,
-      );
+      const matchingProduct = getMatchingRawProduct(rawProducts, productId);
       if (!matchingProduct) {
         log?.error(`Product ${productId} not found`);
         return status(404, { message: `Product ${productId} not found` });

@@ -1,3 +1,4 @@
+import * as Effect from 'effect/Effect';
 import type { Cart, Order } from 'shared/schema';
 import { checkNullish } from 'shared/typeChecker';
 import { cartJson as cart, orderJson as order } from 'testdata';
@@ -11,9 +12,8 @@ describe.concurrent('test suite: getDeliveryProgress', () => {
       (cartItem) => cartItem.productId === '59LXo',
     ) as Cart;
     checkNullish(matchingCart);
-    const deliveryProgress = getDeliveryProgress(
-      order as Order,
-      matchingCart,
+    const deliveryProgress = Effect.runSync(
+      getDeliveryProgress(order as Order, matchingCart),
     );
     expect(Math.round(deliveryProgress)).toBe(88);
   });

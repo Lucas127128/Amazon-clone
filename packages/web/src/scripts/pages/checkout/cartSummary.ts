@@ -33,10 +33,7 @@ export async function renderOrderSummary(params: {
     ?.emptyHTML as unknown as string;
   let cartsSummaryHTML = '';
   for (const cartItem of params.cart) {
-    const matchingProduct = getMatchingProduct(
-      products,
-      cartItem.productId,
-    );
+    const matchingProduct = getMatchingProduct(products, cartItem.productId);
     checkNullish(matchingProduct);
     const cartSummaryHTML = generateCartSummary(matchingProduct, cartItem);
     cartsSummaryHTML += cartSummaryHTML;

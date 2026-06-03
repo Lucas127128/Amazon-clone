@@ -33,8 +33,7 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
     } else if (url === `${GLOBAL_CONFIG.API_URL}/api/clothingList`) {
       return Response.json(clothingsJson);
     } else if (
-      url ===
-      `${GLOBAL_CONFIG.API_URL}/api/matchingProduct?productId=sMmsZ`
+      url === `${GLOBAL_CONFIG.API_URL}/api/matchingProduct?productId=sMmsZ`
     ) {
       return Response.json(
         getMatchingRawProduct(rawProductsJson as RawProduct[], 'sMmsZ'),
@@ -55,10 +54,7 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
       const match = ids[0] === 'sMmsZ';
       return match
         ? Response.json([
-            getMatchingRawProduct(
-              rawProductsJson as RawProduct[],
-              'sMmsZ',
-            ),
+            getMatchingRawProduct(rawProductsJson as RawProduct[], 'sMmsZ'),
           ])
         : await realFetch(input, init);
     } else if (url === `${GLOBAL_CONFIG.API_URL}/api/search/products`) {
@@ -72,8 +68,7 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
       if (body.q === 'FETCH_ERROR') {
         return Response.json(['FETCH_ERROR']);
       }
-      const match =
-        body.q === '2 Slot Toaster - Black' && body.limit === 3;
+      const match = body.q === '2 Slot Toaster - Black' && body.limit === 3;
       return match
         ? Response.json(['7nDww', '6IxpJ', 'I2PJ7'])
         : await realFetch(input, init);

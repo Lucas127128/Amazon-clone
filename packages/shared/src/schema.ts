@@ -112,3 +112,7 @@ export const ElysiaValidationErrorSchema = object({
     expected: optional(union([string(), Undefined()])),
   }),
 });
+
+export type ElysiaValidationError = InferOutput<
+  typeof ElysiaValidationErrorSchema
+>;

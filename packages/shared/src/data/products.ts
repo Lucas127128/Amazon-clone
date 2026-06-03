@@ -2,10 +2,7 @@ import { formatCurrency } from '#utils/money.ts';
 
 import type { RawProduct } from '../schema.ts';
 
-export function createProduct(
-  rawProduct: RawProduct,
-  isClothing: boolean,
-) {
+export function createProduct(rawProduct: RawProduct, isClothing: boolean) {
   return {
     id: rawProduct.id,
     image: rawProduct.image,

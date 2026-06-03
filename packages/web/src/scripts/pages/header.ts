@@ -2,10 +2,7 @@ import 'typed-query-selector';
 
 import { checkNullish } from 'shared/typeChecker';
 
-import {
-  searchProducts,
-  searchProductsSuggestions,
-} from '#data/search.ts';
+import { searchProducts, searchProductsSuggestions } from '#data/search.ts';
 
 const searchBar = document.querySelector('input.search-bar');
 checkNullish(searchBar);
@@ -24,20 +21,17 @@ export function handleSearchInput() {
       handleSearchBar();
     }
     if (location.pathname === '/index.html') {
-      searchProductsSuggestions.maybeExecute(
-        searchBar.value,
-        (products) => {
-          const searchSuggestions = document.querySelector(
-            'datalist#search-suggestions',
-          );
-          searchSuggestions?.replaceChildren();
-          for (const product of products) {
-            const option = document.createElement('option');
-            option.value = product.name;
-            searchSuggestions?.insertAdjacentElement('beforeend', option);
-          }
-        },
-      );
+      searchProductsSuggestions.maybeExecute(searchBar.value, (products) => {
+        const searchSuggestions = document.querySelector(
+          'datalist#search-suggestions',
+        );
+        searchSuggestions?.replaceChildren();
+        for (const product of products) {
+          const option = document.createElement('option');
+          option.value = product.name;
+          searchSuggestions?.insertAdjacentElement('beforeend', option);
+        }
+      });
     }
   });
 }

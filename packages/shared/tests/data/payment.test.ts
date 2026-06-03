@@ -52,10 +52,7 @@ describe.concurrent('calculatePrices', () => {
       clothingsJson,
     );
     const { data: prices, error } = calculatePrices(
-      [
-        ...cart,
-        { productId: 'abcde', quantity: 1, deliveryOptionId: '1' },
-      ],
+      [...cart, { productId: 'abcde', quantity: 1, deliveryOptionId: '1' }],
       products,
     );
     it('returns error', () => {

@@ -82,9 +82,7 @@ export function generateCartSummary(
           </div>
         </div>
         <div class="delivery-options">
-          <div class="delivery-options-title">
-            Choose a delivery option:
-          </div>
+          <div class="delivery-options-title">Choose a delivery option:</div>
           ${deliveryOptionsHTML(cartItem.deliveryOptionId)}
         </div>
       </div>

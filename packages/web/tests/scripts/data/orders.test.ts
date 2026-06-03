@@ -25,17 +25,13 @@ describe.concurrent('getMatchingOrder', () => {
       id: 'cYVCXw_',
       orderTime: '2026-03-03T13:02:18.976Z',
       totalCostCents: 2519,
-      products: [
-        { productId: 'ADSpL', quantity: 1, deliveryOptionId: '1' },
-      ],
+      products: [{ productId: 'ADSpL', quantity: 1, deliveryOptionId: '1' }],
     },
     {
       id: 'WpkDfne',
       orderTime: '2026-03-03T13:02:12.216Z',
       totalCostCents: 4288.9,
-      products: [
-        { productId: 'cXh3C', quantity: 1, deliveryOptionId: '1' },
-      ],
+      products: [{ productId: 'cXh3C', quantity: 1, deliveryOptionId: '1' }],
     },
   ];
   it('get correct order', () => {

@@ -21,8 +21,7 @@ vi.spyOn(globalThis, 'fetch').mockImplementation(
     } else if (url === `${GLOBAL_CONFIG.API_URL}/api/clothingList`) {
       return Response.json(clothingsJson);
     } else if (
-      url ===
-      `${GLOBAL_CONFIG.API_URL}/api/matchingProduct?productId=sMmsZ`
+      url === `${GLOBAL_CONFIG.API_URL}/api/matchingProduct?productId=sMmsZ`
     ) {
       return Response.json(
         getMatchingRawProduct(rawProductsJson as RawProduct[], 'sMmsZ'),

@@ -1,18 +1,11 @@
 import type { Product } from 'shared/products';
 import { describe, expect, it, vi } from 'vitest';
 
-import {
-  searchProducts,
-  searchProductsSuggestions,
-} from '#data/search.ts';
+import { searchProducts, searchProductsSuggestions } from '#data/search.ts';
 
 describe.concurrent('searchProducts', () => {
   it('return correct unhighlighted products', async () => {
-    const result = await searchProducts(
-      '2 Slot Toaster - Black',
-      5,
-      false,
-    );
+    const result = await searchProducts('2 Slot Toaster - Black', 5, false);
     expect(
       result.some((product) => product.name === '2 Slot Toaster - Black'),
     ).toBe(true);

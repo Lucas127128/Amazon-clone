@@ -52,8 +52,7 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
 
 export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.zonedDateTimeISO();
-  const matchingDeliveryOption =
-    getMatchingDeliveryOption(deliveryOptionId);
+  const matchingDeliveryOption = getMatchingDeliveryOption(deliveryOptionId);
   checkNullish(matchingDeliveryOption);
 
   const deliveryDate = addWeekDays(
@@ -65,8 +64,7 @@ export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
 
 export function getDeliveryDateISO(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.zonedDateTimeISO();
-  const matchingDeliveryOption =
-    getMatchingDeliveryOption(deliveryOptionId);
+  const matchingDeliveryOption = getMatchingDeliveryOption(deliveryOptionId);
   checkNullish(matchingDeliveryOption);
   return addWeekDays(matchingDeliveryOption.deliveryDays, localNow);
 }
@@ -77,8 +75,7 @@ export function getPriceString(priceCents: number) {
 }
 
 export function getDeliveryPriceCents(deliveryOptionId: DeliveryOptionId) {
-  const matchingDeliveryOption =
-    getMatchingDeliveryOption(deliveryOptionId);
+  const matchingDeliveryOption = getMatchingDeliveryOption(deliveryOptionId);
   checkNullish(matchingDeliveryOption);
   return matchingDeliveryOption.priceCents;
 }

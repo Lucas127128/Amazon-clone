@@ -23,10 +23,7 @@ export default defineConfig({
       {
         test: {
           name: 'bun',
-          include: [
-            'tests/data/**/*.test.ts',
-            'tests/utils/money.test.ts',
-          ],
+          include: ['tests/data/**/*.test.ts', 'tests/utils/money.test.ts'],
           environment: 'node',
           setupFiles: ['./vitest.setup.ts'],
         },
