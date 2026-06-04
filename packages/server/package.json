@@ -31,7 +31,6 @@
     "nanoid": "^5.1.11",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
-    "ts-pattern": "^5.9.0",
     "valibot": "catalog:"
   },
   "devDependencies": {

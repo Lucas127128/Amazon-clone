@@ -11,7 +11,7 @@ import { openApi } from '../utils/openApi.ts';
 import { orderPlugin } from './orders/index.ts';
 import { productsPlugin } from './products/index.ts';
 import { searchPlugin } from './search/index.ts';
-import { staticPlugin } from './static.ts';
+import { staticPlugin } from './static/index.ts';
 
 initEvlog();
 

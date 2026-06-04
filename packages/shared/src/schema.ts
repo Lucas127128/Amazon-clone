@@ -116,3 +116,17 @@ export const ElysiaValidationErrorSchema = object({
 export type ElysiaValidationError = InferOutput<
   typeof ElysiaValidationErrorSchema
 >;
+
+export const FileExtensionSchema = union([
+  literal('html'),
+  literal('css'),
+  literal('js'),
+  literal('webp'),
+  literal('png'),
+  literal('svg'),
+  literal('jpg'),
+  literal('ico'),
+  literal('ttf'),
+  literal('webmanifest'),
+]);
+export type FileExtension = InferOutput<typeof FileExtensionSchema>;
