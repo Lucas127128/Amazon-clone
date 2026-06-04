@@ -24,6 +24,7 @@
     "api-client": "workspace:*",
     "dompurify": "^3.4.7",
     "effect": "catalog:",
+    "emittery": "^2.0.0",
     "shared": "workspace:*",
     "temporal-polyfill-lite": "catalog:",
     "typed-query-selector": "^2.12.1",

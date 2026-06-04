@@ -13,7 +13,7 @@
       "valibot": "^1.4.1",
       "vite": "^8.0.14",
       "vitest": "^4.1.7",
-      "effect": "4.0.0-beta.74"
+      "effect": "^4.0.0-beta.74"
     }
   },
   "type": "module",
@@ -43,7 +43,7 @@
     "eslint-plugin-turbo": "^2.9.16",
     "eslint-plugin-typed-rocks": "^1.0.8",
     "husky": "^9.1.7",
-    "knip": "^6.14.2",
+    "knip": "^6.15.0",
     "nyc": "^18.0.0",
     "oxfmt": "^0.52.0",
     "oxlint": "^1.67.0",

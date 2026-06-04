@@ -49,27 +49,25 @@ export function handlePlaceOrder() {
     placeOrderButton.disabled = true;
     const result = Effect.gen(function* () {
       const { data, error } = yield* Effect.tryPromise({
-        // eslint-disable-next-line
         try: async () => await app.api.orders.post(cartStore()),
         catch: () => new UnexpectedNetworkError(),
       });
 
-      const response = error
+      const response = yield* error
         ? Effect.fail(new EdenTreatyValidationError(error.value.value))
         : Effect.succeed(data);
 
       const savedOrders = localStorage.getItem(
         comptime(() => STORAGE_KEYS.ORDER),
       );
-      const orders = Effect.try({
+      const orders = yield* Effect.try({
         try: () => JSON.parse(savedOrders ?? '[]'),
         catch: () =>
           new JsonParseError('Failed to parse orders from localStorage'),
       });
-      const parsedOrders = yield* orders;
-      const validatedOrders = safeParse(OrdersSchema, parsedOrders);
+      const validatedOrders = safeParse(OrdersSchema, orders);
       if (validatedOrders.success) {
-        validatedOrders.output.unshift(yield* response);
+        validatedOrders.output.unshift(response);
         localStorage.setItem(
           comptime(() => STORAGE_KEYS.ORDER),
           JSON.stringify(validatedOrders.output),
@@ -78,9 +76,8 @@ export function handlePlaceOrder() {
       } else {
         yield* Effect.fail(
           new ValidationError({
+            ...validatedOrders.issues[0],
             message: 'Failed to parse orders from localStorage',
-            expected: validatedOrders.issues[0].expected,
-            received: validatedOrders.issues[0].received,
           }),
         );
       }
@@ -92,8 +89,7 @@ export function handlePlaceOrder() {
           const dialog = document.querySelector(
             'dialog.general-error-dialog',
           );
-          checkNullish(dialog);
-          dialog.showModal();
+          dialog?.showModal();
           Console.error(error);
         },
         onSuccess: () => {
