@@ -50,6 +50,23 @@
     "server#dev": {
       "cache": false,
       "persistent": true
+    },
+    "web#test:watch": {
+      // "dependsOn": ["web#test:watch"],
+      "cache": false,
+      "persistent": true
+    },
+    "server#test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "shared#test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "api-client#test:watch": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
