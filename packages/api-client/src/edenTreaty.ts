@@ -15,7 +15,11 @@ export const cachedFetch = async (
 ) => {
   const method =
     init?.method ?? (input instanceof Request ? input.method : 'GET');
-  if (method !== 'GET') return await fetch(input, init);
+  if (method !== 'GET')
+    return await fetch(input, {
+      signal: AbortSignal.timeout(5000),
+      ...init,
+    });
   const url =
     typeof input === 'string'
       ? input
@@ -31,7 +35,10 @@ export const cachedFetch = async (
   )
     return new Response(cacheData.body);
 
-  const response = await fetch(input, init);
+  const response = await fetch(input, {
+    signal: AbortSignal.timeout(5000),
+    ...init,
+  });
 
   Promise.resolve()
     .then(async () => {

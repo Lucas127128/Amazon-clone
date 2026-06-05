@@ -47,6 +47,7 @@ export function handlePlaceOrder() {
   checkNullish(placeOrderButton, 'Fail to select HTML element');
   placeOrderButton.addEventListener('click', async () => {
     placeOrderButton.setAttribute('disable', 'true');
+    placeOrderButton.textContent = 'Ordering...';
     const result = Effect.gen(function* () {
       const { data, error } = yield* Effect.tryPromise({
         try: async () => await app.api.orders.post(cartStore()),
@@ -86,11 +87,14 @@ export function handlePlaceOrder() {
     await Effect.runPromise(
       Effect.match(result, {
         onFailure: (error) => {
+          Console.error(error);
+          placeOrderButton.textContent =
+            'Order failed - please try again later';
+          placeOrderButton.style.color = '#f44336';
           const dialog = document.querySelector(
             'dialog.general-error-dialog',
           );
           dialog?.showModal();
-          Console.error(error);
         },
         onSuccess: () => {
           location.href = '/orders.html';
