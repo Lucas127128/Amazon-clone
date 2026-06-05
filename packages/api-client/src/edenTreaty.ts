@@ -1,4 +1,5 @@
 import { treaty } from '@elysiajs/eden';
+import pRetry from 'p-retry';
 import type { App } from 'server';
 import { FETCH_CONFIG, GLOBAL_CONFIG } from 'shared/constants';
 import { Temporal } from 'temporal-polyfill-lite';
@@ -53,6 +54,14 @@ export const cachedFetch = async (
   return response;
 };
 
+const fetcher = async (
+  input: string | URL | Request,
+  init?: RequestInit,
+) => {
+  return await pRetry(async () => await cachedFetch(input, init), {
+    retries: 2,
+  });
+};
 export const app = treaty<App>(GLOBAL_CONFIG.API_URL, {
-  fetcher: cachedFetch as typeof fetch,
+  fetcher: fetcher as typeof fetch,
 });
