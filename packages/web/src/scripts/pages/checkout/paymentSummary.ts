@@ -46,7 +46,7 @@ export function handlePlaceOrder() {
   );
   checkNullish(placeOrderButton, 'Fail to select HTML element');
   placeOrderButton.addEventListener('click', async () => {
-    placeOrderButton.disabled = true;
+    placeOrderButton.setAttribute('disable', 'true');
     const result = Effect.gen(function* () {
       const { data, error } = yield* Effect.tryPromise({
         try: async () => await app.api.orders.post(cartStore()),

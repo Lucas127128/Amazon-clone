@@ -80,9 +80,9 @@ uiUpdateEmitter.on('checkInvalidQuantity', ({ data }) => {
   }
 });
 
-uiUpdateEmitter.on('removeFromCart', ({ data }) => {
-  removeFromCart(data.productId);
-});
+uiUpdateEmitter.on('removeFromCart', ({ data }) =>
+  removeFromCart(data.productId),
+);
 
 uiUpdateEmitter.on('changeDeliveryOption', ({ data }) => {
   const cart = getMatchingCart(cartStore(), data.productId);

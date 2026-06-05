@@ -1,4 +1,2 @@
-bun fmt
-bun pre-commit
-bunx turbo boundaries
-bun i --frozen-lockfile
+bun fmt & bun pre-commit & bunx turbo boundaries & bun i --frozen-lockfile
+wait
