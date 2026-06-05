@@ -28,7 +28,7 @@ export async function createSearchService(provider: DataProvider) {
     setTimeout(() => {
       const now = Temporal.Now.zonedDateTimeISO();
       for (const [key, value] of cachedSearches) {
-        const expirationTime = value.time.add(FETCH_CONFIG.CACHE_TTL);
+        const expirationTime = value.time.add(FETCH_CONFIG.SERVER_CACHE_TTL);
         if (Temporal.ZonedDateTime.compare(now, expirationTime) > 0) {
           cachedSearches.delete(key);
         }

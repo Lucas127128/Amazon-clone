@@ -6,7 +6,8 @@ export const UI_TIMEOUTS = {
 
 export const FETCH_CONFIG = {
   HIGH_PRIORITY_THRESHOLD: 14,
-  CACHE_TTL: Temporal.Duration.from({ hours: 24 }),
+  SERVER_CACHE_TTL: Temporal.Duration.from({ hours: 24 }),
+  CLIENT_CACHE_TTL: Temporal.Duration.from({ hours: 3 }),
 } as const;
 
 export const CART_CONFIG = {

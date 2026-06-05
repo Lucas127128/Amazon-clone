@@ -1,17 +1,18 @@
 import { treaty } from '@elysiajs/eden';
+import ExpiryMap from 'expiry-map';
 import pRetry from 'p-retry';
 import type { App } from 'server';
 import { FETCH_CONFIG, GLOBAL_CONFIG } from 'shared/constants';
-import { Temporal } from 'temporal-polyfill-lite';
 
-type CacheData = {
-  body: string;
-  time: Temporal.InstantLike;
-};
-export const cacheMap = new Map<string, CacheData>();
+type URL = string;
+type ResponseBody = string;
+
+export const cacheMap = new ExpiryMap<URL, ResponseBody>(
+  FETCH_CONFIG.CLIENT_CACHE_TTL.seconds,
+);
 
 export const cachedFetch = async (
-  input: string | URL | Request,
+  input: string | Request,
   init?: RequestInit,
 ) => {
   const method =
@@ -27,14 +28,9 @@ export const cachedFetch = async (
       : input instanceof URL
         ? input.toString()
         : input.url;
-  const now = Temporal.Now.instant();
 
   const cacheData = cacheMap.get(url);
-  if (
-    cacheData &&
-    now.since(cacheData.time).subtract(FETCH_CONFIG.CACHE_TTL).seconds < 0
-  )
-    return new Response(cacheData.body);
+  if (cacheData !== undefined) return new Response(cacheData);
 
   const response = await fetch(input, {
     signal: AbortSignal.timeout(5000),
@@ -44,24 +40,19 @@ export const cachedFetch = async (
   Promise.resolve()
     .then(async () => {
       if (!response.ok) return;
-      const cacheData = {
-        body: await response.clone().text(),
-        time: now.toJSON(),
-      };
+      const cacheData = await response.clone().text();
       cacheMap.set(url, cacheData);
     })
     .catch((err: unknown) => console.error(err));
   return response;
 };
 
-const fetcher = async (
-  input: string | URL | Request,
-  init?: RequestInit,
-) => {
+const fetcher = async (input: string | Request, init?: RequestInit) => {
   return await pRetry(async () => await cachedFetch(input, init), {
     retries: 2,
   });
 };
+
 export const app = treaty<App>(GLOBAL_CONFIG.API_URL, {
   fetcher: fetcher as typeof fetch,
 });

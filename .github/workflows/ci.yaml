@@ -18,9 +18,9 @@ jobs:
             ./packages/server/certs
             ~/.bun
             **/.turbo
+            **/.turbo/**/*
             .turbo
             .turbo/**/*
-            **/*/.turbo
             /usr/local/bin/mkcert
             ./coverage
       - name: Install bun
