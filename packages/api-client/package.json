@@ -17,8 +17,7 @@
     "expiry-map": "^2.0.0",
     "p-retry": "^8.0.0",
     "server": "workspace:*",
-    "shared": "workspace:*",
-    "temporal-polyfill-lite": "catalog:"
+    "shared": "workspace:*"
   },
   "devDependencies": {
     "testdata": "workspace:*",

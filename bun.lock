@@ -34,7 +34,6 @@
         "p-retry": "^8.0.0",
         "server": "workspace:*",
         "shared": "workspace:*",
-        "temporal-polyfill-lite": "catalog:",
       },
       "devDependencies": {
         "testdata": "workspace:*",
