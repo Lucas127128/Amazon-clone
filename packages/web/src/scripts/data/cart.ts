@@ -14,6 +14,14 @@ effect(() => {
   localStorage.setItem(STORAGE_KEYS.CART_STATE, JSON.stringify(cartStore()));
 });
 
+export const cartQuantity = computed(() => {
+  let tempCartQuantity = 0;
+  for (const cartItem of cartStore()) {
+    tempCartQuantity += cartItem.quantity;
+  }
+  return tempCartQuantity;
+});
+
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);
 
@@ -38,11 +46,3 @@ export function removeFromCart(productId: string) {
     cartStore().filter((cartItem) => cartItem.productId !== productId),
   );
 }
-
-export const cartQuantity = computed(() => {
-  let tempCartQuantity = 0;
-  for (const cartItem of cartStore()) {
-    tempCartQuantity += cartItem.quantity;
-  }
-  return tempCartQuantity;
-});

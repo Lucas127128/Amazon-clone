@@ -5,7 +5,7 @@ import { GLOBAL_CONFIG } from 'shared/constants';
 import Sonda from 'sonda/vite';
 import { defineConfig } from 'vite';
 import htmlMinifier from 'vite-plugin-html-minifier';
-import htmlPurge from 'vite-plugin-purgecss';
+import purgeCss from 'vite-plugin-purgecss';
 
 export default defineConfig(({ command }) => {
   const isBuild = command === 'build';
@@ -31,7 +31,7 @@ export default defineConfig(({ command }) => {
     },
     plugins: [
       isBuild && htmlMinifier({ minify: true }),
-      isBuild && htmlPurge({}),
+      isBuild && purgeCss({}),
       isBuild && Sonda({ open: false }),
       isBuild && jsShaker(),
       comptime(),

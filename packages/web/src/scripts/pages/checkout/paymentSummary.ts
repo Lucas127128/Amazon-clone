@@ -7,8 +7,11 @@ import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
 import { type Cart, OrdersSchema } from 'shared/schema';
 import {
+  CreateTrustedHTMLError,
   EdenTreatyValidationError,
+  HTMLSelectionError,
   JsonParseError,
+  PriceCalculationError,
   UnexpectedNetworkError,
   ValidationError,
 } from 'shared/taggedError';
@@ -22,22 +25,43 @@ import { generatePaymentSummary } from '../htmlGenerators/paymentSummaryHTML.ts'
 
 export async function renderPaymentSummary(params: {
   cart: Cart[];
-  products: Promise<readonly Product[]> | readonly Product[];
+  products: readonly Product[];
 }) {
-  const products = await params.products;
-  const { data: prices, error } = calculatePrices(params.cart, products);
-  if (error) throw new Error(error.message);
+  const render = Effect.gen(function* () {
+    const { data: prices, error } = calculatePrices(
+      params.cart,
+      params.products,
+    );
+    if (error)
+      return yield* Effect.fail(new PriceCalculationError(error.productId));
 
-  const paymentSummary = document.querySelector('.payment-summary-body');
-  const paymentSummaryHTML = generatePaymentSummary(prices);
-  checkNullish(paymentSummary, 'Fail to select HTML element');
-  if (!window.trustedTypes) {
-    paymentSummary.innerHTML = paymentSummaryHTML;
-  } else {
-    paymentSummary.innerHTML = sanitizer?.createHTML(
-      paymentSummaryHTML,
-    ) as unknown as string;
-  }
+    const paymentSummary = document.querySelector('.payment-summary-body');
+    const paymentSummaryHTML = generatePaymentSummary(prices);
+    if (!paymentSummary)
+      return yield* Effect.fail(
+        new HTMLSelectionError('.payment-summary-body'),
+      );
+    if (!window.trustedTypes) {
+      paymentSummary.innerHTML = paymentSummaryHTML;
+    } else {
+      const cleanHTML = yield* Effect.try({
+        try: () => sanitizer?.createHTML(paymentSummaryHTML),
+        catch: () => new CreateTrustedHTMLError(),
+      });
+      paymentSummary.innerHTML = cleanHTML as unknown as string;
+    }
+    return yield* Effect.succeed(undefined);
+  });
+  await Effect.runPromise(
+    Effect.match(render, {
+      onFailure: (error) => {
+        Console.error(error);
+        const dialog = document.querySelector('dialog.general-error-dialog');
+        dialog?.showModal();
+      },
+      onSuccess: () => {},
+    }),
+  );
 }
 
 export function handlePlaceOrder() {

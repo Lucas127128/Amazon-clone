@@ -100,3 +100,11 @@ export class HTMLSelectionError extends Data.TaggedError(
     super({ querySelector });
   }
 }
+
+export class PriceCalculationError extends Data.TaggedError(
+  'PriceCalculationError',
+)<{ message: string; productId: string }> {
+  constructor(productId: string, message = 'Fail to get matching product') {
+    super({ message, productId });
+  }
+}
