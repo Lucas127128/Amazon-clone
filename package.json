@@ -8,12 +8,12 @@
     ],
     "catalog": {
       "@vitest/ui": "^4.1.8",
-      "happy-dom": "^20.9.0",
+      "happy-dom": "^20.10.1",
       "temporal-polyfill-lite": "^0.4.0",
       "valibot": "^1.4.1",
       "vite": "^8.0.16",
       "vitest": "^4.1.8",
-      "effect": "^4.0.0-beta.75"
+      "effect": "^4.0.0-beta.78"
     }
   },
   "type": "module",

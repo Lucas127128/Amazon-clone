@@ -22,7 +22,7 @@
     "@tanstack/pacer-lite": "^0.2.2",
     "alien-signals": "^3.2.1",
     "api-client": "workspace:*",
-    "dompurify": "^3.4.7",
+    "dompurify": "^3.4.8",
     "effect": "catalog:",
     "emittery": "^2.0.0",
     "shared": "workspace:*",
