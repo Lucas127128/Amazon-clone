@@ -59,15 +59,15 @@ orderSummary?.addEventListener('click', (event) => {
 
   if (classList.includes('update-quantity-link')) {
     uiUpdateEmitter
-      .emit('updateQuantity', { productId })
+      .emit('updateQuantity', productId)
       .catch((err) => console.error(err));
   } else if (classList.includes('save-quantity-link')) {
     uiUpdateEmitter
-      .emit('saveQuantity', { productId })
+      .emit('saveQuantity', productId)
       .catch((err) => console.error(err));
   } else if (classList.includes('delete-quantity-link')) {
     uiUpdateEmitter
-      .emit('removeFromCart', { productId })
+      .emit('removeFromCart', productId)
       .catch((err) => console.error(err));
   }
 });
@@ -80,7 +80,7 @@ orderSummary?.addEventListener('keyup', (event: KeyboardEvent) => {
   if (classList.includes('quantity-input')) {
     if (event.key === 'Enter') {
       uiUpdateEmitter
-        .emit('saveQuantity', { productId })
+        .emit('saveQuantity', productId)
         .catch((err) => console.error(err));
     } else {
       uiUpdateEmitter
