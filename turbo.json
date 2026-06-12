@@ -1,6 +1,8 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "globalEnv": ["NODE_ENV"],
+  "globalDependencies": ["tsconfig.json"],
+  "cacheMaxSize": "1GB",
   "tasks": {
     "//#lint": {
       "inputs": [
