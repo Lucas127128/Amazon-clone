@@ -1,7 +1,8 @@
+import pMemoize from 'p-memoize';
 import { ClothingListSchema, RawProductsSchema } from 'shared/schema';
 import { parse } from 'valibot';
 
-export async function createProdDataProvider() {
+export const createProdDataProvider = pMemoize(async () => {
   const [rawJson, clothingJson] = await Promise.allSettled([
     Bun.file('./rawData/rawProducts.json').json(),
     Bun.file('./rawData/clothing.json').json(),
@@ -17,7 +18,7 @@ export async function createProdDataProvider() {
     rawProducts: parse(RawProductsSchema, rawJson.value),
     clothings: parse(ClothingListSchema, clothingJson.value),
   };
-}
+});
 
 export type DataProvider = Awaited<
   ReturnType<typeof createProdDataProvider>
