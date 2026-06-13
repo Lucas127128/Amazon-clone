@@ -2,7 +2,7 @@
 
 This document catalogues all centralized dependencies managed via the `workspaces.catalog` feature in the root `package.json`.
 
-**Total Cataloged Dependencies:** 7
+**Total Cataloged Dependencies:** 8
 
 ---
 
@@ -10,7 +10,7 @@ This document catalogues all centralized dependencies managed via the `workspace
 
 ### Testing & Development Tools
 
-#### `vitest@^4.1.5`
+#### `vitest@^4.1.8`
 
 - **Purpose:** Unit testing framework
 - **Type:** Dev Dependency
@@ -20,7 +20,7 @@ This document catalogues all centralized dependencies managed via the `workspace
   - `shared` (devDependencies)
   - `root` (devDependencies)
 
-#### `happy-dom@^20.9.0`
+#### `happy-dom@^20.10.2`
 
 - **Purpose:** Lightweight DOM implementation for testing
 - **Type:** Dev Dependency
@@ -30,7 +30,7 @@ This document catalogues all centralized dependencies managed via the `workspace
   - `shared` (devDependencies)
   - `root` (devDependencies)
 
-#### `@vitest/ui@^4.1.5`
+#### `@vitest/ui@^4.1.8`
 
 - **Purpose:** Vitest UI dashboard for test reporting
 - **Type:** Dev Dependency
@@ -41,7 +41,7 @@ This document catalogues all centralized dependencies managed via the `workspace
 
 ### Core Runtime Dependencies
 
-#### `valibot@^1.3.1`
+#### `valibot@^1.4.1`
 
 - **Purpose:** Type-safe schema validation library
 - **Type:** Dependency
@@ -50,7 +50,7 @@ This document catalogues all centralized dependencies managed via the `workspace
   - `server` (dependencies)
   - `shared` (dependencies)
 
-#### `temporal-polyfill-lite@^0.3.5`
+#### `temporal-polyfill-lite@^0.4.0`
 
 - **Purpose:** Polyfill for Temporal API (dates/times)
 - **Type:** Dependency
@@ -60,7 +60,7 @@ This document catalogues all centralized dependencies managed via the `workspace
   - `shared` (dependencies)
   - `root` (devDependencies)
 
-#### `vite@^8.0.10`
+#### `vite@^8.0.16`
 
 - **Purpose:** Build tool and dev server
 - **Type:** Dev Dependency
@@ -68,12 +68,14 @@ This document catalogues all centralized dependencies managed via the `workspace
   - `web` (devDependencies)
   - `root` (devDependencies)
 
-#### `@tanstack/store@^0.11.0`
+#### `effect@^4.0.0-beta.78`
 
-- **Purpose:** Lightweight state management library
+- **Purpose:** Effect-TS functional programming library (tagged errors, Option, Effect)
 - **Type:** Dependency
 - **Used by:**
   - `web` (dependencies)
+  - `server` (dependencies)
+  - `shared` (dependencies)
 
 ---
 
@@ -87,6 +89,6 @@ This document catalogues all centralized dependencies managed via the `workspace
 | `valibot`                | ✅  | ✅     | ✅     | —    |
 | `temporal-polyfill-lite` | ✅  | ✅     | ✅     | ✅   |
 | `vite`                   | ✅  | —      | —      | ✅   |
-| `@tanstack/store`        | ✅  | —      | —      | —    |
+| `effect`                 | ✅  | ✅     | ✅     | —    |
 
 ---
