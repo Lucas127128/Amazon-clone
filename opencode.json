@@ -3,7 +3,8 @@
   "plugin": [
     "@hueyexe/opencode-ensemble@0.14.1",
     "opencode-agent-skills@0.7.0",
-    "opencode-agent-memory@0.2.0"
+    "opencode-agent-memory@0.2.0",
+    "opencode-goal-plugin"
   ],
   "instructions": [".agents/*.md"],
   "lsp": true,

@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { calculatePrices } from 'shared/payment';
 import { type Product, transformProducts } from 'shared/products';
 import type { Cart, RawProduct } from 'shared/schema';
@@ -11,8 +12,7 @@ describe.concurrent('calculatePrices', () => {
       rawProductsJson as RawProduct[],
       clothingsJson,
     );
-    const { data: prices, error } = calculatePrices(cart, products);
-    if (error) throw new Error(error.message);
+    const prices = Effect.runSync(calculatePrices(cart, products));
 
     it('calculate totalProductPrice', () => {
       const { totalProductPrice } = prices;
@@ -51,13 +51,23 @@ describe.concurrent('calculatePrices', () => {
       rawProductsJson as RawProduct[],
       clothingsJson,
     );
-    const { data: prices, error } = calculatePrices(
-      [...cart, { productId: 'abcde', quantity: 1, deliveryOptionId: '1' }],
-      products,
+    const error = Effect.runSync(
+      Effect.match(
+        calculatePrices(
+          [
+            ...cart,
+            { productId: 'abcde', quantity: 1, deliveryOptionId: '1' },
+          ],
+          products,
+        ),
+        {
+          onFailure: (err) => err,
+          onSuccess: () => null,
+        },
+      ),
     );
     it('returns error', () => {
       expect(error).toBeDefined();
-      expect(prices).toBeNull();
     });
     it('has right error message', () => {
       expect(error?.message).toBe('Fail to get matching product');

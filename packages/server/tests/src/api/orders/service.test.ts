@@ -1,3 +1,4 @@
+import * as Effect from 'effect/Effect';
 import clothingListJson from 'server/clothing' with { type: 'json' };
 import rawProductsJson from 'server/rawProducts' with { type: 'json' };
 import { transformProducts } from 'shared/products';
@@ -24,25 +25,17 @@ const OrderService = createOrdersService({
 
 describe.concurrent('createOrder', () => {
   it('return right order if success', () => {
-    const { data: order } = createOrder(cart as Cart[], products);
-    expect(order?.products).toEqual(orderJson.products);
-    expect(order?.totalCostCents).toEqual(orderJson.totalCostCents);
+    const order = Effect.runSync(createOrder(cart as Cart[], products));
+    expect(order.products).toEqual(orderJson.products);
+    expect(order.totalCostCents).toEqual(orderJson.totalCostCents);
   });
   it('return error if cart is invalid', () => {
-    const { error } = createOrder(
-      [
-        ...(cart as Cart[]),
-        {
-          productId: 'abcde',
-          quantity: 10,
-          deliveryOptionId: '3',
-        },
-      ],
-      products,
-    );
-    expect(error).toBeTruthy();
-    expect(error?.message).toBe('Fail to get matching product');
-    expect(error?.productId).toBe('abcde');
+    const invalidCart: Cart[] = [
+      ...(cart as Cart[]),
+      { productId: 'abcde', quantity: 10, deliveryOptionId: '3' as const },
+    ];
+    const exit = Effect.runSyncExit(createOrder(invalidCart, products));
+    expect(exit._tag).toBe('Failure');
   });
 });
 

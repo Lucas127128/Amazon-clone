@@ -11,7 +11,6 @@ import {
   EdenTreatyValidationError,
   HTMLSelectionError,
   JsonParseError,
-  PriceCalculationError,
   UnexpectedNetworkError,
   ValidationError,
 } from 'shared/taggedError';
@@ -28,12 +27,7 @@ export async function renderPaymentSummary(params: {
   products: readonly Product[];
 }) {
   const render = Effect.gen(function* () {
-    const { data: prices, error } = calculatePrices(
-      params.cart,
-      params.products,
-    );
-    if (error)
-      return yield* Effect.fail(new PriceCalculationError(error.productId));
+    const prices = yield* calculatePrices(params.cart, params.products);
 
     const paymentSummary = document.querySelector('.payment-summary-body');
     const paymentSummaryHTML = generatePaymentSummary(prices);

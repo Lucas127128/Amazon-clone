@@ -1,3 +1,4 @@
+import { Effect } from 'effect';
 import { calculatePrices } from 'shared/payment';
 import type { Product } from 'shared/products';
 import type { Cart } from 'shared/schema';
@@ -8,11 +9,9 @@ import { generatePaymentSummary } from '#pages/htmlGenerators/paymentSummaryHTML
 
 describe.concurrent('generatePaymentSummary', () => {
   it('generate correct HTML', ({ expect }) => {
-    const { data: price, error } = calculatePrices(
-      cart as Cart[],
-      products as Product[],
+    const price = Effect.runSync(
+      calculatePrices(cart as Cart[], products as Product[]),
     );
-    if (error) throw new Error(error.message);
     const html = generatePaymentSummary(price);
     expect(html).toMatchSnapshot();
   });

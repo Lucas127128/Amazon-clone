@@ -1,5 +1,8 @@
+import * as Effect from 'effect/Effect';
+
 import { PRICE_CONFIG } from '../../config/constants.ts';
 import type { Cart } from '../schema.ts';
+import { PriceCalculationError } from '../taggedError.ts';
 import { getDeliveryPriceCents } from './deliveryOption.ts';
 import { getMatchingProduct, type Product } from './products.ts';
 
@@ -12,31 +15,19 @@ export type Prices = {
   totalOrderPrice: number;
 };
 
-export function calculatePrices(
-  cart: Cart[],
-  products: readonly Product[],
-):
-  | { data: Prices; error: null }
-  | {
-      data: null;
-      error: {
-        message: 'Fail to get matching product';
-        productId: string;
-      };
-    } {
+export function calculatePrices(cart: Cart[], products: readonly Product[]) {
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;
   let cartQuantity = 0;
   for (const cartItem of cart) {
     const product = getMatchingProduct(products, cartItem.productId);
     if (!product)
-      return {
-        data: null,
-        error: {
-          message: 'Fail to get matching product',
-          productId: cartItem.productId,
-        },
-      };
+      return Effect.fail(
+        new PriceCalculationError(
+          cartItem.productId,
+          'Fail to get matching product',
+        ),
+      );
     const totalPrice = product.priceCents * cartItem.quantity;
     totalProductPrice += totalPrice;
     cartQuantity += cartItem.quantity;
@@ -48,15 +39,12 @@ export function calculatePrices(
   const totalPriceBeforeTax = totalDeliveryFee + totalProductPrice;
   const totalTax = totalPriceBeforeTax * PRICE_CONFIG.TAX_RATE;
   const totalOrderPrice = totalPriceBeforeTax + totalTax;
-  return {
-    data: {
-      totalProductPrice,
-      totalDeliveryFee,
-      cartQuantity,
-      totalPriceBeforeTax,
-      totalTax,
-      totalOrderPrice,
-    },
-    error: null,
-  };
+  return Effect.succeed({
+    totalProductPrice,
+    totalDeliveryFee,
+    cartQuantity,
+    totalPriceBeforeTax,
+    totalTax,
+    totalOrderPrice,
+  });
 }
