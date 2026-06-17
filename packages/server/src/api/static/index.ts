@@ -19,8 +19,8 @@ export const staticPlugin = new Elysia({
     },
     { detail: { description: 'Redirect to /index.html' } },
   )
-  .get('/speculationRules.json', async ({ headers }) => {
-    headers['content-type'] = 'application/speculationrules+json';
+  .get('/speculationRules.json', async ({ set }) => {
+    set.headers['content-type'] = 'application/speculationrules+json';
     return await Bun.file('../shared/config/speculationRules.json').text();
   });
 
@@ -46,10 +46,10 @@ await Promise.all(
     const { compress } = handler[fileExtension];
     const { mimeType } = handler[fileExtension];
 
-    staticPlugin.get(route, ({ headers }) => {
-      headers['content-type'] = mimeType;
-      headers['cache-control'] = cacheControl;
-      headers['content-encoding'] = compress;
+    staticPlugin.get(route, ({ set }) => {
+      set.headers['content-type'] = mimeType;
+      set.headers['cache-control'] = cacheControl;
+      if (compress) set.headers['content-encoding'] = compress;
       log.info({ event: 'static.serve', route });
       return file;
     });

@@ -15,9 +15,9 @@ export const searchPlugin = new Elysia({ prefix: '/api/search' })
   })
   .use(createEvlogMiddleware())
   .use(Service)
-  .onBeforeHandle(({ request, server, log, query }) => {
+  .onBeforeHandle(({ request, server, log }) => {
     const clientIP = server?.requestIP(request)?.address;
-    log.set({ clientIp: clientIP, query: query.q });
+    log.set({ clientIp: clientIP });
   })
   .post(
     '/products',

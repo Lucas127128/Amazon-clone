@@ -98,7 +98,9 @@ orderSummary?.addEventListener('change', (event) => {
   uiUpdateEmitter
     .emit('changeDeliveryOption', {
       productId,
-      deliveryOptionId: target.dataset.deliveryChoiceId as DeliveryOptionId,
+      deliveryOptionId: target.dataset[
+        'deliveryChoiceId'
+      ] as DeliveryOptionId,
     })
     .catch((err) => console.error(err));
 });

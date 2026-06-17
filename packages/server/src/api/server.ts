@@ -63,6 +63,6 @@ export const app = new Elysia({
   .use(productsPlugin)
   .use(orderPlugin)
   .use(searchPlugin)
-  .listen(localHttps({ port: Bun.env.PORT ?? 8080 }));
+  .listen(localHttps({ port: Bun.env['PORT'] ?? 8080 }));
 
 export type App = typeof app;

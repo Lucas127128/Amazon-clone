@@ -25,25 +25,28 @@ describe.concurrent('addToCart', () => {
   });
   it('incrementally add an existing product to cart', () => {
     cartStore(cartJson.slice(0, 3) as Cart[]);
-    addToCart({ ...cartStore()[2], quantity: 1 }, true);
+    addToCart({ ...cartStore()[2]!, quantity: 1 }, true);
     expect(cartStore().length).toBe(3);
-    expect(cartStore()[2].productId).toBe('acmQY');
-    expect(cartStore()[2].quantity).toBe(6);
-    expect(cartStore()[2].deliveryOptionId).toBe('1');
+    const cart = cartStore()[2]!;
+    expect(cart.productId).toBe('acmQY');
+    expect(cart.quantity).toBe(6);
+    expect(cart.deliveryOptionId).toBe('1');
   });
   it('not incrementally add an existing product to cart', () => {
     cartStore(cartJson.slice(0, 3) as Cart[]);
-    addToCart({ ...cartStore()[2], quantity: 1 }, false);
+    addToCart({ ...cartStore()[2]!, quantity: 1 }, false);
     expect(cartStore().length).toBe(3);
-    expect(cartStore()[2].productId).toBe('acmQY');
-    expect(cartStore()[2].quantity).toBe(1);
-    expect(cartStore()[2].deliveryOptionId).toBe('1');
+    const cart = cartStore()[2]!;
+    expect(cart.productId).toBe('acmQY');
+    expect(cart.quantity).toBe(1);
+    expect(cart.deliveryOptionId).toBe('1');
   });
   it('throw if quantity is bigger than max quantity', () => {
+    const cart = cartStore()[2]!;
     expect(() =>
       addToCart(
         {
-          ...cartStore()[2],
+          ...cart,
           quantity: CART_CONFIG.MAX_QUANTITY_PER_ITEM + 1,
         },
         false,

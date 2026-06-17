@@ -134,7 +134,7 @@ Uses **Valibot** for runtime validation (not Zod):
 
 ## Effect Integration
 
-- **effect@^4.0.0-beta.78** in catalog, used across `server`, `web`, `shared`, `api-client`
+- **effect@^4.0.0-beta.83** in catalog, used across `server`, `web`, `shared`, `api-client`
 - `Data.TaggedError` for structured errors: `UnexpectedError`, `JsonParseError`, `ValidationError`, `PriceCalculationError`, `MatchingCartError`, etc.
 - `Effect.succeed`/`Effect.fail` in `calculatePrices()` and order creation
 - `Option.fromNullishOr` for nullable product lookups in products service
