@@ -16,7 +16,7 @@ export const uiUpdateEmitter = createEventEmitter({
   on: {
     updateQuantity: {
       // oxlint-disable-next-line
-      handler: async (productId: string) => {
+      handler: (productId: string) => {
         const deleteQuantity = document.querySelector(
           `span.delete-quantity-link-${productId}`,
         );
@@ -35,26 +35,23 @@ export const uiUpdateEmitter = createEventEmitter({
         saveQuantityHTML.style.display = 'inline';
       },
     },
-    updateQuantityUI: {
-      // oxlint-disable-next-line
-      handler: async (productId: string) => {
-        const deleteQuantity = document.querySelector(
-          `span.delete-quantity-link-${productId}`,
-        );
-        checkNullish(deleteQuantity, 'Fail to select HTML element');
-        deleteQuantity.style.display = 'none';
+    updateQuantityUI: (productId: string) => {
+      const deleteQuantity = document.querySelector(
+        `span.delete-quantity-link-${productId}`,
+      );
+      checkNullish(deleteQuantity, 'Fail to select HTML element');
+      deleteQuantity.style.display = 'none';
 
-        const quantityInputHTML = document.querySelector(
-          `input.quantity-input-${productId}`,
-        );
-        const saveQuantityHTML = document.querySelector(
-          `span.save-quantity-link-${productId}`,
-        );
-        checkNullish(saveQuantityHTML, 'Fail to select HTML element');
-        checkNullish(quantityInputHTML, 'Fail to select HTML element');
-        quantityInputHTML.style.display = 'inline';
-        saveQuantityHTML.style.display = 'inline';
-      },
+      const quantityInputHTML = document.querySelector(
+        `input.quantity-input-${productId}`,
+      );
+      const saveQuantityHTML = document.querySelector(
+        `span.save-quantity-link-${productId}`,
+      );
+      checkNullish(saveQuantityHTML, 'Fail to select HTML element');
+      checkNullish(quantityInputHTML, 'Fail to select HTML element');
+      quantityInputHTML.style.display = 'inline';
+      saveQuantityHTML.style.display = 'inline';
     },
     saveQuantity: {
       // oxlint-disable-next-line

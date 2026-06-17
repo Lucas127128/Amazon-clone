@@ -8,12 +8,12 @@
     ],
     "catalog": {
       "@vitest/ui": "^4.1.8",
-      "happy-dom": "^20.10.2",
+      "happy-dom": "^20.10.3",
       "temporal-polyfill-lite": "^0.4.0",
       "valibot": "^1.4.1",
       "vite": "^8.0.16",
       "vitest": "^4.1.8",
-      "effect": "^4.0.0-beta.78"
+      "effect": "^4.0.0-beta.83"
     }
   },
   "type": "module",
@@ -40,7 +40,7 @@
     "@vitest/coverage-istanbul": "4.1.8",
     "eslint-plugin-depend": "^1.5.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
-    "eslint-plugin-turbo": "^2.9.17",
+    "eslint-plugin-turbo": "^2.9.18",
     "eslint-plugin-typed-rocks": "^1.0.8",
     "husky": "^9.1.7",
     "knip": "^6.16.1",
@@ -48,7 +48,7 @@
     "oxfmt": "^0.54.0",
     "oxlint": "^1.68.0",
     "oxlint-tsgolint": "^0.23.0",
-    "turbo": "^2.9.17",
+    "turbo": "^2.9.18",
     "vite": "catalog:",
     "vitest-coverage-merge": "^0.2.0"
   },

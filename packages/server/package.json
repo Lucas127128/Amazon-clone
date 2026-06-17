@@ -28,7 +28,7 @@
     "effect": "catalog:",
     "elysia": "^1.4.28",
     "elysia-local-https": "^1.0.2",
-    "evlog": "^2.18.1",
+    "evlog": "^2.19.1",
     "nanoid": "^5.1.11",
     "p-memoize": "^8.0.0",
     "shared": "workspace:*",
