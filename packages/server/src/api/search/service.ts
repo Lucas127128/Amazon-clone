@@ -4,8 +4,8 @@ import { FETCH_CONFIG } from 'shared/constants';
 import type { SearchResult } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 
-import type { DataProvider } from '#utils/dataProvider.ts';
-import { createLogger } from '#utils/logger.ts';
+import type { DataProvider } from '../../utils/dataProvider.ts';
+import { createLogger } from '../../utils/logger.ts';
 
 export async function createSearchService(provider: DataProvider) {
   const { error, rawProducts } = provider;

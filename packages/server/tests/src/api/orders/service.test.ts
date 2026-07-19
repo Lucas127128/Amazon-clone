@@ -6,12 +6,11 @@ import type { Cart, RawProduct } from 'shared/schema';
 import { cartJson as cart, orderJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
-import type { DataProvider } from '#utils/dataProvider.ts';
-
 import {
   createOrder,
   createOrdersService,
 } from '../../../../src/api/orders/service.ts';
+import type { DataProvider } from '../../../../src/utils/dataProvider.ts';
 
 const products = transformProducts(
   rawProductsJson as RawProduct[],

@@ -7,8 +7,8 @@ import { transformProducts } from 'shared/products';
 import type { Cart, Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 
-import type { DataProvider } from '#utils/dataProvider.ts';
-import { createLogger } from '#utils/logger.ts';
+import type { DataProvider } from '../../utils/dataProvider.ts';
+import { createLogger } from '../../utils/logger.ts';
 
 export const createOrder = (cart: Cart[], products: readonly Product[]) =>
   Effect.gen(function* () {

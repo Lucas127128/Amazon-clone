@@ -3,8 +3,8 @@ import { status } from 'elysia';
 import { getMatchingRawProduct } from 'shared/products';
 import type { RawProduct } from 'shared/schema';
 
-import type { DataProvider } from '#utils/dataProvider.ts';
-import { createLogger } from '#utils/logger.ts';
+import type { DataProvider } from '../../utils/dataProvider.ts';
+import { createLogger } from '../../utils/logger.ts';
 
 const findProduct = (rawProducts: RawProduct[], productId: string) =>
   Option.fromNullishOr(getMatchingRawProduct(rawProducts, productId));

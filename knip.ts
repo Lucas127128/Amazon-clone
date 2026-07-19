@@ -29,7 +29,7 @@ const config: KnipConfig = {
     'vite',
   ],
   ignore: ['packages/*/vitest.config.ts'],
-  ignoreBinaries: ['bombardier', 'codesign'],
+  ignoreBinaries: ['bombardier'],
 };
 
 export default config;

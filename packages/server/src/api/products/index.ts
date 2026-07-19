@@ -8,9 +8,8 @@ import {
 } from 'shared/schema';
 import { array, object, string } from 'valibot';
 
-import { createProdDataProvider } from '#utils/dataProvider.ts';
-import { createEvlogMiddleware } from '#utils/logger.ts';
-
+import { createProdDataProvider } from '../../utils/dataProvider.ts';
+import { createEvlogMiddleware } from '../../utils/logger.ts';
 import { createProductsService } from './service.ts';
 
 const Service = createProductsService(await createProdDataProvider());

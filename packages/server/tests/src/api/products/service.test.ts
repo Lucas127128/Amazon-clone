@@ -3,9 +3,8 @@ import rawProductsJson from 'server/rawProducts' with { type: 'json' };
 import type { RawProduct } from 'shared/schema';
 import { describe, expect, it } from 'vitest';
 
-import type { DataProvider } from '#utils/dataProvider.ts';
-
 import { createProductsService } from '../../../../src/api/products/service.ts';
+import type { DataProvider } from '../../../../src/utils/dataProvider.ts';
 
 const Service = createProductsService({
   rawProducts: rawProductsJson as RawProduct[],

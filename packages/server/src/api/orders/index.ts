@@ -7,9 +7,8 @@ import {
 } from 'shared/schema';
 import { minLength, pipe } from 'valibot';
 
-import { createProdDataProvider } from '#utils/dataProvider.ts';
-import { createEvlogMiddleware } from '#utils/logger.ts';
-
+import { createProdDataProvider } from '../../utils/dataProvider.ts';
+import { createEvlogMiddleware } from '../../utils/logger.ts';
 import { createOrdersService } from './service.ts';
 
 const OrderService = createOrdersService(await createProdDataProvider());

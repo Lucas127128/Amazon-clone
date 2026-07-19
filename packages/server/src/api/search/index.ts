@@ -2,9 +2,8 @@ import { Elysia } from 'elysia';
 import { log } from 'evlog';
 import { SearchOptionsSchema, SearchResultSchema } from 'shared/schema';
 
-import { createProdDataProvider } from '#utils/dataProvider.ts';
-import { createEvlogMiddleware } from '#utils/logger.ts';
-
+import { createProdDataProvider } from '../../utils/dataProvider.ts';
+import { createEvlogMiddleware } from '../../utils/logger.ts';
 import { createSearchService } from './service.ts';
 
 const Service = await createSearchService(await createProdDataProvider());
