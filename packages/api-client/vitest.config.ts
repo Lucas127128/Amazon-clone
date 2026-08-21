@@ -20,7 +20,6 @@ export default defineConfig({
       exclude: ['./src/edenTreaty.ts'],
     },
     detectAsyncLeaks: true,
-    ui: true,
     projects: [
       {
         test: {
