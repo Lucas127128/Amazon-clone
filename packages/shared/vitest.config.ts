@@ -19,6 +19,7 @@ export default defineConfig({
       reportsDirectory: '../../coverage/shared',
     },
     detectAsyncLeaks: true,
+    ui: true,
     projects: [
       {
         test: {

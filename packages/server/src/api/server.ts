@@ -16,6 +16,7 @@ import { staticPlugin } from './static/index.ts';
 initEvlog();
 
 export const app = new Elysia({
+  nativeStaticResponse: false,
   precompile: true,
   aot: true,
   serve: { http3: true, http1: true },

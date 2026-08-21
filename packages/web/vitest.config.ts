@@ -22,6 +22,7 @@ export default defineConfig({
       exclude: ['src/scripts/utils/trustedTypes.ts'],
     },
     detectAsyncLeaks: true,
+    ui: true,
     projects: [
       {
         plugins,
