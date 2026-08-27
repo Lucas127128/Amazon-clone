@@ -32,7 +32,7 @@ export function transformProducts(
   rawProducts: RawProduct[],
   clothings: string[],
 ) {
-  const products: readonly Product[] = rawProducts
+  const products: Product[] = rawProducts
     .toSorted(
       (a, b) =>
         b.rating.stars - a.rating.stars || b.rating.count - a.rating.count,

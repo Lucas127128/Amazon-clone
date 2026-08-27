@@ -2,7 +2,7 @@ import { getMatchingProduct, type Product } from 'shared/products';
 import { productsJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
-import { fetchMatchingProduct, fetchProducts } from '#data/products.ts';
+import { fetchMatchingProduct, fetchProducts } from '#lib/data/products.ts';
 describe.concurrent('fetch products', () => {
   it('fetch correct products', async () => {
     const { data: fetchedProducts } = await fetchProducts();

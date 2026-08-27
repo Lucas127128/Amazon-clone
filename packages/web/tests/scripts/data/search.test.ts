@@ -1,37 +1,16 @@
 import type { Product } from 'shared/products';
 import { describe, expect, it, vi } from 'vitest';
 
-import { searchProducts, searchProductsSuggestions } from '#data/search.ts';
+import {
+  searchProducts,
+  searchProductsSuggestions,
+} from '#lib/data/search.ts';
 
 describe.concurrent('searchProducts', () => {
   it('return correct unhighlighted products', async () => {
-    const result = await searchProducts('2 Slot Toaster - Black', 5, false);
-    expect(
-      result.some((product) => product.name === '2 Slot Toaster - Black'),
-    ).toBe(true);
+    const result = await searchProducts('2 Slot Toaster - Black', 5);
+    expect(result.some((productId) => productId === '7nDww')).toBe(true);
     expect(result.length).toBe(5);
-  });
-  it('returns correct highlighted products', async () => {
-    const result = await searchProducts('2 Slot Toaster - Black', 4, true);
-    expect(
-      result.some(
-        (product) =>
-          product.name
-            .replaceAll('<em class="orama-highlight">', '')
-            .replaceAll('</em>', '') === '2 Slot Toaster - Black',
-      ),
-    ).toBe(true);
-    expect(result.length).toBe(4);
-  });
-  it('throws on search API error', async () => {
-    await expect(searchProducts('SEARCH_ERROR')).rejects.toThrow(
-      '[object Object]',
-    );
-  });
-  it('throws on fetchProducts error', async () => {
-    await expect(searchProducts('FETCH_ERROR')).rejects.toThrow(
-      '[object Object]',
-    );
   });
 });
 

@@ -40,6 +40,7 @@ export const RatingSchema = object({
 
 export const PriceCentsSchema = pipe(number(), minValue(0));
 export const ProductIdSchema = pipe(string(), minLength(5), maxLength(5));
+export const ProductIdsSchema = array(ProductIdSchema);
 
 export const RawProductSchema = cache(
   object({
@@ -99,6 +100,7 @@ export const ProductSortOptionsSchema = union([
   literal('most-expensive'),
   literal('least-expensive'),
 ]);
+export type ProductSortOption = InferOutput<typeof ProductSortOptionsSchema>;
 
 export const ElysiaValidationErrorSchema = object({
   status: literal(422),

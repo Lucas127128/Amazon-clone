@@ -11,7 +11,7 @@ const config: KnipConfig = {
       entry: ['vitest.setup.ts'],
     },
     'packages/web': {
-      entry: ['src/scripts/pages/*.ts', 'vitest.setup.ts'],
+      entry: ['vitest.setup.ts'],
     },
   },
   vitest: {

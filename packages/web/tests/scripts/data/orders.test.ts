@@ -3,7 +3,7 @@ import type { Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { describe, expect, it } from 'vitest';
 
-import { getMatchingOrder, getTimeString } from '#data/orders.ts';
+import { getMatchingOrder, getTimeString } from '#lib/data/orders.ts';
 
 describe.concurrent('getTimeString', () => {
   it('get time string from ISO time', () => {

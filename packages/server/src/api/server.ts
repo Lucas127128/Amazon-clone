@@ -54,6 +54,7 @@ export const app = new Elysia({
         GLOBAL_CONFIG.API_URL,
         GLOBAL_CONFIG.PREVIEW_URL,
         GLOBAL_CONFIG.CADDY_URL,
+        'http://localhost:4173',
       ],
       allowedHeaders: ['Content-Type'],
     }),
