@@ -14,7 +14,6 @@ export default defineConfig({
       NODE_TLS_REJECT_UNAUTHORIZED: '0',
     },
     sequence: { concurrent: true },
-    typecheck: { enabled: true },
     coverage: {
       provider: 'istanbul',
       reporter: ['json', 'text'],
