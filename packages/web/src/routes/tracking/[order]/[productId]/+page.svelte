@@ -24,16 +24,16 @@
 
 <AmazonHeader cartQuantity={1} cart={[]} />
 
-<div class="main">
+<div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-7.5 pl-7.5">
   <dialog class="border-none bg-inherit" id="general-error-dialog">
     <div
-      class="w-60 p-2.5 border-2 border-solid border-red-700 rounded-2xl bg-white grid grid-cols-1 grid-rows-[2fr_1fr] gap-4"
+      class="grid w-60 grid-cols-1 grid-rows-[2fr_1fr] gap-4 rounded-2xl border-2 border-solid border-red-700 bg-white p-2.5"
     >
       <p>
         Sorry, something went wrong in our website. Please try again later.
       </p>
       <button
-        class="bg-green-700 text-white border-none rounded-xl overflow-hidden"
+        class="overflow-hidden rounded-xl border-none bg-green-700 text-white"
         command="close"
         commandfor="general-error-dialog"
       >
@@ -43,7 +43,7 @@
   </dialog>
   <div class="order-tracking">
     <a
-      class="back-to-orders-link link-primary"
+      class="link-primary mb-7.5 inline-block"
       href="/orders"
       onclick={(e) => {
         e.preventDefault();
@@ -53,116 +53,36 @@
       View all orders
     </a>
     {#if matchingCart && matchingProduct}
-      <div class="delivery-date">
+      <div class="mb-2.5 text-[25px] font-bold">
         Arriving on {getDeliveryDate(matchingCart.deliveryOptionId)}
       </div>
 
-      <div class="product-info">{matchingProduct.name}</div>
+      <div class="mb-0.75">{matchingProduct.name}</div>
 
-      <div class="product-info">Quantity: {matchingCart.quantity}</div>
+      <div class="mb-0.75">Quantity: {matchingCart.quantity}</div>
 
       <img
-        class="product-image"
+        class="mt-6.25 mb-12.5 max-h-37.5 max-w-37.5"
         src={matchingProduct.image}
         alt={matchingProduct.name}
       />
 
-      <div class="progress-labels-container">
+      <div
+        class="mb-3.75 flex justify-between font-medium sm:text-[16px] md:text-xl"
+      >
         <div class="progress-label">Preparing</div>
-        <div class="progress-label current-status">Shipped</div>
+        <div class="progress-label text-[#067d62]">Shipped</div>
         <div class="progress-label">Delivered</div>
       </div>
 
-      <div class="progress-bar-container">
+      <div
+        class="h-6.25 w-full overflow-hidden rounded-[50px] border border-solid border-[#c8c8c8]"
+      >
         <div
-          class="progress-bar"
+          class="h-full w-1/2 rounded-[50px] bg-green-700"
           style:width={`${deliveryProgressPercent}%`}
         ></div>
       </div>
     {/if}
   </div>
 </div>
-
-<style>
-  .main {
-    max-width: 850px;
-    margin-top: 90px;
-    margin-bottom: 100px;
-    padding-left: 30px;
-    padding-right: 30px;
-
-    /* margin-left: auto;
-         margin-right auto;
-         Is a trick for centering an element horizontally
-         without needing a container. */
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .back-to-orders-link {
-    display: inline-block;
-    margin-bottom: 30px;
-  }
-
-  .delivery-date {
-    font-size: 25px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  .product-info {
-    margin-bottom: 3px;
-  }
-
-  .product-image {
-    max-width: 150px;
-    max-height: 150px;
-    margin-top: 25px;
-    margin-bottom: 50px;
-  }
-
-  .progress-labels-container {
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 15px;
-  }
-
-  .current-status {
-    color: rgb(6, 125, 98);
-  }
-
-  @media (max-width: 575px) {
-    .progress-labels-container {
-      font-size: 16px;
-    }
-  }
-
-  @media (max-width: 450px) {
-    .progress-labels-container {
-      flex-direction: column;
-      margin-bottom: 5px;
-    }
-
-    .progress-label {
-      margin-bottom: 3px;
-    }
-  }
-
-  .progress-bar-container {
-    height: 25px;
-    width: 100%;
-
-    border: 1px solid rgb(200, 200, 200);
-    border-radius: 50px;
-    overflow: hidden;
-  }
-
-  .progress-bar {
-    height: 100%;
-    background-color: green;
-    border-radius: 50px;
-    width: 50%;
-  }
-</style>

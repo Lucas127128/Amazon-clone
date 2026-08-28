@@ -10,6 +10,7 @@
     "#lib/*": "./src/lib/*"
   },
   "scripts": {
+    "check": "bunx -b svelte-check --tsconfig ./tsconfig.json",
     "build": "NODE_TLS_REJECT_UNAUTHORIZED=0 bunx -b vite build",
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 vite",
     "preview": "NODE_TLS_REJECT_UNAUTHORIZED=0 bunx -b vite preview",
@@ -24,7 +25,9 @@
     "@sveltejs/kit": "^3.0.0-next.23",
     "@tanstack/pacer-lite": "^0.2.2",
     "api-client": "workspace:*",
+    "cnfast": "^0.1.0",
     "effect": "catalog:",
+    "nanoid": "^6.0.1",
     "shared": "workspace:*",
     "svelte": "^5.56.9",
     "temporal-polyfill-lite": "catalog:",
@@ -37,6 +40,7 @@
     "comptime": "^0.1.0",
     "happy-dom": "catalog:",
     "sonda": "^0.14.0",
+    "svelte-check": "^4.7.5",
     "tailwindcss": "^4.3.3",
     "testdata": "workspace:*",
     "vite": "catalog:",

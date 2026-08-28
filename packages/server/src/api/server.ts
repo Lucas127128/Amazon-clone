@@ -11,7 +11,6 @@ import { openApi } from '../utils/openApi.ts';
 import { orderPlugin } from './orders/index.ts';
 import { productsPlugin } from './products/index.ts';
 import { searchPlugin } from './search/index.ts';
-import { staticPlugin } from './static/index.ts';
 
 initEvlog();
 
@@ -61,7 +60,6 @@ export const app = new Elysia({
   )
   .use(Bun.env.DEV ? serverTiming() : undefined)
   .use(openApi())
-  .use(staticPlugin)
   .use(productsPlugin)
   .use(orderPlugin)
   .use(searchPlugin)

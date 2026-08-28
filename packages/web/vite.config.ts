@@ -17,6 +17,7 @@ export default defineConfig(({ command }) => {
       sourcemap: true,
     },
     plugins: [
+      comptime(),
       isBuild && Sonda({ open: false }),
       tailwindcss({ optimize: true }),
       sveltekit({
@@ -26,10 +27,11 @@ export default defineConfig(({ command }) => {
             async: true,
           },
         },
+        experimental: {
+          remoteFunctions: true,
+        },
         adapter: adapter(),
       }),
-      comptime(),
-
       // DevTools(),
     ],
     css: {

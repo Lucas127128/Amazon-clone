@@ -1,9 +1,8 @@
-import { fetchProducts } from '#lib/data/products.ts';
+import { getProducts } from '#lib/products.remote.ts';
 
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async () => {
-  const { data: products, error } = await fetchProducts();
-  if (error) throw error;
+  const products = await getProducts();
   return { products };
 };

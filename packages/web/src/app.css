@@ -4,6 +4,10 @@
 /*@import 'tailwindcss/preflight.css' layer(base);*/
 @import 'tailwindcss/utilities.css' layer(utilities);
 
+@theme {
+  --breakpoint-xs: 450px;
+}
+
 @layer components {
   .button-primary {
     color: rgb(33, 33, 33);
@@ -25,11 +29,6 @@
     box-shadow: none;
   }
 
-  .button-link {
-    border: none;
-    background-color: inherit;
-  }
-
   .link-primary {
     color: rgb(1, 124, 182);
     cursor: pointer;
@@ -44,7 +43,6 @@
   body {
     font-family: Roboto, Arial;
     font-weight: 400;
-    font-display: optional;
     color: rgb(33, 33, 33);
     margin: 0;
   }

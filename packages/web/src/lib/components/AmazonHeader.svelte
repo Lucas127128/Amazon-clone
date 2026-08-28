@@ -13,44 +13,47 @@
 </script>
 
 <div
-  class="bg-[#2d2d2d] text-white pl-3.75 pr-3.75 flex items-center justify-between sticky top-0 right-0 left-0 h-15 [anchor-name:\--amazon-header]"
+  class="sticky top-0 right-0 left-0 flex h-15 items-center justify-between bg-[#2d2d2d] pr-3.75 pl-3.75 text-white [anchor-name:\--amazon-header]"
 >
   {let searchTerm = $state(page.params.query ?? '')}
-  <div class="lg:w-45 md:w-[unset]">
+  <div class="md:w-[unset] lg:w-45">
     <a
       href="/"
-      class=" text-white inline-block p-1.5 rounded-xs cursor-pointer decoration-[#2d2d2d] hover:outline"
+      class=" inline-block cursor-pointer rounded-xs p-1.5 text-white decoration-[#2d2d2d] hover:outline"
       onclick={() => {
         searchTerm = '';
       }}
     >
       <img
-        class="w-25 mt-1.25 hidden sm:block"
+        class="mt-1.25 hidden w-25 sm:block"
         src="/images/amazon-logo-white.webp"
         fetchpriority="high"
         alt="amazon logo"
       />
       <img
         fetchpriority="high"
-        class="h-8.75 mt-1.25 sm:hidden block"
+        class="mt-1.25 block h-8.75 sm:hidden"
         src="/images/amazon-mobile-logo-white.webp"
         alt="amazon logo"
       />
     </a>
   </div>
 
-  <div class="flex flex-1 max-w-212.5 ml-2.5 mr-2.5">
+  <div class="mr-2.5 ml-2.5 flex max-w-212.5 flex-1">
     {let options = $state<string[]>([])}
     <input
-      class="flex-1 w-0 text-[16px] h-9.5 pl-3.75 border-0 rounded-sm rounded-r-none"
+      class="h-9.5 w-0 flex-1 rounded-sm rounded-r-none border-0 pl-3.75 text-[16px]"
       type="text"
       placeholder="Search"
       list="search-suggestions"
       bind:value={searchTerm}
       onkeyup={() => {
-        searchProductsSuggestions.maybeExecute(searchTerm, (products) => {
-          options = products.map((product) => product.name);
-        });
+        searchProductsSuggestions.maybeExecute(
+          searchTerm,
+          (productsName) => {
+            options = productsName;
+          },
+        );
       }}
     />
     <datalist id="search-suggestions">
@@ -60,14 +63,14 @@
     </datalist>
 
     <button
-      class="bg-[#febd69] border-0 w-11.25 h-10 shrink-0 rounded-r-sm"
+      class="h-10 w-11.25 shrink-0 rounded-r-sm border-0 bg-[#febd69]"
       onclick={async () => {
         const products = await searchProducts(searchTerm);
         goto(`/${JSON.stringify(products)}/${searchTerm}`);
       }}
     >
       <img
-        class="h-5.5 ml-0.5 mt-0.75"
+        class="mt-0.75 ml-0.5 h-5.5"
         fetchpriority="high"
         src="/images/icons/search-icon.svg"
         alt="search icon"
@@ -75,9 +78,9 @@
     </button>
   </div>
 
-  <div class="w-45 shrink-0 flex justify-end">
+  <div class="flex w-45 shrink-0 justify-end">
     <a
-      class="text-white inline-block p-1.5 rounded-xs cursor-pointer decoration-[#2d2d2d] hover:outline"
+      class="inline-block cursor-pointer rounded-xs p-1.5 text-white decoration-[#2d2d2d] hover:outline"
       href="/orders/[]"
     >
       <span class="block text-[13px]">Returns</span>
@@ -85,7 +88,7 @@
     </a>
 
     <a
-      class="hover:outline p-1.5 flex rounded-xs cursor-pointer text-white items-center relative text-[16px] decoration-0 decoration-[#2d2d2d]"
+      class="relative flex cursor-pointer items-center rounded-xs p-1.5 text-[16px] text-white decoration-[#2d2d2d] decoration-0 hover:outline"
       href={`/checkout/${JSON.stringify(cart)}`}
     >
       <img
@@ -95,11 +98,11 @@
         alt="checkout cart icon"
       />
       <div
-        class="text-[#f08804] font-bold absolute top-1 left-5.5 w-6.5 text-center"
+        class="absolute top-1 left-5.5 w-6.5 text-center font-bold text-[#f08804]"
       >
         {cartQuantity}
       </div>
-      <div class="mt-3 font-bold text-[15px]">Cart</div>
+      <div class="mt-3 text-[15px] font-bold">Cart</div>
     </a>
   </div>
 </div>

@@ -31,12 +31,12 @@
 <AmazonHeader {cartQuantity} {cart} />
 
 <div
-  class="absolute [position-anchor:\--amazon-header] top-[anchor(bottom)] left-[anchor(left)] p-1.25 bg-[#2d2d2d] rounded-br-xl overflow-hidden w-2xs h-9 grid grid-cols-[1fr_7fr] items-center"
+  class="absolute top-[anchor(bottom)] left-[anchor(left)] grid h-9 w-2xs grid-cols-[1fr_7fr] items-center overflow-hidden rounded-br-xl bg-[#2d2d2d] p-1.25 [position-anchor:\--amazon-header]"
 >
   {let sortOption = $state<ProductSortOption>('most-stars')}
   <img src="/images/icons/sort.svg" alt="sort icon" />
   <select
-    class="h-8 rounded-[9px] overflow-hidden bg-[#464646] border-0 text-white shadow-none focus:outline-0"
+    class="h-8 overflow-hidden rounded-[9px] border-0 bg-[#464646] text-white shadow-none focus:outline-0"
     bind:value={sortOption}
     onchange={() => {
       type Comparator = Required<Parameters<typeof products.toSorted>>[0];
@@ -72,9 +72,9 @@
       {let addedToCart = $state(false)}
       {let productQuantity = $state('1')}
       <div
-        class="p-6.25 pt-7.5 border-[0.4px] border-[#dedddd] border-solid grid grid-rows-[1fr_0.3fr_0.15fr_0.15fr_0.15fr_0.15fr_0.14fr_0.09fr]"
+        class="grid grid-rows-[1fr_0.3fr_0.15fr_0.15fr_0.15fr_0.15fr_0.14fr_0.09fr] border-[0.4px] border-solid border-[#dedddd] p-6.25 pt-7.5"
       >
-        <div class="flex justify-center h-45 mb-5">
+        <div class="mb-5 flex h-45 justify-center">
           <img
             class="max-h-full max-w-full"
             src={product.image}
@@ -90,14 +90,14 @@
           {/if}
         </div>
 
-        <div class="flex items-end mb-2.5">
+        <div class="mb-2.5 flex items-end">
           <img class="w-25" src={product.starsUrl} alt={product.name} />
-          <div class="link-primary text-[#017cb6] cursor-pointer">
+          <div class="link-primary cursor-pointer text-[#017cb6]">
             {product.ratingCount}
           </div>
         </div>
 
-        <div class="font-bold md-4">
+        <div class="md-4 font-bold">
           ${product.price}
         </div>
         <div>
@@ -119,19 +119,19 @@
         </div>
 
         <div
-          class="text-[#067d62] font-semibold flex"
+          class="flex font-semibold text-[#067d62]"
           style:opacity={addedToCart ? 1 : 0}
         >
           <img
             src="/images/icons/checkmark.svg"
             alt="tick"
-            class="h-5 mr-1.25"
+            class="mr-1.25 h-5"
           />
           Added
         </div>
 
         <button
-          class="font-[13.5px] p-2 rounded-[50px] button-primary"
+          class="button-primary rounded-[50px] p-2 font-[13.5px]"
           onclick={() => {
             const matchingCart = getMatchingCart(cart, product.id);
             if (matchingCart) {

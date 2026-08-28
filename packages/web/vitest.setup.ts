@@ -19,6 +19,12 @@ const fakeTime = Temporal.ZonedDateTime.from({
 vi.setSystemTime(fakeTime);
 vi.useFakeTimers();
 
+vi.mock('$app/server', () => ({
+  query:
+    (_schema: unknown, fn: (arg: unknown) => unknown) => (arg: unknown) =>
+      fn(arg),
+}));
+
 const realFetch = fetch;
 vi.spyOn(globalThis, 'fetch').mockImplementation(
   async (input: string | URL | Request, init?: RequestInit) => {

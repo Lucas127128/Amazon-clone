@@ -3,5 +3,6 @@
   "printWidth": 77,
   "singleQuote": true,
   "svelte": true,
+  "sortTailwindcss": true,
   "ignorePatterns": ["packages/testData/**/*.html"]
 }

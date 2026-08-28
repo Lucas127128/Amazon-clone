@@ -27,8 +27,6 @@ jobs:
         uses: oven-sh/setup-bun@v2
       - name: Install dependency
         run: bun i --frozen-lockfile
-      - name: Build app
-        run: bun run build
       - name: Install dependency for https
         run: |
           curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"

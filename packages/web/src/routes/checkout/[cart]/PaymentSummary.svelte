@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from 'cnfast';
   import { PRICE_CONFIG } from 'shared/constants';
   import { getDeliveryPriceCents } from 'shared/deliveryOption';
   import { formatCurrency } from 'shared/money';
@@ -25,70 +26,46 @@
   const totalPriceBeforeTax = $derived(totalDeliveryFee + totalProductPrice);
   const totalTax = $derived(totalPriceBeforeTax * PRICE_CONFIG.TAX_RATE);
   const totalOrderPrice = $derived(totalPriceBeforeTax + totalTax);
+
+  const paymentSummaryRowTwClass =
+    'grid grid-cols-[1fr_auto] text-[15px] mb-2.25';
 </script>
 
-<div class="payment-summary-row">
-  <div class="cart-item-quantity">Items ({cartQuantity}):</div>
-  <div class="payment-summary-money total-products-price">
+<div class={paymentSummaryRowTwClass}>
+  <div>Items ({cartQuantity}):</div>
+  <div class="text-right">
     ${formatCurrency(totalProductPrice)}
   </div>
 </div>
 
-<div class="payment-summary-row">
+<div class={paymentSummaryRowTwClass}>
   <div>Shipping &amp; handling:</div>
-  <div class="payment-summary-money total-delivery-fee">
+  <div class="text-right">
     ${formatCurrency(totalDeliveryFee)}
   </div>
 </div>
 
-<div class="payment-summary-row subtotal-row">
-  <div>Total before tax:</div>
-  <div class="payment-summary-money total-price-before-tax">
+<div class={paymentSummaryRowTwClass}>
+  <div class="pt-2.25">Total before tax:</div>
+  <div
+    class="border-0 border-t border-solid border-[#dedede] pt-2.25 text-right"
+  >
     ${formatCurrency(totalPriceBeforeTax)}
   </div>
 </div>
 
-<div class="payment-summary-row">
+<div class={paymentSummaryRowTwClass}>
   <div>Estimated tax (10%):</div>
-  <div class="payment-summary-money total-tax">
+  <div class="text-right">
     ${formatCurrency(totalTax)}
   </div>
 </div>
 
-<div class="payment-summary-row total-row">
+<div
+  class={cn`${paymentSummaryRowTwClass} border-0 border-t border-solid border-[#dedede] pt-4.5 text-[18px] font-bold text-[#b12704]`}
+>
   <div>Order total:</div>
-  <div class="payment-summary-money total-cost">
+  <div class="text-right">
     ${formatCurrency(totalOrderPrice)}
   </div>
 </div>
-
-<style>
-  .payment-summary-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-
-    font-size: 15px;
-    margin-bottom: 9px;
-  }
-
-  .payment-summary-money {
-    text-align: right;
-  }
-
-  .subtotal-row .payment-summary-money {
-    border-top: 1px solid rgb(222, 222, 222);
-  }
-
-  .subtotal-row div {
-    padding-top: 9px;
-  }
-
-  .total-row {
-    color: rgb(177, 39, 4);
-    font-weight: 700;
-    font-size: 18px;
-
-    border-top: 1px solid rgb(222, 222, 222);
-    padding-top: 18px;
-  }
-</style>
