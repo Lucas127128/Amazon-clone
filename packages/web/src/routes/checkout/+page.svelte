@@ -1,16 +1,26 @@
 <script lang="ts">
-  import { CartsSchema } from 'shared/schema';
+  import { STORAGE_KEYS } from 'shared/constants';
+  import { OrdersSchema } from 'shared/schema';
   import { parse } from 'valibot';
 
+  import { getCart } from '#lib/data/cart.js';
   import { createOrder } from '#lib/orders.remote.js';
   import { goto } from '$app/navigation';
 
   import CartItems from './CartItems.svelte';
   import PaymentSummary from './PaymentSummary.svelte';
 
-  const { params, data } = $props();
+  const { data } = $props();
   // svelte-ignore  state_referenced_locally
   const products = $state(data.products);
+
+  let cart = $state(getCart());
+  const cartQuantity = $derived(
+    cart.reduce((acc, item) => acc + item.quantity, 0),
+  );
+  $effect(() => {
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+  });
 </script>
 
 <div
@@ -34,7 +44,7 @@
   <div class="mt-[-0.15em] text-2xl font-semibold">
     Checkout (<a
       class="cursor-pointer text-2xl font-medium text-[#007185] decoration-white decoration-0"
-      href="/">3 items</a
+      href="/">{cartQuantity} items</a
     >)
   </div>
 
@@ -71,7 +81,6 @@
   <div
     class="grid items-start gap-x-3 md:grid-cols-[1fr] lg:grid-cols-[1fr_350px]"
   >
-    {let cart = $state(parse(CartsSchema, JSON.parse(params.cart)))}
     <div class="row-2 lg:row-auto">
       <CartItems {products} bind:cart />
     </div>
@@ -86,7 +95,14 @@
         onclick={async () => {
           const { data: order, error } = await createOrder(cart);
           if (error) throw error;
-          await goto(`/orders/${JSON.stringify([order])}`);
+          const orders = parse(
+            OrdersSchema,
+            JSON.parse(localStorage.getItem(STORAGE_KEYS.ORDER) ?? '[]'),
+          );
+          orders.unshift(order);
+          localStorage.setItem(STORAGE_KEYS.ORDER, JSON.stringify(orders));
+          localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([]));
+          await goto('/orders');
         }}
       >
         Place your order

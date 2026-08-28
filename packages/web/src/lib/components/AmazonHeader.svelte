@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Product } from 'shared/products';
-  import type { Cart } from 'shared/schema';
 
   import { searchProductIds, searchProductNames } from '#lib/data/search.ts';
   import { goto } from '$app/navigation';
@@ -8,9 +7,8 @@
 
   const {
     cartQuantity,
-    cart,
     products,
-  }: { cartQuantity: number; cart: Cart[]; products: Product[] } = $props();
+  }: { cartQuantity: number; products: Product[] } = $props();
 </script>
 
 <div
@@ -77,7 +75,7 @@
   <div class="flex w-45 shrink-0 justify-end">
     <a
       class="inline-block cursor-pointer rounded-xs p-1.5 text-white decoration-[#2d2d2d] hover:outline"
-      href="/orders/[]"
+      href="/orders"
     >
       <span class="block text-[13px]">Returns</span>
       <span class="block text-[15px] font-bold">& Orders</span>
@@ -85,7 +83,7 @@
 
     <a
       class="relative flex cursor-pointer items-center rounded-xs p-1.5 text-[16px] text-white decoration-[#2d2d2d] decoration-0 hover:outline"
-      href={`/checkout/${JSON.stringify(cart)}`}
+      href="/checkout"
     >
       <img
         class="w-12.5"

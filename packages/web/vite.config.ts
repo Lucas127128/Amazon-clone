@@ -2,7 +2,6 @@ import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { comptime } from 'comptime/vite';
-import { GLOBAL_CONFIG } from 'shared/constants';
 import Sonda from 'sonda/vite';
 import { defineConfig } from 'vite';
 
@@ -27,6 +26,8 @@ export default defineConfig(({ command }) => {
         },
         experimental: {
           remoteFunctions: true,
+          forkPreloads: true,
+          sendWarningsToBrowser: true,
         },
         adapter: adapter(),
       }),
@@ -36,7 +37,6 @@ export default defineConfig(({ command }) => {
     },
     server: {
       port: 5174,
-      allowedHosts: [new URL(GLOBAL_CONFIG.PREVIEW_URL).hostname],
       forwardConsole: true,
     },
   };

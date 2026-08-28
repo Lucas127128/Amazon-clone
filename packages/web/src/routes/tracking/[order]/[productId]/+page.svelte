@@ -6,7 +6,7 @@
   import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
-  import { getMatchingCart } from '#lib/data/cart.js';
+  import { getCart, getMatchingCart } from '#lib/data/cart.js';
   import { getDeliveryProgress } from '#lib/data/tracking.ts';
 
   const { params, data } = $props();
@@ -20,9 +20,13 @@
   const deliveryProgressPercent = $derived(
     Effect.runSync(getDeliveryProgress(order, matchingCart!)),
   );
+  const cartQuantity = getCart().reduce(
+    (acc, item) => acc + item.quantity,
+    0,
+  );
 </script>
 
-<AmazonHeader cartQuantity={1} cart={[]} products={data.products} />
+<AmazonHeader {cartQuantity} products={data.products} />
 
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-7.5 pl-7.5">
   <dialog class="border-none bg-inherit" id="general-error-dialog">
@@ -42,14 +46,7 @@
     </div>
   </dialog>
   <div class="order-tracking">
-    <a
-      class="link-primary mb-7.5 inline-block"
-      href="/orders"
-      onclick={(e) => {
-        e.preventDefault();
-        navigation.back();
-      }}
-    >
+    <a class="link-primary mb-7.5 inline-block" href="/orders">
       View all orders
     </a>
     {#if matchingCart && matchingProduct}

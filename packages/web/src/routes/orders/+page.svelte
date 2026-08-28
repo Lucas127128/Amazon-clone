@@ -1,27 +1,28 @@
 <script lang="ts">
   import { cn } from 'cnfast';
+  import { STORAGE_KEYS } from 'shared/constants';
   import { getDeliveryDate } from 'shared/deliveryOption';
   import { formatCurrency } from 'shared/money';
   import { getMatchingProduct } from 'shared/products';
-  import type { Cart } from 'shared/schema';
-  import { OrdersSchema } from 'shared/schema';
-  import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
-  import { getMatchingCart } from '#lib/data/cart.js';
-  import { getTimeString } from '#lib/data/orders.ts';
+  import { getCart, getMatchingCart } from '#lib/data/cart.js';
+  import { getOrders, getTimeString } from '#lib/data/orders.ts';
 
-  const { params, data } = $props();
-  const orders = $derived(parse(OrdersSchema, JSON.parse(params.orders)));
-  const cart = $state<Cart[]>([]);
+  const { data } = $props();
+  const orders = $state(getOrders());
+  const cart = $state(getCart());
   const cartQuantity = $derived(
     cart.reduce((acc, item) => acc + item.quantity, 0),
   );
+  $effect(() => {
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+  });
   const buttonSecondaryTwClass =
     'cursor-pointer rounded-lg border border-solid border-[#d5d9d9] bg-white text-[#212121] shadow-[0_2px_5px_rgba(213,217,217,0.5)] hover:bg-[#f7fafa] active:bg-[#edfdfd] active:shadow-none';
 </script>
 
-<AmazonHeader {cartQuantity} {cart} products={data.products} />
+<AmazonHeader {cartQuantity} products={data.products} />
 
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-5 pl-5">
   <div class="mb-6.25 text-[26px] font-bold">Your Orders</div>

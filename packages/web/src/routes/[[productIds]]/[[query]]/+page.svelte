@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Highlight } from '@ark-ui/svelte/highlight';
+  import { STORAGE_KEYS } from 'shared/constants';
   import {
     type Cart,
     ProductIdsSchema,
@@ -8,7 +9,7 @@
   import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
-  import { getMatchingCart } from '#lib/data/cart.js';
+  import { getCart, getMatchingCart } from '#lib/data/cart.js';
 
   const { data, params } = $props();
   // svelte-ignore state_referenced_locally
@@ -22,13 +23,17 @@
       productIds.includes(product.id),
     );
   });
-  const cart = $state<Cart[]>([]);
+
+  let cart = $state<Cart[]>(getCart());
   const cartQuantity = $derived(
     cart.reduce((acc, item) => acc + item.quantity, 0),
   );
+  $effect(() => {
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+  });
 </script>
 
-<AmazonHeader {cartQuantity} {cart} products={data.products} />
+<AmazonHeader {cartQuantity} products={data.products} />
 
 <div
   class="absolute top-[anchor(bottom)] left-[anchor(left)] grid h-9 w-2xs grid-cols-[1fr_7fr] items-center overflow-hidden rounded-br-xl bg-[#2d2d2d] p-1.25 [position-anchor:\--amazon-header]"
@@ -101,10 +106,7 @@
           ${product.price}
         </div>
         <div>
-          <select
-            class="ProductQuantitySelector"
-            bind:value={productQuantity}
-          >
+          <select bind:value={productQuantity}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

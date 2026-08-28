@@ -29,11 +29,6 @@
       "dependsOn": ["//#test:merge-coverage"],
       "cache": true
     },
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"],
-      "cache": true
-    },
     "test": {
       "dependsOn": ["^test"],
       "cache": true
@@ -43,7 +38,7 @@
     },
     "web#build": {
       "cache": true,
-      "outputs": ["./dist/**/*"]
+      "outputs": [".svelte-kit/output/**/*"]
     },
     "web#dev": {
       "cache": false,

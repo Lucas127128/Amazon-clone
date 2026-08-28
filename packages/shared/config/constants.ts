@@ -20,12 +20,6 @@ export const PRICE_CONFIG = {
 } as const;
 
 export const STORAGE_KEYS = {
-  CART_STATE: 'cartState',
+  CART: 'cart',
   ORDER: 'orders',
-} as const;
-
-export const GLOBAL_CONFIG = {
-  PREVIEW_URL: 'http://localhost:5174',
-  API_URL: 'https://localhost:8080',
-  CADDY_URL: 'https://localhost:3000',
 } as const;
