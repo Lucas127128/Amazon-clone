@@ -10,7 +10,7 @@
     "#lib/*": "./src/lib/*"
   },
   "scripts": {
-    "check": "bunx -b svelte-check --tsconfig ./tsconfig.json",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
     "sync": "svelte-kit sync",
     "build": "bunx -b vite build",
     "dev": "vite",

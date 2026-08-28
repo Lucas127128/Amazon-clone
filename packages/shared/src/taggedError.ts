@@ -1,13 +1,8 @@
 import { Data } from 'effect';
 
-import type { ElysiaValidationError } from './schema.ts';
-
 export class UnexpectedError extends Data.TaggedError('UnexpectedError') {}
 export class UnexpectedNetworkError extends Data.TaggedError(
   'UnexpectedNetworkError',
-) {}
-export class CreateTrustedHTMLError extends Data.TaggedError(
-  'CreateTrustedHTMLError',
 ) {}
 export class JsonParseError extends Data.TaggedError('JsonParseError')<{
   message: string;
@@ -31,33 +26,6 @@ export class ValidationError extends Data.TaggedError('ValidationError')<{
     message: string;
   }) {
     super({ expected, received, message });
-  }
-}
-export class EdenTreatyValidationError extends Data.TaggedError(
-  'EdenTreatyValidationError',
-)<ElysiaValidationError['value']> {
-  constructor(params: Omit<ElysiaValidationError['value'], 'type'>) {
-    super({
-      ...params,
-      type: 'validation',
-    });
-  }
-}
-
-export class ProductApiNotFoundError extends Data.TaggedError(
-  'ProductApiNotFoundError',
-)<{ message: string }> {
-  constructor(message: string) {
-    super({ message });
-  }
-}
-
-export class URLParamsError extends Data.TaggedError('URLParamsError')<{
-  urlParam: string;
-  issue: 'missing' | 'invalid';
-}> {
-  constructor(urlParam: string, issue: 'missing' | 'invalid') {
-    super({ urlParam, issue });
   }
 }
 
@@ -89,15 +57,6 @@ export class MatchingCartError extends Data.TaggedError(
 }> {
   constructor(productId: string) {
     super({ productId });
-  }
-}
-export class HTMLSelectionError extends Data.TaggedError(
-  'HTMLSelectionError',
-)<{
-  querySelector: string;
-}> {
-  constructor(querySelector: string) {
-    super({ querySelector });
   }
 }
 

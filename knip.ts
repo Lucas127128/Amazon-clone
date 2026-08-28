@@ -14,6 +14,9 @@ const config: KnipConfig = {
       './packages/shared/vitest.config.ts',
     ],
   },
+  sveltekit: {
+    entry: ['./packages/web/vite.config.ts'],
+  },
   ignoreDependencies: [
     '@types/trusted-types',
     'husky',
