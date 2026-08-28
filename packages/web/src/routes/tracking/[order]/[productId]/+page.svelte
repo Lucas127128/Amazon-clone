@@ -22,7 +22,7 @@
   );
 </script>
 
-<AmazonHeader cartQuantity={1} cart={[]} />
+<AmazonHeader cartQuantity={1} cart={[]} products={data.products} />
 
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-7.5 pl-7.5">
   <dialog class="border-none bg-inherit" id="general-error-dialog">

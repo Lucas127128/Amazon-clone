@@ -21,7 +21,7 @@
     'cursor-pointer rounded-lg border border-solid border-[#d5d9d9] bg-white text-[#212121] shadow-[0_2px_5px_rgba(213,217,217,0.5)] hover:bg-[#f7fafa] active:bg-[#edfdfd] active:shadow-none';
 </script>
 
-<AmazonHeader {cartQuantity} {cart} />
+<AmazonHeader {cartQuantity} {cart} products={data.products} />
 
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-5 pl-5">
   <div class="mb-6.25 text-[26px] font-bold">Your Orders</div>

@@ -17,11 +17,3 @@ const clothings = parse(ClothingListSchema, clothingsJson);
 export const getProducts = query(() => {
   return transformProducts(rawProducts, clothings);
 });
-
-export const getProductsName = query(ProductIdsSchema, (ids) => {
-  return ids
-    .map((id) => {
-      return getMatchingRawProduct(rawProducts, id)?.name;
-    })
-    .filter((name) => name !== undefined);
-});

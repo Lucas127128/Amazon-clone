@@ -1,12 +1,6 @@
 import type { KnipConfig } from 'knip';
 const config: KnipConfig = {
   workspaces: {
-    'packages/api-client': {
-      entry: ['vitest.setup.ts'],
-    },
-    'packages/server': {
-      entry: ['src/api/index.ts'],
-    },
     'packages/shared': {
       entry: ['vitest.setup.ts'],
     },
@@ -17,9 +11,7 @@ const config: KnipConfig = {
   vitest: {
     config: [
       './packages/web/vitest.config.ts',
-      './packages/server/vitest.config.ts',
       './packages/shared/vitest.config.ts',
-      './packages/api-client/vitest.config.ts',
     ],
   },
   ignoreDependencies: [
@@ -29,7 +21,6 @@ const config: KnipConfig = {
     'vite',
   ],
   ignore: ['packages/*/vitest.config.ts'],
-  ignoreBinaries: ['bombardier'],
 };
 
 export default config;

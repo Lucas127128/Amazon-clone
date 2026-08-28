@@ -10,15 +10,11 @@ export default defineConfig({
     maxWorkers: 30,
     clearMocks: true,
     experimental: { fsModuleCache: true },
-    env: {
-      NODE_TLS_REJECT_UNAUTHORIZED: '0',
-    },
     sequence: { concurrent: true },
     coverage: {
       provider: 'istanbul',
       reporter: ['json', 'text'],
       reportsDirectory: '../../coverage/web',
-      exclude: ['src/scripts/utils/trustedTypes.ts'],
     },
     detectAsyncLeaks: true,
     projects: [
@@ -27,41 +23,13 @@ export default defineConfig({
         test: {
           name: 'bun',
           include: [
-            'tests/scripts/data/orders.test.ts',
-            'tests/scripts/data/products.test.ts',
-            'tests/scripts/data/search.test.ts',
-            'tests/scripts/data/tracking.test.ts',
-            'tests/scripts/pages/htmlGenerators/**/*.test.ts',
+            'tests/data/orders.test.ts',
+            'tests/data/search.test.ts',
+            'tests/data/tracking.test.ts',
+            'tests/data/cart.test.ts',
           ],
           environment: 'node',
           setupFiles: ['./vitest.setup.ts'],
-        },
-      },
-      {
-        plugins,
-        test: {
-          name: 'happy-dom',
-          include: [
-            'tests/scripts/pages/checkout/**/*.test.ts',
-            'tests/scripts/utils/url.test.ts',
-            'tests/scripts/data/cart.test.ts',
-          ],
-          setupFiles: ['./vitest.setup.ts'],
-          environment: 'happy-dom',
-          environmentOptions: {
-            happyDOM: {
-              width: 4,
-              height: 3,
-              settings: {
-                fetch: {
-                  disableStrictSSL: true,
-                  disableSameOriginPolicy: true,
-                },
-                disableCSSFileLoading: true,
-                disableComputedStyleRendering: true,
-              },
-            },
-          },
         },
       },
     ],

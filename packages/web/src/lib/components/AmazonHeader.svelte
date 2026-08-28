@@ -1,15 +1,16 @@
 <script lang="ts">
+  import type { Product } from 'shared/products';
   import type { Cart } from 'shared/schema';
 
-  import {
-    searchProducts,
-    searchProductsSuggestions,
-  } from '#lib/data/search.ts';
+  import { searchProductIds, searchProductNames } from '#lib/data/search.ts';
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
 
-  const { cartQuantity, cart }: { cartQuantity: number; cart: Cart[] } =
-    $props();
+  const {
+    cartQuantity,
+    cart,
+    products,
+  }: { cartQuantity: number; cart: Cart[]; products: Product[] } = $props();
 </script>
 
 <div
@@ -48,12 +49,7 @@
       list="search-suggestions"
       bind:value={searchTerm}
       onkeyup={() => {
-        searchProductsSuggestions.maybeExecute(
-          searchTerm,
-          (productsName) => {
-            options = productsName;
-          },
-        );
+        options = searchProductNames(searchTerm, products);
       }}
     />
     <datalist id="search-suggestions">
@@ -65,8 +61,8 @@
     <button
       class="h-10 w-11.25 shrink-0 rounded-r-sm border-0 bg-[#febd69]"
       onclick={async () => {
-        const products = await searchProducts(searchTerm);
-        goto(`/${JSON.stringify(products)}/${searchTerm}`);
+        const searchResults = searchProductIds(searchTerm, products);
+        goto(`/${JSON.stringify(searchResults)}/${searchTerm}`);
       }}
     >
       <img

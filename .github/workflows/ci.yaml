@@ -10,18 +10,16 @@ jobs:
       - name: Cache
         uses: actions/cache@v5
         with:
-          key: the-key
+          key: ${{ runner.os  }}-key
           path: |
             ./node_modules
             **/*/node_modules
             **/node_modules
-            ./packages/server/certs
             ~/.bun
             **/.turbo
             **/.turbo/**/*
             .turbo
             .turbo/**/*
-            /usr/local/bin/mkcert
             ./coverage
       - name: Install bun
         uses: oven-sh/setup-bun@v2
@@ -29,16 +27,6 @@ jobs:
         run: bun i --frozen-lockfile
       - name: Sync
         run: bun run --cwd ./packages/web sync
-      - name: Install dependency for https
-        run: |
-          curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
-          chmod +x mkcert-v*-linux-amd64
-          sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
-      - name: Run Bun Server
-        uses: JarvusInnovations/background-action@v1
-        with:
-          run: bun run --cwd ./packages/server dev
-          wait-on: https://localhost:8080/health
       - name: Run tests
         run: bunx turbo run test
 

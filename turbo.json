@@ -49,16 +49,11 @@
       "cache": false,
       "persistent": true
     },
-    "server#dev": {
+    "web#preview": {
       "cache": false,
       "persistent": true
     },
     "web#test:watch": {
-      // "dependsOn": ["web#test:watch"],
-      "cache": false,
-      "persistent": true
-    },
-    "server#test:watch": {
       "cache": false,
       "persistent": true
     },
@@ -66,9 +61,5 @@
       "cache": false,
       "persistent": true
     },
-    "api-client#test:watch": {
-      "cache": false,
-      "persistent": true
-    }
   }
 }

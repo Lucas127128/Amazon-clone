@@ -1,4 +1,7 @@
 {
   "extends": "$app/tsconfig",
-  "compilerOptions": {}
+  "include": ["src"],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
 }
