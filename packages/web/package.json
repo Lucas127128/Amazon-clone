@@ -11,6 +11,7 @@
   },
   "scripts": {
     "check": "bunx -b svelte-check --tsconfig ./tsconfig.json",
+    "sync": "svelte-kit sync",
     "build": "NODE_TLS_REJECT_UNAUTHORIZED=0 bunx -b vite build",
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 vite",
     "preview": "NODE_TLS_REJECT_UNAUTHORIZED=0 bunx -b vite preview",
