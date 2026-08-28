@@ -1,4 +1,3 @@
-// import { DevTools } from '@vitejs/devtools';
 import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
@@ -14,7 +13,6 @@ export default defineConfig(({ command }) => {
     build: {
       target: 'baseline-widely-available',
       assetsInlineLimit: 0,
-      sourcemap: true,
     },
     plugins: [
       comptime(),
@@ -32,7 +30,6 @@ export default defineConfig(({ command }) => {
         },
         adapter: adapter(),
       }),
-      // DevTools(),
     ],
     css: {
       transformer: 'lightningcss',

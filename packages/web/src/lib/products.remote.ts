@@ -1,9 +1,5 @@
-import { getMatchingRawProduct, transformProducts } from 'shared/products';
-import {
-  ClothingListSchema,
-  ProductIdsSchema,
-  RawProductsSchema,
-} from 'shared/schema';
+import { transformProducts } from 'shared/products';
+import { ClothingListSchema, RawProductsSchema } from 'shared/schema';
 import { parse } from 'valibot';
 
 import { query } from '$app/server';
