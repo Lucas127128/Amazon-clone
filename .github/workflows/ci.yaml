@@ -28,7 +28,7 @@ jobs:
       - name: Install dependency
         run: bun i --frozen-lockfile
       - name: Sync
-        run: bun --filter web sync
+        run: bun run --cwd ./packages/web sync
       - name: Install dependency for https
         run: |
           curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
