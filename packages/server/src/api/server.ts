@@ -58,6 +58,9 @@ export const app = new Elysia({
       allowedHeaders: ['Content-Type'],
     }),
   )
+  .get('/health', () => {
+    return { status: 'ok' };
+  })
   .use(Bun.env.DEV ? serverTiming() : undefined)
   .use(openApi())
   .use(productsPlugin)

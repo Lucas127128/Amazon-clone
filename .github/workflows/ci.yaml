@@ -36,7 +36,7 @@ jobs:
         uses: JarvusInnovations/background-action@v1
         with:
           run: bun run --cwd ./packages/server dev
-          wait-on: https://localhost:8080
+          wait-on: https://localhost:8080/health
       - name: Run tests
         run: bunx turbo run test
 
