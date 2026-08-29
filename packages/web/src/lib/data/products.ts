@@ -1,6 +1,5 @@
-import { formatCurrency } from '#utils/money.ts';
-
 import type { RawProduct } from '../schema.ts';
+import { formatCurrency } from '../utils/money.ts';
 
 export function createProduct(rawProduct: RawProduct, isClothing: boolean) {
   return {

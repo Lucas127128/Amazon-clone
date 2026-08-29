@@ -1,18 +1,17 @@
 <script lang="ts">
   import { Highlight } from '@ark-ui/svelte/highlight';
-  import { STORAGE_KEYS } from 'shared/constants';
-  import {
-    type Cart,
-    ProductIdsSchema,
-    type ProductSortOption,
-  } from 'shared/schema';
   import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
   import { getCart, getMatchingCart } from '#lib/data/cart.js';
+  import { STORAGE_KEYS } from '#lib/data/constants.ts';
+  import {
+    type Cart,
+    ProductIdsSchema,
+    type ProductSortOption,
+  } from '#lib/schema.ts';
 
   const { data, params } = $props();
-  // svelte-ignore state_referenced_locally
   const products = $derived.by(() => {
     if (!params.productIds) return data.products;
     const productIds = parse(

@@ -1,6 +1,7 @@
-import { STORAGE_KEYS } from 'shared/constants';
-import { type Cart, CartsSchema } from 'shared/schema';
 import { parse } from 'valibot';
+
+import { STORAGE_KEYS } from '#lib/data/constants.ts';
+import { type Cart, CartsSchema } from '#lib/schema.ts';
 
 export const getMatchingCart = (cart: Cart[], productId: string) =>
   cart.find((cartItem) => cartItem.productId === productId);

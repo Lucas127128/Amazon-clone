@@ -1,5 +1,6 @@
-import { formatCurrency } from 'shared/money';
 import { describe, expect, it } from 'vitest';
+
+import { formatCurrency } from '#lib/utils/money.ts';
 
 describe.concurrent('formatCurrency', () => {
   it('converts cents into dollars', () => {

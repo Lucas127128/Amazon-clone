@@ -1,8 +1,9 @@
-import { STORAGE_KEYS } from 'shared/constants';
-import { dateFormatOption } from 'shared/deliveryOption';
-import { type Order, OrdersSchema } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { parse } from 'valibot';
+
+import { STORAGE_KEYS } from '#lib/data/constants.ts';
+import { dateFormatOption } from '#lib/data/deliveryOption.ts';
+import { type Order, OrdersSchema } from '#lib/schema.ts';
 
 export function getTimeString(ISOOrderTime: string) {
   return Temporal.Instant.from(ISOOrderTime)

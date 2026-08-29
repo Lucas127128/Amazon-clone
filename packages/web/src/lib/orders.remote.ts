@@ -1,10 +1,10 @@
 import * as Effect from 'effect/Effect';
 import { nanoid } from 'nanoid';
-import { calculatePrices } from 'shared/payment';
-import type { Product } from 'shared/products';
-import { type Cart, CartsSchema, type Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 
+import { calculatePrices } from '#lib/data/payment.ts';
+import type { Product } from '#lib/data/products.ts';
+import { type Cart, CartsSchema, type Order } from '#lib/schema.ts';
 import { command } from '$app/server';
 
 import { getProducts } from './products.remote';

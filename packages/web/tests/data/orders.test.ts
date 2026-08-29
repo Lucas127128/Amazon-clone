@@ -1,9 +1,9 @@
-import { dateFormatOption } from 'shared/deliveryOption';
-import type { Order } from 'shared/schema';
 import { Temporal } from 'temporal-polyfill-lite';
 import { describe, expect, it } from 'vitest';
 
+import { dateFormatOption } from '#lib/data/deliveryOption.ts';
 import { getMatchingOrder, getTimeString } from '#lib/data/orders.ts';
+import type { Order } from '#lib/schema.ts';
 
 describe.concurrent('getTimeString', () => {
   it('get time string from ISO time', () => {

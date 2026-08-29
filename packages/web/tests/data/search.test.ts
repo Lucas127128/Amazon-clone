@@ -1,7 +1,7 @@
-import type { Product } from 'shared/products';
 import { productsJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
+import type { Product } from '#lib/data/products.ts';
 import { searchProductIds, searchProductNames } from '#lib/data/search.ts';
 
 describe.concurrent('searchProductNames', () => {

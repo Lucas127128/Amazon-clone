@@ -1,9 +1,10 @@
 import { Effect } from 'effect';
-import { calculatePrices } from 'shared/payment';
-import { type Product, transformProducts } from 'shared/products';
-import type { Cart, RawProduct } from 'shared/schema';
 import { cartJson, clothingsJson, rawProductsJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
+
+import { calculatePrices } from '#lib/data/payment.ts';
+import { type Product, transformProducts } from '#lib/data/products.ts';
+import type { Cart, RawProduct } from '#lib/schema.ts';
 
 describe.concurrent('calculatePrices', () => {
   describe.concurrent('calculate price for right product id', () => {

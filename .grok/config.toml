@@ -1,0 +1,5 @@
+[permission]
+rules = [
+  { action = "allow", tool = "read" },
+  { action = "deny", tool = "bash", pattern = "rm -rf *" },
+]

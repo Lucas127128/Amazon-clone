@@ -1,10 +1,10 @@
 <script lang="ts">
   import { cn } from 'cnfast';
-  import { getDeliveryDate } from 'shared/deliveryOption';
-  import type { Product } from 'shared/products';
-  import type { Cart, Order } from 'shared/schema';
 
   import { getMatchingCart } from '#lib/data/cart.ts';
+  import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
+  import type { Product } from '#lib/data/products.ts';
+  import type { Cart, Order } from '#lib/schema.ts';
 
   const {
     matchingProduct,

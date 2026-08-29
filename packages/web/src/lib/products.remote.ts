@@ -1,7 +1,7 @@
-import { transformProducts } from 'shared/products';
-import { ClothingListSchema, RawProductsSchema } from 'shared/schema';
 import { parse } from 'valibot';
 
+import { transformProducts } from '#lib/data/products.ts';
+import { ClothingListSchema, RawProductsSchema } from '#lib/schema.ts';
 import { query } from '$app/server';
 
 import clothingsJson from '../../rawData/clothing.json';

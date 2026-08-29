@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { STORAGE_KEYS } from 'shared/constants';
-  import { OrdersSchema } from 'shared/schema';
   import { parse } from 'valibot';
 
   import { getCart } from '#lib/data/cart.js';
+  import { STORAGE_KEYS } from '#lib/data/constants.ts';
   import { createOrder } from '#lib/orders.remote.js';
+  import { OrdersSchema } from '#lib/schema.ts';
   import { goto } from '$app/navigation';
 
   import CartItems from './CartItems.svelte';

@@ -19,7 +19,7 @@ import {
   unknown,
 } from 'valibot';
 
-import { CART_CONFIG } from '../config/constants.ts';
+import { CART_CONFIG } from './data/constants.ts';
 
 export const RatingSchema = object({
   stars: union([

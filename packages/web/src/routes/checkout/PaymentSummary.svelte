@@ -1,10 +1,11 @@
 <script lang="ts">
   import { cn } from 'cnfast';
-  import { PRICE_CONFIG } from 'shared/constants';
-  import { getDeliveryPriceCents } from 'shared/deliveryOption';
-  import { formatCurrency } from 'shared/money';
-  import { getMatchingProduct, type Product } from 'shared/products';
-  import type { Cart } from 'shared/schema';
+
+  import { PRICE_CONFIG } from '#lib/data/constants.ts';
+  import { getDeliveryPriceCents } from '#lib/data/deliveryOption.ts';
+  import { getMatchingProduct, type Product } from '#lib/data/products.ts';
+  import type { Cart } from '#lib/schema.ts';
+  import { formatCurrency } from '#lib/utils/money.ts';
 
   const { cart, products }: { cart: Cart[]; products: Product[] } = $props();
   const totalProductPrice = $derived(

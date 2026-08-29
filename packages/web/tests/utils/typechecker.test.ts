@@ -1,5 +1,6 @@
-import { checkNullish } from 'shared/typeChecker';
 import { describe, expect, it } from 'vitest';
+
+import { checkNullish } from '#lib/utils/typeChecker.ts';
 
 describe.concurrent('checkNullish', () => {
   describe('accept truthy and reject nullish', () => {

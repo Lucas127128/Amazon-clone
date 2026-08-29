@@ -1,8 +1,9 @@
 import * as Effect from 'effect/Effect';
-import { getDeliveryDateISO } from 'shared/deliveryOption';
-import type { Cart, Order } from 'shared/schema';
-import { UnexpectedError } from 'shared/taggedError';
 import { Temporal } from 'temporal-polyfill-lite';
+
+import { getDeliveryDateISO } from '#lib/data/deliveryOption.ts';
+import type { Cart, Order } from '#lib/schema.ts';
+import { UnexpectedError } from '#lib/taggedError.ts';
 
 export function getDeliveryProgress(order: Order, matchingCart: Cart) {
   const orderTime = Temporal.Instant.from(

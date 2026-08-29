@@ -3,9 +3,9 @@
     deliveryOptions,
     getDeliveryDate,
     getPriceString,
-  } from 'shared/deliveryOption';
-  import type { Product } from 'shared/products';
-  import type { Cart } from 'shared/schema';
+  } from '#lib/data/deliveryOption.ts';
+  import type { Product } from '#lib/data/products.ts';
+  import type { Cart } from '#lib/schema.ts';
 
   let {
     // eslint-disable-next-line

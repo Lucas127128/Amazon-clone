@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type { Product } from 'shared/products';
-
+  import type { Product } from '#lib/data/products.ts';
   import { searchProductIds, searchProductNames } from '#lib/data/search.ts';
   import { goto } from '$app/navigation';
   import { page } from '$app/state';

@@ -7,7 +7,7 @@ import {
   getDeliveryDateISO,
   getDeliveryPriceCents,
   getPriceString,
-} from '../../src/data/deliveryOption.ts';
+} from '#lib/data/deliveryOption.ts';
 
 describe.concurrent('addWeekDays', () => {
   it('returns right date', () => {

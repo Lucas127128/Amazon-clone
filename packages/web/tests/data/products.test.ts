@@ -1,12 +1,13 @@
-import type { Product } from 'shared/products';
+import { productsJson as products, rawProductsJson } from 'testdata';
+import { describe, expect, it } from 'vitest';
+
+import type { Product } from '#lib/data/products.ts';
 import {
   createProduct,
   getMatchingProduct,
   getMatchingRawProduct,
-} from 'shared/products';
-import type { RawProduct } from 'shared/schema';
-import { productsJson as products, rawProductsJson } from 'testdata';
-import { describe, expect, it } from 'vitest';
+} from '#lib/data/products.ts';
+import type { RawProduct } from '#lib/schema.ts';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',

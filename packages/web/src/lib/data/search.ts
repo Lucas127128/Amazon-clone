@@ -1,5 +1,6 @@
 import Fuse from 'fuse.js';
-import type { Product } from 'shared/products';
+
+import type { Product } from '#lib/data/products.ts';
 
 export function searchProductNames(
   query: string,

@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { STORAGE_KEYS } from 'shared/constants';
-  import { formatCurrency } from 'shared/money';
-  import { getMatchingProduct } from 'shared/products';
-
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
   import { getCart } from '#lib/data/cart.js';
+  import { STORAGE_KEYS } from '#lib/data/constants.ts';
   import { getOrders, getTimeString } from '#lib/data/orders.ts';
+  import { getMatchingProduct } from '#lib/data/products.ts';
+  import { formatCurrency } from '#lib/utils/money.ts';
 
   import OrderId from './OrderId.svelte';
   import Product from './Product.svelte';

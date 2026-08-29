@@ -1,13 +1,13 @@
 <script lang="ts">
   import * as Effect from 'effect/Effect';
-  import { getDeliveryDate } from 'shared/deliveryOption';
-  import { getMatchingProduct } from 'shared/products';
-  import { OrderSchema } from 'shared/schema';
   import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
   import { getCart, getMatchingCart } from '#lib/data/cart.js';
+  import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
+  import { getMatchingProduct } from '#lib/data/products.ts';
   import { getDeliveryProgress } from '#lib/data/tracking.ts';
+  import { OrderSchema } from '#lib/schema.ts';
 
   const { params, data } = $props();
   const order = $derived(parse(OrderSchema, JSON.parse(params.order)));

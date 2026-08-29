@@ -1,8 +1,8 @@
 import * as Effect from 'effect/Effect';
 
-import { PRICE_CONFIG } from '../../config/constants.ts';
 import type { Cart } from '../schema.ts';
 import { PriceCalculationError } from '../taggedError.ts';
+import { PRICE_CONFIG } from './constants.ts';
 import { getDeliveryPriceCents } from './deliveryOption.ts';
 import { getMatchingProduct, type Product } from './products.ts';
 

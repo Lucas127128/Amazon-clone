@@ -51,10 +51,6 @@
     "web#test:watch": {
       "cache": false,
       "persistent": true
-    },
-    "shared#test:watch": {
-      "cache": false,
-      "persistent": true
     }
   }
 }
