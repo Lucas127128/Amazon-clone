@@ -13,8 +13,13 @@ export default defineConfig({
     sequence: { concurrent: true },
     coverage: {
       provider: 'istanbul',
-      reporter: ['json', 'text'],
-      reportsDirectory: '../../coverage/web',
+      thresholds: {
+        lines: 90,
+        functions: 90,
+        statements: 90,
+        branches: 80,
+      },
+      exclude: ['src/lib/taggedError.ts'],
     },
     detectAsyncLeaks: true,
     projects: [

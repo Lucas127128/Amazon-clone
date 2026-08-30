@@ -1,8 +1,8 @@
-import { cartJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import { getMatchingCart } from '#lib/data/cart.ts';
 import type { Cart } from '#lib/schema.ts';
+import { cartJson } from '#testdata';
 
 describe.concurrent('getMatchingCart', () => {
   it('get matching cart', () => {

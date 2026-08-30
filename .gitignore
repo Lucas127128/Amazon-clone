@@ -14,13 +14,10 @@ test-results
 **.ts-snapshots
 *.js.map
 .sonda
-packages/server/api
-packages/tests/html
 .env
 .agents/skills
 .turbo
 coverage
 coverage-merged
-packages/server/.evlog
 report.html
-packages/web/.svelte-kit
+.svelte-kit

@@ -4,51 +4,40 @@
   "globalDependencies": ["tsconfig.json"],
   "cacheMaxSize": "1GB",
   "tasks": {
-    "//#lint": {
+    "lint": {
       "inputs": [
         "**/*.ts",
         "!.agents/skills/**/*.ts",
-        "!packages/web/dist/**/*.js",
+        "!dist/**/*.js",
         "!node_modules/**/*.ts"
       ],
       "cache": true
     },
-    "//#knip": {
+    "knip": {
       "cache": true
     },
     "test:coverage": {
       "cache": true
     },
-    "//#test:merge-coverage": {
-      "dependsOn": ["^test:coverage"],
-      "inputs": ["./coverage"],
-      "outputs": ["./coverage-merged"],
-      "cache": true
-    },
-    "//#test:check-coverage": {
-      "dependsOn": ["//#test:merge-coverage"],
-      "cache": true
-    },
     "test": {
-      "dependsOn": ["^test"],
       "cache": true
     },
     "test:unit": {
       "cache": true
     },
-    "web#build": {
+    "build": {
       "cache": true,
       "outputs": [".svelte-kit/output/**/*"]
     },
-    "web#dev": {
+    "dev": {
       "cache": false,
       "persistent": true
     },
-    "web#preview": {
+    "preview": {
       "cache": false,
       "persistent": true
     },
-    "web#test:watch": {
+    "test:watch": {
       "cache": false,
       "persistent": true
     }

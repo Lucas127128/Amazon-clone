@@ -26,9 +26,9 @@ jobs:
       - name: Install dependency
         run: bun i --frozen-lockfile
       - name: Sync
-        run: bun run --cwd ./packages/web sync
+        run: bun run sync
       - name: Run tests
-        run: bunx turbo run test
+        run: bun run test
 
   audit:
     name: audit app

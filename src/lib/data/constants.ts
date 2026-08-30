@@ -1,5 +1,5 @@
 export const CART_CONFIG = {
-  MAX_QUANTITY_PER_ITEM: 999,
+  MAX_QUANTITY_PER_ITEM: 10,
 } as const;
 
 export const PRICE_CONFIG = {

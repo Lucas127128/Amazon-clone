@@ -1,4 +1,3 @@
-import { productsJson as products, rawProductsJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import type { Product } from '#lib/data/products.ts';
@@ -8,6 +7,7 @@ import {
   getMatchingRawProduct,
 } from '#lib/data/products.ts';
 import type { RawProduct } from '#lib/schema.ts';
+import { productsJson as products, rawProductsJson } from '#testdata';
 
 const correctRawProduct: RawProduct = {
   id: 'sMmsZ',

@@ -11,17 +11,14 @@ import {
   minValue,
   number,
   object,
-  optional,
   pipe,
   string,
-  undefined as Undefined,
   union,
-  unknown,
 } from 'valibot';
 
 import { CART_CONFIG } from './data/constants.ts';
 
-export const RatingSchema = object({
+const RatingSchema = object({
   stars: union([
     literal(0),
     literal(0.5),
@@ -39,10 +36,10 @@ export const RatingSchema = object({
 });
 
 export const PriceCentsSchema = pipe(number(), minValue(0));
-export const ProductIdSchema = pipe(string(), minLength(5), maxLength(5));
+const ProductIdSchema = pipe(string(), minLength(5), maxLength(5));
 export const ProductIdsSchema = array(ProductIdSchema);
 
-export const RawProductSchema = cache(
+const RawProductSchema = cache(
   object({
     id: ProductIdSchema,
     image: pipe(string(), minLength(1)),
@@ -54,14 +51,14 @@ export const RawProductSchema = cache(
 export const RawProductsSchema = array(RawProductSchema);
 export type RawProduct = InferOutput<typeof RawProductSchema>;
 
-export const DeliveryOptionIdSchema = union([
+const DeliveryOptionIdSchema = union([
   literal('1'),
   literal('2'),
   literal('3'),
 ]);
 export type DeliveryOptionId = InferOutput<typeof DeliveryOptionIdSchema>;
 
-export const CartSchema = object({
+const CartSchema = object({
   productId: ProductIdSchema,
   quantity: pipe(
     number(),
@@ -84,15 +81,7 @@ export type Order = InferOutput<typeof OrderSchema>;
 
 export const ClothingListSchema = cache(array(ProductIdSchema));
 
-export const SearchResultSchema = array(ProductIdSchema);
-export const SearchOptionsSchema = object({
-  q: string(),
-  limit: optional(number()),
-});
-
-export type SearchResult = InferOutput<typeof SearchResultSchema>;
-
-export const ProductSortOptionsSchema = union([
+const ProductSortOptionsSchema = union([
   literal('most-stars'),
   literal('least-stars'),
   literal('most-people-star'),
@@ -101,34 +90,3 @@ export const ProductSortOptionsSchema = union([
   literal('least-expensive'),
 ]);
 export type ProductSortOption = InferOutput<typeof ProductSortOptionsSchema>;
-
-export const ElysiaValidationErrorSchema = object({
-  status: literal(422),
-  value: object({
-    type: literal('validation'),
-    on: string(),
-    summary: optional(union([string(), Undefined()])),
-    message: optional(union([string(), Undefined()])),
-    found: optional(unknown()),
-    property: optional(union([string(), Undefined()])),
-    expected: optional(union([string(), Undefined()])),
-  }),
-});
-
-export type ElysiaValidationError = InferOutput<
-  typeof ElysiaValidationErrorSchema
->;
-
-export const FileExtensionSchema = union([
-  literal('html'),
-  literal('css'),
-  literal('js'),
-  literal('webp'),
-  literal('png'),
-  literal('svg'),
-  literal('jpg'),
-  literal('ico'),
-  literal('ttf'),
-  literal('webmanifest'),
-]);
-export type FileExtension = InferOutput<typeof FileExtensionSchema>;

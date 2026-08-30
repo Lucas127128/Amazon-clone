@@ -6,15 +6,6 @@ import { PRICE_CONFIG } from './constants.ts';
 import { getDeliveryPriceCents } from './deliveryOption.ts';
 import { getMatchingProduct, type Product } from './products.ts';
 
-export type Prices = {
-  totalProductPrice: number;
-  totalDeliveryFee: number;
-  cartQuantity: number;
-  totalPriceBeforeTax: number;
-  totalTax: number;
-  totalOrderPrice: number;
-};
-
 export function calculatePrices(cart: Cart[], products: readonly Product[]) {
   let totalProductPrice = 0;
   let totalDeliveryFee = 0;

@@ -1,8 +1,8 @@
-import { productsJson } from 'testdata';
 import { describe, expect, it } from 'vitest';
 
 import type { Product } from '#lib/data/products.ts';
 import { searchProductIds, searchProductNames } from '#lib/data/search.ts';
+import { productsJson } from '#testdata';
 
 describe.concurrent('searchProductNames', () => {
   it('return correct product names', () => {
