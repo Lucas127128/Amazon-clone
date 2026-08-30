@@ -1,6 +1,7 @@
 <script lang="ts">
   import { parse } from 'valibot';
 
+  import ErrorDialog from '#lib/components/ErrorDialog.svelte';
   import { getCart } from '#lib/data/cart.js';
   import { STORAGE_KEYS } from '#lib/data/constants.ts';
   import { createOrder } from '#lib/orders.remote.js';
@@ -59,22 +60,10 @@
 <div
   class="mt-35 mr-auto mb-25 ml-auto pr-7.5 pl-7.5 md:max-w-125 lg:max-w-275"
 >
-  <dialog class="border-none bg-inherit" id="general-error-dialog">
-    <div
-      class="grid w-60 grid-cols-1 grid-rows-[2fr_1fr] gap-4 rounded-2xl border-2 border-solid border-red-700 bg-white p-2.5"
-    >
-      <p>
-        Sorry, something went wrong in our website. Please try again later.
-      </p>
-      <button
-        class="overflow-hidden rounded-xl border-none bg-green-700 text-white"
-        command="close"
-        commandfor="general-error-dialog"
-      >
-        OK
-      </button>
-    </div>
-  </dialog>
+  <ErrorDialog
+    id="error-dialog"
+    message="Sorry, something went wrong in our website. Please try again later."
+  />
 
   <div class="mb-4.5 text-[22px] font-bold">Review your order</div>
 
@@ -90,9 +79,11 @@
     >
       <div class="mb-3 text-lg font-bold">Order Summary</div>
       <PaymentSummary {cart} {products} />
+      {let buttonText = $state('Place your order')}
       <button
         class="button-primary mt-2.75 mb-3.75 w-full rounded-lg pt-3 pb-3"
         onclick={async () => {
+          buttonText = 'Ordering...';
           const { data: order, error } = await createOrder(cart);
           if (error) throw error;
           const orders = parse(
@@ -105,7 +96,7 @@
           await goto('/orders');
         }}
       >
-        Place your order
+        {buttonText}
       </button>
     </div>
   </div>

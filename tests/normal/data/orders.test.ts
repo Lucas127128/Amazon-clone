@@ -2,7 +2,11 @@ import { Temporal } from 'temporal-polyfill-lite';
 import { describe, expect, it } from 'vitest';
 
 import { dateFormatOption } from '#lib/data/deliveryOption.ts';
-import { getMatchingOrder, getTimeString } from '#lib/data/orders.ts';
+import {
+  getMatchingOrder,
+  getOrders,
+  getTimeString,
+} from '#lib/data/orders.ts';
 import type { Order } from '#lib/schema.ts';
 
 describe.concurrent('getTimeString', () => {
@@ -42,5 +46,12 @@ describe.concurrent('getMatchingOrder', () => {
   it('Return undefined orderId is invalid', () => {
     const order = getMatchingOrder(orders, 'abc');
     expect(order).toBe(undefined);
+  });
+});
+
+describe.concurrent('getCart', () => {
+  it('get empty cart in node environment', () => {
+    const orders = getOrders();
+    expect(orders).toEqual([]);
   });
 });

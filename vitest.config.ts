@@ -19,7 +19,6 @@ export default defineConfig({
         statements: 90,
         branches: 80,
       },
-      exclude: ['src/lib/taggedError.ts'],
     },
     detectAsyncLeaks: true,
     projects: [
@@ -27,18 +26,17 @@ export default defineConfig({
         plugins,
         test: {
           name: 'bun',
-          include: [
-            'tests/data/orders.test.ts',
-            'tests/data/search.test.ts',
-            'tests/data/tracking.test.ts',
-            'tests/data/cart.test.ts',
-            'tests/data/deliveryOptions.test.ts',
-            'tests/data/payment.test.ts',
-            'tests/data/products.test.ts',
-            'tests/utils/money.test.ts',
-            'tests/utils/typechecker.test.ts',
-          ],
+          include: ['tests/normal/**/*.test.ts'],
           environment: 'node',
+          setupFiles: ['./vitest.setup.ts'],
+        },
+      },
+      {
+        plugins,
+        test: {
+          name: 'web',
+          include: ['tests/web/**/*.test.ts'],
+          environment: 'happy-dom',
           setupFiles: ['./vitest.setup.ts'],
         },
       },

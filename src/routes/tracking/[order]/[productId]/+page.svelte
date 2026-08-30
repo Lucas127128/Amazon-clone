@@ -3,6 +3,7 @@
   import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
+  import ErrorDialog from '#lib/components/ErrorDialog.svelte';
   import { getCart, getMatchingCart } from '#lib/data/cart.js';
   import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
   import { getMatchingProduct } from '#lib/data/products.ts';
@@ -29,22 +30,10 @@
 <AmazonHeader {cartQuantity} products={data.products} />
 
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-7.5 pl-7.5">
-  <dialog class="border-none bg-inherit" id="general-error-dialog">
-    <div
-      class="grid w-60 grid-cols-1 grid-rows-[2fr_1fr] gap-4 rounded-2xl border-2 border-solid border-red-700 bg-white p-2.5"
-    >
-      <p>
-        Sorry, something went wrong in our website. Please try again later.
-      </p>
-      <button
-        class="overflow-hidden rounded-xl border-none bg-green-700 text-white"
-        command="close"
-        commandfor="general-error-dialog"
-      >
-        OK
-      </button>
-    </div>
-  </dialog>
+  <ErrorDialog
+    id="error-dialog"
+    message="Something went wrong in our website. Please try again later."
+  />
   <div class="order-tracking">
     <a class="link-primary mb-7.5 inline-block" href="/orders">
       View all orders

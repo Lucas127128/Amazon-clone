@@ -7,11 +7,7 @@ const config: KnipConfig = {
   sveltekit: {
     entry: ['./vite.config.ts'],
   },
-  ignoreDependencies: [
-    '@types/trusted-types',
-    'husky',
-    '@socketsecurity/bun-security-scanner',
-  ],
+  ignoreDependencies: ['husky', '@socketsecurity/bun-security-scanner'],
 };
 
 export default config;
