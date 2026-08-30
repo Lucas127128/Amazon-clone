@@ -1,6 +1,6 @@
 {
   "extends": "$app/tsconfig",
-  "include": ["src","tests","testData"],
+  "include": ["src", "tests", "testData"],
   "compilerOptions": {
     "noEmit": true,
     "preserveConstEnums": true,

@@ -28,7 +28,7 @@ jobs:
       - name: Sync
         run: bun run sync
       - name: Run tests
-        run: bun run test
+        run: bunx turbo run test:coverage
 
   audit:
     name: audit app
