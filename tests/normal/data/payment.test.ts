@@ -1,78 +1,35 @@
-import { Effect } from 'effect';
 import { describe, expect, it } from 'vitest';
 
-import { calculatePrices } from '#lib/data/payment.ts';
-import { type Product, transformProducts } from '#lib/data/products.ts';
+import { Prices } from '#lib/data/payment.svelte.ts';
+import { transformProducts } from '#lib/data/products.ts';
 import type { Cart, RawProduct } from '#lib/schema.ts';
 import { cartJson, clothingsJson, rawProductsJson } from '#testdata';
 
 describe.concurrent('calculatePrices', () => {
-  describe.concurrent('calculate price for right product id', () => {
-    const cart = cartJson.slice(0, 2) as Cart[];
-    const products: readonly Product[] = transformProducts(
-      rawProductsJson as RawProduct[],
-      clothingsJson,
-    );
-    const prices = Effect.runSync(calculatePrices(cart, products));
+  const cart = cartJson.slice(0, 2) as Cart[];
+  const products = transformProducts(
+    rawProductsJson as RawProduct[],
+    clothingsJson,
+  );
+  const prices = new Prices(cart, products);
 
-    it('calculate totalProductPrice', () => {
-      const { totalProductPrice } = prices;
-      expect(totalProductPrice).toBe(6289);
-    });
-
-    it('calculate totalDeliveryFee', () => {
-      const { totalDeliveryFee } = prices;
-      expect(totalDeliveryFee).toBe(1498);
-    });
-
-    it('calculate cartQuantity', () => {
-      const { cartQuantity } = prices;
-      expect(cartQuantity).toBe(2);
-    });
-
-    it('calculate totalPriceBeforeTax', () => {
-      const { totalPriceBeforeTax } = prices;
-      expect(totalPriceBeforeTax).toBe(7787);
-    });
-
-    it('calculate totalTax', () => {
-      const { totalTax } = prices;
-      expect(totalTax).toBe(778.7);
-    });
-
-    it('calculate totalOrderPrice', () => {
-      const { totalOrderPrice } = prices;
-      expect(totalOrderPrice).toBe(8565.7);
-    });
+  it('calculate totalProductPrice', () => {
+    expect(prices.totalProductPrice).toBe(6289);
   });
 
-  describe.concurrent('calculate price for wrong product id', () => {
-    const cart = cartJson.slice(0, 2) as Cart[];
-    const products: readonly Product[] = transformProducts(
-      rawProductsJson as RawProduct[],
-      clothingsJson,
-    );
-    const error = Effect.runSync(
-      Effect.match(
-        calculatePrices(
-          [
-            ...cart,
-            { productId: 'abcde', quantity: 1, deliveryOptionId: '1' },
-          ],
-          products,
-        ),
-        {
-          onFailure: (err) => err,
-          onSuccess: () => null,
-        },
-      ),
-    );
-    it('returns error', () => {
-      expect(error).toBeDefined();
-    });
-    it('has right error message', () => {
-      expect(error?.message).toBe('Fail to get matching product');
-      expect(error?.productId).toBe('abcde');
-    });
+  it('calculate totalDeliveryFee', () => {
+    expect(prices.totalDeliveryFee).toBe(1498);
+  });
+
+  it('calculate totalPriceBeforeTax', () => {
+    expect(prices.totalPriceBeforeTax).toBe(7787);
+  });
+
+  it('calculate totalTax', () => {
+    expect(prices.totalTax).toBe(778.7);
+  });
+
+  it('calculate totalOrderPrice', () => {
+    expect(prices.totalOrderPrice).toBe(8565.7);
   });
 });
