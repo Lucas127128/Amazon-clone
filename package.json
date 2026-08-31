@@ -20,7 +20,7 @@
     "test:coverage": "bunx -b vitest -w false --coverage",
     "build": "bunx -b vite build",
     "knip": "knip-bun",
-    "pre-commit": "bunx turbo run lint knip test:unit"
+    "pre-commit": "bunx turbo run lint knip test:unit check"
   },
   "dependencies": {
     "@ark-ui/svelte": "^5.24.0",

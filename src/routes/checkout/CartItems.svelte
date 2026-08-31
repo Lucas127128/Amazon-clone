@@ -1,23 +1,24 @@
 <script lang="ts">
+  import { getCartContext } from '#lib/data/cart.svelte.ts';
   import {
     deliveryOptions,
     getDeliveryDate,
     getPriceString,
   } from '#lib/data/deliveryOption.ts';
   import type { Product } from '#lib/data/products.ts';
-  import type { Cart } from '#lib/schema.ts';
 
   let {
     // eslint-disable-next-line
     products,
-    // eslint-disable-next-line
-    cart = $bindable(),
-  }: { products: Product[]; cart: Cart[] } = $props();
+  }: { products: Product[] } = $props();
+
+  const cart = getCartContext();
+
   const buttonLinkTwClass =
     'border-none bg-inherit text-[#017cb6] text-[16px] hover:text-[#c45000]';
 </script>
 
-{#each cart as cartItem (cartItem.productId)}
+{#each cart.items as cartItem (cartItem.productId)}
   {const product = products.find((p) => p.id === cartItem.productId)}
   {#if product}
     <div class="mb-3 rounded-sm border border-solid border-[#dedede] p-4.5">
@@ -66,7 +67,7 @@
               <button
                 class={buttonLinkTwClass}
                 onclick={() => {
-                  cartItem.quantity = quantity;
+                  cart.updateQuantity(cartItem.productId, quantity);
                   open = false;
                 }}
               >
@@ -77,9 +78,7 @@
             <button
               class={buttonLinkTwClass}
               onclick={() => {
-                cart = cart.filter(
-                  (item) => item.productId !== cartItem.productId,
-                );
+                cart.remove(cartItem.productId);
               }}
             >
               Delete
@@ -89,7 +88,7 @@
         </div>
         <div class="sm:col-span-2 md:col-span-1">
           <div class="mb-2.5 font-bold">Choose a delivery option:</div>
-          {let option: '1' | '2' | '3' = $state('1')}
+          {let option: '1' | '2' | '3' = $state(cartItem.deliveryOptionId)}
           {#each deliveryOptions as deliveryOption (deliveryOption.id)}
             {const deliveryDate = getDeliveryDate(deliveryOption.id)}
             {const priceString = getPriceString(deliveryOption.priceCents)}
@@ -100,7 +99,7 @@
                 bind:group={option}
                 value={deliveryOption.id}
                 onchange={() => {
-                  cartItem.deliveryOptionId = option;
+                  cart.updateDeliveryOption(cartItem.productId, option);
                 }}
               />
               <div>

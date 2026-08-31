@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cn } from 'cnfast';
 
-  import { getMatchingCart } from '#lib/data/cart.ts';
+  import { getCartContext } from '#lib/data/cart.svelte.js';
   import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
   import type { Product } from '#lib/data/products.ts';
   import type { Cart, Order } from '#lib/schema.ts';
@@ -9,14 +9,13 @@
   const {
     matchingProduct,
     cartItem,
-    cart,
     order,
   }: {
     matchingProduct: Product;
     cartItem: Cart;
-    cart: Cart[];
     order: Order;
   } = $props();
+  const cart = getCartContext();
 
   const deliveryDate = $derived(getDeliveryDate(cartItem.deliveryOptionId));
   const buttonSecondaryTwClass =
@@ -44,16 +43,7 @@
   <button
     class="button-primary xs:w-35 mb-3.75 flex h-9 w-full items-center justify-center rounded-lg text-[15px] sm:mb-0"
     onclick={() => {
-      const matchingCart = getMatchingCart(cart, cartItem.productId);
-      if (matchingCart) {
-        matchingCart.quantity += 1;
-      } else {
-        cart.push({
-          productId: cartItem.productId,
-          quantity: 1,
-          deliveryOptionId: '1',
-        });
-      }
+      cart.add(cartItem.productId, 1);
     }}
   >
     <img

@@ -1,5 +1,14 @@
 [permission]
 rules = [
   { action = "allow", tool = "read" },
+  { action = "allow", tool = "edit" },
+  { action = "allow", tool = "bash", pattern = "ls *" },
+  { action = "allow", tool = "bash", pattern = "rg *" },
+  { action = "allow", tool = "bash", pattern = "grep *" },
+  { action = "allow", tool = "bash", pattern = "cat *" },
+  { action = "allow", tool = "bash", pattern = "head *" },
+  { action = "allow", tool = "bash", pattern = "tail *" },
+  { action = "allow", tool = "bash", pattern = "find *" },
+  { action = "allow", tool = "bash", pattern = "bun *" },
   { action = "deny", tool = "bash", pattern = "rm -rf *" },
 ]

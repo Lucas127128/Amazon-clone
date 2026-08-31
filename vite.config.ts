@@ -24,6 +24,16 @@ export default defineConfig(({ command }) => {
             async: true,
           },
         },
+        csp: {
+          mode: 'hash',
+          directives: {
+            'default-src': ['none'],
+            'script-src': ['self'],
+            'style-src': ['self', 'unsafe-inline'],
+            'img-src': ['self'],
+            'connect-src': ['self'],
+          },
+        },
         experimental: {
           remoteFunctions: true,
           forkPreloads: true,

@@ -1,6 +1,10 @@
 <script lang="ts">
   import '../app.css';
+
+  import { Cart, setCartContext } from '#lib/data/cart.svelte.ts';
+
   const { children } = $props();
+  setCartContext(new Cart());
 </script>
 
 <svelte:head>

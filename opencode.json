@@ -5,7 +5,6 @@
     "opencode-agent-memory@0.2.0",
     "opencode-goal-plugin"
   ],
-  "instructions": [".agents/*.md"],
   "lsp": true,
   "formatter": {},
   "permission": {

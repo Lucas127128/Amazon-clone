@@ -1,19 +1,18 @@
 <script lang="ts">
+  import { getCartContext } from '#lib/data/cart.svelte.ts';
   import type { Product } from '#lib/data/products.ts';
   import { searchProductIds, searchProductNames } from '#lib/data/search.ts';
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
 
-  const {
-    cartQuantity,
-    products,
-  }: { cartQuantity: number; products: Product[] } = $props();
+  const { products }: { products: Product[] } = $props();
+  const cart = getCartContext();
 </script>
 
 <div
   class="sticky top-0 right-0 left-0 flex h-15 items-center justify-between bg-[#2d2d2d] pr-3.75 pl-3.75 text-white [anchor-name:\--amazon-header]"
 >
-  {let searchTerm = $state(page.params.query ?? '')}
+  {let searchTerm = $state(page.params['query'] ?? '')}
   <div class="md:w-[unset] lg:w-45">
     <a
       href="/"
@@ -93,7 +92,7 @@
       <div
         class="absolute top-1 left-5.5 w-6.5 text-center font-bold text-[#f08804]"
       >
-        {cartQuantity}
+        {cart.quantity}
       </div>
       <div class="mt-3 text-[15px] font-bold">Cart</div>
     </a>

@@ -1,7 +1,5 @@
 <script lang="ts">
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
-  import { getCart } from '#lib/data/cart.js';
-  import { STORAGE_KEYS } from '#lib/data/constants.ts';
   import { getOrders, getTimeString } from '#lib/data/orders.ts';
   import { getMatchingProduct } from '#lib/data/products.ts';
   import { formatCurrency } from '#lib/utils/money.ts';
@@ -11,16 +9,9 @@
 
   const { data } = $props();
   const orders = $state(getOrders());
-  const cart = $state(getCart());
-  const cartQuantity = $derived(
-    cart.reduce((acc, item) => acc + item.quantity, 0),
-  );
-  $effect(() => {
-    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-  });
 </script>
 
-<AmazonHeader {cartQuantity} products={data.products} />
+<AmazonHeader products={data.products} />
 
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-5 pl-5">
   <div class="mb-6.25 text-[26px] font-bold">Your Orders</div>
@@ -53,7 +44,7 @@
               product.productId,
             )}
             {#if matchingProduct}
-              <Product {matchingProduct} cartItem={product} {cart} {order} />
+              <Product {matchingProduct} cartItem={product} {order} />
             {/if}
           {/each}
         </div>

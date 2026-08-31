@@ -3,13 +3,8 @@
   import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
-  import { getCart, getMatchingCart } from '#lib/data/cart.js';
-  import { STORAGE_KEYS } from '#lib/data/constants.ts';
-  import {
-    type Cart,
-    ProductIdsSchema,
-    type ProductSortOption,
-  } from '#lib/schema.ts';
+  import { getCartContext } from '#lib/data/cart.svelte.ts';
+  import { ProductIdsSchema, type ProductSortOption } from '#lib/schema.ts';
 
   const { data, params } = $props();
   const products = $derived.by(() => {
@@ -23,16 +18,10 @@
     );
   });
 
-  let cart = $state<Cart[]>(getCart());
-  const cartQuantity = $derived(
-    cart.reduce((acc, item) => acc + item.quantity, 0),
-  );
-  $effect(() => {
-    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-  });
+  const cart = getCartContext();
 </script>
 
-<AmazonHeader {cartQuantity} products={data.products} />
+<AmazonHeader products={data.products} />
 
 <div
   class="absolute top-[anchor(bottom)] left-[anchor(left)] grid h-9 w-2xs grid-cols-[1fr_7fr] items-center overflow-hidden rounded-br-xl bg-[#2d2d2d] p-1.25 [position-anchor:\--amazon-header]"
@@ -72,7 +61,7 @@
 
 <div>
   <div class="grid grid-cols-[repeat(auto-fill,minmax(255px,1fr))]">
-    {#each products as product (product.id)}
+    {#each products as product, index (product.id)}
       {let addedToCart = $state(false)}
       {let productQuantity = $state('1')}
       <div
@@ -83,6 +72,8 @@
             class="max-h-full max-w-full"
             src={product.image}
             alt={product.name}
+            loading={index > 10 ? 'lazy' : 'eager'}
+            fetchpriority={index > 5 ? 'low' : 'high'}
           />
         </div>
 
@@ -134,16 +125,7 @@
         <button
           class="button-primary rounded-[50px] p-2 font-[13.5px]"
           onclick={() => {
-            const matchingCart = getMatchingCart(cart, product.id);
-            if (matchingCart) {
-              matchingCart.quantity += Number(productQuantity);
-            } else {
-              cart.push({
-                productId: product.id,
-                quantity: Number(productQuantity),
-                deliveryOptionId: '1',
-              });
-            }
+            cart.add(product.id, Number(productQuantity));
             addedToCart = true;
             setTimeout(() => {
               addedToCart = false;

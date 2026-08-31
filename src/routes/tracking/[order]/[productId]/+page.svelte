@@ -4,7 +4,7 @@
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
   import ErrorDialog from '#lib/components/ErrorDialog.svelte';
-  import { getCart, getMatchingCart } from '#lib/data/cart.js';
+  import { getMatchingCart } from '#lib/data/cart.js';
   import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
   import { getMatchingProduct } from '#lib/data/products.ts';
   import { getDeliveryProgress } from '#lib/data/tracking.ts';
@@ -21,13 +21,9 @@
   const deliveryProgressPercent = $derived(
     Effect.runSync(getDeliveryProgress(order, matchingCart!)),
   );
-  const cartQuantity = getCart().reduce(
-    (acc, item) => acc + item.quantity,
-    0,
-  );
 </script>
 
-<AmazonHeader {cartQuantity} products={data.products} />
+<AmazonHeader products={data.products} />
 
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-7.5 pl-7.5">
   <ErrorDialog

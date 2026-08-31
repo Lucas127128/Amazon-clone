@@ -1,11 +1,6 @@
 <script lang="ts">
-  import { parse } from 'valibot';
-
   import ErrorDialog from '#lib/components/ErrorDialog.svelte';
-  import { getCart } from '#lib/data/cart.js';
-  import { STORAGE_KEYS } from '#lib/data/constants.ts';
-  import { createOrder } from '#lib/orders.remote.js';
-  import { OrdersSchema } from '#lib/schema.ts';
+  import { getCartContext } from '#lib/data/cart.svelte.ts';
   import { goto } from '$app/navigation';
 
   import CartItems from './CartItems.svelte';
@@ -15,13 +10,7 @@
   // svelte-ignore  state_referenced_locally
   const products = $state(data.products);
 
-  let cart = $state(getCart());
-  const cartQuantity = $derived(
-    cart.reduce((acc, item) => acc + item.quantity, 0),
-  );
-  $effect(() => {
-    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-  });
+  const cart = getCartContext();
 </script>
 
 <div
@@ -45,7 +34,7 @@
   <div class="mt-[-0.15em] text-2xl font-semibold">
     Checkout (<a
       class="cursor-pointer text-2xl font-medium text-[#007185] decoration-white decoration-0"
-      href="/">{cartQuantity} items</a
+      href="/">{cart.quantity} items</a
     >)
   </div>
 
@@ -71,28 +60,20 @@
     class="grid items-start gap-x-3 md:grid-cols-[1fr] lg:grid-cols-[1fr_350px]"
   >
     <div class="row-2 lg:row-auto">
-      <CartItems {products} bind:cart />
+      <CartItems {products} />
     </div>
 
     <div
       class="row-1 mb-3 rounded-sm border border-solid border-[#dedede] p-4.5 pb-1.25 lg:row-auto"
     >
       <div class="mb-3 text-lg font-bold">Order Summary</div>
-      <PaymentSummary {cart} {products} />
+      <PaymentSummary {products} />
       {let buttonText = $state('Place your order')}
       <button
         class="button-primary mt-2.75 mb-3.75 w-full rounded-lg pt-3 pb-3"
         onclick={async () => {
           buttonText = 'Ordering...';
-          const { data: order, error } = await createOrder(cart);
-          if (error) throw error;
-          const orders = parse(
-            OrdersSchema,
-            JSON.parse(localStorage.getItem(STORAGE_KEYS.ORDER) ?? '[]'),
-          );
-          orders.unshift(order);
-          localStorage.setItem(STORAGE_KEYS.ORDER, JSON.stringify(orders));
-          localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify([]));
+          await cart.placeOrder();
           await goto('/orders');
         }}
       >

@@ -1,28 +1,26 @@
 <script lang="ts">
   import { cn } from 'cnfast';
 
+  import { getCartContext } from '#lib/data/cart.svelte.ts';
   import { PRICE_CONFIG } from '#lib/data/constants.ts';
   import { getDeliveryPriceCents } from '#lib/data/deliveryOption.ts';
   import { getMatchingProduct, type Product } from '#lib/data/products.ts';
-  import type { Cart } from '#lib/schema.ts';
   import { formatCurrency } from '#lib/utils/money.ts';
 
-  const { cart, products }: { cart: Cart[]; products: Product[] } = $props();
+  const { products }: { products: Product[] } = $props();
+  const cart = getCartContext();
   const totalProductPrice = $derived(
-    cart.reduce((acc, item) => {
+    cart.items.reduce((acc, item) => {
       const product = getMatchingProduct(products, item.productId);
       if (!product) throw new Error(`Product not found: ${item.productId}`);
       return acc + item.quantity * product.priceCents;
     }, 0),
   );
   const totalDeliveryFee = $derived(
-    cart.reduce((acc, item) => {
+    cart.items.reduce((acc, item) => {
       const deliveryFee = getDeliveryPriceCents(item.deliveryOptionId);
       return acc + deliveryFee;
     }, 0),
-  );
-  const cartQuantity = $derived(
-    cart.reduce((acc, item) => acc + item.quantity, 0),
   );
   const totalPriceBeforeTax = $derived(totalDeliveryFee + totalProductPrice);
   const totalTax = $derived(totalPriceBeforeTax * PRICE_CONFIG.TAX_RATE);
@@ -33,7 +31,7 @@
 </script>
 
 <div class={paymentSummaryRowTwClass}>
-  <div>Items ({cartQuantity}):</div>
+  <div>Items ({cart.quantity}):</div>
   <div class="text-right">
     ${formatCurrency(totalProductPrice)}
   </div>
