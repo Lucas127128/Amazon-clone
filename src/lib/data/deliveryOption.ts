@@ -2,30 +2,21 @@ import { Temporal } from 'temporal-polyfill-lite';
 
 import type { DeliveryOptionId } from '../schema.ts';
 import { formatCurrency } from '../utils/money.ts';
-import { checkNullish } from '../utils/typeChecker.ts';
 
-export const deliveryOptions = [
-  {
-    id: '1',
+export const deliveryOptions = {
+  '1': {
     deliveryDays: 7,
     priceCents: 0,
   },
-  {
-    id: '2',
+  '2': {
     deliveryDays: 3,
     priceCents: 499,
   },
-  {
-    id: '3',
+  '3': {
     deliveryDays: 1,
     priceCents: 999,
   },
-] as const;
-
-const getMatchingDeliveryOption = (deliveryOptionId: DeliveryOptionId) =>
-  deliveryOptions.find(
-    (deliveryOption) => deliveryOption.id === deliveryOptionId,
-  );
+} as const;
 
 export function addWeekDays(
   businessDaysToAdd: number,
@@ -52,8 +43,7 @@ export const dateFormatOption: Intl.DateTimeFormatOptions = {
 
 export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.zonedDateTimeISO();
-  const matchingDeliveryOption = getMatchingDeliveryOption(deliveryOptionId);
-  checkNullish(matchingDeliveryOption);
+  const matchingDeliveryOption = deliveryOptions[deliveryOptionId];
 
   const deliveryDate = addWeekDays(
     matchingDeliveryOption.deliveryDays,
@@ -64,8 +54,7 @@ export function getDeliveryDate(deliveryOptionId: DeliveryOptionId) {
 
 export function getDeliveryDateISO(deliveryOptionId: DeliveryOptionId) {
   const localNow = Temporal.Now.zonedDateTimeISO();
-  const matchingDeliveryOption = getMatchingDeliveryOption(deliveryOptionId);
-  checkNullish(matchingDeliveryOption);
+  const matchingDeliveryOption = deliveryOptions[deliveryOptionId];
   return addWeekDays(matchingDeliveryOption.deliveryDays, localNow);
 }
 
@@ -75,7 +64,6 @@ export function getPriceString(priceCents: number) {
 }
 
 export function getDeliveryPriceCents(deliveryOptionId: DeliveryOptionId) {
-  const matchingDeliveryOption = getMatchingDeliveryOption(deliveryOptionId);
-  checkNullish(matchingDeliveryOption);
+  const matchingDeliveryOption = deliveryOptions[deliveryOptionId];
   return matchingDeliveryOption.priceCents;
 }

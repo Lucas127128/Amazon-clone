@@ -6,6 +6,7 @@
     getPriceString,
   } from '#lib/data/deliveryOption.ts';
   import type { Product } from '#lib/data/products.ts';
+  import type { DeliveryOptionId } from '#lib/schema.ts';
 
   let {
     // eslint-disable-next-line
@@ -89,15 +90,15 @@
         <div class="sm:col-span-2 md:col-span-1">
           <div class="mb-2.5 font-bold">Choose a delivery option:</div>
           {let option: '1' | '2' | '3' = $state(cartItem.deliveryOptionId)}
-          {#each deliveryOptions as deliveryOption (deliveryOption.id)}
-            {const deliveryDate = getDeliveryDate(deliveryOption.id)}
+          {#each Object.entries(deliveryOptions) as [id, deliveryOption] (id)}
+            {const deliveryDate = getDeliveryDate(id as DeliveryOptionId)}
             {const priceString = getPriceString(deliveryOption.priceCents)}
             <div>
               <input
                 type="radio"
                 class="ml-0 cursor-pointer"
                 bind:group={option}
-                value={deliveryOption.id}
+                value={id}
                 onchange={() => {
                   cart.updateDeliveryOption(cartItem.productId, option);
                 }}
