@@ -1,21 +1,10 @@
 import { createContext } from 'svelte';
 
 import { CART_CONFIG, STORAGE_KEYS } from '#lib/data/constants.ts';
-import { getOrders } from '#lib/data/orders.ts';
-import { createOrder } from '#lib/orders.remote.ts';
-import type {
-  Cart as CartItem,
-  DeliveryOptionId,
-  Order,
-} from '#lib/schema.ts';
+import type { Cart as CartItem, DeliveryOptionId } from '#lib/schema.ts';
 
 import { getCart, getMatchingCart } from './cart.ts';
-
-function saveJson(key: string, value: unknown) {
-  // oxlint-disable-next-line typescript/no-unnecessary-condition
-  if (globalThis?.localStorage === undefined) return;
-  localStorage.setItem(key, JSON.stringify(value));
-}
+import { saveJson } from './storage.ts';
 
 export class Cart {
   #items = $state<CartItem[]>([]);
@@ -74,22 +63,13 @@ export class Cart {
     this.#save();
   }
 
-  async placeOrder() {
-    const order = await createOrder(this.#items);
-    const orders = getOrders();
-    orders.unshift(order);
-    this.#saveOrders(orders);
+  clear() {
     this.#items = [];
     this.#save();
-    return order;
   }
 
   #save() {
     saveJson(STORAGE_KEYS.CART, this.#items);
-  }
-
-  #saveOrders(orders: Order[]) {
-    saveJson(STORAGE_KEYS.ORDER, orders);
   }
 }
 

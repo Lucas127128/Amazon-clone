@@ -1,25 +1,29 @@
 <script lang="ts">
   import * as Effect from 'effect/Effect';
-  import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
   import ErrorDialog from '#lib/components/ErrorDialog.svelte';
-  import { getMatchingCart } from '#lib/data/cart.js';
+  import { getMatchingCart } from '#lib/data/cart.ts';
   import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
+  import { getOrderContext } from '#lib/data/order.svelte.ts';
   import { getMatchingProduct } from '#lib/data/products.ts';
   import { getDeliveryProgress } from '#lib/data/tracking.ts';
-  import { OrderSchema } from '#lib/schema.ts';
 
   const { params, data } = $props();
-  const order = $derived(parse(OrderSchema, JSON.parse(params.order)));
+  const orders = getOrderContext();
+  const order = $derived(orders.getById(params.orderId));
   const matchingCart = $derived(
-    getMatchingCart(order.products, params.productId),
+    order === undefined
+      ? undefined
+      : getMatchingCart(order.products, params.productId),
   );
   const matchingProduct = $derived(
     getMatchingProduct(data.products, params.productId),
   );
   const deliveryProgressPercent = $derived(
-    Effect.runSync(getDeliveryProgress(order, matchingCart!)),
+    order !== undefined && matchingCart !== undefined
+      ? Effect.runSync(getDeliveryProgress(order, matchingCart))
+      : 0,
   );
 </script>
 

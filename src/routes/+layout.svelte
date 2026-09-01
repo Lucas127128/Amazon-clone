@@ -2,9 +2,11 @@
   import '../app.css';
 
   import { Cart, setCartContext } from '#lib/data/cart.svelte.ts';
+  import { Order, setOrderContext } from '#lib/data/order.svelte.ts';
 
   const { children } = $props();
   setCartContext(new Cart());
+  setOrderContext(new Order());
 </script>
 
 <svelte:head>

@@ -1,19 +1,19 @@
 <script lang="ts">
   import { cn } from 'cnfast';
 
-  import { getCartContext } from '#lib/data/cart.svelte.js';
+  import { getCartContext } from '#lib/data/cart.svelte.ts';
   import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
   import type { Product } from '#lib/data/products.ts';
-  import type { Cart, Order } from '#lib/schema.ts';
+  import type { Cart } from '#lib/schema.ts';
 
   const {
     matchingProduct,
     cartItem,
-    order,
+    orderId,
   }: {
     matchingProduct: Product;
     cartItem: Cart;
-    order: Order;
+    orderId: string;
   } = $props();
   const cart = getCartContext();
 
@@ -57,7 +57,7 @@
 </div>
 
 <div class="xs:col-2 xs:mb-7.5 mb-17.5 self-start md:col-auto md:mb-0">
-  <a href={`/tracking/${JSON.stringify(order)}/${cartItem.productId}`}>
+  <a href={`/tracking/${orderId}/${cartItem.productId}`}>
     <button
       class={cn`${buttonSecondaryTwClass} xs:w-35 w-full p-2 text-[15px] sm:w-35 md:w-full`}
     >

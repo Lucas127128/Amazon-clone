@@ -1,6 +1,7 @@
 <script lang="ts">
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
-  import { getOrders, getTimeString } from '#lib/data/orders.ts';
+  import { getOrderContext } from '#lib/data/order.svelte.ts';
+  import { getTimeString } from '#lib/data/orders.ts';
   import { getMatchingProduct } from '#lib/data/products.ts';
   import { formatCurrency } from '#lib/utils/money.ts';
 
@@ -8,7 +9,7 @@
   import Product from './Product.svelte';
 
   const { data } = $props();
-  const orders = $state(getOrders());
+  const orders = getOrderContext();
 </script>
 
 <AmazonHeader products={data.products} />
@@ -16,7 +17,7 @@
 <div class="mt-22.5 mr-auto mb-25 ml-auto max-w-212.5 pr-5 pl-5">
   <div class="mb-6.25 text-[26px] font-bold">Your Orders</div>
   <div class="grid grid-cols-[1fr] gap-y-12.5">
-    {#each orders as order (order.id)}
+    {#each orders.items as order (order.id)}
       {const orderTime = getTimeString(order.orderTime)}
       <div class="[contain-intrinsic-size:auto_500px]">
         <div
@@ -44,7 +45,11 @@
               product.productId,
             )}
             {#if matchingProduct}
-              <Product {matchingProduct} cartItem={product} {order} />
+              <Product
+                {matchingProduct}
+                cartItem={product}
+                orderId={order.id}
+              />
             {/if}
           {/each}
         </div>

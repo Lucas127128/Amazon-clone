@@ -1,6 +1,7 @@
 <script lang="ts">
   import ErrorDialog from '#lib/components/ErrorDialog.svelte';
   import { getCartContext } from '#lib/data/cart.svelte.ts';
+  import { getOrderContext } from '#lib/data/order.svelte.ts';
   import { goto } from '$app/navigation';
 
   import CartItems from './CartItems.svelte';
@@ -11,6 +12,7 @@
   const products = $state(data.products);
 
   const cart = getCartContext();
+  const order = getOrderContext();
 </script>
 
 <div
@@ -73,7 +75,8 @@
         class="button-primary mt-2.75 mb-3.75 w-full rounded-lg pt-3 pb-3"
         onclick={async () => {
           buttonText = 'Ordering...';
-          await cart.placeOrder();
+          await order.placeOrder(cart.items);
+          cart.clear();
           await goto('/orders');
         }}
       >

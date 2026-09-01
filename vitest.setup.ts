@@ -16,4 +16,7 @@ vi.mock('$app/server', () => ({
   query:
     (_schema: unknown, fn: (arg: unknown) => unknown) => (arg: unknown) =>
       fn(arg),
+  command:
+    (_schema: unknown, fn: (arg: unknown) => unknown) => (arg: unknown) =>
+      fn(arg),
 }));
