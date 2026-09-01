@@ -21,7 +21,7 @@
   const cart = getCartContext();
 </script>
 
-<AmazonHeader products={data.products} />
+<AmazonHeader products={data.products} searchTerm={params.query} />
 
 <div
   class="absolute top-[anchor(bottom)] left-[anchor(left)] grid h-9 w-2xs grid-cols-[1fr_7fr] items-center overflow-hidden rounded-br-xl bg-[#2d2d2d] p-1.25 [position-anchor:\--amazon-header]"

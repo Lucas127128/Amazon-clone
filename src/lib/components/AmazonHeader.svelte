@@ -1,24 +1,27 @@
 <script lang="ts">
   import { getCartContext } from '#lib/data/cart.svelte.ts';
   import type { Product } from '#lib/data/products.ts';
-  import { searchProductIds, searchProductNames } from '#lib/data/search.ts';
+  import { searchProducts } from '#lib/data/search.ts';
   import { goto } from '$app/navigation';
-  import { page } from '$app/state';
 
-  const { products }: { products: Product[] } = $props();
+  const {
+    products,
+    searchTerm,
+  }: { products: Product[]; searchTerm?: string | undefined } = $props();
   const cart = getCartContext();
+  // svelte-ignore state_referenced_locally
+  let searchQuery = $state(searchTerm ?? '');
 </script>
 
 <div
   class="sticky top-0 right-0 left-0 flex h-15 items-center justify-between bg-[#2d2d2d] pr-3.75 pl-3.75 text-white [anchor-name:\--amazon-header]"
 >
-  {let searchTerm = $state(page.params['query'] ?? '')}
   <div class="md:w-[unset] lg:w-45">
     <a
       href="/"
       class=" inline-block cursor-pointer rounded-xs p-1.5 text-white decoration-[#2d2d2d] hover:outline"
       onclick={() => {
-        searchTerm = '';
+        searchQuery = '';
       }}
     >
       <img
@@ -43,9 +46,11 @@
       type="text"
       placeholder="Search"
       list="search-suggestions"
-      bind:value={searchTerm}
+      bind:value={searchQuery}
       onkeyup={() => {
-        options = searchProductNames(searchTerm, products);
+        options = searchProducts(searchQuery, products, 3).map(
+          (r) => r.item.name,
+        );
       }}
     />
     <datalist id="search-suggestions">
@@ -57,8 +62,10 @@
     <button
       class="h-10 w-11.25 shrink-0 rounded-r-sm border-0 bg-[#febd69]"
       onclick={async () => {
-        const searchResults = searchProductIds(searchTerm, products);
-        goto(`/${JSON.stringify(searchResults)}/${searchTerm}`);
+        const searchResults = searchProducts(searchQuery, products).map(
+          (r) => r.item.id,
+        );
+        goto(`/${JSON.stringify(searchResults)}/${searchQuery}`);
       }}
     >
       <img
