@@ -1,27 +1,18 @@
 <script lang="ts">
   import { Highlight } from '@ark-ui/svelte/highlight';
-  import { parse } from 'valibot';
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
   import { getCartContext } from '#lib/data/cart.svelte.ts';
-  import { ProductIdsSchema, type ProductSortOption } from '#lib/schema.ts';
+  import type { Product } from '#lib/data/products.ts';
+  import type { ProductSortOption } from '#lib/schema.ts';
 
-  const { data, params } = $props();
-  const products = $derived.by(() => {
-    if (!params.productIds) return data.products;
-    const productIds = parse(
-      ProductIdsSchema,
-      JSON.parse(params.productIds),
-    );
-    return data.products.filter((product) =>
-      productIds.includes(product.id),
-    );
-  });
+  const { data } = $props();
+  const products = $derived(data.searchedProducts ?? data.products);
 
   const cart = getCartContext();
 </script>
 
-<AmazonHeader products={data.products} searchTerm={params.query} />
+<AmazonHeader products={data.products} searchTerm={data.query} />
 
 <div
   class="absolute top-[anchor(bottom)] left-[anchor(left)] grid h-9 w-2xs grid-cols-[1fr_7fr] items-center overflow-hidden rounded-br-xl bg-[#2d2d2d] p-1.25 [position-anchor:\--amazon-header]"
@@ -32,8 +23,10 @@
     class="h-8 overflow-hidden rounded-[9px] border-0 bg-[#464646] text-white shadow-none focus:outline-0"
     bind:value={sortOption}
     onchange={() => {
-      type Comparator = Required<Parameters<typeof products.toSorted>>[0];
-      const sortStrategies: Record<typeof sortOption, Comparator> = {
+      const sortStrategies: Record<
+        ProductSortOption,
+        (a: Product, b: Product) => number
+      > = {
         'most-people-star': (a, b) => b.ratingCount - a.ratingCount,
         'least-people-star': (a, b) => a.ratingCount - b.ratingCount,
         'most-expensive': (a, b) => b.priceCents - a.priceCents,
@@ -78,8 +71,8 @@
         </div>
 
         <div class="mb-1.25">
-          {#if params.query}
-            <Highlight text={product.name} query={params.query!} />
+          {#if data.query}
+            <Highlight text={product.name} query={data.query} />
           {:else}
             {product.name}
           {/if}

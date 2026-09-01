@@ -2,7 +2,6 @@
   import { getCartContext } from '#lib/data/cart.svelte.ts';
   import type { Product } from '#lib/data/products.ts';
   import { searchProducts } from '#lib/data/search.ts';
-  import { goto } from '$app/navigation';
 
   const {
     products,
@@ -59,22 +58,17 @@
       {/each}
     </datalist>
 
-    <button
-      class="h-10 w-11.25 shrink-0 rounded-r-sm border-0 bg-[#febd69]"
-      onclick={async () => {
-        const searchResults = searchProducts(searchQuery, products).map(
-          (r) => r.item.id,
-        );
-        goto(`/${JSON.stringify(searchResults)}/${searchQuery}`);
-      }}
+    <a
+      class="flex h-10 w-11.25 shrink-0 items-center justify-center rounded-r-sm border-0 bg-[#febd69]"
+      href={`/?q=${encodeURIComponent(searchQuery)}`}
     >
       <img
-        class="mt-0.75 ml-0.5 h-5.5"
+        class="h-5.5"
         fetchpriority="high"
         src="/images/icons/search-icon.svg"
         alt="search icon"
       />
-    </button>
+    </a>
   </div>
 
   <div class="flex w-45 shrink-0 justify-end">
