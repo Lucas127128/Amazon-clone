@@ -4,10 +4,11 @@ import { describe, expect, it } from 'vitest';
 import { dateFormatOption } from '#lib/data/deliveryOption.ts';
 import {
   getMatchingOrder,
-  getOrders,
   getTimeString,
-} from '#lib/data/orders.ts';
-import type { Order } from '#lib/schema.ts';
+  Order as OrderClass,
+} from '#lib/data/order.svelte.ts';
+import type { Cart, Order } from '#lib/schema.ts';
+import { cartJson, orderJson } from '#testdata';
 
 describe.concurrent('getTimeString', () => {
   it('get time string from ISO time', () => {
@@ -49,9 +50,33 @@ describe.concurrent('getMatchingOrder', () => {
   });
 });
 
-describe.concurrent('getCart', () => {
-  it('get empty cart in node environment', () => {
-    const orders = getOrders();
-    expect(orders).toEqual([]);
+describe.concurrent('Order class', () => {
+  it('creates an order', () => {
+    const order = new OrderClass();
+    expect(order).toEqual({});
+  });
+
+  it('add adds order to beginning of list', () => {
+    const order = new OrderClass();
+    order.add(orderJson as Order);
+    expect(order.items).toEqual([orderJson]);
+  });
+
+  it('getById returns undefined if order not found', () => {
+    const order = new OrderClass();
+    expect(order.getById('abc')).toBe(undefined);
+  });
+
+  it('getById returns order if found', () => {
+    const order = new OrderClass();
+    order.add(orderJson as Order);
+    expect(order.getById('gsZyI1l')).toEqual(orderJson);
+  });
+
+  it('placeOrder', async () => {
+    const order = new OrderClass();
+    const result = await order.placeOrder(cartJson as Cart[]);
+    expect(result.products).toEqual(orderJson.products);
+    expect(result.totalCostCents).toEqual(orderJson.totalCostCents);
   });
 });

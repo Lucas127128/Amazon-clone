@@ -3,7 +3,7 @@
 
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
   import ErrorDialog from '#lib/components/ErrorDialog.svelte';
-  import { getMatchingCart } from '#lib/data/cart.ts';
+  import { getMatchingCart } from '#lib/data/cart.svelte.ts';
   import { getDeliveryDate } from '#lib/data/deliveryOption.ts';
   import { getOrderContext } from '#lib/data/order.svelte.ts';
   import { getMatchingProduct } from '#lib/data/products.ts';

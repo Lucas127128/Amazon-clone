@@ -1,10 +1,16 @@
 import { createContext } from 'svelte';
 
 import { CART_CONFIG, STORAGE_KEYS } from '#lib/data/constants.ts';
-import type { Cart as CartItem, DeliveryOptionId } from '#lib/schema.ts';
+import {
+  type Cart as CartItem,
+  CartsSchema,
+  type DeliveryOptionId,
+} from '#lib/schema.ts';
 
-import { getCart, getMatchingCart } from './cart.ts';
-import { saveJson } from './storage.ts';
+import { loadJson, saveJson } from './storage.ts';
+
+export const getMatchingCart = (cart: CartItem[], productId: string) =>
+  cart.find((item) => item.productId === productId);
 
 export class Cart {
   #items = $state<CartItem[]>([]);
@@ -16,7 +22,7 @@ export class Cart {
     this.#items.reduce((sum, item) => sum + item.quantity, 0),
   );
 
-  constructor(items: CartItem[] = getCart()) {
+  constructor(items: CartItem[] = loadJson(STORAGE_KEYS.CART, CartsSchema)) {
     this.#items = items;
   }
 

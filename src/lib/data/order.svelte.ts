@@ -1,11 +1,25 @@
 import { createContext } from 'svelte';
+import { Temporal } from 'temporal-polyfill-lite';
 
 import { STORAGE_KEYS } from '#lib/data/constants.ts';
-import { getMatchingOrder, getOrders } from '#lib/data/orders.ts';
+import { dateFormatOption } from '#lib/data/deliveryOption.ts';
 import { createOrder } from '#lib/orders.remote.ts';
-import type { Cart, Order as OrderRecord } from '#lib/schema.ts';
+import {
+  type Cart,
+  type Order as OrderRecord,
+  OrdersSchema,
+} from '#lib/schema.ts';
 
-import { saveJson } from './storage.ts';
+import { loadJson, saveJson } from './storage.ts';
+
+export function getTimeString(ISOOrderTime: string) {
+  return Temporal.Instant.from(ISOOrderTime)
+    .toZonedDateTimeISO(Temporal.Now.timeZoneId())
+    .toLocaleString('en-US', dateFormatOption);
+}
+
+export const getMatchingOrder = (orders: OrderRecord[], orderId: string) =>
+  orders.find((order) => order.id === orderId);
 
 export class Order {
   readonly #items = $state<OrderRecord[]>([]);
@@ -13,7 +27,9 @@ export class Order {
     return this.#items as readonly OrderRecord[];
   }
 
-  constructor(items: OrderRecord[] = getOrders()) {
+  constructor(
+    items: OrderRecord[] = loadJson(STORAGE_KEYS.ORDER, OrdersSchema),
+  ) {
     this.#items = items;
   }
 

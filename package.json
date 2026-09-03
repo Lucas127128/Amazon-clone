@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@socketsecurity/bun-security-scanner": "^1.1.2",
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/bun": "^1.4.0",
@@ -56,6 +57,7 @@
     "tailwindcss": "^4.3.3",
     "turbo": "^2.10.12",
     "vite": "^8.2.2",
+    "vite-plugin-svelte": "^3.0.1",
     "vitest": "^4.1.11"
   },
   "packageManager": "bun@1.4.0",

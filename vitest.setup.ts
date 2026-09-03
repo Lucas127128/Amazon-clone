@@ -1,3 +1,4 @@
+import { StandardSchemaV1 } from '@sveltejs/kit/internal/types';
 import { Temporal } from 'temporal-polyfill-lite';
 import { vi } from 'vitest';
 
@@ -14,9 +15,27 @@ vi.useFakeTimers();
 
 vi.mock('$app/server', () => ({
   query:
-    (_schema: unknown, fn: (arg: unknown) => unknown) => (arg: unknown) =>
-      fn(arg),
+    (
+      first: (arg?: unknown) => unknown,
+      second?: (arg?: unknown) => unknown,
+    ) =>
+    (arg: unknown) => {
+      if (!second) {
+        return first(arg);
+      } else {
+        return second(arg);
+      }
+    },
   command:
-    (_schema: unknown, fn: (arg: unknown) => unknown) => (arg: unknown) =>
-      fn(arg),
+    (
+      first: (arg?: unknown) => unknown,
+      second?: (arg?: unknown) => unknown,
+    ) =>
+    (arg: unknown) => {
+      if (!second) {
+        return first(arg);
+      } else {
+        return second(arg);
+      }
+    },
 }));

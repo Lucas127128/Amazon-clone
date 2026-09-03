@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import { comptime } from 'comptime/vite';
 import Sonda from 'sonda/vite';
@@ -18,6 +19,7 @@ export default defineConfig(({ command }) => {
       isBuild && Sonda({ open: false }),
       tailwindcss({ optimize: true }),
       sveltekit({
+        preprocess: vitePreprocess(),
         compilerOptions: {
           runes: true,
           experimental: {

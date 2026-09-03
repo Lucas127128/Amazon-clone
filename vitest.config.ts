@@ -1,7 +1,8 @@
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { comptime } from 'comptime/vite';
 import { defineConfig } from 'vitest/config';
 
-const plugins = [comptime()];
+const plugins = [comptime(), svelte()];
 
 export default defineConfig({
   test: {
@@ -26,7 +27,10 @@ export default defineConfig({
         plugins,
         test: {
           name: 'bun',
-          include: ['tests/normal/**/*.test.ts'],
+          include: [
+            'tests/normal/**/*.test.ts',
+            'tests/normal/**/*.test.svelte.ts',
+          ],
           environment: 'node',
           setupFiles: ['./vitest.setup.ts'],
         },
@@ -35,7 +39,10 @@ export default defineConfig({
         plugins,
         test: {
           name: 'web',
-          include: ['tests/web/**/*.test.ts'],
+          include: [
+            'tests/web/**/*.test.ts',
+            'tests/web/**/*.test.svelte.ts',
+          ],
           environment: 'happy-dom',
           setupFiles: ['./vitest.setup.ts'],
         },

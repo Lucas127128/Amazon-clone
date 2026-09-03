@@ -1,7 +1,6 @@
 <script lang="ts">
   import AmazonHeader from '#lib/components/AmazonHeader.svelte';
-  import { getOrderContext } from '#lib/data/order.svelte.ts';
-  import { getTimeString } from '#lib/data/orders.ts';
+  import { getOrderContext, getTimeString } from '#lib/data/order.svelte.ts';
   import { getMatchingProduct } from '#lib/data/products.ts';
   import { formatCurrency } from '#lib/utils/money.ts';
 
